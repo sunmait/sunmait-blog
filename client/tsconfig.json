@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "paths": {
+      "app/*": [ "src/*" ],
+      //"redux/*": [ "redux/*" ],
+      //"components/*": [ "components/*" ],
+      //"types/*": [ "types/*" ]
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
