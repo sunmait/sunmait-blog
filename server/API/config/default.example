@@ -1,0 +1,11 @@
+{
+  "database": {
+    "dialect": "mysql",
+    "database": "sunmait_blog_development",
+    "username": <YOUR USERNAME>,
+    "password": <YOUR PASSWORD>,
+    "host": "localhost",
+    "port": <YOUR PORT>
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+  "tslint.configFile": "tslint.json",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "server/**/*.js": { "when": "$(basename).ts" },
+    "server/**/*.js.map": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
+}
