@@ -11,9 +11,9 @@
     "rootDir": "./src",
     "paths": {
       "app/*": [ "src/*" ],
-      //"redux/*": [ "redux/*" ],
-      //"components/*": [ "components/*" ],
-      //"types/*": [ "types/*" ]
+      "redux/*": [ "redux/*" ],
+      "components/*": [ "components/*" ],
+      "types/*": [ "types/*" ]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true
