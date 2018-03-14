@@ -23,6 +23,7 @@
     "redux-promise-middleware": "^5.0.0",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.8.2",
+    "ts-loader": "^4.0.1",
     "webpack-cli": "^2.0.11",
     "webpack-merge": "^4.1.2"
   },

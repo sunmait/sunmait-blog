@@ -3,11 +3,12 @@ import 'assets/images/logo.svg';
 
 import * as React from 'react';
 import {render} from 'react-dom';
+import Router from 'components/containers/Router';
 import {Provider} from 'react-redux';
 
 render(
   <Provider>
-    <p>Hello, world!</p>
+    <Router />
   </Provider>,
   document.getElementById('main') as HTMLElement,
 );
