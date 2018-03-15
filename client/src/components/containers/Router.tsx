@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import App from 'components/common/app';
+import TestsComponent from 'components/TestsComponent';
 
 const AppComponent = () => {
 
@@ -9,16 +9,11 @@ const AppComponent = () => {
     <Router>
       <App>
         <Switch>
+          <Route path='/' component={TestsComponent}/>
         </Switch>
       </App>
     </Router>
   );
 };
 
-const mapStateToProps = () => ({
-});
-
-const mapDispatchToProps = () =>({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
+export default AppComponent;

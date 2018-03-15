@@ -7,6 +7,7 @@ interface IProps {
 const App = (props: IProps) => {
   return (
     <div >
+       <p>Hello</p>
       {props.children}
     </div>
   );
