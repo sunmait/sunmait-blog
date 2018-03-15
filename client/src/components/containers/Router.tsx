@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
-import App from 'components/common/app';
+import App from '../common/app/index';
 
 interface IProps {
 }
@@ -10,10 +10,12 @@ const AppComponent = (props: IProps) => {
 
   return (
     <Router>
-      <App>
-        <Switch>
-        </Switch>
-      </App>
+      <div className="app-container">
+        <App>
+          <Switch>
+          </Switch>
+        </App>
+      </div>
     </Router>
   );
 };
