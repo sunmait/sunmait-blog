@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Hello from "../../Hello";
 
 interface IProps {
   children: React.ReactNode;
@@ -6,7 +7,8 @@ interface IProps {
 
 const App = (props: IProps) => {
   return (
-    <div >
+    <div>
+      <Hello />
     </div>
   );
 };
