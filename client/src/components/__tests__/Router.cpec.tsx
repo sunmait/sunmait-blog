@@ -3,7 +3,9 @@ import { shallow } from "enzyme";
 
 import AppComponent from "../containers/Router";
 
-test("renders the heading", () => {
-    const result = shallow(<AppComponent />).contains(<div className='app-container'></div>);
-    expect(result).toBeTruthy();
+describe("Router component", () => {
+    test("renders the Router component with <div className='app-container'></div>", () => {
+        const result = shallow(<AppComponent />).contains(<div className='app-container'></div>);
+        expect(result).toBeTruthy();
+    });
 });
