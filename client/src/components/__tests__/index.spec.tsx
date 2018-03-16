@@ -3,7 +3,9 @@ import { shallow } from "enzyme";
 
 import App from "../common/app/index";
 
-test("renders the heading", () => {
-    const result = shallow(<App />).contains(<div className='indexfile'></div>);
-    expect(result).toBeFalsy();
+describe("App component", () => {
+    test("renders the App component with <div className='indexfile'></div>", () => {
+        const result = shallow(<App />).contains(<div className='indexfile'></div>);
+        expect(result).toBeFalsy();
+    });
 });
