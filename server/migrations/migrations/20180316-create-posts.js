@@ -1,26 +1,17 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('CareerDays', {
-      id: {
+    return queryInterface.createTable('Posts', {
+      idPost: {
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      idUser: {
+        allowNull: false,
         unique: true,
         type: Sequelize.INTEGER,
-      },
-      Archived: {
-        type: Sequelize.BOOLEAN,
-      },
-      EmployeeExternalId: {
-        type: Sequelize.INTEGER,
-      },
-      UnitManagerExternalId: {
-        type: Sequelize.INTEGER,
-      },
-      InterviewDate: {
-        allowNull: false,
-        type: Sequelize.DATE,
       },
       CreatedAt: {
         allowNull: false,
@@ -30,9 +21,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      Description: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CareerDays');
+    return queryInterface.dropTable('Posts');
   },
 };

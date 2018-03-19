@@ -1,4 +1,4 @@
-# Sunmait career day API server
+# Sunmait blog API server
 
 ### Installation
 

@@ -1,1 +1,1 @@
-export * from './CareerDayService';
+export * from './PostsService';

@@ -1,15 +1,15 @@
 import { InstallerBase } from './InstallerBase';
 import {
-  ICareerDayService,
+  IPostsService,
 } from './../../../Domain/Services/index';
 import {
-  CareerDayService,
+  PostsService,
 } from './../../../Domain/Services/Impl/index';
 
 export class DomainInstaller extends InstallerBase {
   public install(): void {
     this.container
-      .bind<ICareerDayService>('CareerDayService')
-      .to(CareerDayService);
+      .bind<IPostsService>('PostsService')
+      .to(PostsService);
   }
 }

@@ -1,1 +1,1 @@
-export * from './CareerDayController';
+export * from './PostsController';

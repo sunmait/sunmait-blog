@@ -1,15 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var CareerDays = sequelize.define(
-    'CareerDays',
+  var Posts = sequelize.define(
+    'Posts',
     {
-      id: DataTypes.INTEGER,
-      Archived: DataTypes.BOOLEAN,
-      EmployeeExternalId: DataTypes.INTEGER,
-      UnitManagerExternalId: DataTypes.INTEGER,
-      InterviewDate: DataTypes.DATE,
+      idPost: DataTypes.INTEGER,
+      idUser: DataTypes.INTEGER,
       CreatedAt: DataTypes.DATE,
       UpdatedAt: DataTypes.DATE,
+      Description: DataTypes.STRING,
     },
     {
       classMethods: {
@@ -19,5 +17,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   );
-  return CareerDays;
+  return Posts;
 };

@@ -1,2 +1,2 @@
 export * from './RepositoryBase';
-export * from './CareerDayRepository';
+export * from './PostsRepository';
