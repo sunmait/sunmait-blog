@@ -1,20 +1,20 @@
 import { InstallerBase } from './InstallerBase';
 import {
-  PostsRepository,
+  PostRepository,
 } from '../../../Data/Repositories/Impl/index';
 
 import {
-  IPostsRepository,
+  IPostRepository,
 } from '../../../Data/Repositories/index';
 
-import PostsEntity from '../../../Data/Entities/PostsEntity';
+import PostEntity from '../../../Data/Entities/PostEntity';
 
 import { DbContext } from '../../../Data/DbContext';
 export class DataInstaller extends InstallerBase {
   public install(): void {
     this.container
-      .bind<IPostsRepository>('PostsRepository')
-      .toConstantValue(new PostsRepository(PostsEntity));
+      .bind<IPostRepository>('PostRepository')
+      .toConstantValue(new PostRepository(PostEntity));
     this.container
       .bind<DbContext>('DbContext')
       .to(DbContext)

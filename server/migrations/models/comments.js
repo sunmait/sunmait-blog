@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   var Comments = sequelize.define(
     'Comments',
     {
-      idComment: DataTypes.INTEGER,
-      idPost: DataTypes.INTEGER,
-      idUser: DataTypes.INTEGER,
+      id: DataTypes.INTEGER,
+      PostId: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
       BodyComment: DataTypes.STRING,
     },
     {

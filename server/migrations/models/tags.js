@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var Tags = sequelize.define(
     'Tags',
     {
-      idTag: DataTypes.INTEGER,
+      id: DataTypes.INTEGER,
       Text: DataTypes.STRING,
     },
     {

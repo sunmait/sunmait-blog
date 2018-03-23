@@ -1,29 +1,27 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Connect', {
-      idConnect: {
+    return queryInterface.createTable('Comments', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        unique: true,
         type: Sequelize.INTEGER,
       },
-      idPost: {
-        allowNull: false,
-        foreignKey: true,
-        unique: true,
+      PostId: {
+        references: { model: 'Posts', key: 'id' },
         type: Sequelize.INTEGER,
       },
-      idTag: {
-        allowNull: false,
-        foreignKey: true,
-        unique: true,
+      UserId: {
+        references: { model: 'Users', key: 'id' },
         type: Sequelize.INTEGER,
+      },
+      BodyComment: {
+        type: Sequelize.STRING,
       },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Connect');
+    return queryInterface.dropTable('Comments');
   },
 };

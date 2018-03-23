@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   var Posts = sequelize.define(
     'Posts',
     {
-      idPost: DataTypes.INTEGER,
-      idUser: DataTypes.INTEGER,
+      id: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
       CreatedAt: DataTypes.DATE,
       UpdatedAt: DataTypes.DATE,
       Description: DataTypes.STRING,

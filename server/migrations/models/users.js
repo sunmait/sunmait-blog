@@ -3,11 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   var Users = sequelize.define(
     'Users',
     {
-      idUser: DataTypes.INTEGER,
+      id: DataTypes.INTEGER,
       FirstName: DataTypes.STRING,
       LastName: DataTypes.STRING,
       PhotoUrl: DataTypes.STRING,
-      AccessToken: DataTypes.STRING,
     },
     {
       classMethods: {

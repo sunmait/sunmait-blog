@@ -1,1 +1,1 @@
-export * from './IPostsService';
+export * from './IPostService';

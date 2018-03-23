@@ -7,25 +7,26 @@ import {
   UpdatedAt,
   AllowNull,
   IsDate,
+  ForeignKey,
   PrimaryKey,
-  Unique,
   AutoIncrement,
 } from 'sequelize-typescript';
 
-@Table({ tableName: 'Posts' })
-export default class PostsEntity extends Model<PostsEntity> {
+import UserEntity from './UserEntity';
 
-  @Unique
+@Table({ tableName: 'Posts' })
+export default class PostEntity extends Model<PostEntity> {
+
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement
   @Column(DataType.INTEGER)
-  public idPosts: number;
+  public id: number;
 
-  @Unique
   @AllowNull(false)
+  @ForeignKey(() => UserEntity)
   @Column(DataType.INTEGER)
-  public idUser: number;
+  public UserId: number;
 
   @IsDate
   @AllowNull(false)

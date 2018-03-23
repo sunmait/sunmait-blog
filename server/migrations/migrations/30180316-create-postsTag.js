@@ -1,30 +1,28 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Comments', {
-      idComment: {
+    return queryInterface.createTable('PostsTag', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        unique: true,
         type: Sequelize.INTEGER,
       },
-      idPost: {
+      PostId: {
         allowNull: false,
         foreignKey: true,
-        type: Sequelize.STRING,
-      },
-      idUser: {
-        allowNull: false,
-        foreignKey: true,
+        references: { model: 'Posts', key: 'id' },
         type: Sequelize.INTEGER,
       },
-      BodyComment: {
-        type: Sequelize.STRING,
+      TagId: {
+        allowNull: false,
+        foreignKey: true,
+        references: { model: 'Tags', key: 'id' },
+        type: Sequelize.INTEGER,
       },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Comments');
+    return queryInterface.dropTable('PostsTag');
   },
 };

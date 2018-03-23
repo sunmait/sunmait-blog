@@ -12,29 +12,29 @@ import {
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 
-import { IPostsService } from './../../Domain/Services/index';
+import { IPostService } from './../../Domain/Services/index';
 
 /**
  * Operations about Posts.
  */
 @controller('/api/posts')
-export class PostsController implements interfaces.Controller {
-  private readonly _postsService: IPostsService;
+export class PostController implements interfaces.Controller {
+  private readonly _postService: IPostService;
 
-  constructor(@inject('PostsService') PostsService: IPostsService) {
-    this._postsService = PostsService;
+  constructor(@inject('PostService') PostService: IPostService) {
+    this._postService = PostService;
   }
 
   /**
    * Get posts
-   * idPost: post id
+   * id: post's id
    */
-  @httpGet('/:idPost')
+  @httpGet('/:id')
   private async get(
-    @requestParam('idPost') idPost: number,
+    @requestParam('id') id: number,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postsService.getPostWithId(idPost));
+    res.json(await this._postService.getPost(id));
   }
 
   /**
@@ -45,32 +45,32 @@ export class PostsController implements interfaces.Controller {
     @requestBody() body: any,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postsService.addPost(body));
+    res.json(await this._postService.addPost(body));
   }
 
   /**
    * Update posts
-   * idPost: post
+   * id: post's id
    */
-  @httpPatch('/:idPost')
+  @httpPatch('/:id')
   private async updatePost(
-    @requestParam('idPost') idPost: number,
+    @requestParam('id') id: number,
     @requestBody('description') description: string,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postsService.updatePost(idPost, description));
+    res.json(await this._postService.updatePost(id, description));
   }
 
   /**
    * Delete post
-   * idPost: post
+   * id: post's id
    */
   @httpDelete('/:id')
   private async delete(
-    @requestParam('idPost') idPost: number,
+    @requestParam('id') id: number,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postsService.deletePost(idPost));
+    res.json(await this._postService.deletePost(id));
   }
 
 }

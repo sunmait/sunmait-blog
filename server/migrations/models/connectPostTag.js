@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   var Connect = sequelize.define(
     'Connect',
     {
-      idConnect: DataTypes.INTEGER,
-      idPost: DataTypes.INTEGER,
-      idTag: DataTypes.INTEGER,
+      id: DataTypes.INTEGER,
+      PostId: DataTypes.INTEGER,
+      TagId: DataTypes.INTEGER,
     },
     {
       classMethods: {
