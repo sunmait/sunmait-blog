@@ -7,6 +7,7 @@ import {
   UpdatedAt,
   AllowNull,
   IsDate,
+  IsAfter,
   ForeignKey,
   PrimaryKey,
   AutoIncrement,
@@ -29,12 +30,14 @@ export default class PostEntity extends Model<PostEntity> {
   public UserId: number;
 
   @IsDate
+  @IsAfter('2018-01-01')
   @AllowNull(false)
   @CreatedAt
   @Column(DataType.DATE)
   public CreatedAt: Date;
 
   @IsDate
+  @IsAfter('2018-01-01')
   @AllowNull(false)
   @UpdatedAt
   @Column(DataType.DATE)

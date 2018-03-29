@@ -12,12 +12,14 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         references: { model: 'Posts', key: 'id' },
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
       TagId: {
         allowNull: false,
         foreignKey: true,
         references: { model: 'Tags', key: 'id' },
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
     });

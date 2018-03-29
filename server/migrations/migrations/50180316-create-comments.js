@@ -9,11 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       PostId: {
-        references: { model: 'Posts', key: 'id' },
+        references: { model: 'PostsTag', key: 'TagId' },
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
       UserId: {
         references: { model: 'Users', key: 'id' },
+        onDelete: 'NO ACTION',
         type: Sequelize.INTEGER,
       },
       BodyComment: {
