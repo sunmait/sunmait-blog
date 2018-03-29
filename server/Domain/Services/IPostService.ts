@@ -1,5 +1,5 @@
 export interface IPostService {
-  getPost(PostId: number): Promise<any>;
+  getPost(): Promise<any>;
   addPost(data: any): Promise<any>;
   updatePost(idPost: number, description: string): Promise<any>;
   deletePost(idPost: number): Promise<void>;

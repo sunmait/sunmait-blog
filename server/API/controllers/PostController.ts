@@ -27,14 +27,12 @@ export class PostController implements interfaces.Controller {
 
   /**
    * Get posts
-   * id: post's id
    */
-  @httpGet('/:id')
+  @httpGet('/')
   private async get(
-    @requestParam('id') id: number,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postService.getPost(id));
+    res.json(await this._postService.getPost());
   }
 
   /**
