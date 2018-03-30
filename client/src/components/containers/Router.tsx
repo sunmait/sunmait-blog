@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import App from '../common/app/index';
 // import Hello from '../Hello';
-import LoginPage from '../pages/LoginPage';
+import LoginPage from '../pages/login-page/LoginPage';
 
 // interface IProps {
 // }
@@ -16,7 +16,7 @@ const AppComponent = () => {
       <div className="app-container">
         <App>
           <Switch>
-            <Route exact path='/' component={LoginPage}/>
+            <Route exact path="/" component={LoginPage}/>
           </Switch>
         </App>
       </div>
@@ -27,7 +27,7 @@ const AppComponent = () => {
 const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = () =>({
+const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

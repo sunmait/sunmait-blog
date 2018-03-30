@@ -1,8 +1,13 @@
 import * as React from 'react';
-import './LoginPage.less';
+import 'assets/styles/LoginPage.less';
 
+interface IProps {
+}
 
-class LoginPage extends React.Component {
+interface IState {
+}
+
+export default class LoginPage extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -11,23 +16,23 @@ class LoginPage extends React.Component {
     };
   }
 
-  loginChange = (event: any) => {
+  private loginChange = (event: any) => {
     this.setState({
       login: event.target.value,
     });
   }
 
-  passwordChange = (event: any) => {
+  private passwordChange = (event: any) => {
     this.setState({
       password: event.target.value,
     });
   }
 
-  login = () => {
-    alert("You are autorized!");
+  private login = () => {
+    alert('You are autorized!');
   }
 
-  render() {
+  public render() {
     return (
       <div className="LoginPage">
         <h2 className="title">
@@ -44,5 +49,3 @@ class LoginPage extends React.Component {
     );
   }
 }
-
-export default LoginPage;
