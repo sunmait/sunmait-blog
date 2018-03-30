@@ -18,7 +18,11 @@ module.exports = {
         onDelete: 'NO ACTION',
         type: Sequelize.INTEGER,
       },
-      BodyComment: {
+      CreatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      Text: {
         type: Sequelize.STRING,
       },
     });

@@ -17,9 +17,9 @@ export class PostService implements IPostService {
   }
 
   public async addPost(data: any): Promise<PostEntity> {
-      const post = new PostEntity(data);
+    const post = new PostEntity(data);
 
-      return this._postRepository.create(post);
+    return this._postRepository.create(post);
   }
 
   public async updatePost(id: number, descriprion: any) {

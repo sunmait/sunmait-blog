@@ -7,6 +7,9 @@ import {
   ForeignKey,
   PrimaryKey,
   AutoIncrement,
+  IsAfter,
+  IsDate,
+  Default,
 } from 'sequelize-typescript';
 
 import PostEntity from './PostEntity';
@@ -31,5 +34,12 @@ export default class CommentEntity extends Model<CommentEntity> {
 
   @AllowNull(false)
   @Column(DataType.STRING)
-  public BodyComment: string;
+  public Text: string;
+
+  @IsDate
+  @IsAfter('2018-01-01')
+  @AllowNull(false)
+  @Default(new Date())
+  @Column(DataType.DATE)
+  public CreatedAt: Date;
 }
