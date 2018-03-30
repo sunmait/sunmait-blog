@@ -1,19 +1,25 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
-import App from 'components/common/app';
+import App from '../common/app/index';
+// import Hello from '../Hello';
+import LoginPage from '../pages/login-page/LoginPage';
 
-interface IProps {
-}
+// interface IProps {
+// }
 
-const AppComponent = (props: IProps) => {
+// const AppComponent = (props: IProps) => {
+const AppComponent = () => {
 
   return (
     <Router>
-      <App>
-        <Switch>
-        </Switch>
-      </App>
+      <div className="app-container">
+        <App>
+          <Switch>
+            <Route exact path="/" component={LoginPage}/>
+          </Switch>
+        </App>
+      </div>
     </Router>
   );
 };
@@ -21,7 +27,7 @@ const AppComponent = (props: IProps) => {
 const mapStateToProps = () => ({
 });
 
-const mapDispatchToProps = () =>({
+const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

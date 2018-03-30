@@ -5,8 +5,10 @@ interface IProps {
 }
 
 const App = (props: IProps) => {
+// const App = () => {
   return (
-    <div >
+    <div>
+      {props.children}
     </div>
   );
 };

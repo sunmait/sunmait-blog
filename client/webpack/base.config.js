@@ -14,6 +14,9 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     modules: [app, 'node_modules'],
   },
+  output: {
+    path: path.resolve('../server/API/public', env),
+  },
   module: {
     rules: [
       {
@@ -40,16 +43,25 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
+      // {
+      //   test: /\.less$/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     use: [
+      //       { loader: 'css-loader', options: { minimize: true } },
+      //       'postcss-loader',
+      //       'less-loader',
+      //     ],
+      //   }),
+      // },
       {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader', options: { minimize: true } },
-            'postcss-loader',
-            'less-loader',
-          ],
-        }),
+        test: /\.(less|css)$/,
+        use: [
+          'style-loader',
+          {loader: 'css-loader', options: {importLoaders: 1, minimize: true}},
+          'less-loader',
+        ],
+        exclude: [/node_modules/, /public/],
       },
       {
         test: /\.css$/,
