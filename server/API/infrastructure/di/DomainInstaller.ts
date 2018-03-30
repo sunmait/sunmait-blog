@@ -1,9 +1,11 @@
 import { InstallerBase } from './InstallerBase';
 import {
   IPostService,
+  ICommentService,
 } from './../../../Domain/Services/index';
 import {
   PostService,
+  CommentService,
 } from './../../../Domain/Services/Impl/index';
 
 export class DomainInstaller extends InstallerBase {
@@ -11,5 +13,8 @@ export class DomainInstaller extends InstallerBase {
     this.container
       .bind<IPostService>('PostService')
       .to(PostService);
+    this.container
+      .bind<ICommentService>('CommentService')
+      .to(CommentService);
   }
 }

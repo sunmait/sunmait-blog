@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       id: DataTypes.INTEGER,
       PostId: DataTypes.INTEGER,
       UserId: DataTypes.INTEGER,
-      BodyComment: DataTypes.STRING,
+      CreatedAt: DataTypes.DATE,
+      Text: DataTypes.STRING,
     },
     {
       classMethods: {
