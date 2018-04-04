@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
       Text: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
     });
   },

@@ -12,7 +12,7 @@ export class PostService implements IPostService {
     this._postRepository = postRepository;
   }
 
-  public async getPost(): Promise<PostEntity[]> {
+  public async getPosts(): Promise<PostEntity[]> {
     return this._postRepository.findAll({});
   }
 
@@ -22,7 +22,7 @@ export class PostService implements IPostService {
     return this._postRepository.create(post);
   }
 
-  public async updatePost(id: number, descriprion: any) {
+  public async updatePost(id: number, descriprion: string): Promise<PostEntity> {
     const post = await this._postRepository.findById(id);
     post.UpdatedAt = new Date();
     post.Description = descriprion;
