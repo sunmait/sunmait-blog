@@ -26,19 +26,20 @@ export class CommentController implements interfaces.Controller {
   }
 
   /**
-   * Get all comments
+   * Get comments
    */
-  @httpGet('/')
+  @httpPost('/')
   private async get(
+    @requestBody('id') id: number,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._commentService.getComment());
+    res.json(await this._commentService.getCommentById(id));
   }
 
   /**
    * Add comment
    */
-  @httpPost('/:id')
+  @httpPost('/')
   private async add(
     @requestBody() body: any,
     @response() res: express.Response,

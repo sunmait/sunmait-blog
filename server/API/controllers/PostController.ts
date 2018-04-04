@@ -32,7 +32,7 @@ export class PostController implements interfaces.Controller {
   private async get(
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postService.getPost());
+    res.json(await this._postService.getPosts());
   }
 
   /**
