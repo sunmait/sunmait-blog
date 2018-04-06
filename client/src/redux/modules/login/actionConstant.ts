@@ -1,0 +1,3 @@
+const AUTORIZE_USER = 'AUTORIZE_USER';
+
+export default AUTORIZE_USER;

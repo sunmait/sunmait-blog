@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/enzyme": "^3.1.0",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "@types/react-redux": "^5.0.14",
@@ -9,10 +10,11 @@
     "@types/redux-promise-middleware": "0.0.9",
     "@types/redux-thunk": "^2.1.0",
     "@types/superagent": "^3.5.7",
-    "@types/enzyme": "^3.1.0",
     "autoprefixer": "^8.1.0",
     "axios": "^0.18.0",
     "file-loader": "^1.1.9",
+    "material-ui": "^1.0.0-beta.39",
+    "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.20.1",
     "postcss-cssnext": "^3.1.0",
     "react": "^16.2.0",
@@ -53,7 +55,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.9",
-    "html-webpack-plugin": "github:webpack-contrib/html-webpack-plugin",
+    "html-webpack-plugin": "^3.1.0",
     "jest": "^22.4.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
@@ -89,7 +91,8 @@
       "js"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js",
+      "^.+\\.(css|less)$": "./styleMock.js"
     },
     "testMatch": [
       "**/__tests__/*.(ts|tsx|js)"
