@@ -20,6 +20,9 @@ export class RepositoryBase<TEntity extends Model<any>>
   public async find(filter: any): Promise<TEntity> {
     return this._entityType.find(filter);
   }
+  public async findOne(filter: any, options: any = {}): Promise<TEntity> {
+    return this._entityType.find(filter, options);
+  }
   public async create(entity: TEntity): Promise<TEntity> {
     return entity.save();
   }

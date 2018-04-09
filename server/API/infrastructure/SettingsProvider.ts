@@ -8,4 +8,12 @@ export class SettingsProvider implements ISettingsProvider {
   public getDatabaseSettings(): IDatabaseSettings {
     return config.get('database');
   }
+
+  public getSecretKey(): string {
+    return config.get('secretKey');
+  }
+
+  public getHostname(): string {
+    return config.get('hostname');
+  }
 }

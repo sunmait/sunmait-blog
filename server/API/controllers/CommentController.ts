@@ -1,7 +1,6 @@
 import * as express from 'express';
 import {
   controller,
-  httpGet,
   httpPost,
   interfaces,
   requestParam,
