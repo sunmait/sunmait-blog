@@ -17,6 +17,18 @@ module.exports = {
       PhotoUrl: {
         type: Sequelize.STRING,
       },
+      Login: {
+        type: Sequelize.STRING,
+      },
+      PasswordHash: {
+        type: Sequelize.STRING,
+      },
+      CreatedAt: {
+        type: Sequelize.DATE,
+      },
+      UpdatedAt: {
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
