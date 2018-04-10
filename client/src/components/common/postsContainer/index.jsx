@@ -1,5 +1,9 @@
 import * as React from 'react';
+<<<<<<< HEAD
 import Header from 'components/common/header/Header.jsx';
+=======
+import Header from 'components/common/header/index.jsx';
+>>>>>>> 82362fe... new structure
 import { Link } from 'react-router-dom';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
@@ -13,10 +17,17 @@ class Posts extends React.Component {
 
   constructor(props) {
     super(props);
+<<<<<<< HEAD
+=======
+    // this.state = {
+    //   posts: [],
+    // };
+>>>>>>> 82362fe... new structure
   }
 
   componentWillMount() {
     this.props.getPosts();
+<<<<<<< HEAD
   }
 
   render() {
@@ -42,6 +53,36 @@ class Posts extends React.Component {
         </div>
       );
     }
+=======
+    console.log("in will mount");
+  }
+
+  render() {
+    // this.props.getPosts();
+    // console.log("State" + state);
+    let posts = [];
+    posts = this.props.posts.posts;
+    console.log("posts:");
+    console.log(posts);
+    console.log('posts[1]');
+    // console.log(posts[1]);
+    console.log('posts.posts');
+    // console.log(posts.posts);
+    console.log('posts.posts.length');
+    // console.log(posts.posts.length);
+    return (
+      <div>
+        {
+          posts.forEach(
+            (item, i) => (
+              console.log(item)
+            )
+          )
+        }
+        {/* <Post description={posts[0].Description} /> */}
+      </div>
+    );
+>>>>>>> 82362fe... new structure
   }
 };
 

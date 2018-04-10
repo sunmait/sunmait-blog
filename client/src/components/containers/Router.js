@@ -8,6 +8,7 @@ import HomePage from '../pages/home-page/index.jsx';
 import ProfilePage from '../pages/profile-page/index.jsx';
 import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
+<<<<<<< HEAD
 import { verifyCredentials } from 'redux/modules/auth/actions.js';
 
 // const AppComponent = (props) => {
@@ -21,6 +22,11 @@ class AppComponent extends React.Component{
   }
 
  render(){
+=======
+
+const AppComponent = (props) => {
+
+>>>>>>> 82362fe... new structure
   return (
       <Router history={history}>
           <div className="app-container">
@@ -52,6 +58,7 @@ class AppComponent extends React.Component{
           </div>
       </Router>
   );
+<<<<<<< HEAD
 }
 };
 
@@ -63,3 +70,16 @@ const mapDispatchToProps = (dispatch) =>
 
 
 export default connect(null, mapDispatchToProps)(AppComponent);
+=======
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = (dispatch) =>
+  redux.bindActionCreators({}, dispatch);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
+>>>>>>> 82362fe... new structure
