@@ -18,15 +18,19 @@ class Posts extends React.Component {
   constructor(props) {
     super(props);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // this.state = {
     //   posts: [],
     // };
 >>>>>>> 82362fe... new structure
+=======
+>>>>>>> fbb2a31... posts info dispatched
   }
 
   componentWillMount() {
     this.props.getPosts();
+<<<<<<< HEAD
 <<<<<<< HEAD
   }
 
@@ -55,34 +59,42 @@ class Posts extends React.Component {
     }
 =======
     console.log("in will mount");
+=======
+>>>>>>> fbb2a31... posts info dispatched
   }
 
   render() {
-    // this.props.getPosts();
-    // console.log("State" + state);
-    let posts = [];
-    posts = this.props.posts.posts;
-    console.log("posts:");
-    console.log(posts);
-    console.log('posts[1]');
-    // console.log(posts[1]);
-    console.log('posts.posts');
-    // console.log(posts.posts);
-    console.log('posts.posts.length');
-    // console.log(posts.posts.length);
-    return (
-      <div>
-        {
-          posts.forEach(
-            (item, i) => (
-              console.log(item)
+    const posts = this.props.posts.posts;
+    if (posts) {
+      return (
+        <div>
+          {
+            posts.map(
+              (item) => (
+                <div>
+                  <Post description={item.Description} key={item.id} title={item.Title}/>
+                </div>
+              )
             )
+<<<<<<< HEAD
           )
         }
         {/* <Post description={posts[0].Description} /> */}
       </div>
     );
 >>>>>>> 82362fe... new structure
+=======
+          }
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p> no posts</p>
+        </div>
+      );
+    }
+>>>>>>> fbb2a31... posts info dispatched
   }
 };
 
