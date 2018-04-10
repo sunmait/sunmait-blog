@@ -22,10 +22,11 @@ export class PostService implements IPostService {
     return this._postRepository.create(post);
   }
 
-  public async updatePost(id: number, descriprion: string): Promise<PostEntity> {
+  public async updatePost(id: number, descriprion: string, title: string): Promise<PostEntity> {
     const post = await this._postRepository.findById(id);
     post.UpdatedAt = new Date();
     post.Description = descriprion;
+    post.Title = title;
 
     return this._postRepository.update(post);
   }

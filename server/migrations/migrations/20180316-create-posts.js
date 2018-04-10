@@ -26,6 +26,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
+      Title: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

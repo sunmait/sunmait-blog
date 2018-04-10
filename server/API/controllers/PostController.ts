@@ -54,9 +54,10 @@ export class PostController implements interfaces.Controller {
   private async updatePost(
     @requestParam('id') id: number,
     @requestBody('description') description: string,
+    @requestBody('title') title: string,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postService.updatePost(id, description));
+    res.json(await this._postService.updatePost(id, description, title));
   }
 
   /**

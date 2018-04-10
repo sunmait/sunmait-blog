@@ -13,41 +13,35 @@ class Posts extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.state = {
-    //   posts: [],
-    // };
   }
 
   componentWillMount() {
     this.props.getPosts();
-    console.log("in will mount");
   }
 
   render() {
-    // this.props.getPosts();
-    // console.log("State" + state);
-    let posts = [];
-    posts = this.props.posts.posts;
-    console.log("posts:");
-    console.log(posts);
-    console.log('posts[1]');
-    // console.log(posts[1]);
-    console.log('posts.posts');
-    // console.log(posts.posts);
-    console.log('posts.posts.length');
-    // console.log(posts.posts.length);
-    return (
-      <div>
-        {
-          posts.forEach(
-            (item, i) => (
-              console.log(item)
+    const posts = this.props.posts.posts;
+    if (posts) {
+      return (
+        <div>
+          {
+            posts.map(
+              (item) => (
+                <div>
+                  <Post description={item.Description} key={item.id} title={item.Title}/>
+                </div>
+              )
             )
-          )
-        }
-        {/* <Post description={posts[0].Description} /> */}
-      </div>
-    );
+          }
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p> no posts</p>
+        </div>
+      );
+    }
   }
 };
 
