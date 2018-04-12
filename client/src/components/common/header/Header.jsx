@@ -1,15 +1,25 @@
 import * as React from 'react';
+<<<<<<< HEAD
 import { Redirect } from 'react-router-dom';
+=======
+>>>>>>> cc8e932... Authentifications at first come to page
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
+<<<<<<< HEAD
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
 import { Login } from 'redux/modules/auth/actions';
 import Typography from 'material-ui/Typography';
 import Popover from 'material-ui/Popover';
 import Fade from 'material-ui/transitions/Fade';
+=======
+import MenuList, { MenuItem } from 'material-ui/Menu';
+import { Link } from 'react-router-dom';
+import { Login } from 'redux/modules/auth/actions';
+import Typography from 'material-ui/Typography';
+>>>>>>> cc8e932... Authentifications at first come to page
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import Dialog, {
@@ -18,8 +28,11 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+<<<<<<< HEAD
 import Paper from 'material-ui/Paper';
 import Grow from 'material-ui/transitions/Grow';
+=======
+>>>>>>> cc8e932... Authentifications at first come to page
 import { login, logout, verifyCredentials } from 'redux/modules/auth/actions.js';
 
 class Header extends React.Component {
@@ -30,7 +43,10 @@ class Header extends React.Component {
       password: '',
       openDialog: false,
       openMenu: false,
+<<<<<<< HEAD
       referrer: null,
+=======
+>>>>>>> cc8e932... Authentifications at first come to page
     };
   }
 
@@ -43,9 +59,15 @@ class Header extends React.Component {
   login = () => {
     try{
       this.props.login(this.state.login, this.state.password);
+<<<<<<< HEAD
       console.log(this.props);
       this.setState({
         openDialog: false,
+=======
+      this.setState({
+        openDialog: false,
+        auth: true,
+>>>>>>> cc8e932... Authentifications at first come to page
       })
     }catch (err){
       this.props.logout();
@@ -58,8 +80,12 @@ class Header extends React.Component {
       login: '',
       password: '',
       auth: false,
+<<<<<<< HEAD
       referrer: '/home'
     });    
+=======
+    });
+>>>>>>> cc8e932... Authentifications at first come to page
   }
 
   handleClickLogin = (event) => {
@@ -73,6 +99,7 @@ class Header extends React.Component {
   };
 
   handleClickMenu = (event) => {
+<<<<<<< HEAD
     event.preventDefault();
     this.setState({
       openMenu: true,
@@ -81,11 +108,20 @@ class Header extends React.Component {
   }
 
   handleCloseMenu = (e) => {
+=======
+    this.setState({
+      openMenu: true,
+    })
+  }
+
+  handleCloseMenu = () => {
+>>>>>>> cc8e932... Authentifications at first come to page
     this.setState({
       openMenu: false,
     });
   };
 
+<<<<<<< HEAD
   handleRequestClose = () => {
     this.setState({
       open: false,
@@ -95,13 +131,24 @@ class Header extends React.Component {
   render = () => {
     const {referrer} = this.state;
     if (referrer) return <Redirect to={referrer} />;
+=======
+  render = () => {
+    console.log(this.props.user);
+    let path = null;
+    if(this.props.user) {path = this.props.user.PhotoUrl;}
+>>>>>>> cc8e932... Authentifications at first come to page
     return (
       <header>
         <Link to="/home">
           <div className="logo"/>
+<<<<<<< HEAD
         </Link>
             {
               this.props.user ? 
+=======
+        </Link>            
+            {this.props.user ? 
+>>>>>>> cc8e932... Authentifications at first come to page
               <div>
               <Button 
                 variant="fab" 
@@ -109,6 +156,7 @@ class Header extends React.Component {
                 aria-label="add" 
                 onClick={this.handleClickMenu} 
                 style={{
+<<<<<<< HEAD
                   marginRight: '150px',
                   marginTop: '10px',
                   float: 'right',
@@ -129,14 +177,38 @@ class Header extends React.Component {
                 </div>
               : 
               <div>
+=======
+                  marginLeft: '20px',
+                  marginRight: '50px',
+                  marginTop: '5px',
+                  float: 'right',
+                }}
+              />
+              <MenuList
+                open={this.state.openMenu}
+                onClose={this.handleCloseMenu}                
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My posts</MenuItem>
+                <MenuItem onClick={this.handleClose}>Add posts</MenuItem>
+                <MenuItem onClick={this.logout}>Log Out</MenuItem>
+              </MenuList>
+              </div>    
+              : <div>
+>>>>>>> cc8e932... Authentifications at first come to page
                 <Button
                 variant="raised"
                 color="primary"
                 onClick={() => this.handleClickLogin()}
                 style={{
                   marginLeft: '20px',
+<<<<<<< HEAD
                   marginRight: '140px',
                   marginTop: '15px',
+=======
+                  marginRight: '50px',
+                  marginTop: '20px',
+>>>>>>> cc8e932... Authentifications at first come to page
                   border: '0',
                   boxShadow: '0',
                   width: '100px',
