@@ -6,22 +6,20 @@ const defaultState = {
   refreshToken: null,
 };
 
-export default function(
-  state = defaultState,
-  { type, payload },
-) {
-  switch (type) {
-    case AUTH_ACTIONS.LOGIN:
-      return handleLogin(state, payload);
+export default function(state = defaultState, action) {
+  switch (action.type) {
+    case `${AUTH_ACTIONS.LOGIN}_FULFILLED`:
+    console.log('received action', action.payload);
+      return handleLogin(state, action.payload);
 
     case AUTH_ACTIONS.LOGOUT:
       return handleLogout(state);
 
     case AUTH_ACTIONS.ACCESS_TOKEN_EXPIRED:
-      return handleAccessTokenExpired(state, payload);
+      return handleAccessTokenExpired(state, action.payload);
 
     case AUTH_ACTIONS.REFRESH_TOKEN_EXPIRED:
-      return handleLogin(state, payload);
+      return handleLogin(state, action.payload);
 
     default:
       return state;
@@ -29,6 +27,8 @@ export default function(
 }
 
 function handleLogin(state, loginData) {
+
+  console.log('received action', loginData)
   return {
     ...state,
     user: loginData.Data,
