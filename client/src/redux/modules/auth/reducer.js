@@ -12,6 +12,9 @@ export default function(state = defaultState, action) {
     console.log('received action', action.payload);
       return handleLogin(state, action.payload);
 
+    case AUTH_ACTIONS.LOGIN:
+    console.log('received action', action.payload);
+      return handleLogin(state, action.payload);
     case AUTH_ACTIONS.LOGOUT:
       return handleLogout(state);
 

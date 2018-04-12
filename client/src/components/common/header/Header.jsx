@@ -3,10 +3,11 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
-import MenuList, { MenuItem } from 'material-ui/Menu';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
 import { Login } from 'redux/modules/auth/actions';
 import Typography from 'material-ui/Typography';
+import Popover from 'material-ui/Popover';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import Dialog, {
@@ -15,6 +16,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
+import Grow from 'material-ui/transitions/Grow';
 import { login, logout, verifyCredentials } from 'redux/modules/auth/actions.js';
 
 class Header extends React.Component {
@@ -25,6 +28,7 @@ class Header extends React.Component {
       password: '',
       openDialog: false,
       openMenu: false,
+      anchor: null
     };
   }
 
@@ -37,9 +41,9 @@ class Header extends React.Component {
   login = () => {
     try{
       this.props.login(this.state.login, this.state.password);
+      console.log(this.props);
       this.setState({
         openDialog: false,
-        auth: true,
       })
     }catch (err){
       this.props.logout();
@@ -71,9 +75,10 @@ class Header extends React.Component {
     })
   }
 
-  handleCloseMenu = () => {
+  handleCloseMenu = (e) => {
     this.setState({
       openMenu: false,
+      anchor: e.target
     });
   };
 
@@ -85,8 +90,9 @@ class Header extends React.Component {
       <header>
         <Link to="/home">
           <div className="logo"/>
-        </Link>            
-            {this.props.user ? 
+        </Link>
+            {
+              this.props.user ? 
               <div>
               <Button 
                 variant="fab" 
@@ -100,17 +106,30 @@ class Header extends React.Component {
                   float: 'right',
                 }}
               />
-              <MenuList
-                open={this.state.openMenu}
-                onClose={this.handleCloseMenu}                
-              >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My posts</MenuItem>
-                <MenuItem onClick={this.handleClose}>Add posts</MenuItem>
-                <MenuItem onClick={this.logout}>Log Out</MenuItem>
-              </MenuList>
-              </div>    
-              : <div>
+                <div className="menupop">
+                    <Popover
+                      open={this.state.openMenu}
+                      onClose={this.handleCloseMenu}
+                      anchorEl={this.state.anchor}
+                      anchorReference= 'anchorEI'
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                      }}
+                      anchorPosition={{
+                        top: 200,
+                        left: 50990
+                      }}
+                    >
+                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleClose}>My posts</MenuItem>
+                      <MenuItem onClick={this.handleClose}>Add posts</MenuItem>
+                      <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                    </Popover>
+                </div>
+              </div>
+              : 
+              <div>
                 <Button
                 variant="raised"
                 color="primary"
