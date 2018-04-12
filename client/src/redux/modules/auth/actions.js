@@ -38,6 +38,8 @@ export function login(Login, Password) {
         localStorage.setItem('AccessToken', AccessToken);
         localStorage.setItem('RefreshToken', RefreshToken);
         localStorage.setItem('User', User);
+        console.log('before dispatch');
+        console.log(res);
 
         dispatch({
           type: AUTH_CONSTANTS.LOGIN,
@@ -101,9 +103,9 @@ export const verifyCredentials = () => (dispatch) => {
         refreshToken,
       }).then((res)=>{  
         console.log('res', res);
-        localStorage.setItem('AccessToken', res.AccessToken);
-        localStorage.setItem('RefreshToken', res.RefreshToken);
-        localStorage.setItem('User', JSON.stringify(res.User));
+        localStorage.setItem('AccessToken', res.data.AccessToken);
+        localStorage.setItem('RefreshToken', res.data.RefreshToken);
+        localStorage.setItem('User', JSON.stringify(res.data.Data));
         return res.data;
       })
 

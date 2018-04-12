@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
 import { Login } from 'redux/modules/auth/actions';
@@ -20,6 +21,13 @@ import { Link } from 'react-router-dom';
 import { Login } from 'redux/modules/auth/actions';
 import Typography from 'material-ui/Typography';
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+import Menu, { MenuItem } from 'material-ui/Menu';
+import { Link } from 'react-router-dom';
+import { Login } from 'redux/modules/auth/actions';
+import Typography from 'material-ui/Typography';
+import Popover from 'material-ui/Popover';
+>>>>>>> b04c85a... Authentification work
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import Dialog, {
@@ -29,10 +37,15 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Paper from 'material-ui/Paper';
 import Grow from 'material-ui/transitions/Grow';
 =======
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+import Paper from 'material-ui/Paper';
+import Grow from 'material-ui/transitions/Grow';
+>>>>>>> b04c85a... Authentification work
 import { login, logout, verifyCredentials } from 'redux/modules/auth/actions.js';
 
 class Header extends React.Component {
@@ -44,9 +57,13 @@ class Header extends React.Component {
       openDialog: false,
       openMenu: false,
 <<<<<<< HEAD
+<<<<<<< HEAD
       referrer: null,
 =======
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+      anchor: null
+>>>>>>> b04c85a... Authentification work
     };
   }
 
@@ -60,6 +77,7 @@ class Header extends React.Component {
     try{
       this.props.login(this.state.login, this.state.password);
 <<<<<<< HEAD
+<<<<<<< HEAD
       console.log(this.props);
       this.setState({
         openDialog: false,
@@ -68,6 +86,11 @@ class Header extends React.Component {
         openDialog: false,
         auth: true,
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+      console.log(this.props);
+      this.setState({
+        openDialog: false,
+>>>>>>> b04c85a... Authentification work
       })
     }catch (err){
       this.props.logout();
@@ -114,10 +137,15 @@ class Header extends React.Component {
     })
   }
 
+<<<<<<< HEAD
   handleCloseMenu = () => {
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+  handleCloseMenu = (e) => {
+>>>>>>> b04c85a... Authentification work
     this.setState({
       openMenu: false,
+      anchor: e.target
     });
   };
 
@@ -142,6 +170,7 @@ class Header extends React.Component {
         <Link to="/home">
           <div className="logo"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
         </Link>
             {
               this.props.user ? 
@@ -149,6 +178,11 @@ class Header extends React.Component {
         </Link>            
             {this.props.user ? 
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+        </Link>
+            {
+              this.props.user ? 
+>>>>>>> b04c85a... Authentification work
               <div>
               <Button 
                 variant="fab" 
@@ -184,6 +218,7 @@ class Header extends React.Component {
                   float: 'right',
                 }}
               />
+<<<<<<< HEAD
               <MenuList
                 open={this.state.openMenu}
                 onClose={this.handleCloseMenu}                
@@ -196,6 +231,32 @@ class Header extends React.Component {
               </div>    
               : <div>
 >>>>>>> cc8e932... Authentifications at first come to page
+=======
+                <div className="menupop">
+                    <Popover
+                      open={this.state.openMenu}
+                      onClose={this.handleCloseMenu}
+                      anchorEl={this.state.anchor}
+                      anchorReference= 'anchorEI'
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                      }}
+                      anchorPosition={{
+                        top: 200,
+                        left: 50990
+                      }}
+                    >
+                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleClose}>My posts</MenuItem>
+                      <MenuItem onClick={this.handleClose}>Add posts</MenuItem>
+                      <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                    </Popover>
+                </div>
+              </div>
+              : 
+              <div>
+>>>>>>> b04c85a... Authentification work
                 <Button
                 variant="raised"
                 color="primary"
