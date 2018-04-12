@@ -17,7 +17,7 @@ class Header extends React.Component {
 
   handleInputChange = (event) => {
     this.setState({
-     [event.target.name]: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -41,10 +41,6 @@ class Header extends React.Component {
     window.onclick = function(event) {
       if (event.target === document.getElementById('myModalLogin')) {
         document.getElementById('myModalLogin').style.display = "none";
-        // this.setState({
-        //   login: '',
-        //   password: '',
-        // });
       } else if (event.target === document.getElementById('myModalProfile')) {
         document.getElementById('myModalProfile').style.display = "none";
       }
@@ -52,6 +48,7 @@ class Header extends React.Component {
   }
 
   showLoginForm = (event) => {
+    console.log(this.state.login);
     document.getElementById('myModalLogin').style.display = "block";
   };
 
@@ -74,10 +71,10 @@ class Header extends React.Component {
   renderNotAuthorized = () => {
     return (
       <div>
-      <header>
-        <Link to="/home">
-          <div className="logo"/>
-        </Link>
+        <header>
+          <Link to="/home">
+            <div className="logo"/>
+          </Link>
           <div className="navigation button">
             <Button
               variant="raised"
@@ -87,49 +84,54 @@ class Header extends React.Component {
             >
               Login
             </Button>
-        </div>
-      </header>
+          </div>
+        </header>
 
-      <div id="myModalLogin" class="modal">
+        <div id="myModalLogin" class="modal">
           <div class="modal-content">
             <div class="modal-header">
-              <span class="close" onClick={() => this.closeLoginForm()}>&times;</span>
-              <h2>Please enter your login and password:</h2>
+              <span class="close" onClick={() => this.closeLoginForm()}>
+                &times;
+              </span>
+              <h2>
+                Please enter your login and password:
+              </h2>
             </div>
             <div class="modal-body">
-            <div>
-            <TextField
-              label="Enter login..."
-              name="login"
-              margin="normal"
-              color="white"
-              value={this.state.login}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <TextField
-              label="Enter password..."
-              type="password"
-              name="password"
-              margin="normal"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="button">
-            <Button
+              <div>
+                <TextField
+                  label="Enter login..."
+                  name="login"
+                  margin="normal"
+                  color="white"
+                  value={this.state.login}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div>
+                <TextField
+                  label="Enter password..."
+                  type="password"
+                  name="password"
+                  margin="normal"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="button">
+                <Button
                   variant="raised"
                   color="primary"
                   onClick={() => this.login()}
                 >
                   Login
                 </Button>
-          </div>
+              </div>
             </div>
           </div>
         </div>
-        </div>
+
+      </div>
     );
   };
 
@@ -147,10 +149,16 @@ class Header extends React.Component {
                 size="large"
                 onClick={() => this.showProfileForm()}
               >
-                {this.state.login}
+                {
+                  this.props.login ?
+                    this.props.login
+                  :
+                    this.state.login
+                }
               </Button>
           </div>
         </header>
+
         <div id="myModalProfile" class="modal">
           <div class="modal-content">
             <div class="modal-header">
@@ -158,12 +166,16 @@ class Header extends React.Component {
                 &times;
               </span>
               <h2>
-                {this.state.login}
+                {
+                  this.props.login ?
+                    this.props.login
+                  :
+                    this.state.login
+                }
               </h2>
             </div>
             <div class="modal-body">
               <div className="profile-navigation">
-
                 <div className="button">
                   <Link to="/profile">
                     <Button
@@ -175,7 +187,6 @@ class Header extends React.Component {
                     </Button>
                   </Link>
                 </div>
-
                 <div className="button">
                   <Link to="/myposts">
                     <Button
@@ -187,7 +198,6 @@ class Header extends React.Component {
                     </Button>
                   </Link>
                 </div>
-
                 <div className="button">
                   <Link to="/addpost">
                     <Button
@@ -199,9 +209,7 @@ class Header extends React.Component {
                     </Button>
                   </Link>
                 </div>
-
               </div>
-
               <div className="button logout">
                 <Button
                   variant="raised"
@@ -215,6 +223,7 @@ class Header extends React.Component {
             </div>
           </div>
         </div>
+
       </div>
     );
   };

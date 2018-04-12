@@ -16,7 +16,9 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className="main">
-        <Header auth={this.state.auth} />
+        <Header
+          auth={this.state.auth}
+        />
         <div className="content">
           <div>
             <Posts />

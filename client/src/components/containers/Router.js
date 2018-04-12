@@ -8,39 +8,45 @@ import HomePage from '../pages/home-page/index.jsx';
 import ProfilePage from '../pages/profile-page/index.jsx';
 import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
+import PostPage from '../pages/post-page/index.jsx';
 
 const AppComponent = (props) => {
 
   return (
-      <Router history={history}>
-          <div className="app-container">
-            <App>
-              <Switch>
-                <Route
-                  exact
-                  path='/home'
-                  component={HomePage}
-                />
-                <Route
-                  exact
-                  path='/profile'
-                  component={ProfilePage}
-                />
-                <Route
-                  exact
-                  path='/myposts'
-                  component={MyPostsPage}
-                />
-                <Route
-                  exact
-                  path='/addpost'
-                  component={AddPostPage}
-                />
-                <Redirect from="/" exact to="/home" />
-              </Switch>
-            </App>
-          </div>
-      </Router>
+    <Router history={history}>
+      <div className="app-container">
+        <App>
+          <Switch>
+            <Route
+              exact
+              path='/home'
+              component={HomePage}
+            />
+            <Route
+              exact
+              path='/profile'
+              component={ProfilePage}
+            />
+            <Route
+              exact
+              path='/myposts'
+              component={MyPostsPage}
+            />
+            <Route
+              exact
+              path='/addpost'
+              component={AddPostPage}
+            />
+            <Route
+              exact
+              path='/post'
+              component={PostPage}
+            />
+            <Redirect from="/" exact to="/home" />
+          </Switch>
+        </App>
+      </div>
+    </Router>
   );
 };
 
@@ -50,6 +56,5 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) =>
   redux.bindActionCreators({}, dispatch);
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

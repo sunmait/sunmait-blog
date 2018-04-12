@@ -6,7 +6,6 @@ import history from 'components/containers/history';
 
 const axiosRequest = axios;
 
-
 export function login(Email, Password) {
   return (dispatch) => {
     return axiosRequest

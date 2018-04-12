@@ -25,10 +25,18 @@ class Posts extends React.Component {
       return (
         <div>
           {
-            posts.map(
-              (item) => (
+            posts.reverse().map(
+              (post) => (
                 <div>
-                  <Post description={item.Description} key={item.id} title={item.Title}/>
+                      <Post
+                        description={post.Description}
+                        key={post.id}
+                        title={post.Title}
+                        author={post.UserId}
+                        dateCreated={post.CreatedAt}
+                        dateUpdated={post.UpdatedAt}
+                        edit={this.props.edit}
+                      />
                 </div>
               )
             )
@@ -37,9 +45,7 @@ class Posts extends React.Component {
       );
     } else {
       return (
-        <div>
-          <p> no posts</p>
-        </div>
+        <div />
       );
     }
   }

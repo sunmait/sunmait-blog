@@ -43,17 +43,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      // {
-      //   test: /\.less$/,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: 'style-loader',
-      //     use: [
-      //       { loader: 'css-loader', options: { minimize: true } },
-      //       'postcss-loader',
-      //       'less-loader',
-      //     ],
-      //   }),
-      // },
       {
         test: /\.(less|css)$/,
         use: [

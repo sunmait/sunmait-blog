@@ -1,7 +1,14 @@
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import AddPostPage from 'components/pages/addpost-page/AddPostPage.jsx';
+import { addPost } from 'redux/modules/posts/actions.js';
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({}, dispatch);
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+});
 
-export default connect(null, mapDispatchToProps)(AddPostPage);
+const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
+  addPost
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPostPage);

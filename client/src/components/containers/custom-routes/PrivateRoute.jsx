@@ -8,12 +8,14 @@ const PrivateRoute = (props) => {
   return (
     <Route
       {...rest}
-      render={routeProps => {
-        if (!auth.user) {
-          return <Component {...routeProps} />;
+      render={
+        routeProps => {
+          if (!auth.user) {
+            return <Component {...routeProps} />;
+          }
+          return <Redirect to="/main" />;
         }
-        return <Redirect to="/main" />;
-      }}
+      }
     />
   );
 };
