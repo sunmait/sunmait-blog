@@ -27,8 +27,7 @@ class Header extends React.Component {
       login: '',
       password: '',
       openDialog: false,
-      openMenu: false,
-      anchor: null
+      openMenu: false
     };
   }
 
@@ -70,15 +69,22 @@ class Header extends React.Component {
   };
 
   handleClickMenu = (event) => {
+    event.preventDefault();
     this.setState({
       openMenu: true,
+      anchorEl: event.currentTarget,
     })
   }
 
   handleCloseMenu = (e) => {
     this.setState({
       openMenu: false,
-      anchor: e.target
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
     });
   };
 
@@ -100,26 +106,17 @@ class Header extends React.Component {
                 aria-label="add" 
                 onClick={this.handleClickMenu} 
                 style={{
-                  marginLeft: '20px',
-                  marginRight: '50px',
-                  marginTop: '5px',
+                  marginRight: '90px',
+                  marginTop: '10px',
                   float: 'right',
                 }}
               />
-                <div className="menupop">
                     <Popover
                       open={this.state.openMenu}
                       onClose={this.handleCloseMenu}
-                      anchorEl={this.state.anchor}
-                      anchorReference= 'anchorEI'
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left'
-                      }}
-                      anchorPosition={{
-                        top: 200,
-                        left: 50990
-                      }}
+                      anchorEl={this.state.anchorEl}
+                      anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
+                      targetOrigin={{"horizontal":"middle","vertical":"top"}}
                     >
                       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                       <MenuItem onClick={this.handleClose}>My posts</MenuItem>
@@ -127,7 +124,6 @@ class Header extends React.Component {
                       <MenuItem onClick={this.logout}>Log Out</MenuItem>
                     </Popover>
                 </div>
-              </div>
               : 
               <div>
                 <Button
