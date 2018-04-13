@@ -85,7 +85,7 @@ class Header extends React.Component {
 
   handleRequestClose = () => {
     this.setState({
-      open:false,
+      open: false,
     });
   };
 
@@ -112,11 +112,10 @@ class Header extends React.Component {
                   float: 'right',
                 }}
               />
-                    <Popover            
+                    <Popover
                       open={this.state.openMenu}
                       onClose={this.handleCloseMenu}
                       anchorEl={this.state.anchorEl}
-                      style={{float: 'right',}}
                       anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
                       targetOrigin={{"horizontal":"middle","vertical":"top"}}
                     >
