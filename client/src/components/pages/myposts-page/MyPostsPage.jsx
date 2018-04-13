@@ -1,11 +1,7 @@
 import * as React from 'react';
 import '../../../assets/styles/HomePage.less';
 import '../../../assets/styles/MyPostsPage.less';
-<<<<<<< HEAD
 import Header from 'components/common/header/Header.jsx';
-=======
-import Header from 'components/common/header/index.jsx';
->>>>>>> 82362fe... new structure
 import Footer from 'components/common/footer/index.jsx';
 import Post from 'components/common/post/index.jsx';
 import { Link } from 'react-router-dom';
