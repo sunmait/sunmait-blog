@@ -10,8 +10,4 @@ const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   
 }, dispatch);
 
-<<<<<<< HEAD
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
->>>>>>> cc8e932... Authentifications at first come to page

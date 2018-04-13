@@ -14,17 +14,8 @@
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
     "file-loader": "^1.1.9",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "fs": "0.0.1-security",
     "material-ui": "^1.0.0-beta.41",
-=======
-    "material-ui": "^1.0.0-beta.39",
->>>>>>> c2207e9... front-example
-=======
-    "fs": "0.0.1-security",
-    "material-ui": "^1.0.0-beta.41",
->>>>>>> cc8e932... Authentifications at first come to page
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.20.1",
     "postcss-cssnext": "^3.1.0",
