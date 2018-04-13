@@ -9,11 +9,9 @@ const defaultState = {
 export default function(state = defaultState, action) {
   switch (action.type) {
     case `${AUTH_ACTIONS.LOGIN}_FULFILLED`:
-    console.log('received action', action.payload);
       return handleLogin(state, action.payload);
 
     case AUTH_ACTIONS.LOGIN:
-    console.log('received action', action.payload);
       return handleLogin(state, action.payload);
     case AUTH_ACTIONS.LOGOUT:
       return handleLogout(state);
@@ -31,7 +29,6 @@ export default function(state = defaultState, action) {
 
 function handleLogin(state, loginData) {
 
-  console.log('received action', loginData)
   return {
     ...state,
     user: loginData.Data,

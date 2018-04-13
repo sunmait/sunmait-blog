@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
@@ -28,7 +29,8 @@ class Header extends React.Component {
       login: '',
       password: '',
       openDialog: false,
-      openMenu: false
+      openMenu: false,
+      referrer: null,
     };
   }
 
@@ -56,7 +58,8 @@ class Header extends React.Component {
       login: '',
       password: '',
       auth: false,
-    });
+      referrer: '/home'
+    });    
   }
 
   handleClickLogin = (event) => {
@@ -85,14 +88,13 @@ class Header extends React.Component {
 
   handleRequestClose = () => {
     this.setState({
-      open:false,
+      open: false,
     });
   };
 
   render = () => {
-    console.log(this.props.user);
-    let path = null;
-    if(this.props.user) {path = this.props.user.PhotoUrl;}
+    const {referrer} = this.state;
+    if (referrer) return <Redirect to={referrer} />;
     return (
       <header>
         <Link to="/home">
@@ -112,17 +114,16 @@ class Header extends React.Component {
                   float: 'right',
                 }}
               />
-                    <Popover            
+                    <Popover
                       open={this.state.openMenu}
                       onClose={this.handleCloseMenu}
                       anchorEl={this.state.anchorEl}
-                      style={{float: 'right',}}
                       anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
                       targetOrigin={{"horizontal":"middle","vertical":"top"}}
                     >
-                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={this.handleClose}>My posts</MenuItem>
-                      <MenuItem onClick={this.handleClose}>Add posts</MenuItem>
+                      <Link to="/profile"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
+                      <Link to="/myposts"><MenuItem onClick={this.handleClose}>My posts</MenuItem></Link>
+                      <Link to="/addpost"><MenuItem onClick={this.handleClose}>Add posts</MenuItem></Link>
                       <MenuItem onClick={this.logout}>Log Out</MenuItem>
                     </Popover>
                 </div>

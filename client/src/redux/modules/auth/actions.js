@@ -18,8 +18,6 @@ export function login(Login, Password) {
         localStorage.setItem('AccessToken', AccessToken);
         localStorage.setItem('RefreshToken', RefreshToken);
         localStorage.setItem('User', User);
-        console.log('before dispatch');
-        console.log(res);
 
         dispatch({
           type: AUTH_CONSTANTS.LOGIN,
@@ -34,18 +32,15 @@ export function login(Login, Password) {
 }
 
 export const verifyCredentials = () => (dispatch) => {
-  console.log('step 1');
   const accessToken = localStorage.getItem('AccessToken');
   const refreshToken = localStorage.getItem('RefreshToken');
   const currentUser = JSON.parse(localStorage.getItem('User'));
 
-  console.log('step 2');
   if (accessToken && refreshToken && currentUser) {
       const payload = axiosRequest.patch('/api/auth/verify-credentials', {
         accessToken,
         refreshToken,
       }).then((res)=>{  
-        console.log('res', res);
         localStorage.setItem('AccessToken', res.data.AccessToken);
         localStorage.setItem('RefreshToken', res.data.RefreshToken);
         localStorage.setItem('User', JSON.stringify(res.data.Data));
