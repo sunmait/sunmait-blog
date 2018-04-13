@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../../../assets/styles/HomePage.less';
-import Header from 'components/common/header/index.jsx';
+import Header from 'components/common/header/Header.jsx';
 import Post from 'components/common/post/index.jsx';
 import Footer from 'components/common/footer/index.jsx';
 

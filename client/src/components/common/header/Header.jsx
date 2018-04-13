@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Login } from 'redux/modules/auth/actions';
 import Typography from 'material-ui/Typography';
 import Popover from 'material-ui/Popover';
+import Fade from 'material-ui/transitions/Fade';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import Dialog, {
@@ -27,8 +28,7 @@ class Header extends React.Component {
       login: '',
       password: '',
       openDialog: false,
-      openMenu: false,
-      anchor: null
+      openMenu: false
     };
   }
 
@@ -70,15 +70,22 @@ class Header extends React.Component {
   };
 
   handleClickMenu = (event) => {
+    event.preventDefault();
     this.setState({
       openMenu: true,
+      anchorEl: event.currentTarget,
     })
   }
 
   handleCloseMenu = (e) => {
     this.setState({
       openMenu: false,
-      anchor: e.target
+    });
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      open:false,
     });
   };
 
@@ -100,26 +107,18 @@ class Header extends React.Component {
                 aria-label="add" 
                 onClick={this.handleClickMenu} 
                 style={{
-                  marginLeft: '20px',
-                  marginRight: '50px',
-                  marginTop: '5px',
+                  marginRight: '150px',
+                  marginTop: '10px',
                   float: 'right',
                 }}
               />
-                <div className="menupop">
-                    <Popover
+                    <Popover            
                       open={this.state.openMenu}
                       onClose={this.handleCloseMenu}
-                      anchorEl={this.state.anchor}
-                      anchorReference= 'anchorEI'
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left'
-                      }}
-                      anchorPosition={{
-                        top: 200,
-                        left: 50990
-                      }}
+                      anchorEl={this.state.anchorEl}
+                      style={{float: 'right',}}
+                      anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
+                      targetOrigin={{"horizontal":"middle","vertical":"top"}}
                     >
                       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                       <MenuItem onClick={this.handleClose}>My posts</MenuItem>
@@ -127,7 +126,6 @@ class Header extends React.Component {
                       <MenuItem onClick={this.logout}>Log Out</MenuItem>
                     </Popover>
                 </div>
-              </div>
               : 
               <div>
                 <Button
@@ -136,8 +134,8 @@ class Header extends React.Component {
                 onClick={() => this.handleClickLogin()}
                 style={{
                   marginLeft: '20px',
-                  marginRight: '50px',
-                  marginTop: '20px',
+                  marginRight: '140px',
+                  marginTop: '15px',
                   border: '0',
                   boxShadow: '0',
                   width: '100px',
