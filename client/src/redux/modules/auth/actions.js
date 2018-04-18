@@ -7,7 +7,8 @@ import { logout as logOut } from '../../../components/helpers/authRequest';
 
 const axiosRequest = axios;
 
-export function login(Email, Password) {
+
+export function login(Login, Password) {
   return (dispatch) => {
     return axiosRequest.post('/api/auth', { Login, Password })
       .then((res) => {
@@ -17,8 +18,6 @@ export function login(Email, Password) {
         localStorage.setItem('AccessToken', AccessToken);
         localStorage.setItem('RefreshToken', RefreshToken);
         localStorage.setItem('User', User);
-        console.log('before dispatch');
-        console.log(res);
 
         dispatch({
           type: AUTH_CONSTANTS.LOGIN,
@@ -30,9 +29,9 @@ export function login(Email, Password) {
         throw err;
       });
   };
-};
+}
 
-export const verifyCredentials = () => (dispatch) => {  
+export const verifyCredentials = () => (dispatch) => {
   const accessToken = localStorage.getItem('AccessToken');
   const refreshToken = localStorage.getItem('RefreshToken');
   const currentUser = JSON.parse(localStorage.getItem('User'));
@@ -52,7 +51,7 @@ export const verifyCredentials = () => (dispatch) => {
         type: AUTH_CONSTANTS.LOGIN,
         payload,
       });
-}
+  }
 };
 
 export const logout = (refreshToken) => (dispatch) => {

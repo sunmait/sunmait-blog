@@ -5,6 +5,7 @@ import history from 'components/containers/history';
 
 const axiosRequest = axios;
 
+
 export function getPosts() {
   return (dispatch) => {
     return axiosRequest
@@ -21,20 +22,3 @@ export function getPosts() {
       });
   };
 }
-
-export function addPost(title, description) {
-  return (dispatch) => {
-    return axiosRequest
-      .post('/api/posts', { title, description })
-      .then((res) => {
-        dispatch({
-          type: POSTS_CONSTANTS.ADD_POST,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-        throw err;
-      });
-  };
-};

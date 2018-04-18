@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../../../assets/styles/AddPostPage.less';
-import Header from 'components/common/header/index.jsx';
+import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
@@ -30,9 +30,7 @@ class AddPostPage extends React.Component {
   render() {
     return (
       <div className="main">
-        <Header
-          auth={this.state.auth}
-        />
+        <Header />
         <div className="content">
           <div className="AddPage">
             <h2 className="desc">

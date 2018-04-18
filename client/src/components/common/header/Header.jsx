@@ -30,7 +30,7 @@ class Header extends React.Component {
       password: '',
       openDialog: false,
       openMenu: false,
-      referrer: null,
+      // referrer: null,
     };
   }
 
@@ -53,13 +53,15 @@ class Header extends React.Component {
   }
 
   logout = () => {
-    this.props.logout();
+    const refToken = localStorage.getItem('RefreshToken');
+    // console.log(refToken);
+    this.props.logout(refToken);
     this.setState({
       login: '',
       password: '',
       auth: false,
-      referrer: '/home'
-    });    
+      // referrer: '/home'
+    });
   }
 
   handleClickLogin = (event) => {
@@ -82,13 +84,7 @@ class Header extends React.Component {
 
   handleCloseMenu = (e) => {
     this.setState({
-      openMenu: true,
-    })
-  }
-
-  handleRequestClose = () => {
-    this.setState({
-      open:false,
+      openMenu: false,
     });
   };
 
@@ -100,14 +96,14 @@ class Header extends React.Component {
 
   render = () => {
     const {referrer} = this.state;
-    if (referrer) return <Redirect to={referrer} />;
+    // if (referrer) return <Redirect to={referrer} />;
     return (
       <header>
         <Link to="/home">
           <div className="logo"/>
         </Link>
             {
-              this.props.user ?  
+              this.props.user ? 
               <div>
               <Button 
                 variant="fab" 
@@ -129,8 +125,12 @@ class Header extends React.Component {
                     >
                       <Link to="/profile"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
                       <Link to="/myposts"><MenuItem onClick={this.handleClose}>My posts</MenuItem></Link>
-                      <Link to="/addpost"><MenuItem onClick={this.handleClose}>Add posts</MenuItem></Link>
-                      <MenuItem onClick={this.logout}>Log Out</MenuItem>
+                      <Link to="/addpost"><MenuItem onClick={this.handleClose}>Add post</MenuItem></Link>
+                      <MenuItem onClick={this.logout}>
+                        <Link to="/home">
+                          Log Out
+                        </Link>
+                      </MenuItem>
                     </Popover>
                 </div>
               : 

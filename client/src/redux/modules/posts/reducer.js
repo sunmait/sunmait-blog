@@ -9,8 +9,6 @@ export default function(
   switch (type) {
     case POSTS_ACTIONS.GET_POSTS:
       return handlePosts(state, payload);
-    case POSTS_ACTIONS.ADD_POST:
-      return handleAdd(state, payload);
     default:
       return state;
   }
@@ -23,8 +21,3 @@ function handlePosts(state, posts) {
     }
   );
 }
-
-function addPost(state, newPost) {
-  return { ...state, posts: [newPost, ...state.posts] };
-}
-

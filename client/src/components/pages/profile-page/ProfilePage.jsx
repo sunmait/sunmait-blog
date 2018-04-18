@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../../../assets/styles/ProfilePage.less';
-import Header from 'components/common/header/index.jsx';
+import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
 import Footer from 'components/common/footer/index.jsx';
 import Button from 'material-ui/Button';
@@ -64,10 +64,7 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div className="main">
-        <Header
-          auth={this.state.auth}
-          login={this.state.user.login}
-        />
+        <Header />
         <div className="content">
           <div className="ProfilePage">
             <h2 className="title">

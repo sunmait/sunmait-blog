@@ -19,9 +19,7 @@ class MyPostsPage extends React.Component {
   render() {
     return (
       <div className="main">
-        <Header
-          auth={this.state.auth}
-        />
+        <Header />
         <div className="content">
           <div>
             <div className="button-plus">
