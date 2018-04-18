@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Header from 'components/common/header/index.jsx';
+import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';

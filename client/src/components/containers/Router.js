@@ -10,8 +10,17 @@ import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 
-const AppComponent = (props) => {
+// const AppComponent = (props) => {
+class AppComponent extends React.Component{
+  constructor(props){
+    super(props);
+  }
 
+  componentDidMount(){
+    this.props.verifyCredentials();
+  }
+
+ render(){
   return (
     <Router history={history}>
       <div className="app-container">
@@ -48,13 +57,13 @@ const AppComponent = (props) => {
       </div>
     </Router>
   );
+}
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
 
 const mapDispatchToProps = (dispatch) =>
-  redux.bindActionCreators({}, dispatch);
+  redux.bindActionCreators({
+    verifyCredentials
+  }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
