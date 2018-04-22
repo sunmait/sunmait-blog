@@ -7,7 +7,7 @@ import Post from '../post/index.jsx';
 import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
-import { getPosts } from 'redux/modules/posts/actions.js';
+import { getPosts, deletePost } from 'redux/modules/posts/actions.js';
 
 class Posts extends React.Component {
 
@@ -15,12 +15,13 @@ class Posts extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentWillMount(){
     this.props.getPosts();
   }
 
   render() {
     const posts = this.props.posts.posts;
+    console.log('In postContainer ', posts);
     if (posts) {
       return (
         <div>
@@ -28,15 +29,17 @@ class Posts extends React.Component {
             posts.reverse().map(
               (post) => (
                 <div>
-                      <Post
-                        description={post.Description}
-                        key={post.id}
-                        title={post.Title}
-                        author={post.UserId}
-                        dateCreated={post.CreatedAt}
-                        dateUpdated={post.UpdatedAt}
-                        edit={this.props.edit}
-                      />
+                  <Post
+                    description={post.Description}
+                    key={post.id}
+                    title={post.Title}
+                    author={post.UserId}
+                    dateCreated={post.CreatedAt}
+                    dateUpdated={post.UpdatedAt}
+                    postId={post.id}
+                    edit={this.props.edit}
+                    deletePost={() => this.props.deletePost()}                  
+                  />
                 </div>
               )
             )

@@ -9,9 +9,9 @@ import ProfilePage from '../pages/profile-page/index.jsx';
 import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
-import { verifyCredentials } from '../../redux/modules/auth/actions.js';
+import { verifyCredentials, getPosts } from '../../redux/modules/auth/actions.js';
+import PrivateRoute from './custom-routes/PrivateRoute.jsx';
 
-// const AppComponent = (props) => {
 class AppComponent extends React.Component{
   constructor(props){
     super(props);
@@ -21,7 +21,7 @@ class AppComponent extends React.Component{
     this.props.verifyCredentials();
   }
 
- render(){
+  render(){
   return (
     <Router history={history}>
       <div className="app-container">
@@ -42,9 +42,16 @@ class AppComponent extends React.Component{
               path='/myposts'
               component={MyPostsPage}
             />
-            <Route
+            <PrivateRoute
               exact
               path='/addpost'
+              auth={this.props.auth}
+              component={AddPostPage}
+            />
+            <PrivateRoute
+              exact
+              path='/addpost/:postId'
+              auth={this.props.auth}
               component={AddPostPage}
             />
             <Route
@@ -61,10 +68,14 @@ class AppComponent extends React.Component{
 }
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.user
+});
 
 const mapDispatchToProps = (dispatch) =>
   redux.bindActionCreators({
-    verifyCredentials
+    verifyCredentials,
+    getPosts
   }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AppComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

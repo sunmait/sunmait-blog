@@ -13,7 +13,7 @@ export class UserService implements IUserService {
   }
 
   public async getUser(id: number): Promise<UserEntity> {
-    const user = await this._userRepository.findById(id);
+    const user = await this._userRepository.find({where: { id }});
     const information = {
       FirstName: user.FirstName,
       LastName: user.LastName,

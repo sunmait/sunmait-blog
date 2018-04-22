@@ -30,7 +30,7 @@ class Header extends React.Component {
       password: '',
       openDialog: false,
       openMenu: false,
-      // referrer: null,
+      referrer: null,
     };
   }
 
@@ -43,7 +43,6 @@ class Header extends React.Component {
   login = () => {
     try{
       this.props.login(this.state.login, this.state.password);
-      console.log(this.props);
       this.setState({
         openDialog: false,
       })
@@ -54,13 +53,12 @@ class Header extends React.Component {
 
   logout = () => {
     const refToken = localStorage.getItem('RefreshToken');
-    // console.log(refToken);
     this.props.logout(refToken);
     this.setState({
       login: '',
       password: '',
       auth: false,
-      // referrer: '/home'
+      referrer: '/home'
     });
   }
 
@@ -96,7 +94,7 @@ class Header extends React.Component {
 
   render = () => {
     const {referrer} = this.state;
-    // if (referrer) return <Redirect to={referrer} />;
+    if (referrer) return <Redirect to={referrer} />;
     return (
       <header>
         <Link to="/home">
@@ -104,18 +102,21 @@ class Header extends React.Component {
         </Link>
             {
               this.props.user ? 
-              <div>
-              <Button 
-                variant="fab" 
-                color="primary" 
-                aria-label="add" 
-                onClick={this.handleClickMenu} 
-                style={{
-                  marginRight: '150px',
-                  marginTop: '10px',
-                  float: 'right',
-                }}
-              />
+              <div>                              
+                <div 
+                  onClick={this.handleClickMenu}
+                  style={{
+                    marginRight: '150px',
+                    marginTop: '10px',
+                    float: 'right',
+                    display: 'inline-flex',
+                  }} > 
+                  <Typography type="title" className="header-bar-username" style={{font: 'Marker Felt'}}>
+                    {`${this.props.user.FirstName} ${this.props.user.LastName}`}
+                  </Typography>                            
+                  <Avatar 
+                    alt="Username" src={this.props.user.PhotoUrl} />
+                </div>
                     <Popover
                       open={this.state.openMenu}
                       onClose={this.handleCloseMenu}
@@ -132,7 +133,7 @@ class Header extends React.Component {
                         </Link>
                       </MenuItem>
                     </Popover>
-                </div>
+              </div>
               : 
               <div>
                 <Button
