@@ -42,11 +42,9 @@ export function addPost(Title, Description) {
 }
 
 export function updatePost(Title, Description, idPost) {
-  console.log(Title, Description, idPost);
   return (dispatch) => {
     return axiosRequest.patch(`/api/posts`, {idPost, Description, Title})
     .then((res) => {
-      console.log('res', res);
       dispatch({
         type: POSTS_CONSTANTS.UPDATE_POST,
         payload: res.data,
@@ -63,7 +61,6 @@ export function deletePost(idPost) {
   return (dispatch) => {
     return axiosRequest.delete(`/api/posts/${idPost}`, idPost)
     .then((res) => {
-      console.log('res in delete ', res)
       dispatch({
         type: POSTS_CONSTANTS.DELETE_POST,
         payload: res.data,

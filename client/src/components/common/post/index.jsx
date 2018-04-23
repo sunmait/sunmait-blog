@@ -32,8 +32,12 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
+    let text = myMarkdown(this.props.description);
+    if(text.length > 200){
+      text = text.slice(0, 200);
+    }
     document.getElementById(this.props.title).innerHTML = 
-      myMarkdown(this.props.description);
+      text + '...';
   }
 
   render() {
@@ -78,13 +82,13 @@ class Post extends React.Component {
                 </div>
               </Typography>
               <Typography color="textSecondary" className="article-author">
-                  <p>
+                  <br /><p>
                     Author:
                   <Link to="/profile">
                      TODO: GET request to get data about user
                   </Link>  
                   </p>
-                  <p>Created: {createdDate}</p>
+                  <p>Created: {createdDate}</p><br />
               </Typography>            
               <section className="article-description">
                 <div>
