@@ -34,7 +34,7 @@ class AppComponent extends React.Component{
             />
             <Route
               exact
-              path='/profile'
+              path='/profile/:userId'
               component={ProfilePage}
             />
             <Route
@@ -49,7 +49,7 @@ class AppComponent extends React.Component{
             />
             <Route
               exact
-              path='/post'
+              path='/post/:postId'
               component={PostPage}
             />
             <Redirect from="/" exact to="/home" />

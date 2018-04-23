@@ -22,27 +22,71 @@ class Posts extends React.Component {
   render() {
     const posts = this.props.posts.posts;
     if (posts) {
-      return (
-        <div>
-          {
-            posts.reverse().map(
-              (post) => (
-                <div>
-                      <Post
+      if (this.props.edit) {
+        return (//Rendering on myPosts
+          <div>
+            {
+              posts.reverse().map(
+                (post) => (
+                  <div>
+                    <Post
                         description={post.Description}
                         key={post.id}
                         title={post.Title}
                         author={post.UserId}
                         dateCreated={post.CreatedAt}
                         dateUpdated={post.UpdatedAt}
-                        edit={this.props.edit}
+                        edit={true}
                       />
-                </div>
+                  </div>
+                )
               )
-            )
-          }
-        </div>
-      );
+            }
+          </div>
+        );
+      } else if (this.props.postpage) {
+        return (//Rendering on postpage
+          <div>
+            {
+              posts.reverse().map(
+                (post) => (
+                  <div>
+                    <Post
+                        description={post.Description}
+                        key={post.id}
+                        title={post.Title}
+                        author={post.UserId}
+                        dateCreated={post.CreatedAt}
+                        dateUpdated={post.UpdatedAt}
+                      />
+                  </div>
+                )
+              )
+            }
+          </div>
+        );
+      } else {
+        return (//Rendering on homepage
+          <div>
+            {
+              posts.reverse().map(
+                (post) => (
+                  <div>
+                    <Post
+                        description={post.Description}
+                        key={post.id}
+                        title={post.Title}
+                        author={post.UserId}
+                        dateCreated={post.CreatedAt}
+                        dateUpdated={post.UpdatedAt}
+                      />
+                  </div>
+                )
+              )
+            }
+          </div>
+        );
+      }
     } else {
       return (
         <div />
@@ -52,7 +96,7 @@ class Posts extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  posts: state.posts,
+  posts: state.posts
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

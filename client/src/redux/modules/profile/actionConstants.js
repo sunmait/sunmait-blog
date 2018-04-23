@@ -1,0 +1,7 @@
+let USER_ACTIONS = {
+  GET_USER : 'GET_USER',
+  CHANGE : 'CHANGE',
+  CHANGE_PASSWORD : 'CHANGE_PASSWORD',
+}
+
+export default USER_ACTIONS;
