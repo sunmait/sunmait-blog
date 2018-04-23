@@ -18,12 +18,10 @@ export default function( state = defaultState, action) {
 }
 
 function handleDeletePost(state, payload){
-  console.log('payload', payload)
   return Object.assign({}, state, payload);
 }
 
 function handleUpdatedPosts(state, post) {
-  console.log('post in reducer', post);
   return {...state, post};
 }
 

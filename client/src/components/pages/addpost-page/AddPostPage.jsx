@@ -97,7 +97,7 @@ class AddPostPage extends React.Component {
               <CardActions className="button">
               {this.state.updated ?
                 (<Typography variant="display3" gutterBottom>
-                  Updated
+                  Updated<br />
                 </Typography>)
               : null
               }

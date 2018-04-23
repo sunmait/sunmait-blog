@@ -19,7 +19,6 @@ class MyPostsPage extends React.Component {
   }
 
   render() {
-    console.log('In Mypostspage',this.props.posts.posts);
     return (
       <div className="main">
         <Header />
