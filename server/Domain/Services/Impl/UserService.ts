@@ -14,11 +14,11 @@ export class UserService implements IUserService {
 
   public async getUsers(): Promise<UserEntity[]> {
     const users = await this._userRepository.findAll({});
-    const information = users.map(function(user) {
+    const information = users.map(user => {
       const userEntity = {
         id: user.id,
-        FirstName: user.FirstName
-      }
+        FirstName: user.FirstName,
+      };
       return userEntity;
     });
     return information as UserEntity[];
