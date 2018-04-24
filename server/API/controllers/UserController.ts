@@ -27,6 +27,16 @@ export class UserController implements interfaces.Controller {
   }
 
   /**
+   * Get users
+   */
+  @httpGet('/')
+  private async gets(
+    @response() res: express.Response,
+  ): Promise<void> {
+    res.json(await this._userService.getUsers());
+  }
+
+  /**
    * Get information about user
    */
   @httpGet('/:id')

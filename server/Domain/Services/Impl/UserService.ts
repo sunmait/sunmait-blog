@@ -12,6 +12,18 @@ export class UserService implements IUserService {
     this._userRepository = userRepository;
   }
 
+  public async getUsers(): Promise<UserEntity[]> {
+    const users = await this._userRepository.findAll({});
+    const information = users.map(function(user) {
+      const userEntity = {
+        id: user.id,
+        FirstName: user.FirstName
+      }
+      return userEntity;
+    });
+    return information as UserEntity[];
+  }
+
   public async getUser(id: number): Promise<UserEntity> {
     const user = await this._userRepository.find({where: { id }});
     const information = {

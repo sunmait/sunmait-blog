@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import { connect } from 'react-redux';
+import * as redux from 'redux';
 
 class Post extends React.Component {
 
@@ -29,25 +31,25 @@ class Post extends React.Component {
             <CardContent>
               <Typography color="textSecondary">
                 <div className="article-title">
-                  <Link to="/post">
+                  <Link to={`/post/:${this.props.postId}`}>
                     {this.props.title}
                   </Link>
                 </div>
-                  {
-                    this.props.edit ?
-                      <Link to="/addpost">
-                        <div className="edit" />
+                {
+                this.props.isEditable ?
+                  <Link to="/addpost">
+                    <div className="edit" />
+                  </Link>
+                :
+                  <div className="article-author">
+                    <p>
+                      Author:
+                      <Link to={`/profile/:${this.props.author}`}>
+                        {this.props.users[this.props.author]}
                       </Link>
-                    :
-                    <div className="article-author">
-                      <p>
-                        Author:
-                        <Link to="/profile">
-                          {this.props.author}
-                        </Link>
-                      </p>
-                    </div>
-                  }
+                    </p>
+                  </div>
+                }
               </Typography>
               <Typography color="textSecondary">
                 <div className="article-header">
@@ -67,7 +69,7 @@ class Post extends React.Component {
               </section>
             </CardContent>
             <CardActions className="more-button">
-              <Link to="/post">
+              <Link to={`/post/:${this.props.postId}`}>
                 <Button size="small">
                   Learn More...
                 </Button>
@@ -92,9 +94,16 @@ Post.defaultProps = {
   dateUpdated: 'none',
   dateCreated: 'none',
   description: 'Default description',
-  author: 'none',
   title: 'Default title',
-  // edit: false
 };
 
-export default Post;
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+  profile: state.profile.profile,
+  users: state.profile.usersById,
+});
+
+const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

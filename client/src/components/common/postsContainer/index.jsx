@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import { getPosts } from 'redux/modules/posts/actions.js';
+import { getUser } from 'redux/modules/profile/actions.js';
 
 class Posts extends React.Component {
 
@@ -22,8 +23,8 @@ class Posts extends React.Component {
   render() {
     const posts = this.props.posts.posts;
     if (posts) {
-      if (this.props.edit) {
-        return (//Rendering on myPosts
+      if (this.props.isEditable) {
+        return (
           <div>
             {
               posts.reverse().map(
@@ -32,32 +33,12 @@ class Posts extends React.Component {
                     <Post
                         description={post.Description}
                         key={post.id}
+                        postId={post.id}
                         title={post.Title}
                         author={post.UserId}
                         dateCreated={post.CreatedAt}
                         dateUpdated={post.UpdatedAt}
-                        edit={true}
-                      />
-                  </div>
-                )
-              )
-            }
-          </div>
-        );
-      } else if (this.props.postpage) {
-        return (//Rendering on postpage
-          <div>
-            {
-              posts.reverse().map(
-                (post) => (
-                  <div>
-                    <Post
-                        description={post.Description}
-                        key={post.id}
-                        title={post.Title}
-                        author={post.UserId}
-                        dateCreated={post.CreatedAt}
-                        dateUpdated={post.UpdatedAt}
+                        isEditable={true}
                       />
                   </div>
                 )
@@ -66,7 +47,7 @@ class Posts extends React.Component {
           </div>
         );
       } else {
-        return (//Rendering on homepage
+        return (
           <div>
             {
               posts.reverse().map(
@@ -75,6 +56,7 @@ class Posts extends React.Component {
                     <Post
                         description={post.Description}
                         key={post.id}
+                        postId={post.id}
                         title={post.Title}
                         author={post.UserId}
                         dateCreated={post.CreatedAt}
@@ -96,11 +78,13 @@ class Posts extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  posts: state.posts
+  posts: state.posts,
+  profile: state.profile.profile,
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  getPosts
+  getPosts,
+  getUser,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

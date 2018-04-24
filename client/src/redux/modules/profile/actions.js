@@ -5,6 +5,23 @@ import history from 'components/containers/history';
 
 const axiosRequest = axios;
 
+export function getUsers() {
+  return (dispatch) => {
+    return axiosRequest
+      .get(`/api/users`)
+      .then((res) => {
+        dispatch({
+          type: USER_CONSTANTS.GET_USERS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  };
+}
+
 export function getUser(userId) {
   return (dispatch) => {
     return axiosRequest
