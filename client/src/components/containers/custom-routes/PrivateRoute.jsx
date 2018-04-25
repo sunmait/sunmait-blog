@@ -3,6 +3,7 @@ import { Route, RouteProps, Redirect } from 'react-router-dom';
 
 
 const PrivateRoute = (props) => {
+  console.log('In PrivateRoute', props);
   const { component: Component, auth, ...rest } = props;
 
   return (
@@ -10,10 +11,10 @@ const PrivateRoute = (props) => {
       {...rest}
       render={
         routeProps => {
-          if (!auth.user) {
+          if (auth.user) {
             return <Component {...routeProps} />;
           }
-          return <Redirect to="/main" />;
+          return <Redirect to="/home" />;
         }
       }
     />

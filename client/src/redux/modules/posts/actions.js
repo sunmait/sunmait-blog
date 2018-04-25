@@ -22,3 +22,56 @@ export function getPosts() {
       });
   };
 }
+
+export function addPost(Title, Description) {
+  const UserId = JSON.parse(localStorage.getItem('User')).id;
+  return (dispatch) => {
+    return axiosRequest
+      .post('/api/posts', {Title, Description, UserId})
+      .then((res) => {
+        dispatch({
+          type: POSTS_CONSTANTS.ADD_POST,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+}
+
+export function updatePost(Title, Description, idPost) {
+  console.log(Title, Description, idPost);
+  return (dispatch) => {
+    return axiosRequest.patch(`/api/posts`, {idPost, Description, Title})
+    .then((res) => {
+      console.log('res', res);
+      dispatch({
+        type: POSTS_CONSTANTS.UPDATE_POST,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
+  }
+}
+
+export function deletePost(idPost) {
+  return (dispatch) => {
+    return axiosRequest.delete(`/api/posts/${idPost}`, idPost)
+    .then((res) => {
+      console.log('res in delete ', res)
+      dispatch({
+        type: POSTS_CONSTANTS.DELETE_POST,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
+  }
+}

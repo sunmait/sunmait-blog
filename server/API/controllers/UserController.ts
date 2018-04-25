@@ -4,8 +4,8 @@ import {
   interfaces,
   response,
   requestParam,
-  httpGet,
   httpPost,
+  httpGet,
   httpPatch,
   requestBody,
 } from 'inversify-express-utils';

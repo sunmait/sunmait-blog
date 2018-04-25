@@ -21,7 +21,7 @@ export default function(state = defaultState, action) {
       return handleAccessTokenExpired(state, action.payload);
 
     case AUTH_ACTIONS.REFRESH_TOKEN_EXPIRED:
-      return handleAccessTokenExpired(state, payload);
+      return handleAccessTokenExpired(state, action.payload);
 
     default:
       return state;
