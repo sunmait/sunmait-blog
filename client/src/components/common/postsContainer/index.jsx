@@ -7,8 +7,7 @@ import Post from '../post/index.jsx';
 import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
-import { getPosts } from 'redux/modules/posts/actions.js';
-import { getUser } from 'redux/modules/profile/actions.js';
+import { getPosts, deletePost } from 'redux/modules/posts/actions.js';
 
 class Posts extends React.Component {
 
@@ -16,12 +15,13 @@ class Posts extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentWillMount(){
     this.props.getPosts();
   }
 
   render() {
     const posts = this.props.posts.posts;
+    console.log('In postContainer ', posts);
     if (posts) {
       if (this.props.isEditable) {
         return (
@@ -39,6 +39,7 @@ class Posts extends React.Component {
                         dateCreated={post.CreatedAt}
                         dateUpdated={post.UpdatedAt}
                         isEditable={true}
+                        deletePost={() => this.props.deletePost()}  
                       />
                   </div>
                 )

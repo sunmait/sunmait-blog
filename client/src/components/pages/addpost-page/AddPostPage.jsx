@@ -116,10 +116,10 @@ class AddPostPage extends React.Component {
                   onClick={() => this.handleAddPost(this.state.title, this.state.description)}
                 >
                 Public article
-                </Button>)
-              }
+                </Button>)              
+              }            
               </div> 
-              </ CardActions>
+              </ CardActions>                 
             </Card>         
           </div>      
         </div>        

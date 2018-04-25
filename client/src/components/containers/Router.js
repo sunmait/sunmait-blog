@@ -11,6 +11,7 @@ import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import { verifyCredentials } from '../../redux/modules/auth/actions.js';
 import { getUser, getUsers } from 'redux/modules/profile/actions.js';
+import PrivateRoute from './custom-routes/PrivateRoute.jsx';
 
 class AppComponent extends React.Component{
   constructor(props){
@@ -22,7 +23,7 @@ class AppComponent extends React.Component{
     this.props.getUsers();
   }
 
- render(){
+  render(){
   return (
     <Router history={history}>
       <div className="app-container">
@@ -43,9 +44,16 @@ class AppComponent extends React.Component{
               path='/myposts'
               component={MyPostsPage}
             />
-            <Route
+            <PrivateRoute
               exact
               path='/addpost'
+              auth={this.props.auth}
+              component={AddPostPage}
+            />
+            <PrivateRoute
+              exact
+              path='/addpost/:postId'
+              auth={this.props.auth}
               component={AddPostPage}
             />
             <Route
@@ -69,4 +77,4 @@ const mapDispatchToProps = (dispatch) =>
     getUsers,
   }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AppComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

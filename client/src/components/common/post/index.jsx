@@ -1,19 +1,45 @@
 import * as React from 'react';
 import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card';
+import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
+import DeleteIcon from 'material-ui-icons/Delete';
+import { deletePost } from 'redux/modules/posts/actions.js';
+import Edit from 'material-ui-icons/Edit';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
+
+const myMarkdown = require('marked');
 
 class Post extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      referrer: null
+    }
+  }
+
+  handleDeletePost(e) {
+    this.props.deletePost(this.props.postId);
+    this.setState({
+      referrer: '/home'
+    });
+  }
+
+  componentDidMount() {
+    document.getElementById(this.props.title).innerHTML = 
+      myMarkdown(this.props.description);
   }
 
   render() {
+    const { referrer } = this.state;
+    if (referrer) return <Redirect to={referrer} />;
+
     const createdDate = this.props.dateCreated.substring(0, 4) + " " +
     this.props.dateCreated.substring(5, 7) + " " +
     this.props.dateCreated.substring(8, 10) + " " +
@@ -23,50 +49,51 @@ class Post extends React.Component {
     this.props.dateUpdated.substring(5, 7) + " " +
     this.props.dateUpdated.substring(8, 10) + " " +
     this.props.dateUpdated.substring(11, 19);
+    const postId = '/addPost/:' + this.props.postId;
 
     return (
       <div className="article-container" key={this.props.key}>
         <div className="article">
-          <Card>
-            <CardContent>
+        <Card>
+          <CardContent>
               <Typography color="textSecondary">
                 <div className="article-title">
                   <Link to={`/post/:${this.props.postId}`}>
                     {this.props.title}
-                  </Link>
-                </div>
-                {
-                this.props.isEditable ?
-                  <Link to="/addpost">
-                    <div className="edit" />
-                  </Link>
-                :
-                  <div className="article-author">
-                    <p>
-                      Author:
-                      <Link to={`/profile/:${this.props.author}`}>
-                        {this.props.users[this.props.author]}
+                  </Link>                
+                  {
+                    this.props.edit ?
+                      (<div className="edit-buttons">
+                      <Link to={postId} >
+                      <IconButton mini>
+                        <Edit />
+                      </IconButton>
                       </Link>
-                    </p>
-                  </div>
-                }
-              </Typography>
-              <Typography color="textSecondary">
-                <div className="article-header">
-                  <p>
-                    Our marks
-                  </p>
+                      <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
+                        <DeleteIcon />
+                      </IconButton>
+                      </div>)
+                    : null                    
+                  }
                 </div>
               </Typography>
-              <section className="blog-post">
+              <Typography color="textSecondary" className="article-author">
+                  <p>
+                    Author:
+                  <Link to="/profile">
+                     TODO: GET request to get data about user
+                  </Link>  
+                  </p>
+                  <p>Created: {createdDate}</p>
+              </Typography>            
+              <section className="article-description">
                 <div>
-                  <Typography color="textSecondary">
-                    <div className="paragraph">
-                        {this.props.description}
+                  <Typography color="textSecondary">                    
+                    <br /><div id={this.props.title}>                    
                     </div>
                   </Typography>
                 </div>
-              </section>
+              </section>             
             </CardContent>
             <CardActions className="more-button">
               <Link to={`/post/:${this.props.postId}`}>
@@ -74,15 +101,7 @@ class Post extends React.Component {
                   Learn More...
                 </Button>
               </Link>
-            </CardActions>
-            <div className="article-dates">
-              <div className="article-date">
-                Created: {createdDate}
-              </div>
-              <div className="article-date">
-                Last updated: {updatedDate}
-              </div>
-            </div>
+            </CardActions>            
           </Card>
         </div>
       </div>
@@ -94,16 +113,15 @@ Post.defaultProps = {
   dateUpdated: 'none',
   dateCreated: 'none',
   description: 'Default description',
-  title: 'Default title',
+  title: 'Default title'
+  // edit: false
 };
 
-const mapStateToProps = (state) => ({
-  posts: state.posts,
-  profile: state.profile.profile,
-  users: state.profile.usersById,
-});
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
+  deletePost
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(null, mapDispatchToProps)(Post); 
+
+//export default Post;
