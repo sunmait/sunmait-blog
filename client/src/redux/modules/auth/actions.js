@@ -1,7 +1,6 @@
 import AUTH_CONSTANTS from './actionConstants';
 import { Dispatch } from 'redux/store';
 import * as axios from 'axios';
-import { IRegisteredUser, ILogin } from './reducer';
 import history from 'components/containers/history';
 import { logout as logOut } from '../../../components/helpers/authRequest';
 
@@ -40,7 +39,7 @@ export const verifyCredentials = () => (dispatch) => {
       const payload = axiosRequest.patch('/api/auth/verify-credentials', {
         accessToken,
         refreshToken,
-      }).then((res)=>{  
+      }).then((res)=>{
         localStorage.setItem('AccessToken', res.data.AccessToken);
         localStorage.setItem('RefreshToken', res.data.RefreshToken);
         localStorage.setItem('User', JSON.stringify(res.data.Data));

@@ -10,15 +10,16 @@ import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import { verifyCredentials } from '../../redux/modules/auth/actions.js';
+import { getUser, getUsers } from 'redux/modules/profile/actions.js';
 
-// const AppComponent = (props) => {
 class AppComponent extends React.Component{
   constructor(props){
     super(props);
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.verifyCredentials();
+    this.props.getUsers();
   }
 
  render(){
@@ -34,7 +35,7 @@ class AppComponent extends React.Component{
             />
             <Route
               exact
-              path='/profile'
+              path='/profile/:userId'
               component={ProfilePage}
             />
             <Route
@@ -49,7 +50,7 @@ class AppComponent extends React.Component{
             />
             <Route
               exact
-              path='/post'
+              path='/post/:postId'
               component={PostPage}
             />
             <Redirect from="/" exact to="/home" />
@@ -61,10 +62,11 @@ class AppComponent extends React.Component{
 }
 };
 
-
 const mapDispatchToProps = (dispatch) =>
   redux.bindActionCreators({
-    verifyCredentials
+    verifyCredentials,
+    getUser,
+    getUsers,
   }, dispatch);
 
 export default connect(null, mapDispatchToProps)(AppComponent);

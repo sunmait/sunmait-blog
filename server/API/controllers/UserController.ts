@@ -4,6 +4,7 @@ import {
   interfaces,
   response,
   requestParam,
+  httpGet,
   httpPost,
   httpPatch,
   requestBody,
@@ -26,11 +27,21 @@ export class UserController implements interfaces.Controller {
   }
 
   /**
+   * Get users
+   */
+  @httpGet('/')
+  private async gets(
+    @response() res: express.Response,
+  ): Promise<void> {
+    res.json(await this._userService.getUsers());
+  }
+
+  /**
    * Get information about user
    */
-  @httpPost('/')
+  @httpGet('/:id')
   private async get(
-    @requestBody('id') id: number,
+    @requestParam('id') id: number,
     @response() res: express.Response,
   ): Promise<void> {
     res.json(await this._userService.getUser(id));

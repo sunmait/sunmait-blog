@@ -12,8 +12,15 @@ class PostPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: false,
+      postId: null,
     };
+  }
+
+  componentWillMount() {
+    const postId = +this.props.location.pathname.split(':')[1];
+    this.setState({
+      postId: postId,
+    });
   }
 
   render() {
@@ -22,7 +29,58 @@ class PostPage extends React.Component {
         <Header />
         <div className="content">
           <div>
-            <Post />
+            {
+              this.props.posts.posts.reverse().map(
+                (post) => {
+                  if (this.props.user) {
+                    if (post.id === this.state.postId && post.UserId === this.props.user.id) {
+                      return (
+                        <div>
+                          <Post
+                              description={post.Description}
+                              key={post.id}
+                              postId={post.id}
+                              title={post.Title}
+                              author={post.UserId}
+                              dateCreated={post.CreatedAt}
+                              dateUpdated={post.UpdatedAt}
+                              isEditable={true}
+                            />
+                        </div>
+                      );
+                    } else if (post.id === this.state.postId && post.UserId !== this.props.user.id) {
+                      return (
+                        <div>
+                          <Post
+                              description={post.Description}
+                              key={post.id}
+                              postId={post.id}
+                              title={post.Title}
+                              author={post.UserId}
+                              dateCreated={post.CreatedAt}
+                              dateUpdated={post.UpdatedAt}
+                            />
+                        </div>
+                      );
+                    }
+                  } else if (post.id === this.state.postId) {
+                    return (
+                      <div>
+                        <Post
+                            description={post.Description}
+                            key={post.id}
+                            postId={post.id}
+                            title={post.Title}
+                            author={post.UserId}
+                            dateCreated={post.CreatedAt}
+                            dateUpdated={post.UpdatedAt}
+                          />
+                      </div>
+                    );
+                  }
+                }
+              )
+            }
           </div>
         </div>
         <Footer />
