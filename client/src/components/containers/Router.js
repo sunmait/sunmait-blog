@@ -60,6 +60,7 @@ class AppComponent extends React.Component{
             <Route
               exact
               path='/post'
+              history={this.props.history}
               component={PostPage}
             />
             <Redirect from="/" exact to="/home" />
