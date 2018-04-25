@@ -16,12 +16,14 @@ class Posts extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getPosts();
+    this.props.getPosts()
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render() {
     const posts = this.props.posts.posts;
-    console.log('In postContainer ', posts);
     if (posts) {
       if (this.props.isEditable) {
         return (
