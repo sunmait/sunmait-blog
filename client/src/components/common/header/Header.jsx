@@ -119,7 +119,7 @@ class Header extends React.Component {
               anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
               targetOrigin={{"horizontal":"middle","vertical":"top"}}
             >
-              <Link to="/profile"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
+              <Link to={`/profile/:${this.props.user.id}`}><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
               <Link to="/myposts"><MenuItem onClick={this.handleClose}>My posts</MenuItem></Link>
               <Link to="/addpost"><MenuItem onClick={this.handleClose}>Add post</MenuItem></Link>
               <MenuItem onClick={this.logout}>

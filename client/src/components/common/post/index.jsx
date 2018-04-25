@@ -35,29 +35,34 @@ class Post extends React.Component {
   }
 
   renderIcons = (postId) => {
-    if( this.props.edit ) {
-      return (
-        <div className="edit-buttons">
-        <Link to={postId} >
-        <IconButton mini>
-          <Edit />
-        </IconButton>
-        </Link>
-        <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
-          <DeleteIcon />
-        </IconButton>
-        </div>
-      )
-    }  
+    if (this.props.user) {
+      if( this.props.isEditable || this.props.user.id === this.props.author) {
+        return (
+          <div className="edit-buttons">
+          <Link to={postId} >
+          <IconButton mini>
+            <Edit />
+          </IconButton>
+          </Link>
+          <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
+            <DeleteIcon />
+          </IconButton>
+          </div>
+        )
+      }
+    }
   }
 
   componentDidMount() {
     let text = myMarkdown(this.props.description);
-    if(text.length > 200){
-      text = text.slice(0, 200);
+    let multidote = '';
+    if (!this.props.full) {
+      if (text.length > 200) {
+        text = text.slice(0, 200);
+      }
+      multidote = '...';
     }
-    document.getElementById(this.props.title).innerHTML = 
-      text + '...';
+    document.getElementById(this.props.title).innerHTML = text + multidote;
   }
 
   render() {
@@ -85,15 +90,27 @@ class Post extends React.Component {
                   {this.renderIcons(postId)}
                 </div>
               </Typography>
-              <Typography color="textSecondary" className="article-author">
-                  <br /><p>
-                    Author:
-                  <Link to="/profile">
-                     TODO: GET request to get data about user
-                  </Link>  
-                  </p>
-                  <p>Created: {createdDate}</p><br />
-              </Typography>            
+              
+                <Typography color="textSecondary" className="article-author">
+                {
+                  !this.props.isEditable ? 
+                    <p>
+                      Author:
+                      <Link to={`/profile/:${this.props.author}`}>
+                        {this.props.users[this.props.author]}
+                      </Link>
+                    </p>
+                  :
+                    <p>
+                      Author:
+                      <Link to={`/profile/:${this.props.author}`}>
+                        {this.props.users[this.props.author]}
+                      </Link>
+                      <p>Updated: {updatedDate}</p>
+                    </p>
+                  }
+                    <p>Created: {createdDate}</p><br />
+                </Typography>
               <section className="article-description">
                 <div>
                   <Typography color="textSecondary">                    
@@ -104,11 +121,15 @@ class Post extends React.Component {
               </section>             
             </CardContent>
             <CardActions className="more-button">
-              <Link to={`/post/:${this.props.postId}`}>
-                <Button size="small">
-                  Learn More...
-                </Button>
-              </Link>
+              {
+                !this.props.full ?
+                <Link to={`/post/:${this.props.postId}`}>
+                  <Button size="small">
+                    Learn More...
+                  </Button>
+                </Link>
+              : null
+              }
             </CardActions>            
           </Card>
         </div>
@@ -124,9 +145,15 @@ Post.defaultProps = {
   title: 'Default title'
 };
 
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+  profile: state.profile.profile,
+  users: state.profile.usersById,
+  user: state.user.user,
+});
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   deletePost
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Post); 
+export default connect(mapStateToProps, mapDispatchToProps)(Post); 

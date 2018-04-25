@@ -62,6 +62,7 @@ class AppComponent extends React.Component{
             <Route
               exact
               path='/post/:postId'
+              history={this.props.history}
               component={PostPage}
             />
             <Redirect from="/" exact to="/home" />
@@ -72,6 +73,10 @@ class AppComponent extends React.Component{
   );
 }
 };
+
+const mapStateToProps = (state) => ({
+  auth: state.user,
+});
 
 const mapDispatchToProps = (dispatch) =>
   redux.bindActionCreators({

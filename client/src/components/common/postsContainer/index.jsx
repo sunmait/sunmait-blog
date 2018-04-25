@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import { getPosts, deletePost } from 'redux/modules/posts/actions.js';
+import { getUser } from 'redux/modules/profile/actions.js';
 
 class Posts extends React.Component {
 

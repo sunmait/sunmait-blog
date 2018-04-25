@@ -44,6 +44,7 @@ class PostPage extends React.Component {
                               author={post.UserId}
                               dateCreated={post.CreatedAt}
                               dateUpdated={post.UpdatedAt}
+                              full={true}
                               isEditable={true}
                             />
                         </div>
@@ -57,6 +58,7 @@ class PostPage extends React.Component {
                               postId={post.id}
                               title={post.Title}
                               author={post.UserId}
+                              full={true}
                               dateCreated={post.CreatedAt}
                               dateUpdated={post.UpdatedAt}
                             />
@@ -72,6 +74,7 @@ class PostPage extends React.Component {
                             postId={post.id}
                             title={post.Title}
                             author={post.UserId}
+                            full={true}
                             dateCreated={post.CreatedAt}
                             dateUpdated={post.UpdatedAt}
                           />
