@@ -13,13 +13,20 @@ class AddPostPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      title: null,
-      description: null,
-      refferer: null,
-      error: null,
-      updated: false
-    };
+    let idPost = this.props.location.pathname.split(':')[1];
+    if(idPost){     
+      this.state ={
+        title: this.props.posts.posts.filter(post => post.id == idPost)[0].Title || null,
+        description: this.props.posts.posts.filter(post => post.id == idPost)[0].Description || null,
+        error: null,
+      }
+    } else {
+      this.state = {
+        title: null,
+        description: null,
+        error: null,
+      };
+    } 
   }
 
   handleInputChange = (event) => {
@@ -29,18 +36,28 @@ class AddPostPage extends React.Component {
   }
 
   handleAddPost(title, description) {
-    this.props.addPost(title, description);
-    this.setState({
-      referrer: '/home'
-    });
+    this.props.addPost(title, description)
+      .then((res) => {
+        this.props.history.push('/home');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
   }
 
   handleUpdatePost(title, description, idPost) {
     if(this.state.title && this.state.description){
-      this.props.updatePost(title, description, idPost);
-      this.setState({
-        updated: true
-      });
+      this.props.updatePost(title, description, idPost)
+        .then((res) => {
+          this.props.history.push('/home');
+          this.setState({
+            error: false
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        }); 
     } else {
       this.setState({
         error: true
@@ -48,20 +65,31 @@ class AddPostPage extends React.Component {
     }
   }
 
+  renderButton = (idPost) => {
+    if( idPost ) {
+      return (<Button
+        variant="raised"
+        color="primary"
+        onClick={() => this.handleUpdatePost(this.state.title, this.state.description, idPost)}
+      >
+      Update article
+      </Button>)
+    } else {
+      return (<Button
+        variant="raised"
+        color="primary"
+        onClick={() => this.handleAddPost(this.state.title, this.state.description)}
+      >
+      Public article
+      </Button>) 
+    }
+  }
+
   render() {
-    const {referrer} = this.state;
     let idPost = null;
+    idPost = this.props.location.pathname.split(':')[1];
     let defaulValueTitle = 'Input title of your post.';
     let defaulValueDescription = 'Input description of your post.';
-    if (referrer) return <Redirect to={referrer} />;
-    if(this.props.posts.posts){
-      idPost = this.props.location.pathname.split(':')[1];
-      const filterPost = this.props.posts.posts.filter(post => post.id == idPost);
-      if(filterPost[0]){
-        defaulValueTitle = filterPost[0].Title;
-        defaulValueDescription = filterPost[0].Description;
-      }
-    }
     return (
       <div className="main">
         <Header />
@@ -78,7 +106,8 @@ class AddPostPage extends React.Component {
                 name="title"
                 className="field"
                 onChange={this.handleInputChange}
-                defaultValue={defaulValueTitle}
+                placeholder={defaulValueTitle}
+                value={this.state.title}
               />
               <h2 className="desc">
                 Description:
@@ -91,33 +120,13 @@ class AddPostPage extends React.Component {
                 name="description"
                 className="field"
                 onChange={this.handleInputChange}
-                defaultValue={defaulValueDescription}
+                placeholder={defaulValueDescription}
+                value={this.state.description}
               />
               </CardContent >
               <CardActions className="button">
-              {this.state.updated ?
-                (<Typography variant="display3" gutterBottom>
-                  Updated<br />
-                </Typography>)
-              : null
-              }
               <div >
-              {idPost ?
-                (<Button
-                  variant="raised"
-                  color="primary"
-                  onClick={() => this.handleUpdatePost(this.state.title, this.state.description, idPost)}
-                >
-                Update article
-                </Button>)
-                :(<Button
-                  variant="raised"
-                  color="primary"
-                  onClick={() => this.handleAddPost(this.state.title, this.state.description)}
-                >
-                Public article
-                </Button>)              
-              }            
+              {this.renderButton(idPost)}            
               </div> 
               </ CardActions>                 
             </Card>         

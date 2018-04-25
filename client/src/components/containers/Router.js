@@ -40,23 +40,26 @@ class AppComponent extends React.Component{
             <Route
               exact
               path='/myposts'
-              component={MyPostsPage}
+              component={MyPostsPage}              
             />
             <PrivateRoute
               exact
               path='/addpost'
               auth={this.props.auth}
+              history={this.props.history}
               component={AddPostPage}
             />
             <PrivateRoute
               exact
               path='/addpost/:postId'
               auth={this.props.auth}
+              history={this.props.history}
               component={AddPostPage}
             />
             <Route
               exact
               path='/post'
+              history={this.props.history}
               component={PostPage}
             />
             <Redirect from="/" exact to="/home" />

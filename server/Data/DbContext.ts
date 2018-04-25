@@ -59,6 +59,11 @@ export class DbContext {
       port: settings.port,
       modelPaths: [__dirname + '/Entities'],
       operatorsAliases,
+      define: {
+        charset: 'utf8mb4',
+        underscored: true,
+        underscoredAll: true,
+      },
     });
   }
 
