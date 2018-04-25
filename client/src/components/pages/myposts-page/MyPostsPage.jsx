@@ -15,7 +15,33 @@ class MyPostsPage extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getPosts();
+    this.props.getPosts()
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  renderPost = () => {
+    if( this.props.posts.posts ) {
+      return this.props.posts.posts.reverse().filter((post) => post.UserId === this.props.user.user.id).map(
+        (post) => (
+          <div>
+            <Post
+              description={post.Description}
+              key={post.id}
+              title={post.Title}
+              author={post.UserId}
+              dateCreated={post.CreatedAt}
+              dateUpdated={post.UpdatedAt}
+              edit={this.props.user}
+              postId={post.id}
+              fromPost={true}
+              history={this.props.history}
+            />
+          </div>
+        )
+      )
+    }
   }
 
   render() {
@@ -32,26 +58,7 @@ class MyPostsPage extends React.Component {
                 </Button>
               </Link>
             </div>
-           {this.props.posts.posts ?
-            this.props.posts.posts.reverse().filter((post) => post.UserId === this.props.user.user.id).map(
-              (post) => (
-                <div>
-                  <Post
-                    description={post.Description}
-                    key={post.id}
-                    title={post.Title}
-                    author={post.UserId}
-                    dateCreated={post.CreatedAt}
-                    dateUpdated={post.UpdatedAt}
-                    edit={this.props.user}
-                    postId={post.id}
-                    fromPost={true}
-                  />
-                </div>
-              )
-            )
-            : null
-            }
+           {this.renderPost()}
           </div>
         </div>
         <Footer />

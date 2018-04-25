@@ -25,10 +25,30 @@ class Post extends React.Component {
   }
 
   handleDeletePost(e) {
-    this.props.deletePost(this.props.postId);
-    this.setState({
-      referrer: '/home'
-    });
+    this.props.deletePost(this.props.postId)
+      .then((res) => {
+          this.props.history.push('/home');
+      })
+      .catch((err) => {
+        console.log(err);
+      });    
+  }
+
+  renderIcons = (postId) => {
+    if( this.props.edit ) {
+      return (
+        <div className="edit-buttons">
+        <Link to={postId} >
+        <IconButton mini>
+          <Edit />
+        </IconButton>
+        </Link>
+        <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
+          <DeleteIcon />
+        </IconButton>
+        </div>
+      )
+    }  
   }
 
   componentDidMount() {
@@ -41,9 +61,6 @@ class Post extends React.Component {
   }
 
   render() {
-    const { referrer } = this.state;
-    if (referrer) return <Redirect to={referrer} />;
-
     const createdDate = this.props.dateCreated.substring(0, 4) + " " +
     this.props.dateCreated.substring(5, 7) + " " +
     this.props.dateCreated.substring(8, 10) + " " +
@@ -65,20 +82,7 @@ class Post extends React.Component {
                   <Link to="/post">
                     {this.props.title}
                   </Link>                
-                  {
-                    this.props.edit ?
-                      (<div className="edit-buttons">
-                      <Link to={postId} >
-                      <IconButton mini>
-                        <Edit />
-                      </IconButton>
-                      </Link>
-                      <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
-                        <DeleteIcon />
-                      </IconButton>
-                      </div>)
-                    : null                    
-                  }
+                  {this.renderIcons(postId)}
                 </div>
               </Typography>
               <Typography color="textSecondary" className="article-author">
@@ -93,8 +97,8 @@ class Post extends React.Component {
               <section className="article-description">
                 <div>
                   <Typography color="textSecondary">                    
-                    <br /><div id={this.props.title}>                    
-                    </div>
+                    <br />
+                    <div id={this.props.title}/>     
                   </Typography>
                 </div>
               </section>             
@@ -119,7 +123,6 @@ Post.defaultProps = {
   description: 'Default description',
   author: 'none',
   title: 'Default title'
-  // edit: false
 };
 
 
@@ -128,5 +131,3 @@ const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Post); 
-
-//export default Post;
