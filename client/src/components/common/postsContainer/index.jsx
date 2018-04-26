@@ -43,8 +43,8 @@ class Posts extends React.Component {
                       dateCreated={post.CreatedAt}
                       dateUpdated={post.UpdatedAt}
                       isEditable={true}
-                      deletePost={() => this.props.deletePost()}  
-                      />
+                      deletePost={() => this.props.deletePost()}
+                    />
                   </div>
                 )
               )
@@ -66,7 +66,7 @@ class Posts extends React.Component {
                       author={post.UserId}
                       dateCreated={post.CreatedAt}
                       dateUpdated={post.UpdatedAt}
-                      />
+                    />
                   </div>
                 )
               )

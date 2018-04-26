@@ -72,35 +72,19 @@ class ProfilePage extends React.Component {
       if (this.props.user && (this.props.user.id === this.props.profile.id)) {
         return (
           <div className="main">
-              <Header />
-              <div className="content">
-                <div className="ProfilePage">
-                  <div className="form">
+            <Header />
+            <div className="content">
+              <div className="ProfilePage">
+                <div className="form">
                   <div className="avatar-container">
                     <Avatar 
                       alt="Username"
                       src={this.props.user.PhotoUrl}
-                      style={
-                        {
-                          width: '60px',
-                          height: '60px',
-                          display: 'inline-block',
-                        }
-                      }
+                      className="avatar"
                     />
                     <Typography
                       type="title"
                       className="bar-username"
-                      style={
-                        {
-                          font: 'Marker Felt',
-                          fontSize: '20px',
-                          display: 'inline-block',
-                          marginBottom: '50px',
-                          verticalAlign: 'middle',
-                          marginLeft: '10px',
-                          }
-                        }
                     >
                       { `${this.props.user.FirstName} ${this.props.user.LastName}` }
                     </Typography>
@@ -108,7 +92,7 @@ class ProfilePage extends React.Component {
                   <div>
                     <div className="container">
                       {
-                        (this.state.newname.length >= 2) ?
+                        this.state.newname.length >= 2 ?
                           <TextField
                             label="Name"
                             name="newname"
@@ -134,7 +118,7 @@ class ProfilePage extends React.Component {
                   <div>
                     <div className="container">
                       {
-                        (this.state.newsecondName.length >= 2) ?
+                        this.state.newsecondName.length >= 2 ?
                         <TextField
                           label="Second name"
                           name="newsecondName"
@@ -144,7 +128,7 @@ class ProfilePage extends React.Component {
                           onChange={this.handleInputChange}
                           margin="normal"
                         />
-                            :
+                        :
                           <TextField
                             error
                             label="Second name"
@@ -162,7 +146,7 @@ class ProfilePage extends React.Component {
                   <div>
                     <div className="container">
                       {
-                        (this.state.newlogin.length >= 5) ?
+                        this.state.newlogin.length >= 5 ?
                           <TextField
                             label="Login"
                             name="newlogin"
@@ -172,18 +156,18 @@ class ProfilePage extends React.Component {
                             onChange={this.handleInputChange}
                             margin="normal"
                           />
-                            :
-                            <TextField
-                              error
-                              label="Login"
-                              name="newlogin"
-                              className="field"
-                              helperText="min length: 5 symbols"
-                              defaultValue={this.props.profile.Login}
-                              value={this.state.newlogin}
-                              onChange={this.handleInputChange}
-                              margin="normal"
-                            />
+                        :
+                          <TextField
+                            error
+                            label="Login"
+                            name="newlogin"
+                            className="field"
+                            helperText="min length: 5 symbols"
+                            defaultValue={this.props.profile.Login}
+                            value={this.state.newlogin}
+                            onChange={this.handleInputChange}
+                            margin="normal"
+                          />
                         }
                     </div>
                   </div>
@@ -210,91 +194,35 @@ class ProfilePage extends React.Component {
                           </Button>
                         </Link>
                     }
-                    {/* <Link to="/home">
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        size="small"
-                        onClick={() => this.handleSubmitChanges()}
-                      >
-                        Save changes
-                      </Button>
-                    </Link> */}
-                  </div>
-                  {/* <TextField
-                      label="Enter password..."
-                      type="password"
-                      name="password"
-                      margin="normal"
-                      value={this.state.password}
-                      onChange={this.handleInputChange}
-                    />
-                  <div className="pass-container">
-                    <TextField
-                      label="New password..."
-                      type="password"
-                      name="newpassword"
-                      className="field"
-                      margin="normal"
-                      value={this.state.newpassword}
-                      onChange={this.handleInputChange}
-                    />
-                    <div className="button">
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        size="small"
-                        onClick={() => this.handlePasswordChange()}
-                      >
-                        Change
-                      </Button>
-                    </div>
-                  </div> */}
                   </div>
                 </div>
               </div>
-              <Footer />
+            </div>
+            <Footer />
           </div>
         );
       } else if (!this.props.user || this.props.profile) {
           return (
             <div className="main">
-                <Header />
-                <div className="content">
-                  <div className="ProfilePage">
-
+              <Header />
+              <div className="content">
+                <div className="ProfilePage">
                   <div className="avatar-container">
                     <Avatar 
                       alt="Username"
                       src={this.props.profile.PhotoUrl}
-                      style={
-                        {
-                          width: '60px',
-                          height: '60px',
-                          display: 'inline-block',
-                        }
-                      }
+                      className="avatar"
                     />
                     <Typography
                       type="title"
                       className="bar-username"
-                      style={
-                        {
-                          font: 'Marker Felt',
-                          fontSize: '20px',
-                          display: 'inline-block',
-                          marginBottom: '50px',
-                          verticalAlign: 'middle',
-                          marginLeft: '10px',
-                          }
-                        }
                     >
                       { `${this.props.profile.FirstName} ${this.props.profile.LastName}` }
                     </Typography>
                   </div>
-                  </div>
                 </div>
-                <Footer />
+              </div>
+              <Footer />
             </div>
           );
       } else {

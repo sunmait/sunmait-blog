@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../assets/styles/HomePage.less';
+import 'assets/styles/HomePage.less';
 import Header from 'components/common/header/Header.jsx';
 import Posts from 'components/common/postsContainer/index.jsx';
 import Footer from 'components/common/footer/index.jsx';

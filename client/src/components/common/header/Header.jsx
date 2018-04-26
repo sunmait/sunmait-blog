@@ -103,81 +103,107 @@ class Header extends React.Component {
   };
 
   renderLoginOrLogout = () => {
-    if( this.props.user ) { 
-      return ( <div>                              
-        <div onClick={this.handleClickMenu} className="user"> 
-          <Typography type="title" className="header-bar-username" style={{font: 'Marker Felt'}}>
-            {`${this.props.user.FirstName} ${this.props.user.LastName}`}
-          </Typography>                            
-          <Avatar 
-            alt="Username" src={this.props.user.PhotoUrl} />
-        </div>
-            <Popover
-              open={this.state.openMenu}
-              onClose={this.handleCloseMenu}
-              anchorEl={this.state.anchorEl}
-              anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
-              targetOrigin={{"horizontal":"middle","vertical":"top"}}
+    if( this.props.user ) {
+      return (
+        <div>
+          <div
+            onClick={this.handleClickMenu}
+            className="user"
+          >
+            <Typography
+              type="title"
+              className="header-bar-username"
             >
-              <Link to={`/profile/:${this.props.user.id}`}><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
-              <Link to="/myposts"><MenuItem onClick={this.handleClose}>My posts</MenuItem></Link>
-              <Link to="/addpost"><MenuItem onClick={this.handleClose}>Add post</MenuItem></Link>
-              <MenuItem onClick={this.logout}>
-                <Link to="/home">
-                  Log Out
-                </Link>
+              {`${this.props.user.FirstName} ${this.props.user.LastName}`}
+            </Typography>
+            <Avatar
+              alt="Username"
+              src={this.props.user.PhotoUrl}
+            />
+          </div>
+          <Popover
+            open={this.state.openMenu}
+            onClose={this.handleCloseMenu}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
+            targetOrigin={{"horizontal":"middle","vertical":"top"}}
+          >
+            <Link to={`/profile/:${this.props.user.id}`}>
+              <MenuItem onClick={this.handleClose}>
+                Profile
               </MenuItem>
-            </Popover>
-      </div>)
+            </Link>
+            <Link to="/myposts">
+              <MenuItem onClick={this.handleClose}>
+                My posts
+              </MenuItem>
+            </Link>
+            <Link to="/addpost">
+              <MenuItem onClick={this.handleClose}>
+                Add post
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={this.logout}>
+              <Link to="/home">
+                Log Out
+              </Link>
+            </MenuItem>
+          </Popover>
+        </div>
+      )
     } else {
-      return (<div>
-        <Button
-        variant="raised"
-        color="primary"
-        onClick={() => this.handleClickLogin()}
-        className="login-button"             
-        >
-          LogIn
-        </Button>            
-        <Dialog
-          open={this.state.openDialog}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="form-dialog-title">Enter email and password</DialogTitle>
-          <DialogContent>
-          <TextField
-            label="Enter login..."
-            name="login"
-            margin="normal"
-            color="white"
-            value={this.state.login}
-            onChange={this.handleInputChange}
-          />
-          </DialogContent>
-          <DialogContent>
-          <TextField
-            label="Enter password..."
-            type="password"
-            name="password"
-            margin="normal"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-          />
-          </DialogContent>
-          <DialogActions>
+      return (
+        <div>
           <Button
             variant="raised"
             color="primary"
-            onClick={() => this.login()}  
-            className="login-button-popup"               
+            onClick={() => this.handleClickLogin()}
+            className="login-button"
           >
             LogIn
           </Button>
-          </DialogActions>
-        </Dialog>
-      </div>)
+          <Dialog
+            open={this.state.openDialog}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="form-dialog-title">
+              Enter email and password
+            </DialogTitle>
+            <DialogContent>
+              <TextField
+                label="Enter login..."
+                name="login"
+                margin="normal"
+                color="white"
+                value={this.state.login}
+                onChange={this.handleInputChange}
+              />
+            </DialogContent>
+            <DialogContent>
+              <TextField
+                label="Enter password..."
+                type="password"
+                name="password"
+                margin="normal"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                variant="raised"
+                color="primary"
+                onClick={() => this.login()}  
+                className="login-button-popup"
+              >
+                LogIn
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      )
     }
   }
 
@@ -189,7 +215,7 @@ class Header extends React.Component {
         <Link to="/home">
           <div className="logo"/>
         </Link>
-            { this.renderLoginOrLogout() }
+        { this.renderLoginOrLogout() }
       </header>
     );
   };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../assets/styles/AddPostPage.less';
+import 'assets/styles/AddPostPage.less';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
@@ -85,7 +85,7 @@ class AddPostPage extends React.Component {
         >
           Public article
         </Button>
-      ) 
+      )
     }
   }
 
@@ -128,15 +128,15 @@ class AddPostPage extends React.Component {
                   placeholder={defaulValueDescription}
                   value={this.state.description}
                 />
-              </CardContent >
+              </CardContent>
               <CardActions className="button">
                 <div >
-                  {this.renderButton(idPost)}            
+                  { this.renderButton(idPost) }
                 </div> 
-              </ CardActions>                 
-            </Card>         
-          </div>      
-        </div>        
+              </CardActions>
+            </Card>
+          </div>
+        </div>
         <Footer />
       </div>
     );

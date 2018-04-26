@@ -1,4 +1,5 @@
 import * as React from 'react';
+import 'assets/styles/Footer.less';
 
 const Footer = (props) => {
   return (

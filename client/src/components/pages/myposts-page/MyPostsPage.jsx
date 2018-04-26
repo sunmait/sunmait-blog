@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../../../assets/styles/HomePage.less';
 import '../../../assets/styles/MyPostsPage.less';
 import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
@@ -58,7 +57,7 @@ class MyPostsPage extends React.Component {
                 </Button>
               </Link>
             </div>
-           {this.renderPost()}
+            { this.renderPost() }
           </div>
         </div>
         <Footer />

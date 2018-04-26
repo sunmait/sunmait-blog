@@ -1,4 +1,5 @@
 import * as React from 'react';
+import 'assets/styles/Post.less';
 import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
 import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card';
@@ -31,7 +32,7 @@ class Post extends React.Component {
       })
       .catch((err) => {
         console.log(err);
-      });    
+      });
   }
 
   renderIcons = (postId) => {
@@ -39,14 +40,18 @@ class Post extends React.Component {
       if( this.props.isEditable || this.props.user.id === this.props.author) {
         return (
           <div className="edit-buttons">
-          <Link to={postId} >
-          <IconButton mini>
-            <Edit />
-          </IconButton>
-          </Link>
-          <IconButton  aria-label="delete" className="delete" onClick={() => this.handleDeletePost()}>
-            <DeleteIcon />
-          </IconButton>
+            <Link to={postId} >
+              <IconButton mini>
+                <Edit />
+              </IconButton>
+            </Link>
+            <IconButton
+              aria-label="delete"
+              className="delete"
+              onClick={() => this.handleDeletePost()}
+            >
+              <DeleteIcon />
+            </IconButton>
           </div>
         )
       }
@@ -90,14 +95,14 @@ class Post extends React.Component {
 
   componentDidMount() {
     let text = myMarkdown(this.props.description);
-    let multidote = '';
+    let multidot = '';
     if (!this.props.full) {
       if (text.length > 200) {
         text = text.slice(0, 200);
       }
-      multidote = '...';
+      multidot = '...';
     }
-    document.getElementById(this.props.title).innerHTML = text + multidote;
+    document.getElementById(this.props.title).innerHTML = text + multidot;
   }
 
   render() {
@@ -114,13 +119,13 @@ class Post extends React.Component {
     return (
       <div className="article-container" key={this.props.key}>
         <div className="article">
-        <Card>
-          <CardContent>
+          <Card>
+            <CardContent>
               <Typography color="textSecondary">
                 <div className="article-title">
                   <Link to={`/post/:${this.props.postId}`}>
                     {this.props.title}
-                  </Link>                
+                  </Link>
                   {this.renderIcons(postId)}
                 </div>
               </Typography>
@@ -131,16 +136,16 @@ class Post extends React.Component {
                 </Typography>
               <section className="article-description">
                 <div>
-                  <Typography color="textSecondary">                    
+                  <Typography color="textSecondary">
                     <br />
-                    <div id={this.props.title}/>     
+                    <div id={this.props.title}/>
                   </Typography>
                 </div>
-              </section>             
+              </section>
             </CardContent>
             <CardActions className="more-button">
               { this.renderLearnMore()}
-            </CardActions>            
+            </CardActions>
           </Card>
         </div>
       </div>
