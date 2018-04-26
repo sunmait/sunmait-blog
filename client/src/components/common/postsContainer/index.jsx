@@ -23,6 +23,7 @@ class Posts extends React.Component {
       })
   }
 
+
   render() {
     const posts = this.props.posts.posts;
     if (posts) {
@@ -34,15 +35,15 @@ class Posts extends React.Component {
                 (post) => (
                   <div>
                     <Post
-                        description={post.Description}
-                        key={post.id}
-                        postId={post.id}
-                        title={post.Title}
-                        author={post.UserId}
-                        dateCreated={post.CreatedAt}
-                        dateUpdated={post.UpdatedAt}
-                        isEditable={true}
-                        deletePost={() => this.props.deletePost()}  
+                      description={post.Description}
+                      key={post.id}
+                      postId={post.id}
+                      title={post.Title}
+                      author={post.UserId}
+                      dateCreated={post.CreatedAt}
+                      dateUpdated={post.UpdatedAt}
+                      isEditable={true}
+                      deletePost={() => this.props.deletePost()}  
                       />
                   </div>
                 )
@@ -58,13 +59,13 @@ class Posts extends React.Component {
                 (post) => (
                   <div>
                     <Post
-                        description={post.Description}
-                        key={post.id}
-                        postId={post.id}
-                        title={post.Title}
-                        author={post.UserId}
-                        dateCreated={post.CreatedAt}
-                        dateUpdated={post.UpdatedAt}
+                      description={post.Description}
+                      key={post.id}
+                      postId={post.id}
+                      title={post.Title}
+                      author={post.UserId}
+                      dateCreated={post.CreatedAt}
+                      dateUpdated={post.UpdatedAt}
                       />
                   </div>
                 )

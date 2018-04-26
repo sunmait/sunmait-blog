@@ -6,6 +6,7 @@ import { addPost, updatePost } from 'redux/modules/posts/actions.js';
 const mapStateToProps = (state) => ({
   posts: state.posts
 });
+
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   addPost,
   updatePost

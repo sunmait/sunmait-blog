@@ -67,29 +67,34 @@ class AddPostPage extends React.Component {
 
   renderButton = (idPost) => {
     if( idPost ) {
-      return (<Button
-        variant="raised"
-        color="primary"
-        onClick={() => this.handleUpdatePost(this.state.title, this.state.description, idPost)}
-      >
-      Update article
-      </Button>)
+      return (
+        <Button
+          variant="raised"
+          color="primary"
+          onClick={() => this.handleUpdatePost(this.state.title, this.state.description, idPost)}
+        >
+          Update article
+        </Button>
+      )
     } else {
-      return (<Button
-        variant="raised"
-        color="primary"
-        onClick={() => this.handleAddPost(this.state.title, this.state.description)}
-      >
-      Public article
-      </Button>) 
+      return (
+        <Button
+          variant="raised"
+          color="primary"
+          onClick={() => this.handleAddPost(this.state.title, this.state.description)}
+        >
+          Public article
+        </Button>
+      ) 
     }
   }
 
-  render() {
+  render() {    
     let idPost = null;
     idPost = this.props.location.pathname.split(':')[1];
     let defaulValueTitle = 'Input title of your post.';
     let defaulValueDescription = 'Input description of your post.';
+
     return (
       <div className="main">
         <Header />
@@ -97,37 +102,37 @@ class AddPostPage extends React.Component {
           <div className="AddPage">
             <Card>
               <CardContent>
-              <h2 className="desc">
-                Title:
-              </h2>
-              <TextField
-                error = {this.state.error}
-                margin="normal"
-                name="title"
-                className="field"
-                onChange={this.handleInputChange}
-                placeholder={defaulValueTitle}
-                value={this.state.title}
-              />
-              <h2 className="desc">
-                Description:
-              </h2>
-              <TextField
-                error = {this.state.error}
-                multiline
-                rows="30"
-                margin="normal"
-                name="description"
-                className="field"
-                onChange={this.handleInputChange}
-                placeholder={defaulValueDescription}
-                value={this.state.description}
-              />
+                <h2 className="desc">
+                  Title:
+                </h2>
+                <TextField
+                  error = {this.state.error}
+                  margin="normal"
+                  name="title"
+                  className="field"
+                  onChange={this.handleInputChange}
+                  placeholder={defaulValueTitle}
+                  value={this.state.title}
+                />
+                <h2 className="desc">
+                  Description:
+                </h2>
+                <TextField
+                  error = {this.state.error}
+                  multiline
+                  rows="30"
+                  margin="normal"
+                  name="description"
+                  className="field"
+                  onChange={this.handleInputChange}
+                  placeholder={defaulValueDescription}
+                  value={this.state.description}
+                />
               </CardContent >
               <CardActions className="button">
-              <div >
-              {this.renderButton(idPost)}            
-              </div> 
+                <div >
+                  {this.renderButton(idPost)}            
+                </div> 
               </ CardActions>                 
             </Card>         
           </div>      

@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   posts: state.posts
 });
+
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   getPosts
 }, dispatch);

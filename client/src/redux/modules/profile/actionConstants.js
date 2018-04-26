@@ -1,4 +1,4 @@
-let USER_ACTIONS = {
+const USER_ACTIONS = {
   GET_USERS : 'GET_USERS',
   GET_USER : 'GET_USER',
   CHANGE : 'CHANGE',

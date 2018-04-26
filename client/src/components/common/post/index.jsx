@@ -53,6 +53,41 @@ class Post extends React.Component {
     }
   }
 
+  checkisEditable(updatedDate) {
+    if( !this.props.isEditable ){ 
+      return (
+        <p>
+          Author:
+          <Link to={`/profile/:${this.props.author}`}>
+            {this.props.users[this.props.author]}
+          </Link>
+        </p>
+      )
+    } else {
+      return (
+        <p>
+          Author:
+          <Link to={`/profile/:${this.props.author}`}>
+            {this.props.users[this.props.author]}
+          </Link>
+          <p>Updated: {updatedDate}</p>
+        </p>
+      )
+    }
+  }
+
+  renderLearnMore() {
+    if( !this.props.full ){
+      return (
+        <Link to={`/post/:${this.props.postId}`}>
+          <Button size="small">
+            Learn More...
+          </Button>
+        </Link>
+      )
+    }
+  }
+
   componentDidMount() {
     let text = myMarkdown(this.props.description);
     let multidote = '';
@@ -68,8 +103,7 @@ class Post extends React.Component {
   render() {
     const createdDate = this.props.dateCreated.substring(0, 4) + " " +
     this.props.dateCreated.substring(5, 7) + " " +
-    this.props.dateCreated.substring(8, 10) + " " +
-    this.props.dateCreated.substring(11, 19);
+    this.props.dateCreated.substring(8, 10);
 
     const updatedDate = this.props.dateUpdated.substring(0, 4) + " " +
     this.props.dateUpdated.substring(5, 7) + " " +
@@ -92,24 +126,8 @@ class Post extends React.Component {
               </Typography>
               
                 <Typography color="textSecondary" className="article-author">
-                {
-                  !this.props.isEditable ? 
-                    <p>
-                      Author:
-                      <Link to={`/profile/:${this.props.author}`}>
-                        {this.props.users[this.props.author]}
-                      </Link>
-                    </p>
-                  :
-                    <p>
-                      Author:
-                      <Link to={`/profile/:${this.props.author}`}>
-                        {this.props.users[this.props.author]}
-                      </Link>
-                      <p>Updated: {updatedDate}</p>
-                    </p>
-                  }
-                    <p>Created: {createdDate}</p><br />
+                { this.checkisEditable(updatedDate) }
+                <p>Created: {createdDate}</p><br />
                 </Typography>
               <section className="article-description">
                 <div>
@@ -121,15 +139,7 @@ class Post extends React.Component {
               </section>             
             </CardContent>
             <CardActions className="more-button">
-              {
-                !this.props.full ?
-                <Link to={`/post/:${this.props.postId}`}>
-                  <Button size="small">
-                    Learn More...
-                  </Button>
-                </Link>
-              : null
-              }
+              { this.renderLearnMore()}
             </CardActions>            
           </Card>
         </div>

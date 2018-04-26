@@ -23,67 +23,43 @@ class PostPage extends React.Component {
     });
   }
 
+  renderPost(isEditable) {
+    return this.props.posts.posts.reverse().map(
+      (post) => { 
+        if( post.id === this.state.postId ){
+          if ( this.props.user ) {
+            if ( post.UserId === this.props.user.id ) {
+              isEditable = true;                      
+            } 
+          } 
+          return (
+            <div>
+              <Post
+                description={post.Description}
+                key={post.id}
+                postId={post.id}
+                title={post.Title}
+                author={post.UserId}
+                dateCreated={post.CreatedAt}
+                dateUpdated={post.UpdatedAt}
+                full={true}
+                isEditable={isEditable}
+              />
+            </div>
+          )
+        }             
+      }
+    )       
+  }
+
   render() {
+    let isEditable = false;
     return (
       <div className="main">
         <Header />
         <div className="content">
           <div>
-            {
-              this.props.posts.posts.reverse().map(
-                (post) => {
-                  if (this.props.user) {
-                    if (post.id === this.state.postId && post.UserId === this.props.user.id) {
-                      return (
-                        <div>
-                          <Post
-                              description={post.Description}
-                              key={post.id}
-                              postId={post.id}
-                              title={post.Title}
-                              author={post.UserId}
-                              dateCreated={post.CreatedAt}
-                              dateUpdated={post.UpdatedAt}
-                              full={true}
-                              isEditable={true}
-                            />
-                        </div>
-                      );
-                    } else if (post.id === this.state.postId && post.UserId !== this.props.user.id) {
-                      return (
-                        <div>
-                          <Post
-                              description={post.Description}
-                              key={post.id}
-                              postId={post.id}
-                              title={post.Title}
-                              author={post.UserId}
-                              full={true}
-                              dateCreated={post.CreatedAt}
-                              dateUpdated={post.UpdatedAt}
-                            />
-                        </div>
-                      );
-                    }
-                  } else if (post.id === this.state.postId) {
-                    return (
-                      <div>
-                        <Post
-                            description={post.Description}
-                            key={post.id}
-                            postId={post.id}
-                            title={post.Title}
-                            author={post.UserId}
-                            full={true}
-                            dateCreated={post.CreatedAt}
-                            dateUpdated={post.UpdatedAt}
-                          />
-                      </div>
-                    );
-                  }
-                }
-              )
-            }
+            { this.renderPost() }
           </div>
         </div>
         <Footer />
