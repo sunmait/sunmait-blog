@@ -21,14 +21,13 @@ class PostPage extends React.Component {
     });
   }
 
-  renderPost(isEditable) {
+  renderPost() {
+    let isEditable = false;
     return this.props.posts.posts.reverse().map(
       (post) => {
         if( post.id === this.state.postId ) {
-          if ( this.props.user ) {
-            if ( post.UserId === this.props.user.id ) {
-              isEditable = true;
-            }
+          if ( this.props.user && post.UserId === this.props.user.id) {
+            isEditable = true;
           }
           return (
             <div>
@@ -51,7 +50,6 @@ class PostPage extends React.Component {
   }
 
   render() {
-    let isEditable = false;
     return (
       <div className="main">
         <Header />

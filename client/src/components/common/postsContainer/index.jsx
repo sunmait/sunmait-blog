@@ -23,62 +23,74 @@ class Posts extends React.Component {
       })
   }
 
+  renderEditable = (posts) => {
+    return (
+      <div>
+        {
+          posts.reverse().map(
+            (post) => (
+              <div>
+                <Post
+                  description={post.Description}
+                  key={post.id}
+                  postId={post.id}
+                  title={post.Title}
+                  author={post.UserId}
+                  dateCreated={post.CreatedAt}
+                  dateUpdated={post.UpdatedAt}
+                  isEditable={true}
+                  deletePost={() => this.props.deletePost()}
+                />
+              </div>
+            )
+          )
+        }
+      </div>
+    );
+  }
 
-  render() {
+  renderNotEditable = (posts) => {
+    return (
+      <div>
+        {
+          posts.reverse().map(
+            (post) => (
+              <div>
+                <Post
+                  description={post.Description}
+                  key={post.id}
+                  postId={post.id}
+                  title={post.Title}
+                  author={post.UserId}
+                  dateCreated={post.CreatedAt}
+                  dateUpdated={post.UpdatedAt}
+                />
+              </div>
+            )
+          )
+        }
+      </div>
+    );
+  }
+
+  renderEditableOrNot = () => {
     const posts = this.props.posts.posts;
     if (posts) {
       if (this.props.isEditable) {
-        return (
-          <div>
-            {
-              posts.reverse().map(
-                (post) => (
-                  <div>
-                    <Post
-                      description={post.Description}
-                      key={post.id}
-                      postId={post.id}
-                      title={post.Title}
-                      author={post.UserId}
-                      dateCreated={post.CreatedAt}
-                      dateUpdated={post.UpdatedAt}
-                      isEditable={true}
-                      deletePost={() => this.props.deletePost()}
-                    />
-                  </div>
-                )
-              )
-            }
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            {
-              posts.reverse().map(
-                (post) => (
-                  <div>
-                    <Post
-                      description={post.Description}
-                      key={post.id}
-                      postId={post.id}
-                      title={post.Title}
-                      author={post.UserId}
-                      dateCreated={post.CreatedAt}
-                      dateUpdated={post.UpdatedAt}
-                    />
-                  </div>
-                )
-              )
-            }
-          </div>
-        );
-      }
+        return this.renderEditable(posts);
+    } else {
+      return this.renderNotEditable(posts);
+    }
     } else {
       return (
         <div />
       );
     }
+  }
+
+
+  render() {
+    return this.renderEditableOrNot();
   }
 };
 

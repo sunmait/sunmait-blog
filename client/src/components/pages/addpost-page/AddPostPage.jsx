@@ -13,11 +13,12 @@ class AddPostPage extends React.Component {
 
   constructor(props) {
     super(props);
-    let idPost = this.props.location.pathname.split(':')[1];
-    if(idPost){     
-      this.state ={
-        title: this.props.posts.posts.filter(post => post.id == idPost)[0].Title || null,
-        description: this.props.posts.posts.filter(post => post.id == idPost)[0].Description || null,
+    let idPost = +this.props.location.pathname.split(':')[1];
+    if ( idPost ) {
+      const editablePost = this.props.posts.posts.find((post) => post.id === idPost);
+      this.state = {
+        title: editablePost.Title || null,
+        description: editablePost.Description || null,
         error: null,
       }
     } else {
@@ -47,22 +48,16 @@ class AddPostPage extends React.Component {
   }
 
   handleUpdatePost(title, description, idPost) {
-    if(this.state.title && this.state.description){
-      this.props.updatePost(title, description, idPost)
-        .then((res) => {
-          this.props.history.push('/home');
-          this.setState({
-            error: false
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        }); 
-    } else {
-      this.setState({
-        error: true
+    this.props.updatePost(title, description, idPost)
+      .then((res) => {
+        this.props.history.push('/home');
+        this.setState({
+          error: false
+        });
       })
-    }
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   renderButton = (idPost) => {
@@ -89,18 +84,17 @@ class AddPostPage extends React.Component {
     }
   }
 
-  render() {    
-    let idPost = null;
-    idPost = this.props.location.pathname.split(':')[1];
-    let defaulValueTitle = 'Input title of your post.';
-    let defaulValueDescription = 'Input description of your post.';
+  render() {
+    const idPost = this.props.location.pathname.split(':')[1];
+    const defaulValueTitle = 'Input title of your post.';
+    const defaulValueDescription = 'Input description of your post.';
 
     return (
       <div className="main">
         <Header />
         <div className="content">
           <div className="AddPage">
-            <Card>
+            <Card className="post-form" >
               <CardContent>
                 <h2 className="desc">
                   Title:

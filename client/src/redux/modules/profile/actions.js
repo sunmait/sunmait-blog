@@ -2,6 +2,7 @@ import USER_CONSTANTS from './actionConstants';
 import { Dispatch } from 'redux/store';
 import * as axios from 'axios';
 import history from 'components/containers/history';
+import sendRequest from 'components/helpers/authRequest';
 
 const axiosRequest = axios;
 
@@ -41,8 +42,7 @@ export function getUser(userId) {
 
 export function updateUser(userId, FirstName, LastName, Login ) {
   return (dispatch) => {
-    return axiosRequest
-      .patch(`/api/users/${userId}`, { FirstName, LastName, Login } )
+    return sendRequest('patch', `/api/users/${userId}`, { FirstName, LastName, Login } )
       .then((res) => {
         dispatch({
           type: USER_CONSTANTS.CHANGE,
