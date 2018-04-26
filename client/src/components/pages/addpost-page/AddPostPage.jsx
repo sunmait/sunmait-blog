@@ -100,7 +100,7 @@ class AddPostPage extends React.Component {
         <Header />
         <div className="content">
           <div className="AddPage">
-            <Card>
+            <Card className="post-form" >
               <CardContent>
                 <h2 className="desc">
                   Title:

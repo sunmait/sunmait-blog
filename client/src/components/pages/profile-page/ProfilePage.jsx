@@ -67,174 +67,186 @@ class ProfilePage extends React.Component {
     });
   }
 
-  render() {
+  renderAuthorised = () => {
+    return (
+      <div className="main">
+        <Header />
+        <div className="content">
+          <div className="ProfilePage">
+            <div className="form">
+              <div className="avatar-container">
+                <Avatar 
+                  alt="Username"
+                  src={this.props.user.PhotoUrl}
+                  className="avatar"
+                />
+                <Typography
+                  type="title"
+                  className="bar-username"
+                >
+                  { `${this.props.user.FirstName} ${this.props.user.LastName}` }
+                </Typography>
+              </div>
+              <div>
+                <div className="container">
+                  {
+                    this.state.newname.length >= 2 ?
+                      <TextField
+                        label="Name"
+                        name="newname"
+                        className="field"
+                        value={this.state.newname}
+                        onChange={this.handleInputChange}
+                        margin="normal"
+                      />
+                        :
+                      <TextField
+                        error
+                        label="Name"
+                        name="newname"
+                        className="field"
+                        helperText="min length: 2 symbols"
+                        value={this.state.newname}
+                        onChange={this.handleInputChange}
+                        margin="normal"
+                      />
+                    }
+                </div>
+              </div>
+              <div>
+                <div className="container">
+                  {
+                    this.state.newsecondName.length >= 2 ?
+                    <TextField
+                      label="Second name"
+                      name="newsecondName"
+                      className="field"
+                      defaultValue={this.props.profile.LastName}
+                      value={this.state.newsecondName}
+                      onChange={this.handleInputChange}
+                      margin="normal"
+                    />
+                    :
+                      <TextField
+                        error
+                        label="Second name"
+                        name="newsecondName"
+                        className="field"
+                        helperText="min length: 2 symbols"
+                        defaultValue={this.props.profile.LastName}
+                        value={this.state.newsecondName}
+                        onChange={this.handleInputChange}
+                        margin="normal"
+                      />
+                    }
+                </div>
+              </div>
+              <div>
+                <div className="container">
+                  {
+                    this.state.newlogin.length >= 5 ?
+                      <TextField
+                        label="Login"
+                        name="newlogin"
+                        className="field"
+                        defaultValue={this.props.profile.Login}
+                        value={this.state.newlogin}
+                        onChange={this.handleInputChange}
+                        margin="normal"
+                      />
+                    :
+                      <TextField
+                        error
+                        label="Login"
+                        name="newlogin"
+                        className="field"
+                        helperText="min length: 5 symbols"
+                        defaultValue={this.props.profile.Login}
+                        value={this.state.newlogin}
+                        onChange={this.handleInputChange}
+                        margin="normal"
+                      />
+                    }
+                </div>
+              </div>
+              <div className="button change">
+                {
+                  (this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2) ?
+                    <Button
+                      variant="raised"
+                      color="primary"
+                      disabled
+                      size="small"
+                    >
+                      Save changes
+                    </Button>
+                  :
+                    <Link to="/home">
+                      <Button
+                        variant="raised"
+                        color="primary"
+                        size="small"
+                        onClick={() => this.handleSubmitChanges()}
+                      >
+                        Save changes
+                      </Button>
+                    </Link>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  renderNotAuthorised = () => {
+    return (
+      <div className="main">
+        <Header />
+        <div className="content">
+          <div className="ProfilePage">
+            <div className="avatar-container">
+              <Avatar 
+                alt="Username"
+                src={this.props.profile.PhotoUrl}
+                className="avatar"
+              />
+              <Typography
+                type="title"
+                className="bar-username"
+              >
+                { `${this.props.profile.FirstName} ${this.props.profile.LastName}` }
+              </Typography>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  renderAuthorisedOrNot = () => {
     if (this.props.profile) {
       if (this.props.user && (this.props.user.id === this.props.profile.id)) {
-        return (
-          <div className="main">
-            <Header />
-            <div className="content">
-              <div className="ProfilePage">
-                <div className="form">
-                  <div className="avatar-container">
-                    <Avatar 
-                      alt="Username"
-                      src={this.props.user.PhotoUrl}
-                      className="avatar"
-                    />
-                    <Typography
-                      type="title"
-                      className="bar-username"
-                    >
-                      { `${this.props.user.FirstName} ${this.props.user.LastName}` }
-                    </Typography>
-                  </div>
-                  <div>
-                    <div className="container">
-                      {
-                        this.state.newname.length >= 2 ?
-                          <TextField
-                            label="Name"
-                            name="newname"
-                            className="field"
-                            value={this.state.newname}
-                            onChange={this.handleInputChange}
-                            margin="normal"
-                          />
-                            :
-                          <TextField
-                            error
-                            label="Name"
-                            name="newname"
-                            className="field"
-                            helperText="min length: 2 symbols"
-                            value={this.state.newname}
-                            onChange={this.handleInputChange}
-                            margin="normal"
-                          />
-                        }
-                    </div>
-                  </div>
-                  <div>
-                    <div className="container">
-                      {
-                        this.state.newsecondName.length >= 2 ?
-                        <TextField
-                          label="Second name"
-                          name="newsecondName"
-                          className="field"
-                          defaultValue={this.props.profile.LastName}
-                          value={this.state.newsecondName}
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                        :
-                          <TextField
-                            error
-                            label="Second name"
-                            name="newsecondName"
-                            className="field"
-                            helperText="min length: 2 symbols"
-                            defaultValue={this.props.profile.LastName}
-                            value={this.state.newsecondName}
-                            onChange={this.handleInputChange}
-                            margin="normal"
-                          />
-                        }
-                    </div>
-                  </div>
-                  <div>
-                    <div className="container">
-                      {
-                        this.state.newlogin.length >= 5 ?
-                          <TextField
-                            label="Login"
-                            name="newlogin"
-                            className="field"
-                            defaultValue={this.props.profile.Login}
-                            value={this.state.newlogin}
-                            onChange={this.handleInputChange}
-                            margin="normal"
-                          />
-                        :
-                          <TextField
-                            error
-                            label="Login"
-                            name="newlogin"
-                            className="field"
-                            helperText="min length: 5 symbols"
-                            defaultValue={this.props.profile.Login}
-                            value={this.state.newlogin}
-                            onChange={this.handleInputChange}
-                            margin="normal"
-                          />
-                        }
-                    </div>
-                  </div>
-                  <div className="button change">
-                    {
-                      (this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2) ?
-                        <Button
-                          variant="raised"
-                          color="primary"
-                          disabled
-                          size="small"
-                        >
-                          Save changes
-                        </Button>
-                      :
-                        <Link to="/home">
-                          <Button
-                            variant="raised"
-                            color="primary"
-                            size="small"
-                            onClick={() => this.handleSubmitChanges()}
-                          >
-                            Save changes
-                          </Button>
-                        </Link>
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-            <Footer />
-          </div>
-        );
-      } else if (!this.props.user || this.props.profile) {
-          return (
-            <div className="main">
-              <Header />
-              <div className="content">
-                <div className="ProfilePage">
-                  <div className="avatar-container">
-                    <Avatar 
-                      alt="Username"
-                      src={this.props.profile.PhotoUrl}
-                      className="avatar"
-                    />
-                    <Typography
-                      type="title"
-                      className="bar-username"
-                    >
-                      { `${this.props.profile.FirstName} ${this.props.profile.LastName}` }
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-              <Footer />
-            </div>
-          );
-      } else {
-        return (
-          <div />
-        );
-      }
+        return this.renderAuthorised();
+    } else if (!this.props.user || this.props.profile) {
+      return this.renderNotAuthorised();
+    } else {
+      return (
+        <div />
+      );
+    } 
     } else {
       return (
         <div />
       );
     }
+  }
+
+  render = () => {
+    return this.renderAuthorisedOrNot();
   }
 }
 

@@ -33,9 +33,8 @@ export function login(Login, Password) {
 export const verifyCredentials = () => (dispatch) => {
   const accessToken = localStorage.getItem('AccessToken');
   const refreshToken = localStorage.getItem('RefreshToken');
-  const currentUser = JSON.parse(localStorage.getItem('User'));
 
-  if (accessToken && refreshToken && currentUser) {
+  if (accessToken && refreshToken) {
       const payload = axiosRequest.patch('/api/auth/verify-credentials', {
         accessToken,
         refreshToken,

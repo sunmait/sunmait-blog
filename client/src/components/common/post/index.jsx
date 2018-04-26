@@ -58,7 +58,7 @@ class Post extends React.Component {
     }
   }
 
-  checkisEditable(updatedDate) {
+  renderIfEditable(updatedDate) {
     if( !this.props.isEditable ){ 
       return (
         <p>
@@ -97,8 +97,8 @@ class Post extends React.Component {
     let text = myMarkdown(this.props.description);
     let multidot = '';
     if (!this.props.full) {
-      if (text.length > 200) {
-        text = text.slice(0, 200);
+      if (text.length > 50) {
+        text = text.slice(0, 50);
       }
       multidot = '...';
     }
@@ -131,7 +131,7 @@ class Post extends React.Component {
               </Typography>
               
                 <Typography color="textSecondary" className="article-author">
-                { this.checkisEditable(updatedDate) }
+                { this.renderIfEditable(updatedDate) }
                 <p>Created: {createdDate}</p><br />
                 </Typography>
               <section className="article-description">
@@ -157,7 +157,8 @@ Post.defaultProps = {
   dateUpdated: 'none',
   dateCreated: 'none',
   description: 'Default description',
-  title: 'Default title'
+  title: 'Default title',
+  full: false
 };
 
 const mapStateToProps = (state) => ({

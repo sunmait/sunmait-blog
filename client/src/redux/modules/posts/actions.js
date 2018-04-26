@@ -2,6 +2,7 @@ import POSTS_CONSTANTS from './actionConstants';
 import { Dispatch } from 'redux/store';
 import * as axios from 'axios';
 import history from 'components/containers/history';
+import sendRequest from 'components/helpers/authRequest';
 
 const axiosRequest = axios;
 
@@ -26,8 +27,7 @@ export function getPosts() {
 export function addPost(Title, Description) {
   const UserId = JSON.parse(localStorage.getItem('User')).id;
   return (dispatch) => {
-    return axiosRequest
-      .post('/api/posts', {Title, Description, UserId})
+    return sendRequest('post', '/api/posts', { Title, Description, UserId })
       .then((res) => {
         dispatch({
           type: POSTS_CONSTANTS.ADD_POST,
@@ -43,7 +43,7 @@ export function addPost(Title, Description) {
 
 export function updatePost(Title, Description, idPost) {
   return (dispatch) => {
-    return axiosRequest.patch(`/api/posts`, {idPost, Description, Title})
+    return sendRequest('patch', `/api/posts`, { idPost, Description, Title })
     .then((res) => {
       dispatch({
         type: POSTS_CONSTANTS.UPDATE_POST,
@@ -59,7 +59,7 @@ export function updatePost(Title, Description, idPost) {
 
 export function deletePost(idPost) {
   return (dispatch) => {
-    return axiosRequest.delete(`/api/posts/${idPost}`, idPost)
+    return sendRequest('delete', `/api/posts/${idPost}`, idPost)
     .then((res) => {
       dispatch({
         type: POSTS_CONSTANTS.DELETE_POST,
