@@ -17,7 +17,7 @@ class PostPage extends React.Component {
   componentWillMount() {
     const postId = +this.props.location.pathname.split(':')[1];
     this.setState({
-      postId: postId,
+      postId,
     });
   }
 
