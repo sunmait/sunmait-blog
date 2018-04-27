@@ -23,7 +23,7 @@ class Posts extends React.Component {
       })
   }
 
-  renderEditable = (posts) => {
+  renderEditablePost = (posts) => {
     return (
       <div>
         {
@@ -49,7 +49,7 @@ class Posts extends React.Component {
     );
   }
 
-  renderNotEditable = (posts) => {
+  renderNotEditablePost = (posts) => {
     return (
       <div>
         {
@@ -73,13 +73,13 @@ class Posts extends React.Component {
     );
   }
 
-  renderEditableOrNot = () => {
+  renderPost = () => {
     const posts = this.props.posts.posts;
     if (posts) {
       if (this.props.isEditable) {
-        return this.renderEditable(posts);
+        return this.renderEditablePost(posts);
     } else {
-      return this.renderNotEditable(posts);
+      return this.renderNotEditablePost(posts);
     }
     } else {
       return (
@@ -90,7 +90,7 @@ class Posts extends React.Component {
 
 
   render() {
-    return this.renderEditableOrNot();
+    return this.renderPost();
   }
 };
 

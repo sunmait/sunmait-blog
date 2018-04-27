@@ -96,7 +96,7 @@ class Header extends React.Component {
     });
   };
 
-  renderAuthorised() {
+  renderAuthorisedHeader() {
     return (
       <div>
         <div
@@ -146,7 +146,7 @@ class Header extends React.Component {
     )
   }
 
-  renderNotAuthorised() {
+  renderNotAuthorisedHeader() {
     return (
       <div>
         <Button
@@ -201,11 +201,11 @@ class Header extends React.Component {
     )
   }
 
-  renderLoginOrLogout = () => {
+  renderIsAuthorisedHeader = () => {
     if ( this.props.user ) {
-      return this.renderAuthorised();
+      return this.renderAuthorisedHeader();
     } else {
-      return this.renderNotAuthorised();
+      return this.renderNotAuthorisedHeader();
     }
   }
 
@@ -215,7 +215,7 @@ class Header extends React.Component {
         <Link to="/home">
           <div className="logo"/>
         </Link>
-        { this.renderLoginOrLogout() }
+        { this.renderIsAuthorisedHeader() }
       </header>
     );
   };

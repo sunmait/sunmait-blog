@@ -21,7 +21,7 @@ class PostPage extends React.Component {
     });
   }
 
-  renderPost() {
+  renderСorrectPost() {
     let isEditable = false;
     return this.props.posts.posts.reverse().map(
       (post) => {
@@ -55,7 +55,7 @@ class PostPage extends React.Component {
         <Header />
         <div className="content">
           <div>
-            { this.renderPost() }
+            { this.renderСorrectPost() }
           </div>
         </div>
         <Footer />

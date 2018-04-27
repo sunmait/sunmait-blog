@@ -58,7 +58,7 @@ class Post extends React.Component {
     }
   }
 
-  renderIfEditable(updatedDate) {
+  renderAuthorAndUpdated(updatedDate) {
     return (
       <p>
         Author:
@@ -89,10 +89,8 @@ class Post extends React.Component {
   componentDidMount() {
     let text = myMarkdown(this.props.description);
     let multidot = '';
-    if (!this.props.full) {
-      if (text.length > 50) {
+    if (!this.props.full && text.length > 50) {
         text = text.slice(0, 50);
-      }
       multidot = '...';
     }
     document.getElementById(this.props.title).innerHTML = text + multidot;
@@ -124,7 +122,7 @@ class Post extends React.Component {
               </Typography>
               
                 <Typography color="textSecondary" className="article-author">
-                { this.renderIfEditable(updatedDate) }
+                { this.renderAuthorAndUpdated(updatedDate) }
                 <p>Created: {createdDate}</p><br />
                 </Typography>
               <section className="article-description">

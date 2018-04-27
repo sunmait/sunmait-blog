@@ -20,7 +20,7 @@ class MyPostsPage extends React.Component {
       });
   }
 
-  renderPost = () => {
+  renderPostList = () => {
     if( this.props.posts.posts ) {
       return this.props.posts.posts.reverse().filter((post) => post.UserId === this.props.user.user.id).map(
         (post) => (
@@ -57,7 +57,7 @@ class MyPostsPage extends React.Component {
                 </Button>
               </Link>
             </div>
-            { this.renderPost() }
+            { this.renderPostList() }
           </div>
         </div>
         <Footer />

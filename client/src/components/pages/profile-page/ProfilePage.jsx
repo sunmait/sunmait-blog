@@ -67,7 +67,7 @@ class ProfilePage extends React.Component {
     });
   }
 
-  renderAuthorised = () => {
+  renderAuthorisedProfile = () => {
     return (
       <div className="main">
         <Header />
@@ -201,7 +201,7 @@ class ProfilePage extends React.Component {
     );
   }
 
-  renderNotAuthorised = () => {
+  renderNotAuthorisedProfile = () => {
     return (
       <div className="main">
         <Header />
@@ -227,12 +227,12 @@ class ProfilePage extends React.Component {
     );
   }
 
-  renderAuthorisedOrNot = () => {
+  renderProfile = () => {
     if (this.props.profile) {
       if (this.props.user && (this.props.user.id === this.props.profile.id)) {
-        return this.renderAuthorised();
+        return this.renderAuthorisedProfile();
     } else if (!this.props.user || this.props.profile) {
-      return this.renderNotAuthorised();
+      return this.renderNotAuthorisedProfile();
     } else {
       return (
         <div />
@@ -246,7 +246,7 @@ class ProfilePage extends React.Component {
   }
 
   render = () => {
-    return this.renderAuthorisedOrNot();
+    return this.renderProfile();
   }
 }
 
