@@ -118,7 +118,7 @@ class Post extends React.Component {
               </Typography>
               
                 <Typography color="textSecondary" className="article-author">
-                { this.renderAuthorAndUpdated(updatedDate, createdDate) }                
+                { this.renderAuthorAndUpdated(updatedDate, createdDate) }
                 </Typography>
               <section className="article-description">
                 <div>

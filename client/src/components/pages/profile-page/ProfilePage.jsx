@@ -13,15 +13,28 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     if (this.props.user) {
-      this.state = {
-        password: '',
-        newpassword: '',
-        id: '',
-        error: false,
-        newname: this.props.user.FirstName,
-        newsecondName: this.props.user.LastName,
-        newlogin: this.props.user.Login,
-      };
+      if (this.props.updatedUser.FirstName) {
+        this.state = {
+          password: '',
+          newpassword: '',
+          id: '',
+          error: false,
+          newname: this.props.updatedUser.FirstName,
+          newsecondName: this.props.updatedUser.LastName,
+          newlogin: this.props.updatedUser.Login,
+        };
+      } else {
+        this.state = {
+          password: '',
+          newpassword: '',
+          id: '',
+          error: false,
+          newname: this.props.user.FirstName,
+          newsecondName: this.props.user.LastName,
+          newlogin: this.props.user.Login,
+        };
+      }
+      
     } else {
       this.state = {
         password: '',
@@ -34,11 +47,10 @@ class ProfilePage extends React.Component {
   componentWillMount() {
     const userId = +this.props.location.pathname.split(':')[1];
     this.props.getUser(userId);
-      this.setState({
-        id: userId,
-      });
+    this.setState({
+      id: userId,
+    });
   }
-
 
   handleInputChange = (event) => {
       this.setState({
@@ -53,7 +65,6 @@ class ProfilePage extends React.Component {
       this.state.newsecondName,
       this.state.newlogin,
     );
-    this.logout();
   }
 
   logout = () => {
@@ -84,7 +95,12 @@ class ProfilePage extends React.Component {
                   type="title"
                   className="bar-username"
                 >
-                  { `${this.props.user.FirstName} ${this.props.user.LastName}` }
+                  {
+                  this.props.updatedUser.FirstName ?
+                    `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
+                    :
+                    `${this.props.user.FirstName} ${this.props.user.LastName}`
+                  }
                 </Typography>
               </div>
               <div>
@@ -121,7 +137,6 @@ class ProfilePage extends React.Component {
                       label="Second name"
                       name="newsecondName"
                       className="field"
-                      defaultValue={this.props.profile.LastName}
                       value={this.state.newsecondName}
                       onChange={this.handleInputChange}
                       margin="normal"
@@ -133,7 +148,6 @@ class ProfilePage extends React.Component {
                         name="newsecondName"
                         className="field"
                         helperText="min length: 2 symbols"
-                        defaultValue={this.props.profile.LastName}
                         value={this.state.newsecondName}
                         onChange={this.handleInputChange}
                         margin="normal"
@@ -149,7 +163,6 @@ class ProfilePage extends React.Component {
                         label="Login"
                         name="newlogin"
                         className="field"
-                        defaultValue={this.props.profile.Login}
                         value={this.state.newlogin}
                         onChange={this.handleInputChange}
                         margin="normal"
@@ -161,7 +174,6 @@ class ProfilePage extends React.Component {
                         name="newlogin"
                         className="field"
                         helperText="min length: 5 symbols"
-                        defaultValue={this.props.profile.Login}
                         value={this.state.newlogin}
                         onChange={this.handleInputChange}
                         margin="normal"

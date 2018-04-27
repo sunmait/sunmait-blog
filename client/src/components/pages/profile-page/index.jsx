@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   user: state.user.user,
   profile: state.profile.profile,
   users: state.profile.usersById,
+  updatedUser: state.profile.updatedUser,
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

@@ -41,6 +41,7 @@ class PostPage extends React.Component {
                 dateUpdated={post.UpdatedAt}
                 full={true}
                 isEditable={isEditable}
+                history={this.props.history}
               />
             </div>
           )

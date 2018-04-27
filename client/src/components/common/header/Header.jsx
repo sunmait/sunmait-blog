@@ -107,7 +107,12 @@ class Header extends React.Component {
             type="title"
             className="header-bar-username"
           >
-            {`${this.props.user.FirstName} ${this.props.user.LastName}`}
+          {
+            this.props.updatedUser.FirstName ?
+              `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
+              :
+              `${this.props.user.FirstName} ${this.props.user.LastName}`
+            }
           </Typography>
           <Avatar
             alt="Username"
@@ -223,6 +228,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
+  updatedUser: state.profile.updatedUser,
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

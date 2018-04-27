@@ -3,6 +3,7 @@ import USER_ACTIONS from './actionConstants';
 const defaultState = {
   profile: null,
   usersById: {},
+  updatedUser: {},
 };
 
 export default function(state = defaultState, action) {
@@ -52,17 +53,26 @@ function handleGetUser(state, selectedUser) {
 }
 
 function handleChange(state, updated) {
-  const updatedUser = Object.assign(
+  const updatedUserById = Object.assign(
     {}, state.usersById,
     {
       [updated.id]: updated.FirstName,
     }
   );
+  const updatedUser = Object.assign(
+    {}, state.updatedUser,
+    {
+      FirstName: updated.FirstName,
+      LastName: updated.LastName,
+      Login: updated.Login,
+    }
+  );
   return Object.assign(
     {}, state,
     {
-      usersById: updatedUser,
+      usersById: updatedUserById,
       profile: null,
+      updatedUser
     }
   );
 }
