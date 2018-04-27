@@ -1,11 +1,6 @@
 import * as React from 'react';
 
-interface IProps {
-  children: React.ReactNode;
-}
-
-const App = (props: IProps) => {
-// const App = () => {
+const App = (props) => {
   return (
     <div>
       {props.children}

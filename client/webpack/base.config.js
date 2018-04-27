@@ -20,20 +20,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-          configFile: '../tslint.json',
-          tsConfigFile: 'tsconfig.json',
-        },
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
@@ -43,17 +29,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      // {
-      //   test: /\.less$/,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: 'style-loader',
-      //     use: [
-      //       { loader: 'css-loader', options: { minimize: true } },
-      //       'postcss-loader',
-      //       'less-loader',
-      //     ],
-      //   }),
-      // },
       {
         test: /\.(less|css)$/,
         use: [

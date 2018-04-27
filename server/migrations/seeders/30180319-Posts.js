@@ -12,6 +12,7 @@ module.exports = {
           UpdatedAt: new Date('November 21, 2017 11:41:33'),
           Description:
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
+            Title: "The first post",
         },
         {
           id: 2,
@@ -20,6 +21,7 @@ module.exports = {
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
           Description:
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
+            Title: "The second post",
         },
         {
           id: 3,
@@ -28,6 +30,7 @@ module.exports = {
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
           Description:
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
+            Title: "The third post",
         },
         {
           id: 4,
@@ -36,6 +39,7 @@ module.exports = {
           UpdatedAt: new Date('February 21, 2018 11:41:33'),
           Description:
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
+            Title: "The fourth post",
         },
       ],
       {},

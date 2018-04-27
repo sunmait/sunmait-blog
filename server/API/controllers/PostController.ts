@@ -50,13 +50,12 @@ export class PostController implements interfaces.Controller {
    * Update posts
    * id: post's id
    */
-  @httpPatch('/:id')
+  @httpPatch('/')
   private async updatePost(
-    @requestParam('id') id: number,
-    @requestBody('description') description: string,
+    @requestBody() data: any,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postService.updatePost(id, description));
+    res.json(await this._postService.updatePost(data));
   }
 
   /**
@@ -65,10 +64,10 @@ export class PostController implements interfaces.Controller {
    */
   @httpDelete('/:id')
   private async delete(
-    @requestParam('id') id: number,
+    @requestParam() data: any,
     @response() res: express.Response,
   ): Promise<void> {
-    res.json(await this._postService.deletePost(id));
+    res.json(await this._postService.deletePost(data.id));
   }
 
 }
