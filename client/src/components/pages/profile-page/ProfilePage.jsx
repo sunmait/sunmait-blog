@@ -7,39 +7,34 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 class ProfilePage extends React.Component {
 
   constructor(props) {
     super(props);
-    if (this.props.user) {
-      if (this.props.updatedUser.FirstName) {
-        this.state = {
-          password: '',
-          newpassword: '',
-          id: '',
-          error: false,
-          newname: this.props.updatedUser.FirstName,
-          newsecondName: this.props.updatedUser.LastName,
-          newlogin: this.props.updatedUser.Login,
-        };
-      } else {
-        this.state = {
-          password: '',
-          newpassword: '',
-          id: '',
-          error: false,
-          newname: this.props.user.FirstName,
-          newsecondName: this.props.user.LastName,
-          newlogin: this.props.user.Login,
-        };
-      }
-      
+    const user = JSON.parse(localStorage.getItem('User'));
+    if (user) {
+      this.state = {
+        password: '',
+        id: '',
+        error: false,
+        openDialog: false,
+        newname: user.FirstName,
+        newsecondName: user.LastName,
+        newlogin: user.Login,
+      };
     } else {
       this.state = {
         password: '',
-        newpassword: '',
         id: '',
+        error: false,
+        openDialog: false,
       };
     }
   }
@@ -53,24 +48,40 @@ class ProfilePage extends React.Component {
   }
 
   handleInputChange = (event) => {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   handleSubmitChanges = () => {
-    this.props.updateUser(
-      this.state.id,
-      this.state.newname,
-      this.state.newsecondName,
-      this.state.newlogin,
-    );
+    this.setState({ openDialog: true });
+  }
+
+  login = () => {
+    if (this.state.password) {
+      this.props.updateUser(
+        this.state.id,
+        this.state.newname,
+        this.state.newsecondName,
+        this.state.newlogin,
+      ).then((res) => {
+        this.logout();
+        this.props.login(this.state.newlogin, this.state.password);
+        this.props.history.push('/home');
+      });
+    }
   }
 
   logout = () => {
     const refToken = localStorage.getItem('RefreshToken');
     this.props.logout(refToken);
   }
+
+  handleClose = (event) => {
+    this.setState({
+      openDialog: false,
+    });
+  };
 
   handlePasswordChange = () => {
     this.setState({
@@ -79,121 +90,125 @@ class ProfilePage extends React.Component {
   }
 
   renderAuthorisedProfile = () => {
-    return (
-      <div className="main">
-        <Header />
-        <div className="content">
-          <div className="ProfilePage">
-            <div className="form">
-              <div className="avatar-container">
-                <Avatar 
-                  alt="Username"
-                  src={this.props.user.PhotoUrl}
-                  className="avatar"
-                />
-                <Typography
-                  type="title"
-                  className="bar-username"
-                >
-                  {
-                  this.props.updatedUser.FirstName ?
-                    `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
-                    :
-                    `${this.props.user.FirstName} ${this.props.user.LastName}`
-                  }
-                </Typography>
-              </div>
-              <div>
-                <div className="container">
-                  {
-                    this.state.newname.length >= 2 ?
-                      <TextField
-                        label="Name"
-                        name="newname"
-                        className="field"
-                        value={this.state.newname}
-                        onChange={this.handleInputChange}
-                        margin="normal"
-                      />
-                        :
-                      <TextField
-                        error
-                        label="Name"
-                        name="newname"
-                        className="field"
-                        helperText="min length: 2 symbols"
-                        value={this.state.newname}
-                        onChange={this.handleInputChange}
-                        margin="normal"
-                      />
+    if (!this.props.user && !this.state.newname && !this.state.newsecondName && !this.state.newlogin ) {
+      return (
+        <div />
+      );
+    } else {
+      return (
+        <div className="main">
+          <Header />
+          <div className="content">
+            <div className="ProfilePage">
+              <div className="form">
+                <div className="avatar-container">
+                  <Avatar 
+                    alt="Username"
+                    src={this.props.user.PhotoUrl}
+                    className="avatar"
+                  />
+                  <Typography
+                    type="title"
+                    className="bar-username"
+                  >
+                    {
+                    this.props.updatedUser.FirstName ?
+                      `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
+                      :
+                      `${this.props.user.FirstName} ${this.props.user.LastName}`
                     }
+                  </Typography>
                 </div>
-              </div>
-              <div>
-                <div className="container">
-                  {
-                    this.state.newsecondName.length >= 2 ?
-                    <TextField
-                      label="Second name"
-                      name="newsecondName"
-                      className="field"
-                      value={this.state.newsecondName}
-                      onChange={this.handleInputChange}
-                      margin="normal"
-                    />
-                    :
+                <div>
+                  <div className="container">
+                    {
+                      this.state.newname.length >= 2 ?
+                        <TextField
+                          label="Name"
+                          name="newname"
+                          className="field"
+                          value={ this.state.newname }
+                          onChange={this.handleInputChange}
+                          margin="normal"
+                        />
+                          :
+                        <TextField
+                          error
+                          label="Name"
+                          name="newname"
+                          className="field"
+                          helperText="min length: 2 symbols"
+                          value={ this.state.newname }
+                          onChange={this.handleInputChange}
+                          margin="normal"
+                        />
+                      }
+                  </div>
+                </div>
+                <div>
+                  <div className="container">
+                    {
+                      this.state.newsecondName.length >= 2 ?
                       <TextField
-                        error
                         label="Second name"
                         name="newsecondName"
                         className="field"
-                        helperText="min length: 2 symbols"
-                        value={this.state.newsecondName}
+                        value={ this.state.newsecondName}
                         onChange={this.handleInputChange}
                         margin="normal"
                       />
-                    }
+                      :
+                        <TextField
+                          error
+                          label="Second name"
+                          name="newsecondName"
+                          className="field"
+                          helperText="min length: 2 symbols"
+                          value={ this.state.newsecondName}
+                          onChange={this.handleInputChange}
+                          margin="normal"
+                        />
+                      }
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="container">
+                <div>
+                  <div className="container">
+                    {
+                      this.state.newlogin.length >= 5 ?
+                        <TextField
+                          label="Login"
+                          name="newlogin"
+                          className="field"
+                          value={ this.state.newlogin}
+                          onChange={this.handleInputChange}
+                          margin="normal"
+                        />
+                      :
+                        <TextField
+                          error
+                          label="Login"
+                          name="newlogin"
+                          className="field"
+                          helperText="min length: 5 symbols"
+                          value={this.state.newlogin}
+                          onChange={this.handleInputChange}
+                          margin="normal"
+                        />
+                      }
+                  </div>
+                </div>
+                <div className="button change">
                   {
-                    this.state.newlogin.length >= 5 ?
-                      <TextField
-                        label="Login"
-                        name="newlogin"
-                        className="field"
-                        value={this.state.newlogin}
-                        onChange={this.handleInputChange}
-                        margin="normal"
-                      />
+                    (this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2) ?
+                      <Button
+                        variant="raised"
+                        color="primary"
+                        disabled
+                        size="small"
+                      >
+                        Save changes
+                      </Button>
                     :
-                      <TextField
-                        error
-                        label="Login"
-                        name="newlogin"
-                        className="field"
-                        helperText="min length: 5 symbols"
-                        value={this.state.newlogin}
-                        onChange={this.handleInputChange}
-                        margin="normal"
-                      />
-                    }
-                </div>
-              </div>
-              <div className="button change">
-                {
-                  (this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2) ?
-                    <Button
-                      variant="raised"
-                      color="primary"
-                      disabled
-                      size="small"
-                    >
-                      Save changes
-                    </Button>
-                  :
-                    <Link to="/home">
                       <Button
                         variant="raised"
                         color="primary"
@@ -202,15 +217,45 @@ class ProfilePage extends React.Component {
                       >
                         Save changes
                       </Button>
-                    </Link>
-                }
+                  }
+                </div>
               </div>
             </div>
           </div>
+          <Footer />
+          <Dialog
+          open={this.state.openDialog}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="form-dialog-title">
+            Enter your password
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Enter password..."
+              type="password"
+              name="password"
+              margin="normal"
+              value={this.state.password}
+              onChange={this.handleInputChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="raised"
+              color="primary"
+              onClick={() => this.login()}
+              className="login-button-popup"
+            >
+              LogIn
+            </Button>
+          </DialogActions>
+        </Dialog>
         </div>
-        <Footer />
-      </div>
-    );
+      );
+    }
   }
 
   renderNotAuthorisedProfile = () => {
@@ -235,6 +280,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         <Footer />
+        
       </div>
     );
   }

@@ -16,6 +16,7 @@ module.exports = {
   },
   output: {
     path: path.resolve('../server/API/public', env),
+    publicPath: '/',
   },
   module: {
     rules: [

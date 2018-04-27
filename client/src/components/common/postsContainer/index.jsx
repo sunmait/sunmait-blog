@@ -75,7 +75,7 @@ class Posts extends React.Component {
     );
   }
 
-  renderPost = () => {
+  renderPostsList = () => {
     const posts = this.props.posts.posts;
     if (posts) {
       if (this.props.isEditable) {
@@ -92,7 +92,7 @@ class Posts extends React.Component {
 
 
   render() {
-    return this.renderPost();
+    return this.renderPostsList();
   }
 };
 

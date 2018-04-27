@@ -23,6 +23,7 @@ class PostPage extends React.Component {
 
   renderSelectedPost() {
     let isEditable = false;
+    if (!this.props.posts.posts) { return; }
     return this.props.posts.posts.reverse().map(
       (post) => {
         if( post.id === this.state.postId ) {
