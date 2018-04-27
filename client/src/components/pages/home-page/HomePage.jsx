@@ -16,7 +16,7 @@ class HomePage extends React.Component {
         <Header />
         <div className="content">
           <div>
-            <Posts />
+            <Posts history={this.props.history}/>
           </div>
         </div>
         <Footer />

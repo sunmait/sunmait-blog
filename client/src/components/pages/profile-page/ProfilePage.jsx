@@ -231,13 +231,13 @@ class ProfilePage extends React.Component {
     if (this.props.profile) {
       if (this.props.user && (this.props.user.id === this.props.profile.id)) {
         return this.renderAuthorisedProfile();
-    } else if (!this.props.user || this.props.profile) {
-      return this.renderNotAuthorisedProfile();
-    } else {
-      return (
-        <div />
-      );
-    } 
+      } else if (!this.props.user || this.props.profile) {
+        return this.renderNotAuthorisedProfile();
+      } else {
+        return (
+          <div />
+        );
+      } 
     } else {
       return (
         <div />

@@ -25,7 +25,9 @@ class AddPostPage extends React.Component {
       this.state = {
         title: null,
         description: null,
-        error: null,
+        errorDescription: null,
+        errorTitle: null,
+        errorText: null
       };
     } 
   }
@@ -37,14 +39,34 @@ class AddPostPage extends React.Component {
   }
 
   handleAddPost(title, description) {
-    this.props.addPost(title, description)
-      .then((res) => {
-        this.props.history.push('/home');
+    if( title && description ){
+      if(description.length > 50){
+        this.props.addPost(title, description)
+          .then((res) => {
+            this.props.history.push('/home');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        this.setState({
+          errorDescription: null,
+          errorTitle: null,
+          errorText: null
+        })
+      } else {
+        this.setState({
+          errorDescription: true,
+          errorTitle: null,
+          errorText: 'Description should be more 50 simbols'
+        })
+      }
+    } else {
+      this.setState({
+        errorTitle: !title ? true : null,
+        errorDescription: !description ? true : null,
+        errorText: (!title || !description) ? 'Empty line' : null
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    
+    }
   }
 
   handleUpdatePost(title, description, idPost) {
@@ -100,19 +122,19 @@ class AddPostPage extends React.Component {
                   Title:
                 </h2>
                 <TextField
-                  error = {this.state.error}
                   margin="normal"
                   name="title"
                   className="field"
                   onChange={this.handleInputChange}
                   placeholder={defaulValueTitle}
                   value={this.state.title}
+                  error={this.state.errorTitle}
+                  helperText={this.state.errorTitle ? this.state.errorText : null}
                 />
                 <h2 className="desc">
                   Description:
                 </h2>
                 <TextField
-                  error = {this.state.error}
                   multiline
                   rows="30"
                   margin="normal"
@@ -120,6 +142,8 @@ class AddPostPage extends React.Component {
                   className="field"
                   onChange={this.handleInputChange}
                   placeholder={defaulValueDescription}
+                  error={this.state.errorDescription}
+                  helperText={this.state.errorDescription ? this.state.errorText : null}
                   value={this.state.description}
                 />
               </CardContent>

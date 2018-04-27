@@ -28,7 +28,7 @@ class Post extends React.Component {
   handleDeletePost(e) {
     this.props.deletePost(this.props.postId)
       .then((res) => {
-          this.props.history.push('/home');
+        this.props.history.push('/home');
       })
       .catch((err) => {
         console.log(err);
@@ -36,40 +36,36 @@ class Post extends React.Component {
   }
 
   renderIcons = (postId) => {
-    if (this.props.user) {
-      if( this.props.isEditable || this.props.user.id === this.props.author) {
-        return (
-          <div className="edit-buttons">
-            <Link to={postId} >
-              <IconButton mini>
-                <Edit />
-              </IconButton>
-            </Link>
-            <IconButton
-              aria-label="delete"
-              className="delete"
-              onClick={() => this.handleDeletePost()}
-            >
-              <DeleteIcon />
+    if(this.props.user && (this.props.isEditable || this.props.user.id === this.props.author)) {
+      return (
+        <div className="edit-buttons">
+          <Link to={postId} >
+            <IconButton mini>
+              <Edit />
             </IconButton>
-          </div>
-        )
-      }
+          </Link>
+          <IconButton
+            aria-label="delete"
+            className="delete"
+            onClick={() => this.handleDeletePost()}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      )
     }
   }
 
-  renderAuthorAndUpdated(updatedDate) {
+  renderAuthorAndUpdated(updatedDate, createdDate) {
+    const updated = !this.props.isEditable ? (<p>Updated: {updatedDate}</p>) : null;
     return (
       <p>
         Author:
         <Link to={`/profile/:${this.props.author}`}>
           {this.props.users[this.props.author]}
         </Link>
-        {
-          !this.props.isEditable ? 
-        <p>Updated: {updatedDate}</p>
-        : null
-        }
+        { updated }
+        <p>Created: {createdDate}</p><br />
       </p>
     )
   }
@@ -90,7 +86,7 @@ class Post extends React.Component {
     let text = myMarkdown(this.props.description);
     let multidot = '';
     if (!this.props.full && text.length > 50) {
-        text = text.slice(0, 50);
+      text = text.slice(0, 50);
       multidot = '...';
     }
     document.getElementById(this.props.title).innerHTML = text + multidot;
@@ -122,8 +118,7 @@ class Post extends React.Component {
               </Typography>
               
                 <Typography color="textSecondary" className="article-author">
-                { this.renderAuthorAndUpdated(updatedDate) }
-                <p>Created: {createdDate}</p><br />
+                { this.renderAuthorAndUpdated(updatedDate, createdDate) }                
                 </Typography>
               <section className="article-description">
                 <div>

@@ -18,7 +18,7 @@ export default function( state = defaultState, action) {
 }
 
 function handleDeletePost(state, payload){
-  return Object.assign({}, state, payload);
+  return  { ...state, posts: payload };
 }
 
 function handleUpdatedPosts(state, post) {

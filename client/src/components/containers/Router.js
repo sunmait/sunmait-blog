@@ -33,6 +33,7 @@ class AppComponent extends React.Component{
               exact
               path='/home'
               component={HomePage}
+              history={this.props.history}
             />
             <Route
               exact
