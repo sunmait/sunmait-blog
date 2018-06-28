@@ -14,72 +14,72 @@ import { getUser, getUsers } from 'redux/modules/profile/actions.js';
 import { getPosts } from 'redux/modules/posts/actions.js';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
 
-class AppComponent extends React.Component{
-  constructor(props){
+class AppComponent extends React.Component {
+  constructor(props) {
     super(props);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.verifyCredentials();
     this.props.getUsers();
     this.props.getPosts();
   }
 
-  render(){
-  return (
-    <Router history={history}>
-      <div className="app-container">
-        <App>
-          <Switch>
-            <Route
-              exact
-              path='/home'
-              component={HomePage}
-              history={this.props.history}
-            />
-            <Route
-              exact
-              path='/profile/:userId'
-              history={this.props.history}
-              component={ProfilePage}
-            />
-            <Route
-              exact
-              path='/myposts'
-              history={this.props.history}
-              component={MyPostsPage}
-            />
-            <PrivateRoute
-              exact
-              path='/addpost'
-              auth={this.props.auth}
-              history={this.props.history}
-              component={AddPostPage}
-            />
-            <PrivateRoute
-              exact
-              path='/addpost/:postId'
-              auth={this.props.auth}
-              history={this.props.history}
-              component={AddPostPage}
-            />
-            <Route
-              exact
-              path='/post/:postId'
-              history={this.props.history}
-              component={PostPage}
-            />
-            <Redirect from="/" exact to="/home" />
-          </Switch>
-        </App>
-      </div>
-    </Router>
-  );
-}
+  render() {
+    return (
+      <Router history={history}>
+        <div className="app-container">
+          <App>
+            <Switch>
+              <Route
+                exact
+                path='/home'
+                component={HomePage}
+                history={this.props.history}
+              />
+              <Route
+                exact
+                path='/profile/:userId'
+                history={this.props.history}
+                component={ProfilePage}
+              />
+              <Route
+                exact
+                path='/myposts'
+                history={this.props.history}
+                component={MyPostsPage}
+              />
+              <PrivateRoute
+                exact
+                path='/addpost'
+                auth={this.props.auth}
+                history={this.props.history}
+                component={AddPostPage}
+              />
+              <PrivateRoute
+                exact
+                path='/addpost/:postId'
+                auth={this.props.auth}
+                history={this.props.history}
+                component={AddPostPage}
+              />
+              <Route
+                exact
+                path='/post/:postId'
+                history={this.props.history}
+                component={PostPage}
+              />
+              <Redirect from="/" exact to="/home" />
+            </Switch>
+          </App>
+        </div>
+      </Router>
+    );
+  }
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.user,
+  auth: state.user
 });
 
 const mapDispatchToProps = (dispatch) =>
@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch) =>
     verifyCredentials,
     getUser,
     getUsers,
-    getPosts,
+    getPosts
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

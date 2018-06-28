@@ -6,7 +6,6 @@ import sendRequest from 'components/helpers/authRequest';
 
 const axiosRequest = axios;
 
-
 export function getPosts() {
   return (dispatch) => {
     return axiosRequest
@@ -14,7 +13,7 @@ export function getPosts() {
       .then((res) => {
         dispatch({
           type: POSTS_CONSTANTS.GET_POSTS,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {
@@ -31,7 +30,7 @@ export function addPost(Title, Description) {
       .then((res) => {
         dispatch({
           type: POSTS_CONSTANTS.ADD_POST,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {
@@ -47,7 +46,7 @@ export function updatePost(Title, Description, idPost) {
     .then((res) => {
       dispatch({
         type: POSTS_CONSTANTS.UPDATE_POST,
-        payload: res.data,
+        payload: res.data
       });
     })
     .catch((err) => {
@@ -63,7 +62,7 @@ export function deletePost(idPost) {
     .then((res) => {
       dispatch({
         type: POSTS_CONSTANTS.DELETE_POST,
-        payload: res.data,
+        payload: res.data
       });
     })
     .catch((err) => {

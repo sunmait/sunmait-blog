@@ -54,7 +54,7 @@ function refreshTokens(method, url, body) {
 
         store.dispatch({
           type: AUTH_ACTIONS.LOGIN,
-          payload: res.data,
+          payload: res.data
         });
 
         sendRequest(method, url, body)
@@ -75,7 +75,7 @@ export function logout() {
   localStorage.clear();
 
   store.dispatch({
-    type: AUTH_ACTIONS.LOGOUT,
+    type: AUTH_ACTIONS.LOGOUT
   });
 }
 

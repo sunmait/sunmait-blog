@@ -18,7 +18,7 @@ module.exports = {
         {
           id: 2,
           FirstName: 'Vadim',
-          LastName: 'Chernickov',
+          LastName: 'Chernikov',
           PhotoUrl: 'https://pp.userapi.com/c837639/v837639004/412d1/4MzaDc0pFgo.jpg',
           Login: 'Vadimdom ',
           PasswordHash: 'sha1$b0c74340$1$9a2dba718cffc8992e419d833e2965da126c8e81',

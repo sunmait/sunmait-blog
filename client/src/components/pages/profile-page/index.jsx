@@ -4,12 +4,14 @@ import ProfilePage from 'components/pages/profile-page/ProfilePage.jsx';
 import { getUser, getUsers, updateUser, changePassword } from 'redux/modules/profile/actions.js';
 import { logout, verifyCredentials, login } from 'redux/modules/auth/actions.js';
 
-const mapStateToProps = (state) => ({
-  user: state.user.user,
-  profile: state.profile.profile,
-  users: state.profile.usersById,
-  updatedUser: state.profile.updatedUser,
-});
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+    profile: state.profile.profile,
+    users: state.profile.usersById,
+    updatedUser: state.profile.updatedUser
+  }
+};
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   getUser,
@@ -18,7 +20,7 @@ const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
   verifyCredentials,
   changePassword,
   getUsers,
-  login,
+  login
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

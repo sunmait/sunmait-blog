@@ -85,8 +85,8 @@ class Post extends React.Component {
   componentDidMount() {
     let text = myMarkdown(this.props.description);
     let multidot = '';
-    if (!this.props.full && text.length > 50) {
-      text = text.slice(0, 50);
+    if (!this.props.full && text.length > 350) {
+      text = text.slice(0, 350);
       multidot = '...';
     }
     document.getElementById(this.props.title).innerHTML = text + multidot;
@@ -151,7 +151,7 @@ const mapStateToProps = (state) => ({
   posts: state.posts,
   profile: state.profile.profile,
   users: state.profile.usersById,
-  user: state.user.user,
+  user: state.user.user
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

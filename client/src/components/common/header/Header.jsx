@@ -16,7 +16,7 @@ import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  DialogTitle
 } from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import Grow from 'material-ui/transitions/Grow';
@@ -30,7 +30,7 @@ class Header extends React.Component {
       login: '',
       password: '',
       openDialog: false,
-      openMenu: false,
+      openMenu: false
     };
   }
 
@@ -45,7 +45,7 @@ class Header extends React.Component {
       .then((res) => {
         this.setState({
           openDialog: false,
-          openMenu: false,
+          openMenu: false
         })
       })
       .catch((err) => {
@@ -62,17 +62,19 @@ class Header extends React.Component {
     this.setState({
       login: '',
       password: '',
-      auth: false,
+      auth: false
     });
   }
 
   handleClickLogin = (event) => {
-    this.setState({ openDialog: true });
+    this.setState({
+      openDialog: true
+    });
   };
 
   handleClose = (event) => {
     this.setState({
-      openDialog: false,
+      openDialog: false
     });
   };
 
@@ -80,19 +82,19 @@ class Header extends React.Component {
     event.preventDefault();
     this.setState({
       openMenu: true,
-      anchorEl: event.currentTarget,
+      anchorEl: event.currentTarget
     })
   }
 
   handleCloseMenu = (e) => {
     this.setState({
-      openMenu: false,
+      openMenu: false
     });
   };
 
   handleRequestClose = () => {
     this.setState({
-      open: false,
+      open: false
     });
   };
 
@@ -228,7 +230,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
-  updatedUser: state.profile.updatedUser,
+  updatedUser: state.profile.updatedUser
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

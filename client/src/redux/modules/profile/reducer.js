@@ -3,7 +3,7 @@ import USER_ACTIONS from './actionConstants';
 const defaultState = {
   profile: null,
   usersById: {},
-  updatedUser: {},
+  updatedUser: {}
 };
 
 export default function(state = defaultState, action) {
@@ -31,14 +31,14 @@ function handleGetUsers(state, selectedUsers) {
     newUsersByIdNames = Object.assign(
       {}, newUsersByIdNames,
       {
-        [item.id]: item.FirstName,
+        [item.id]: item.FirstName
       }
     );
   });
   return Object.assign(
     {}, state,
     {
-      usersById: newUsersByIdNames,
+      usersById: newUsersByIdNames
     }
   );
 }
@@ -47,7 +47,7 @@ function handleGetUser(state, selectedUser) {
   return Object.assign(
     {}, state,
     {
-      profile: selectedUser,
+      profile: selectedUser
     }
   );
 }
@@ -56,7 +56,7 @@ function handleChange(state, updated) {
   const updatedUserById = Object.assign(
     {}, state.usersById,
     {
-      [updated.id]: updated.FirstName,
+      [updated.id]: updated.FirstName
     }
   );
   const updatedUser = Object.assign(
@@ -64,7 +64,7 @@ function handleChange(state, updated) {
     {
       FirstName: updated.FirstName,
       LastName: updated.LastName,
-      Login: updated.Login,
+      Login: updated.Login
     }
   );
   return Object.assign(

@@ -13,7 +13,7 @@ export function getUsers() {
       .then((res) => {
         dispatch({
           type: USER_CONSTANTS.GET_USERS,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ export function getUser(userId) {
       .then((res) => {
         dispatch({
           type: USER_CONSTANTS.GET_USER,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {
@@ -46,7 +46,7 @@ export function updateUser(userId, FirstName, LastName, Login ) {
       .then((res) => {
         dispatch({
           type: USER_CONSTANTS.CHANGE,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {

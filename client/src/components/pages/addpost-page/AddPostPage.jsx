@@ -19,7 +19,7 @@ class AddPostPage extends React.Component {
       this.state = {
         title: editablePost.Title || null,
         description: editablePost.Description || null,
-        error: null,
+        error: null
       }
     } else {
       this.state = {
