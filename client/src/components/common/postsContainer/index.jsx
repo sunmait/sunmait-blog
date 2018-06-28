@@ -98,7 +98,7 @@ class Posts extends React.Component {
 
 const mapStateToProps = (state) => ({
   posts: state.posts,
-  profile: state.profile.profile,
+  profile: state.profile.profile
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({

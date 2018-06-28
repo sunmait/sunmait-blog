@@ -20,7 +20,7 @@ export function login(Login, Password) {
 
         dispatch({
           type: AUTH_CONSTANTS.LOGIN,
-          payload: res.data,
+          payload: res.data
         });
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ export const verifyCredentials = () => (dispatch) => {
   if (accessToken && refreshToken) {
       const payload = axiosRequest.patch('/api/auth/verify-credentials', {
         accessToken,
-        refreshToken,
+        refreshToken
       }).then((res)=>{
         localStorage.setItem('AccessToken', res.data.AccessToken);
         localStorage.setItem('RefreshToken', res.data.RefreshToken);
@@ -47,7 +47,7 @@ export const verifyCredentials = () => (dispatch) => {
 
       dispatch({
         type: AUTH_CONSTANTS.LOGIN,
-        payload,
+        payload
       });
   }
 };

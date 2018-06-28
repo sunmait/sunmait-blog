@@ -11,7 +11,7 @@ import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  DialogTitle
 } from 'material-ui/Dialog';
 
 class ProfilePage extends React.Component {
@@ -19,22 +19,16 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     const user = JSON.parse(localStorage.getItem('User'));
+    this.state = {
+      password: '',
+      id: '',
+      openDialog: false
+    }
     if (user) {
       this.state = {
-        password: '',
-        id: '',
-        error: false,
-        openDialog: false,
         newname: user.FirstName,
         newsecondName: user.LastName,
         newlogin: user.Login,
-      };
-    } else {
-      this.state = {
-        password: '',
-        id: '',
-        error: false,
-        openDialog: false,
       };
     }
   }
@@ -54,22 +48,29 @@ class ProfilePage extends React.Component {
   }
 
   handleSubmitChanges = () => {
-    this.setState({ openDialog: true });
+    this.setState({
+      openDialog: true
+    });
   }
 
-  login = () => {
-    if (this.state.password) {
-      this.props.updateUser(
-        this.state.id,
-        this.state.newname,
-        this.state.newsecondName,
-        this.state.newlogin,
+  change = () => {
+      this.props.login(this.props.user.Login, this.state.password
       ).then((res) => {
-        this.logout();
-        this.props.login(this.state.newlogin, this.state.password);
-        this.props.history.push('/home');
+        this.props.updateUser(
+          this.state.id,
+          this.state.newname,
+          this.state.newsecondName,
+          this.state.newlogin
+        ).then(
+          (res) => {
+            this.logout();
+            this.props.login(this.state.newlogin, this.state.password);
+            this.props.history.push('/home');
+          });
+      },
+      (rej) => {
+        alert("Wrong password");
       });
-    }
   }
 
   logout = () => {
@@ -79,151 +80,110 @@ class ProfilePage extends React.Component {
 
   handleClose = (event) => {
     this.setState({
-      openDialog: false,
+      openDialog: false
     });
   };
 
-  handlePasswordChange = () => {
-    this.setState({
-      newpassword: '',
-    });
-  }
-
   renderAuthorisedProfile = () => {
-    if (!this.props.user && !this.state.newname && !this.state.newsecondName && !this.state.newlogin ) {
-      return (
-        <div />
-      );
-    } else {
-      return (
-        <div className="main">
-          <Header />
-          <div className="content">
-            <div className="ProfilePage">
-              <div className="form">
-                <div className="avatar-container">
-                  <Avatar 
-                    alt="Username"
-                    src={this.props.user.PhotoUrl}
-                    className="avatar"
+    let helperTextName = "";
+    let helperTextSecondName = "";
+    let helperTextLogin = "";
+    let errorName = false;
+    let errorSecondName = false;
+    let errorLogin = false;
+    let disabledButton = false;
+    if (this.state.newname.length < 2) {
+      helperTextName = "min length: 2 symbols";
+      errorName = true;
+    }
+    if (this.state.newsecondName.length < 2) {
+      helperTextSecondName = "min length: 2 symbols";
+      errorSecondName = true;
+    }
+    if (this.state.newlogin.length < 5) {
+      helperTextLogin = "min length: 5 symbols";
+      errorLogin = true;
+    }
+    if ((this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2)) {
+      disabledButton = true;
+    }
+    return (
+      <div className="main">
+        <Header />
+        <div className="content">
+          <div className="ProfilePage">
+            <div className="form">
+              <div className="avatar-container">
+                <Avatar 
+                  alt="Username"
+                  src={this.props.user.PhotoUrl}
+                  className="avatar"
+                />
+                <Typography
+                  type="title"
+                  className="bar-username"
+                >
+                  {this.props.user.FirstName} {this.props.user.LastName}
+                </Typography>
+              </div>
+              <div>
+                <div className="container">
+                  <TextField
+                    error={ errorName }
+                    label="Name"
+                    name="newname"
+                    className="field"
+                    value={ this.state.newname }
+                    helperText={ helperTextName }
+                    onChange={this.handleInputChange}
+                    margin="normal"
                   />
-                  <Typography
-                    type="title"
-                    className="bar-username"
-                  >
-                    {
-                    this.props.updatedUser.FirstName ?
-                      `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
-                      :
-                      `${this.props.user.FirstName} ${this.props.user.LastName}`
-                    }
-                  </Typography>
                 </div>
-                <div>
-                  <div className="container">
-                    {
-                      this.state.newname.length >= 2 ?
-                        <TextField
-                          label="Name"
-                          name="newname"
-                          className="field"
-                          value={ this.state.newname }
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                          :
-                        <TextField
-                          error
-                          label="Name"
-                          name="newname"
-                          className="field"
-                          helperText="min length: 2 symbols"
-                          value={ this.state.newname }
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                      }
-                  </div>
+              </div>
+              <div>
+                <div className="container">
+                  <TextField
+                    error={ errorSecondName }
+                    label="Second name"
+                    name="newsecondName"
+                    className="field"
+                    helperText={ helperTextSecondName }
+                    value={ this.state.newsecondName}
+                    onChange={this.handleInputChange}
+                    margin="normal"
+                  />
                 </div>
-                <div>
-                  <div className="container">
-                    {
-                      this.state.newsecondName.length >= 2 ?
-                      <TextField
-                        label="Second name"
-                        name="newsecondName"
-                        className="field"
-                        value={ this.state.newsecondName}
-                        onChange={this.handleInputChange}
-                        margin="normal"
-                      />
-                      :
-                        <TextField
-                          error
-                          label="Second name"
-                          name="newsecondName"
-                          className="field"
-                          helperText="min length: 2 symbols"
-                          value={ this.state.newsecondName}
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                      }
-                  </div>
+              </div>
+              <div>
+                <div className="container">
+                  <TextField
+                    error={ errorLogin }
+                    label="Login"
+                    name="newlogin"
+                    className="field"
+                    helperText={ helperTextLogin }
+                    value={this.state.newlogin}
+                    onChange={this.handleInputChange}
+                    margin="normal"
+                  />
                 </div>
-                <div>
-                  <div className="container">
-                    {
-                      this.state.newlogin.length >= 5 ?
-                        <TextField
-                          label="Login"
-                          name="newlogin"
-                          className="field"
-                          value={ this.state.newlogin}
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                      :
-                        <TextField
-                          error
-                          label="Login"
-                          name="newlogin"
-                          className="field"
-                          helperText="min length: 5 symbols"
-                          value={this.state.newlogin}
-                          onChange={this.handleInputChange}
-                          margin="normal"
-                        />
-                      }
-                  </div>
-                </div>
-                <div className="button change">
-                  {
-                    (this.state.newname.length < 2) || (this.state.newlogin.length < 5) || (this.state.newsecondName.length < 2) ?
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        disabled
-                        size="small"
-                      >
-                        Save changes
-                      </Button>
-                    :
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        size="small"
-                        onClick={() => this.handleSubmitChanges()}
-                      >
-                        Save changes
-                      </Button>
-                  }
-                </div>
+              </div>
+              <div className="button change">
+                <Button
+                  variant="raised"
+                  color="primary"
+                  size="small"
+                  disabled={ disabledButton }
+                  onClick={() => this.handleSubmitChanges()}
+                >
+                  Save changes
+                </Button>
               </div>
             </div>
           </div>
-          <Footer />
-          <Dialog
+        </div>
+        <Footer />
+        <Dialog
           open={this.state.openDialog}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
@@ -246,16 +206,15 @@ class ProfilePage extends React.Component {
             <Button
               variant="raised"
               color="primary"
-              onClick={() => this.login()}
+              onClick={() => this.change()}
               className="login-button-popup"
             >
-              LogIn
+              Change
             </Button>
           </DialogActions>
         </Dialog>
-        </div>
-      );
-    }
+      </div>
+    );
   }
 
   renderNotAuthorisedProfile = () => {
@@ -274,13 +233,12 @@ class ProfilePage extends React.Component {
                 type="title"
                 className="bar-username"
               >
-                { `${this.props.profile.FirstName} ${this.props.profile.LastName}` }
+                {this.props.profile.FirstName} {this.props.profile.LastName}
               </Typography>
             </div>
           </div>
         </div>
         <Footer />
-        
       </div>
     );
   }
@@ -291,11 +249,7 @@ class ProfilePage extends React.Component {
         return this.renderAuthorisedProfile();
       } else if (!this.props.user || this.props.profile) {
         return this.renderNotAuthorisedProfile();
-      } else {
-        return (
-          <div />
-        );
-      } 
+      }
     } else {
       return (
         <div />

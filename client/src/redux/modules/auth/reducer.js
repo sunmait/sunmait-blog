@@ -3,7 +3,7 @@ import AUTH_ACTIONS from './actionConstants';
 const defaultState = {
   user: null,
   accessToken: null,
-  refreshToken: null,
+  refreshToken: null
 };
 
 export default function(state = defaultState, action) {
@@ -33,7 +33,7 @@ function handleLogin(state, loginData) {
     ...state,
     user: loginData.Data,
     accessToken: loginData.AccessToken,
-    refreshToken: loginData.RefreshToken,
+    refreshToken: loginData.RefreshToken
   };
 }
 
@@ -42,7 +42,7 @@ function handleLogout(state) {
     ...state,
     user: null,
     accessToken: null,
-    refreshToken: null,
+    refreshToken: null
   };
 }
 
@@ -50,6 +50,6 @@ function handleAccessTokenExpired(state, tokens) {
   return {
     ...state,
     accessToken: tokens.AccessToken,
-    refreshToken: tokens.RefreshToken,
+    refreshToken: tokens.RefreshToken
   };
 }

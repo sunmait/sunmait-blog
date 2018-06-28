@@ -6,7 +6,7 @@ import profile from './modules/profile/reducer';
 const rootReducer = combineReducers({
   posts,
   user,
-  profile,
+  profile
 });
 
 export default rootReducer;

@@ -5,7 +5,7 @@ import PostPage from 'components/pages/post-page/PostPage.jsx';
 const mapStateToProps = (state) => ({
   posts: state.posts,
   profile: state.profile.profile,
-  user: state.user.user,
+  user: state.user.user
 });
 
 const mapDispatchToProps = (dispatch) => redux.bindActionCreators({}, dispatch);

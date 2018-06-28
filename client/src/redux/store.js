@@ -7,5 +7,5 @@ import rootReducer from 'redux/rootReducer.js';
 
 export default createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(promise(), thunk)),
+  composeWithDevTools(applyMiddleware(promise(), thunk))
 );
