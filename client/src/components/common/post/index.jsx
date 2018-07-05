@@ -5,11 +5,12 @@ import { format } from 'date-fns';
 import ButtonLink from 'components/common/button/ButtonLink.jsx';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
-import { deletePost } from 'redux/modules/posts/actions.js';
 import Edit from 'material-ui-icons/Edit';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Article.less';
 
@@ -28,13 +29,8 @@ class Post extends React.Component {
   }
 
   handleDeletePost(e) {
-    this.props.deletePost(this.props.postId)
-      .then((res) => {
-        this.props.history.push('/home');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    action({type : 'DELETE_POST_SAGA', payload: {postId: this.props.postId}});
+    this.props.history.push('/home');
   }
   
   renderEditButtons() {
@@ -142,8 +138,4 @@ const mapStateToProps = (state) => ({
   user: state.user.user
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  deletePost
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post); 
+export default connect(mapStateToProps)(Post); 

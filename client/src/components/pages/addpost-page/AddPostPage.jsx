@@ -8,6 +8,8 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import { Redirect } from 'react-router-dom';
 let myMarkdown = require('marked');
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 
 class AddPostPage extends React.Component {
 
@@ -41,13 +43,8 @@ class AddPostPage extends React.Component {
   handleAddPost(title, description) {
     if( title && description ){
       if(description.length > 50){
-        this.props.addPost(title, description)
-          .then((res) => {
-            this.props.history.push('/home');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        action({type : 'ADD_POST_SAGA', payload: {title, description}});
+        this.props.history.push('/home');
         this.setState({
           errorDescription: null,
           errorTitle: null,
@@ -70,16 +67,8 @@ class AddPostPage extends React.Component {
   }
 
   handleUpdatePost(title, description, idPost) {
-    this.props.updatePost(title, description, idPost)
-      .then((res) => {
-        this.props.history.push('/home');
-        this.setState({
-          error: false
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    action({type : 'UPDATE_POST_SAGA', payload: {title, description, idPost}});
+    this.props.history.push('/home');
   }
 
   renderButton = (idPost) => {

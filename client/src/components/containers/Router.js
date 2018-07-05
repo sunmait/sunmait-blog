@@ -9,10 +9,9 @@ import ProfilePage from '../pages/profile-page/index.jsx';
 import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
-import { verifyCredentials } from '../../redux/modules/auth/actions.js';
-import { getUser, getUsers } from 'redux/modules/profile/actions.js';
-import { getPosts } from 'redux/modules/posts/actions.js';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
+import store from '../../redux/store';
+const action = type => store.dispatch({type});
 
 class AppComponent extends React.Component {
   constructor(props) {
@@ -20,9 +19,9 @@ class AppComponent extends React.Component {
   }
 
   componentWillMount() {
-    this.props.verifyCredentials();
-    this.props.getUsers();
-    this.props.getPosts();
+    action('VERIFY_CREDENTIALS_SAGA');
+    action('GET_USERS_SAGA');
+    action('GET_POSTS_SAGA');
   }
 
   render() {
@@ -82,12 +81,4 @@ const mapStateToProps = (state) => ({
   auth: state.user
 });
 
-const mapDispatchToProps = (dispatch) =>
-  redux.bindActionCreators({
-    verifyCredentials,
-    getUser,
-    getUsers,
-    getPosts
-  }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
+export default connect(mapStateToProps)(AppComponent);

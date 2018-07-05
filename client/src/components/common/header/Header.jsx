@@ -15,10 +15,10 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
-import { login, logout, verifyCredentials } from 'redux/modules/auth/actions.js';
 import LoginPopover from './LoginPopover.jsx'
 import 'assets/styles/Header.less';
-
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -28,12 +28,23 @@ class Header extends React.Component {
     };
   }
 
+  handleInputChange = (event) => {
+    this.setState({
+     [event.target.name]: event.target.value
+    });
+  }
+
+  login = () => {
+    action({type : 'LOGIN_SAGA', payload: {Login: this.state.login, Password: this.state.password}});
+    this.setState({
+      openDialog: false,
+      openMenu: false
+    })
+  }
+
   logout = () => {
-    const refToken = localStorage.getItem('RefreshToken');
-    this.props.logout(refToken)
-      .catch((err) => {
-        console.log(err);
-      });
+    const refreshToken = localStorage.getItem('RefreshToken');
+    action({type : 'LOGOUT_SAGA', payload: {refreshToken}});
     this.setState({
       login: '',
       password: '',
@@ -171,9 +182,4 @@ const mapStateToProps = (state) => ({
   updatedUser: state.profile.updatedUser
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  login,
-  logout
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

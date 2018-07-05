@@ -13,6 +13,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 
 class ProfilePage extends React.Component {
 
@@ -35,7 +37,7 @@ class ProfilePage extends React.Component {
 
   componentWillMount() {
     const userId = +this.props.location.pathname.split(':')[1];
-    this.props.getUser(userId);
+    action({type : 'GET_USER_SAGA', payload: {userId}});
     this.setState({
       id: userId,
     });
@@ -54,23 +56,19 @@ class ProfilePage extends React.Component {
   }
 
   change = () => {
-      this.props.login(this.props.user.Login, this.state.password
-      ).then((res) => {
-        this.props.updateUser(
-          this.state.id,
-          this.state.newname,
-          this.state.newsecondName,
-          this.state.newlogin
-        ).then(
-          (res) => {
-            this.logout();
-            this.props.login(this.state.newlogin, this.state.password);
-            this.props.history.push('/home');
-          });
-      },
-      (rej) => {
-        alert("Wrong password");
-      });
+    action({type : 'CHANGE_USER_SAGA',
+    payload: {
+                Login: this.props.user.Login,
+                Password: this.state.password,
+                changedUser: {
+                  id: this.state.id,
+                  name: this.state.newname,
+                  secondName: this.state.newsecondName,
+                  login: this.state.newlogin
+                }
+              }
+    });
+    this.props.history.push('/home');
   }
 
   logout = () => {

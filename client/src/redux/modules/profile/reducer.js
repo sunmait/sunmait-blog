@@ -1,5 +1,3 @@
-import USER_ACTIONS from './actionConstants';
-
 const defaultState = {
   profile: null,
   usersById: {},
@@ -8,16 +6,16 @@ const defaultState = {
 
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case USER_ACTIONS.GET_USERS:
+    case 'GET_USERS':
       return handleGetUsers(state, action.payload);
 
-    case USER_ACTIONS.GET_USER:
+    case 'GET_USER':
       return handleGetUser(state, action.payload);
 
-    case USER_ACTIONS.CHANGE:
+    case 'CHANGE':
       return handleChange(state, action.payload);
 
-    case USER_ACTIONS.CHANGE_PASSWORD:
+    case 'CHANGE_PASSWORD':
       return handleAccessTokenExpired(state, payload);
 
     default:
@@ -56,7 +54,7 @@ function handleChange(state, updated) {
   const updatedUserById = Object.assign(
     {}, state.usersById,
     {
-      [updated.id]: updated.FirstName
+      [updated.id]: updated.id
     }
   );
   const updatedUser = Object.assign(

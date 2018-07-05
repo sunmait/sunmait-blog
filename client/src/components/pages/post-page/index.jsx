@@ -8,6 +8,4 @@ const mapStateToProps = (state) => ({
   user: state.user.user
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps)(PostPage);
