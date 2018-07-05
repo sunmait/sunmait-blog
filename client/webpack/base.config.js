@@ -14,22 +14,12 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     modules: [app, 'node_modules'],
   },
+  output: {
+    path: path.resolve('../server/API/public', env),
+    publicPath: '/',
+  },
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-          configFile: '../tslint.json',
-          tsConfigFile: 'tsconfig.json',
-        },
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-      },
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -41,15 +31,13 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader', options: { minimize: true } },
-            'postcss-loader',
-            'less-loader',
-          ],
-        }),
+        test: /\.(less|css)$/,
+        use: [
+          'style-loader',
+          {loader: 'css-loader', options: {importLoaders: 1, minimize: true}},
+          'less-loader',
+        ],
+        exclude: [/node_modules/, /public/],
       },
       {
         test: /\.css$/,

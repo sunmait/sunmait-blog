@@ -3,6 +3,7 @@
     "moduleResolution": "node",
     "outDir": "./dist/",
     "sourceMap": true,
+    "skipLibCheck": true,
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "es6",
@@ -11,9 +12,9 @@
     "rootDir": "./src",
     "paths": {
       "app/*": [ "src/*" ],
-      //"redux/*": [ "redux/*" ],
-      //"components/*": [ "components/*" ],
-      //"types/*": [ "types/*" ]
+      "redux/*": [ "redux/*" ],
+      "components/*": [ "components/*" ],
+      "types/*": [ "types/*" ]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true
@@ -22,6 +23,7 @@
     "./src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/components/__tests__"
   ]
 }

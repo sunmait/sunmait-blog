@@ -6,6 +6,8 @@
     "password": <YOUR PASSWORD>,
     "host": "localhost",
     "port": <YOUR PORT>
-  }
+  },
+  "secretKey": "bbabb",
+  "hostname": "http://localhost:3000"
 }
 

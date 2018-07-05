@@ -1,4 +1,4 @@
-# Sunmait career day project
+# Sunmait blog project
 
 Sunmait Technologies   
 https://sunmait.com

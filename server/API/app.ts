@@ -44,6 +44,7 @@ app.use(express.static(STATIC_PATH));
 app.get('*', (req: express.Request, res: express.Response) => {
   fs.readFile(`${STATIC_PATH}/index.html`, (error, html) => {
     res.setHeader('Content-Type', 'text/html');
+    // res.writeHead(200, {"Content-Type": "text/html"});
     res.end(html);
   });
 });

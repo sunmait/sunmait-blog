@@ -1,20 +1,53 @@
 import { InstallerBase } from './InstallerBase';
 import {
-  CareerDayRepository,
+  PostRepository,
+  CommentRepository,
+  PostsTagRepository,
+  TagRepository,
+  UserRepository,
+  SessionRepository,
 } from '../../../Data/Repositories/Impl/index';
 
 import {
-  ICareerDayRepository,
+  IPostRepository,
+  ICommentRepository,
+  IPostsTagRepository,
+  ITagRepository,
+  IUserRepository,
+  ISessionRepository,
 } from '../../../Data/Repositories/index';
 
-import CareerDayEntity from '../../../Data/Entities/CareerDayEntity';
+import PostEntity from '../../../Data/Entities/PostEntity';
+import CommentEntity from '../../../Data/Entities/CommentEntity';
+import PostsTagEntity from '../../../Data/Entities/PostsTagEntity';
+import TagEntity from '../../../Data/Entities/TagEntity';
+import UserEntity from '../../../Data/Entities/UserEntity';
 
 import { DbContext } from '../../../Data/DbContext';
+import SessionEntity from '../../../Data/Entities/SessionEntity';
 export class DataInstaller extends InstallerBase {
   public install(): void {
     this.container
-      .bind<ICareerDayRepository>('CareerDayRepository')
-      .toConstantValue(new CareerDayRepository(CareerDayEntity));
+      .bind<IPostRepository>('PostRepository')
+      .toConstantValue(new PostRepository(PostEntity));
+    this.container
+      .bind<ICommentRepository>('CommentRepository')
+      .toConstantValue(new CommentRepository(CommentEntity));
+    this.container
+      .bind<IPostsTagRepository>('PostsTagRepository')
+      .toConstantValue(new PostsTagRepository(PostsTagEntity));
+    this.container
+      .bind<IPostsTagRepository>('PostsTagRepository')
+      .toConstantValue(new PostsTagRepository(PostsTagEntity));
+    this.container
+      .bind<ITagRepository>('TagRepository')
+      .toConstantValue(new TagRepository(TagEntity));
+    this.container
+      .bind<IUserRepository>('UserRepository')
+      .toConstantValue(new UserRepository(UserEntity));
+    this.container
+      .bind<ISessionRepository>('SessionRepository')
+      .toConstantValue(new SessionRepository(SessionEntity));
     this.container
       .bind<DbContext>('DbContext')
       .to(DbContext)
