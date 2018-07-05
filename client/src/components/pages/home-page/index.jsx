@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import * as redux from 'redux';
+// import { getPosts } from 'redux/modules/posts/actions';
 import HomePage from 'components/pages/home-page/HomePage.jsx';
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  posts: state.posts.posts.reverse(),
 });
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

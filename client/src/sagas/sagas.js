@@ -56,7 +56,6 @@ function* login(payload) {
     yield put({ type: 'LOGIN', payload: res.data});
   } catch(err) {
     console.error(err);
-    alert("Wrong login or password!");
   }
 }
 
@@ -103,7 +102,6 @@ function* changeUser(payload) {
     }
   } catch(err) {
     console.error(err);
-    alert("Wrong password!");
   }
 }
 
@@ -113,7 +111,6 @@ function* addPost(payload) {
     '/api/posts', { Title: payload.payload.title, Description: payload.payload.description, UserId }
   );
   yield put({ type: 'ADD_POST', payload: res.data});
-  alert("Post added in a database!");
 }
 
 function* updatePost(payload) {
@@ -121,7 +118,6 @@ function* updatePost(payload) {
     '/api/posts', { Title: payload.payload.title, Description: payload.payload.description, idPost: payload.payload.idPost }
   );
   yield put({ type: 'UPDATE_POST', payload: res.data});
-  alert("Post updated in a database!");
 }
 
 function* deletePost(payload) {
@@ -130,7 +126,6 @@ function* deletePost(payload) {
     `/api/posts/${idPost}`, idPost
   );
   yield put({ type: 'DELETE_POST', payload: res.data});
-  alert("Post deleted!");
 }
 
 function* mainSaga() {

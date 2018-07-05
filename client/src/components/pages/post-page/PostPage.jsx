@@ -1,12 +1,9 @@
 import * as React from 'react';
 import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
-import Post from 'components/common/post/index.jsx';
-import { Link } from 'react-router-dom';
-import Button from 'material-ui/Button';
+import Post from 'components/containers/post/PostContainer';
 
 class PostPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
