@@ -40,7 +40,7 @@ class PostPage extends React.Component {
                 author={post.UserId}
                 dateCreated={post.CreatedAt}
                 dateUpdated={post.UpdatedAt}
-                full={true}
+                isPreviewVersion={false}
                 isEditable={isEditable}
                 history={this.props.history}
               />

@@ -1,6 +1,13 @@
+@import './theme/variables.less';
+
 header {
   min-height: 69px;
-  background: rgb(255, 255, 255);
+  background: @primary-background;
+  border-bottom: @secondary-border;
+  padding: 0 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   .logo {
     float: left;
@@ -8,28 +15,24 @@ header {
     width: 140px;
     background-image: url("../images/logo.svg");
     background-size: cover;
-    margin-top: 13px;
-    margin-left: 10%;
   }
 
-  .user {
+  .header-for-authorised {
     cursor: pointer;
-    margin-right: 150px;
-    margin-top: 10px;
-    float: right;
-    display: inline-flex;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   
-    .header-bar-username {
-      padding-top: 10px; 
-      padding-right: 10px;
-      font-family: Marker Felt;
+    .header-for-authorised--create-button {
+      padding-right: 40px;
+    }
+
+    .header-for-authorised--user {
+      padding-right: 16px;
     }
   }
   
   button.login-button {
-    margin-left: 20px;
-    margin-right: 80px;
-    margin-top: 15px;
     border: 0;
     box-shadow: 0;
     width: 100px;

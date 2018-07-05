@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
+import ButtonLink from 'components/common/button/ButtonLink.jsx';
+import Button from 'components/common/button/Button.jsx';
 import Avatar from 'material-ui/Avatar';
-import AppBar from 'material-ui/AppBar';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
-import Typography from 'material-ui/Typography';
 import Popover from 'material-ui/Popover';
 import Fade from 'material-ui/transitions/Fade';
 import { connect } from 'react-redux';
@@ -17,8 +15,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
-import Grow from 'material-ui/transitions/Grow';
+import LoginPopover from './LoginPopover.jsx'
 import 'assets/styles/Header.less';
 import store from '../../../redux/store';
 const action = ({ type, payload }) => store.dispatch({type, payload});
@@ -26,8 +23,6 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: '',
-      password: '',
       openDialog: false,
       openMenu: false
     };
@@ -63,7 +58,7 @@ class Header extends React.Component {
     });
   };
 
-  handleClose = (event) => {
+  handleClose = () => {
     this.setState({
       openDialog: false
     });
@@ -83,22 +78,20 @@ class Header extends React.Component {
     });
   };
 
-  handleRequestClose = () => {
-    this.setState({
-      open: false
-    });
-  };
-
   renderAuthorisedHeader() {
     return (
-      <div>
-        <div
-          onClick={this.handleClickMenu}
-          className="user"
-        >
-          <Typography
-            type="title"
-            className="header-bar-username"
+      <React.Fragment>
+        <div className="header-for-authorised">
+          <div className="header-for-authorised--create-button">
+            <ButtonLink 
+              buttonColor="primary"
+              linkUrl="/addpost"
+              label="Create new post"
+            />
+          </div>
+          <div
+            className="header-for-authorised--user"
+            onClick={this.handleClickMenu}
           >
           {
             this.props.updatedUser.FirstName ?
@@ -106,10 +99,11 @@ class Header extends React.Component {
               :
               `${this.props.user.FirstName} ${this.props.user.LastName}`
             }
-          </Typography>
+          </div>
           <Avatar
             alt="Username"
             src={this.props.user.PhotoUrl}
+            onClick={this.handleClickMenu}
           />
         </div>
         <Popover
@@ -120,17 +114,17 @@ class Header extends React.Component {
           targetOrigin={{"horizontal":"middle","vertical":"top"}}
         >
           <Link to={`/profile/:${this.props.user.id}`}>
-            <MenuItem onClick={this.handleClose}>
+            <MenuItem onClick={this.handleCloseMenu}>
               Profile
             </MenuItem>
           </Link>
           <Link to="/myposts">
-            <MenuItem onClick={this.handleClose}>
+            <MenuItem onClick={this.handleCloseMenu}>
               My posts
             </MenuItem>
           </Link>
           <Link to="/addpost">
-            <MenuItem onClick={this.handleClose}>
+            <MenuItem onClick={this.handleCloseMenu}>
               Add post
             </MenuItem>
           </Link>
@@ -140,62 +134,26 @@ class Header extends React.Component {
             </Link>
           </MenuItem>
         </Popover>
-      </div>
+      </React.Fragment>
     )
   }
 
   renderNotAuthorisedHeader() {
     return (
-      <div>
+      <React.Fragment>
         <Button
-          variant="raised"
-          color="primary"
+          buttonColor="primary"
           onClick={() => this.handleClickLogin()}
           className="login-button"
-        >
-          LogIn
-        </Button>
-        <Dialog
-          open={this.state.openDialog}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="form-dialog-title">
-            Enter email and password
-          </DialogTitle>
-          <DialogContent>
-            <TextField
-              label="Enter login..."
-              name="login"
-              margin="normal"
-              color="white"
-              value={this.state.login}
-              onChange={this.handleInputChange}
-            />
-          </DialogContent>
-          <DialogContent>
-            <TextField
-              label="Enter password..."
-              type="password"
-              name="password"
-              margin="normal"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button
-              variant="raised"
-              color="primary"
-              onClick={() => this.login()}  
-              className="login-button-popup"
-            >
-              LogIn
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+          label="Log In"
+        />
+        <LoginPopover
+          isOpen={this.state.openDialog}
+          handleClose={this.handleClose}
+          login={this.props.login}
+          user={this.props.user}
+        />
+      </React.Fragment>
     )
   }
 
