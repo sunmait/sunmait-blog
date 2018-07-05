@@ -1,5 +1,3 @@
-import AUTH_ACTIONS from './actionConstants';
-
 const defaultState = {
   user: null,
   accessToken: null,
@@ -8,19 +6,19 @@ const defaultState = {
 
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case `${AUTH_ACTIONS.LOGIN}_FULFILLED`:
+    case 'LOGIN_FULFILLED':
       return handleLogin(state, action.payload);
 
-    case AUTH_ACTIONS.LOGIN:
+    case 'LOGIN':
       return handleLogin(state, action.payload);
 
-    case AUTH_ACTIONS.LOGOUT:
+    case 'LOGOUT':
       return handleLogout(state);
 
-    case AUTH_ACTIONS.ACCESS_TOKEN_EXPIRED:
+    case 'ACCESS_TOKEN_EXPIRED':
       return handleAccessTokenExpired(state, action.payload);
 
-    case AUTH_ACTIONS.REFRESH_TOKEN_EXPIRED:
+    case 'REFRESH_TOKEN_EXPIRED':
       return handleAccessTokenExpired(state, action.payload);
 
     default:

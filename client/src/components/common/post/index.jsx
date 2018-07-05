@@ -8,11 +8,12 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import DeleteIcon from 'material-ui-icons/Delete';
-import { deletePost } from 'redux/modules/posts/actions.js';
 import Edit from 'material-ui-icons/Edit';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 
 const myMarkdown = require('marked');
 
@@ -26,13 +27,8 @@ class Post extends React.Component {
   }
 
   handleDeletePost(e) {
-    this.props.deletePost(this.props.postId)
-      .then((res) => {
-        this.props.history.push('/home');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    action({type : 'DELETE_POST_SAGA', payload: {postId: this.props.postId}});
+    this.props.history.push('/home');
   }
 
   renderIcons = (postId) => {
@@ -154,8 +150,4 @@ const mapStateToProps = (state) => ({
   user: state.user.user
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  deletePost
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post); 
+export default connect(mapStateToProps)(Post); 

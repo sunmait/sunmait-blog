@@ -6,7 +6,6 @@ import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
-import { Login } from 'redux/modules/auth/actions';
 import Typography from 'material-ui/Typography';
 import Popover from 'material-ui/Popover';
 import Fade from 'material-ui/transitions/Fade';
@@ -20,9 +19,9 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import Grow from 'material-ui/transitions/Grow';
-import { login, logout, verifyCredentials } from 'redux/modules/auth/actions.js';
 import 'assets/styles/Header.less';
-
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -41,24 +40,16 @@ class Header extends React.Component {
   }
 
   login = () => {
-    this.props.login(this.state.login, this.state.password)
-      .then((res) => {
-        this.setState({
-          openDialog: false,
-          openMenu: false
-        })
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    action({type : 'LOGIN_SAGA', payload: {Login: this.state.login, Password: this.state.password}});
+    this.setState({
+      openDialog: false,
+      openMenu: false
+    })
   }
 
   logout = () => {
-    const refToken = localStorage.getItem('RefreshToken');
-    this.props.logout(refToken)
-      .catch((err) => {
-        console.log(err);
-      });
+    const refreshToken = localStorage.getItem('RefreshToken');
+    action({type : 'LOGOUT_SAGA', payload: {refreshToken}});
     this.setState({
       login: '',
       password: '',
@@ -233,9 +224,4 @@ const mapStateToProps = (state) => ({
   updatedUser: state.profile.updatedUser
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  login,
-  logout
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

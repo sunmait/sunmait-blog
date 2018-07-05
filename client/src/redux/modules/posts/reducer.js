@@ -1,16 +1,14 @@
-import POSTS_ACTIONS from './actionConstants';
-
 const defaultState = [];
 
 export default function( state = defaultState, action) {
   switch (action.type) {
-    case POSTS_ACTIONS.GET_POSTS:
+    case 'GET_POSTS':
       return handlePosts(state, action.payload);
-    case POSTS_ACTIONS.ADD_POST:
+    case 'ADD_POST':
       return state;
-    case POSTS_ACTIONS.UPDATE_POST:
+    case 'UPDATE_POST':
       return handleUpdatedPosts(state, action.payload);
-    case POSTS_ACTIONS.DELETE_POST:
+    case 'DELETE_POST':
       return handleDeletePost(state, action.payload);
     default:
       return state;

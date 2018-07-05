@@ -6,6 +6,4 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps)(HomePage);

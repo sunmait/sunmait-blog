@@ -6,6 +6,8 @@ import Post from 'components/common/post/index.jsx';
 import { Link } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import Add from 'material-ui-icons/Add';
+import store from '../../../redux/store';
+const action = type => store.dispatch({type});
 
 class MyPostsPage extends React.Component {
 
@@ -14,10 +16,7 @@ class MyPostsPage extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getPosts()
-      .catch((err) => {
-        console.log(err);
-      });
+    action('GET_POSTS_SAGA');
   }
 
   renderPostList = () => {

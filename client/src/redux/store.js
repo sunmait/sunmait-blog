@@ -1,11 +1,15 @@
 import { applyMiddleware, createStore, Dispatch } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import promise from 'redux-promise-middleware';
-import thunk from 'redux-thunk';
 import rootReducer from 'redux/rootReducer.js';
+import createSagaMiddleware from 'redux-saga';
+import mainSaga from '../sagas/sagas'
 
 
-export default createStore(
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(promise(), thunk))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+export default store;
+
+sagaMiddleware.run(mainSaga);

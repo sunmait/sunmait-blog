@@ -7,8 +7,8 @@ import Post from '../post/index.jsx';
 import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
-import { getPosts, deletePost } from 'redux/modules/posts/actions.js';
-import { getUser } from 'redux/modules/profile/actions.js';
+import store from '../../../redux/store';
+const action = type => store.dispatch({type});
 
 class Posts extends React.Component {
 
@@ -17,10 +17,7 @@ class Posts extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getPosts()
-      .catch((err) => {
-        console.log(err);
-      })
+    action('GET_POSTS_SAGA');
   }
 
   renderEditablePost = (posts) => {
@@ -90,7 +87,6 @@ class Posts extends React.Component {
     }
   }
 
-
   render() {
     return this.renderPostsList();
   }
@@ -101,9 +97,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile.profile
 });
 
-const mapDispatchToProps = (dispatch) => redux.bindActionCreators({
-  getPosts,
-  getUser,
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps)(Posts);
