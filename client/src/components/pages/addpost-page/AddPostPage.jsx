@@ -2,7 +2,6 @@ import * as React from 'react';
 import 'assets/styles/AddPostPage.less';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Header from 'components/common/header/Header.jsx';
-import Footer from 'components/common/footer/index.jsx';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
@@ -144,7 +143,6 @@ class AddPostPage extends React.Component {
             </Card>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

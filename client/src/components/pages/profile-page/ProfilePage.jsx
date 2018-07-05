@@ -2,10 +2,8 @@ import * as React from 'react';
 import '../../../assets/styles/ProfilePage.less';
 import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
-import Footer from 'components/common/footer/index.jsx';
-import Button from 'material-ui/Button';
+import Button from 'components/common/button/Button.jsx';
 import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Dialog, {
   DialogActions,
@@ -13,6 +11,11 @@ import Dialog, {
   DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
+import { getBEMClasses } from 'components/helpers/BEMHelper';
+
+const userProfile = 'user-profile';
+const bemClasses = getBEMClasses([userProfile]);
+
 import store from '../../../redux/store';
 const action = ({ type, payload }) => store.dispatch({type, payload});
 
@@ -82,6 +85,21 @@ class ProfilePage extends React.Component {
     });
   };
 
+  renderProfileInfo() {
+    return (
+      <div className={bemClasses('profile-info-block')}>
+        <Avatar 
+          alt="Username"
+          src={this.props.profile.PhotoUrl}
+          className={bemClasses('avatar')}
+        />
+        <div>
+          {this.props.profile.FirstName} {this.props.profile.LastName}
+        </div>
+      </div>
+    )
+  }
+
   renderAuthorisedProfile = () => {
     let helperTextName = "";
     let helperTextSecondName = "";
@@ -111,19 +129,7 @@ class ProfilePage extends React.Component {
         <div className="content">
           <div className="ProfilePage">
             <div className="form">
-              <div className="avatar-container">
-                <Avatar 
-                  alt="Username"
-                  src={this.props.user.PhotoUrl}
-                  className="avatar"
-                />
-                <Typography
-                  type="title"
-                  className="bar-username"
-                >
-                  {this.props.user.FirstName} {this.props.user.LastName}
-                </Typography>
-              </div>
+              {this.renderProfileInfo()}
               <div>
                 <div className="container">
                   <TextField
@@ -168,19 +174,14 @@ class ProfilePage extends React.Component {
               </div>
               <div className="button change">
                 <Button
-                  variant="raised"
-                  color="primary"
-                  size="small"
-                  disabled={ disabledButton }
+                  buttonColor="primary"
                   onClick={() => this.handleSubmitChanges()}
-                >
-                  Save changes
-                </Button>
+                  label="Save changes"
+                />
               </div>
             </div>
           </div>
         </div>
-        <Footer />
         <Dialog
           open={this.state.openDialog}
           onClose={this.handleClose}
@@ -202,13 +203,10 @@ class ProfilePage extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button
-              variant="raised"
-              color="primary"
+              buttonColor="primary"
               onClick={() => this.change()}
-              className="login-button-popup"
-            >
-              Change
-            </Button>
+              label="Change"
+            />
           </DialogActions>
         </Dialog>
       </div>
@@ -221,22 +219,9 @@ class ProfilePage extends React.Component {
         <Header />
         <div className="content">
           <div className="ProfilePage">
-            <div className="avatar-container">
-              <Avatar 
-                alt="Username"
-                src={this.props.profile.PhotoUrl}
-                className="avatar"
-              />
-              <Typography
-                type="title"
-                className="bar-username"
-              >
-                {this.props.profile.FirstName} {this.props.profile.LastName}
-              </Typography>
-            </div>
+            {this.renderProfileInfo()}
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

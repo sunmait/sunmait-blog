@@ -24,16 +24,7 @@ class LoginPopover extends React.Component {
   }
 
   login = () => {
-    this.props.login(this.state.login, this.state.password)
-      .then((res) => {
-        this.setState({
-          openDialog: false,
-          openMenu: false
-        })
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.props.login(this.state.login, this.state.password);
   }
 
   handleClose = (event) => {
@@ -57,7 +48,7 @@ class LoginPopover extends React.Component {
         aria-describedby="alert-dialog-description"
         className="popover"
       >
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle className="popover__title">
           Welcome back
         </DialogTitle>
         <DialogContent className="popover__content">

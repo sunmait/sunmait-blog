@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Header from 'components/common/header/Header.jsx';
-import Footer from 'components/common/footer/index.jsx';
 import Post from 'components/containers/post/PostContainer';
 
 class PostPage extends React.Component {
@@ -57,7 +56,6 @@ class PostPage extends React.Component {
             { this.renderSelectedPost() }
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

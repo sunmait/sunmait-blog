@@ -21,6 +21,3 @@ ButtonLink.defaultProps = {
 };
 
 export default ButtonLink;
-
-
-

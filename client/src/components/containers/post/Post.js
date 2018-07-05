@@ -81,12 +81,11 @@ class Post extends React.Component {
     )
   }
 
-
-  render() {
+  renderArticleBody() {
     const {isPreviewVersion, title, postId} = this.props;
-    
+
     return (
-      <div className={isPreviewVersion ? "preview-article-container" : "full-article-container"}>
+      <React.Fragment>
         <Link to={`/post/:${postId}`}>
           <div
             className={bemClasses('main-post-image')}
@@ -106,10 +105,30 @@ class Post extends React.Component {
           <div className={bemClasses('description')}>
             <div id={`article-${postId}`} />
           </div>
-          {isPreviewVersion && this.renderReadMoreButton()}
         </div>
-      </div>
-    );
+      </React.Fragment>
+    )
+  }
+
+  render() {
+    if (this.props.isPreviewVersion) {
+      return (
+        <div className="preview-article-container">
+          <div>
+            {this.renderArticleBody()}
+          </div>
+          <div className={bemClasses('post-content')}>
+            {this.renderReadMoreButton()}
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="full-article-container">
+          {this.renderArticleBody()}
+        </div>
+      )
+    }
   }
 }
 

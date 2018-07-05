@@ -28,14 +28,8 @@ class Header extends React.Component {
     };
   }
 
-  handleInputChange = (event) => {
-    this.setState({
-     [event.target.name]: event.target.value
-    });
-  }
-
-  login = () => {
-    action({type : 'LOGIN_SAGA', payload: {Login: this.state.login, Password: this.state.password}});
+  login = (login, password) => {
+    action({type : 'LOGIN_SAGA', payload: {Login: login, Password: password}});
     this.setState({
       openDialog: false,
       openMenu: false
@@ -150,7 +144,7 @@ class Header extends React.Component {
         <LoginPopover
           isOpen={this.state.openDialog}
           handleClose={this.handleClose}
-          login={this.props.login}
+          login={this.login}
           user={this.props.user}
         />
       </React.Fragment>

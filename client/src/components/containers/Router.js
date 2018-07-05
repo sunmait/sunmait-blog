@@ -27,7 +27,6 @@ class AppComponent extends React.Component {
   render() {
     return (
       <Router history={history}>
-        <div className="app-container">
           <App>
             <Switch>
               <Route
@@ -71,7 +70,6 @@ class AppComponent extends React.Component {
               <Redirect from="/" exact to="/home" />
             </Switch>
           </App>
-        </div>
       </Router>
     );
   }
