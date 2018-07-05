@@ -1,15 +1,20 @@
+@import './theme/variables.less';
+
 footer{
-  color: rgb(0, 0, 0);
-  padding: 30px 0;
-  padding-left: 30px;
-  background-color: white;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  bottom: 0;
+  color: @inversed-color;
+  padding: 25px 55px;
+  background-color: @secondary-background;
 
   a {
-    color: #3f51b5;
+    color: @inversed-color;
     text-decoration: none;
 
     &:hover {
-      color: rgb(163, 70, 70);
+      opacity: 0.7;
     }
   }
 }

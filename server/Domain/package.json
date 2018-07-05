@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "description": "Sunmait.Boilerplate.Domain",
   "main": "app.js",
-  "devDependencies": {
-    "@types/node": "^6.0.87"
-  },
   "dependencies": {
-    "inversify": "^4.10.0"
+    "inversify": "^4.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.113"
   }
 }

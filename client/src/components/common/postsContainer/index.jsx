@@ -3,7 +3,7 @@ import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
-import Post from '../post/index.jsx';
+import Post from 'components/common/post/index.jsx';
 import Typography from 'material-ui/Typography';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
@@ -25,24 +25,22 @@ class Posts extends React.Component {
 
   renderEditablePost = (posts) => {
     return (
-      <div>
+      <div className="list-of-articles">
         {
           posts.reverse().map(
             (post) => (
-              <div>
-                <Post
-                  description={post.Description}
-                  key={post.id}
-                  postId={post.id}
-                  title={post.Title}
-                  author={post.UserId}
-                  dateCreated={post.CreatedAt}
-                  dateUpdated={post.UpdatedAt}
-                  isEditable={true}
-                  deletePost={() => this.props.deletePost()}
-                  history={this.props.history}
-                />
-              </div>
+              <Post
+                description={post.Description}
+                key={post.id}
+                postId={post.id}
+                title={post.Title}
+                author={post.UserId}
+                dateCreated={post.CreatedAt}
+                dateUpdated={post.UpdatedAt}
+                isEditable={true}
+                deletePost={() => this.props.deletePost()}
+                history={this.props.history}
+              />
             )
           )
         }
@@ -52,22 +50,21 @@ class Posts extends React.Component {
 
   renderNotEditablePost = (posts) => {
     return (
-      <div>
+      <div className="list-of-articles">
         {
           posts.reverse().map(
             (post) => (
-              <div>
-                <Post
-                  description={post.Description}
-                  key={post.id}
-                  postId={post.id}
-                  title={post.Title}
-                  author={post.UserId}
-                  dateCreated={post.CreatedAt}
-                  dateUpdated={post.UpdatedAt}
-                  history={this.props.history}
-                />
-              </div>
+              <Post
+                key={post.id}
+                postId={post.id}
+                title={post.Title}
+                description={post.Description}
+                author={post.UserId}
+                isEditable={true}
+                dateCreated={post.CreatedAt}
+                dateUpdated={post.UpdatedAt}
+                history={this.props.history}
+              />
             )
           )
         }
