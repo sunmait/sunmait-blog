@@ -5,11 +5,18 @@
   border-color: @primary-border-color;
   border-radius: @default-border-radius;
   padding: 6px 40px;
+  font-family: @default-font-family;
+  font-size: @font-size--sm;
 }
 
 .custom-button.default {
   background: @primary-background;
   color: @secondary-color;
+
+  &:hover {
+    background: @secondary-background;
+    color: @inversed-color;
+  }
 }
 
 .custom-button.primary {

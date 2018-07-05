@@ -1,8 +1,19 @@
 @import './theme/variables.less';
 
-html, body {
+html, body, #main {
   margin: 0;
-  font-family: @font_family;
+  font-family: @default-font-family;
+  font-size: @font-size--sm;
+  height: 100vh;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  flex: 1 0 auto;
 }
 
 a {
@@ -12,9 +23,11 @@ a {
 
 .content {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   min-height: 450px;
   margin-bottom: 50px;
+  padding-top: 35px;
 }
 
 p {

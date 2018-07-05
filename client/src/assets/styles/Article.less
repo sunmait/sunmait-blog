@@ -4,11 +4,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: stretch;
   width: 850px;
 }
 
 .full-article-container {
-  max-width: 700px;
+  width: 700px;
 }
 
 .preview-article-container {
@@ -17,11 +18,17 @@
   border-radius: @small-border-radius;
   overflow: hidden;
   margin: 20px 5px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .article__main-post-image {
   width: 100%;
   height: 200px;
+  background-size: cover;
+  background-position: center;
 }
 
 .article__post-content {
@@ -36,7 +43,7 @@
 }
 
 .article__title {
-  font-size: 30px;
+  font-size: @font-size--lg;
   text-transform: uppercase;
 }
 
