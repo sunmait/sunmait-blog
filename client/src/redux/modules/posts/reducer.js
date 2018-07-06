@@ -21,8 +21,8 @@ function handleDeletePost(state, payload) {
   return {...state, posts: payload};
 }
 
-function handleUpdatedPosts(state, post) {
-  return {...state, post};
+function handleUpdatedPosts(state, posts) {
+  return {...state, posts};
 }
 
 function handlePosts(state, posts) {

@@ -15,14 +15,8 @@ class MyPostsPage extends React.Component {
       return this.props.posts.map(
         post => (
           <PostContainer
-            description={post.Description}
             key={post.id}
-            title={post.Title}
-            author={post.UserId}
-            dateCreated={post.CreatedAt}
-            dateUpdated={post.UpdatedAt}
-            postId={post.id}
-            history={this.props.history}
+            post={post}
           />
         )
       )

@@ -30,6 +30,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-promise-middleware": "^5.0.0",
     "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
     "superagent": "^3.8.2",
     "transform-runtime": "0.0.0",
     "ts-loader": "^4.0.1",
