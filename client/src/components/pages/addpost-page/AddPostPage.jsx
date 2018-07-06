@@ -68,7 +68,7 @@ class AddPostPage extends React.Component {
 
   handleUpdatePost(title, description, idPost) {
     action({type : 'UPDATE_POST_SAGA', payload: {title, description, idPost}});
-    this.props.history.push('/home');
+    this.props.history.push(`/post/:${idPost}`);
   }
 
   renderButton = (idPost) => {

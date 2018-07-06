@@ -1,6 +1,8 @@
-const defaultState = [];
+const defaultState = {
+  posts: [],
+};
 
-export default function( state = defaultState, action) {
+export default function (state = defaultState, action) {
   switch (action.type) {
     case 'GET_POSTS':
       return handlePosts(state, action.payload);
@@ -15,18 +17,14 @@ export default function( state = defaultState, action) {
   }
 }
 
-function handleDeletePost(state, payload){
-  return  { ...state, posts: payload };
+function handleDeletePost(state, payload) {
+  return {...state, posts: payload};
 }
 
-function handleUpdatedPosts(state, post) {
-  return {...state, post};
+function handleUpdatedPosts(state, posts) {
+  return {...state, posts};
 }
 
 function handlePosts(state, posts) {
-  return Object.assign(
-    {}, state, {
-      posts
-    }
-  );
+  return Object.assign({}, state, {posts});
 }

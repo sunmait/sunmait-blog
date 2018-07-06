@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest, take, all } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest, take, all, select } from 'redux-saga/effects';
 import * as axios from 'axios';
 
 function* getUsers() {
@@ -49,19 +49,18 @@ function* login(payload) {
     );
     const { AccessToken, RefreshToken } = res.data;
     const User = JSON.stringify(res.data.Data);
-  
+
     localStorage.setItem('AccessToken', AccessToken);
     localStorage.setItem('RefreshToken', RefreshToken);
     localStorage.setItem('User', User);
     yield put({ type: 'LOGIN', payload: res.data});
   } catch(err) {
     console.error(err);
-    alert("Wrong login or password!");
   }
 }
 
 function* logout(payload) {
-  const refToken = payload.payload.refreshToken
+  const refToken = payload.payload.refreshToken;
   const res = yield axios.delete(
     `/api/auth/${refToken}`
   );
@@ -93,7 +92,7 @@ function* changeUser(payload) {
       );
       const { AccessToken, RefreshToken } = result1.data;
       const User = JSON.stringify(result1.data.Data);
-    
+
       localStorage.setItem('AccessToken', AccessToken);
       localStorage.setItem('RefreshToken', RefreshToken);
       localStorage.setItem('User', User);
@@ -103,7 +102,6 @@ function* changeUser(payload) {
     }
   } catch(err) {
     console.error(err);
-    alert("Wrong password!");
   }
 }
 
@@ -113,15 +111,30 @@ function* addPost(payload) {
     '/api/posts', { Title: payload.payload.title, Description: payload.payload.description, UserId }
   );
   yield put({ type: 'ADD_POST', payload: res.data});
-  alert("Post added in a database!");
 }
 
 function* updatePost(payload) {
   const res = yield axios.patch(
-    '/api/posts', { Title: payload.payload.title, Description: payload.payload.description, idPost: payload.payload.idPost }
+    '/api/posts', {
+      Title: payload.payload.title,
+      Description: payload.payload.description,
+      idPost: payload.payload.idPost
+    }
   );
-  yield put({ type: 'UPDATE_POST', payload: res.data});
-  alert("Post updated in a database!");
+
+  const posts = [...yield select(state => state.posts.posts)];
+  const post = res.data;
+
+  posts.find((item, index) => {
+    if (item.id === post.id) {
+      posts[index] = post;
+
+      return true;
+    }
+    return false;
+  });
+
+  yield put({type: 'UPDATE_POST', payload: posts});
 }
 
 function* deletePost(payload) {
@@ -130,7 +143,6 @@ function* deletePost(payload) {
     `/api/posts/${idPost}`, idPost
   );
   yield put({ type: 'DELETE_POST', payload: res.data});
-  alert("Post deleted!");
 }
 
 function* mainSaga() {

@@ -14,10 +14,6 @@ import store from '../../redux/store';
 const action = type => store.dispatch({type});
 
 class AppComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     action('VERIFY_CREDENTIALS_SAGA');
     action('GET_USERS_SAGA');
@@ -75,7 +71,7 @@ class AppComponent extends React.Component {
       </Router>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => ({
   auth: state.user

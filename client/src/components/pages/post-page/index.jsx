@@ -3,7 +3,7 @@ import * as redux from 'redux';
 import PostPage from 'components/pages/post-page/PostPage.jsx';
 
 const mapStateToProps = (state) => ({
-  posts: state.posts,
+  posts: state.posts.posts.reverse(),
   profile: state.profile.profile,
   user: state.user.user
 });

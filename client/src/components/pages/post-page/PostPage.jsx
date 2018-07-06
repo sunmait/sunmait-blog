@@ -1,12 +1,10 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
-import Post from 'components/common/post/index.jsx';
-import { Link } from 'react-router-dom';
-import Button from 'material-ui/Button';
+import PostContainer from 'components/containers/post/PostContainer';
 
 class PostPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,25 +12,27 @@ class PostPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const postId = +this.props.location.pathname.split(':')[1];
-    this.setState({
-      postId
-    });
+    this.setState({postId});
   }
 
   renderSelectedPost() {
     let isEditable = false;
-    if (!this.props.posts.posts) { return; }
-    return this.props.posts.posts.reverse().map(
-      (post) => {
-        if( post.id === this.state.postId ) {
-          if ( this.props.user && post.UserId === this.props.user.id) {
+    const {posts, user} = this.props;
+
+    if (!posts) {
+      return;
+    }
+
+    return posts.map(post => {
+        if (post.id === this.state.postId) {
+          if (user && post.UserId === user.id) {
             isEditable = true;
           }
           return (
             <div>
-              <Post
+              <PostContainer
                 description={post.Description}
                 key={post.id}
                 postId={post.id}
@@ -57,7 +57,7 @@ class PostPage extends React.Component {
         <Header />
         <div className="content">
           <div>
-            { this.renderSelectedPost() }
+            {this.renderSelectedPost()}
           </div>
         </div>
         <Footer />
@@ -65,5 +65,10 @@ class PostPage extends React.Component {
     );
   }
 }
+
+PostContainer.propTypes = {
+  posts: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+};
 
 export default PostPage;
