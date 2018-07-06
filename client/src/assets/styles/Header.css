@@ -16,31 +16,15 @@ header .logo {
   background-image: url("../images/logo.svg");
   background-size: cover;
 }
-header .header-for-authorised {
+.header--for-authorised {
   cursor: pointer;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-header .header-for-authorised .header-for-authorised--create-button {
+.header__create-button {
   padding-right: 40px;
 }
-header .header-for-authorised .header-for-authorised--user {
+.header__user-info {
   padding-right: 16px;
-}
-header button.login-button {
-  border: 0;
-  box-shadow: 0;
-  width: 100px;
-  height: 20px;
-  float: right;
-  clear: 'lest';
-}
-header .login-button-popup {
-  border: 0;
-  box-shadow: 0;
-  width: 100px;
-  height: 20px;
-  position: center;
-  clear: lest;
 }

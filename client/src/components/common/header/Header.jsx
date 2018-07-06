@@ -1,82 +1,64 @@
-import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import ButtonLink from 'components/common/button/ButtonLink.jsx';
 import Button from 'components/common/button/Button.jsx';
 import Avatar from 'material-ui/Avatar';
-import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
-import Popover from 'material-ui/Popover';
-import Fade from 'material-ui/transitions/Fade';
-import { connect } from 'react-redux';
-import * as redux from 'redux';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from 'material-ui/Dialog';
-import LoginPopover from './LoginPopover.jsx'
+import LoginModal from 'components/containers/login-modal/index.jsx';
+import Menu from './menu/Menu.jsx';
+import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Header.css';
 import store from '../../../redux/store';
 const action = ({ type, payload }) => store.dispatch({type, payload});
+
+const headerClass = 'header';
+const bemClasses = getBEMClasses([headerClass]);
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openDialog: false,
-      openMenu: false
+      isLoginModalOpen: false,
+      isMenuOpen: false
     };
-  }
-
-  login = (login, password) => {
-    action({type : 'LOGIN_SAGA', payload: {Login: login, Password: password}});
-    this.setState({
-      openDialog: false,
-      openMenu: false
-    })
   }
 
   logout = () => {
     const refreshToken = localStorage.getItem('RefreshToken');
     action({type : 'LOGOUT_SAGA', payload: {refreshToken}});
-    this.setState({
-      login: '',
-      password: '',
-      auth: false
-    });
   }
 
-  handleClickLogin = (event) => {
+  handleOpenLoginModal = (event) => {
     this.setState({
-      openDialog: true
+      isLoginModalOpen: true
     });
   };
 
-  handleClose = () => {
+  handleCloseModal = () => {
     this.setState({
-      openDialog: false
+      isLoginModalOpen: false,
+      isMenuOpen: false,
     });
   };
 
-  handleClickMenu = (event) => {
+  handleOpenMenu = (event) => {
     event.preventDefault();
     this.setState({
-      openMenu: true,
+      isMenuOpen: true,
       anchorEl: event.currentTarget
     })
   }
 
   handleCloseMenu = (e) => {
     this.setState({
-      openMenu: false
+      isMenuOpen: false
     });
   };
 
   renderAuthorisedHeader() {
     return (
       <React.Fragment>
-        <div className="header-for-authorised">
-          <div className="header-for-authorised--create-button">
+        <div className={bemClasses(null, 'for-authorised')}>
+          <div className={bemClasses('create-button')}>
             <ButtonLink 
               buttonColor="primary"
               linkUrl="/addpost"
@@ -84,50 +66,24 @@ class Header extends React.Component {
             />
           </div>
           <div
-            className="header-for-authorised--user"
-            onClick={this.handleClickMenu}
+            className={bemClasses('user-info')}
+            onClick={this.handleOpenMenu}
           >
-          {
-            this.props.updatedUser.FirstName ?
-              `${this.props.updatedUser.FirstName} ${this.props.updatedUser.LastName}`
-              :
-              `${this.props.user.FirstName} ${this.props.user.LastName}`
-            }
+            {`${this.props.user.FirstName} ${this.props.user.LastName}`}
           </div>
           <Avatar
             alt="Username"
             src={this.props.user.PhotoUrl}
-            onClick={this.handleClickMenu}
+            onClick={this.handleOpenMenu}
           />
         </div>
-        <Popover
-          open={this.state.openMenu}
-          onClose={this.handleCloseMenu}
+        <Menu 
+          isOpen={this.state.isMenuOpen}
+          handleClose={this.handleCloseMenu}
+          user={this.props.user}
           anchorEl={this.state.anchorEl}
-          anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
-          targetOrigin={{"horizontal":"middle","vertical":"top"}}
-        >
-          <Link to={`/profile/:${this.props.user.id}`}>
-            <MenuItem onClick={this.handleCloseMenu}>
-              Profile
-            </MenuItem>
-          </Link>
-          <Link to="/myposts">
-            <MenuItem onClick={this.handleCloseMenu}>
-              My posts
-            </MenuItem>
-          </Link>
-          <Link to="/addpost">
-            <MenuItem onClick={this.handleCloseMenu}>
-              Add post
-            </MenuItem>
-          </Link>
-          <MenuItem onClick={this.logout}>
-            <Link to="/home">
-              Log Out
-            </Link>
-          </MenuItem>
-        </Popover>
+          logout={this.logout}
+        />
       </React.Fragment>
     )
   }
@@ -137,15 +93,13 @@ class Header extends React.Component {
       <React.Fragment>
         <Button
           buttonColor="primary"
-          onClick={() => this.handleClickLogin()}
-          className="login-button"
+          onClick={() => this.handleOpenLoginModal()}
           label="Log In"
         />
-        <LoginPopover
-          isOpen={this.state.openDialog}
-          handleClose={this.handleClose}
+        <LoginModal
+          isOpen={this.state.isLoginModalOpen}
+          handleClose={this.handleCloseModal}
           login={this.login}
-          user={this.props.user}
         />
       </React.Fragment>
     )
@@ -171,9 +125,4 @@ class Header extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user.user,
-  updatedUser: state.profile.updatedUser
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;

@@ -1,13 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import 'assets/styles/AddPostPage.css';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Header from 'components/common/header/Header.jsx';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import { Redirect } from 'react-router-dom';
 import store from '../../../redux/store';
-let myMarkdown = require('marked');
 const action = ({ type, payload }) => store.dispatch({type, payload});
 
 class AddPostPage extends React.Component {
@@ -100,50 +96,45 @@ class AddPostPage extends React.Component {
     const defaulValueDescription = 'Input description of your post.';
 
     return (
-      <div className="main">
-        <Header />
-        <div className="content">
-          <div className="AddPage">
-            <Card className="post-form" >
-              <CardContent>
-                <h2 className="desc">
-                  Title:
-                </h2>
-                <TextField
-                  margin="normal"
-                  name="title"
-                  className="field"
-                  onChange={this.handleInputChange}
-                  placeholder={defaulValueTitle}
-                  value={this.state.title}
-                  error={this.state.errorTitle}
-                  helperText={this.state.errorTitle ? this.state.errorText : null}
-                />
-                <h2 className="desc">
-                  Description:
-                </h2>
-                <TextField
-                  multiline
-                  rows="30"
-                  margin="normal"
-                  name="description"
-                  className="field"
-                  onChange={this.handleInputChange}
-                  placeholder={defaulValueDescription}
-                  error={this.state.errorDescription}
-                  helperText={this.state.errorDescription ? this.state.errorText : null}
-                  value={this.state.description}
-                />
-              </CardContent>
-              <CardActions className="button">
-                <div >
-                  { this.renderButton(idPost) }
-                </div> 
-              </CardActions>
-            </Card>
-          </div>
+        <div className="AddPage">
+          <Card className="post-form" >
+            <CardContent>
+              <h2 className="desc">
+                Title:
+              </h2>
+              <TextField
+                margin="normal"
+                name="title"
+                className="field"
+                onChange={this.handleInputChange}
+                placeholder={defaulValueTitle}
+                value={this.state.title}
+                error={this.state.errorTitle}
+                helperText={this.state.errorTitle ? this.state.errorText : null}
+              />
+              <h2 className="desc">
+                Description:
+              </h2>
+              <TextField
+                multiline
+                rows="30"
+                margin="normal"
+                name="description"
+                className="field"
+                onChange={this.handleInputChange}
+                placeholder={defaulValueDescription}
+                error={this.state.errorDescription}
+                helperText={this.state.errorDescription ? this.state.errorText : null}
+                value={this.state.description}
+              />
+            </CardContent>
+            <CardActions className="button">
+              <div >
+                { this.renderButton(idPost) }
+              </div> 
+            </CardActions>
+          </Card>
         </div>
-      </div>
     );
   }
 }

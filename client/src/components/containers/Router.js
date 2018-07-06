@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as redux from 'redux';
 import history from './history';
 import App from '../common/app/index.jsx';
 import HomePage from '../pages/home-page/index.jsx';
@@ -14,7 +13,7 @@ import store from '../../redux/store';
 const action = type => store.dispatch({type});
 
 class AppComponent extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     action('VERIFY_CREDENTIALS_SAGA');
     action('GET_USERS_SAGA');
     action('GET_POSTS_SAGA');

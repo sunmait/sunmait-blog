@@ -1,7 +1,6 @@
 const defaultState = {
   profile: null,
   usersById: {},
-  updatedUser: {}
 };
 
 export default function(state = defaultState, action) {
@@ -51,26 +50,12 @@ function handleGetUser(state, selectedUser) {
 }
 
 function handleChange(state, updated) {
-  const updatedUserById = Object.assign(
-    {}, state.usersById,
-    {
-      [updated.id]: updated.id
-    }
-  );
-  const updatedUser = Object.assign(
-    {}, state.updatedUser,
-    {
-      FirstName: updated.FirstName,
-      LastName: updated.LastName,
-      Login: updated.Login
-    }
-  );
+  const updatedUserById = { ...state.usersById, [updated.id]: updated.FirstName};
   return Object.assign(
     {}, state,
     {
       usersById: updatedUserById,
       profile: null,
-      updatedUser
     }
   );
 }

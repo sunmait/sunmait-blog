@@ -1,18 +1,20 @@
-import * as React from 'react';
+import React from 'react';
 import '../../../assets/styles/MyPostsPage.css';
-import Header from 'components/common/header/Header.jsx';
 import PostContainer from 'components/containers/post/PostContainer';
+import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
 import store from '../../../redux/store';
 const action = type => store.dispatch({type});
 
 class MyPostsPage extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     action('GET_POSTS_SAGA');
   }
 
   renderPostList = () => {
-    if (this.props.posts) {
-      return this.props.posts.map(
+    const { posts } = this.props;
+
+    if (posts) {
+      return posts.map(
         post => (
           <PostContainer
             key={post.id}
@@ -21,18 +23,20 @@ class MyPostsPage extends React.Component {
         )
       )
     }
+    
+    return null;
   }
 
   render() {
     return (
-      <div className="main">
-        <Header />
-        <div className="content">
-          <div className="list-of-articles">
-            {this.renderPostList()}
-          </div>
+      <React.Fragment>
+        <div className="searchbar">
+          <SearchBar />
         </div>
-      </div>
+        <div className="list-of-articles">
+          {this.renderPostList()}
+        </div>
+      </React.Fragment>
     );
   }
 }
