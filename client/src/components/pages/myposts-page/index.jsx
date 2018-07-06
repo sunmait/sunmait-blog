@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
-import { filteredPostsForOwnUser } from 'redux/selectors/filteredPostsForOwnUser';
+import { searchAuthUserPostsSelector } from 'redux/selectors/filteredPosts';
 import MyPostsPage from 'components/pages/myposts-page/MyPostsPage.jsx';
 
 const mapStateToProps = state => ({
-  user: state.user,
-  posts: filteredPostsForOwnUser(state)
+  posts: searchAuthUserPostsSelector(state),
 });
 
 export default connect(mapStateToProps)(MyPostsPage);

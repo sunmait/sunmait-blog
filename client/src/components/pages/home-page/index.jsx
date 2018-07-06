@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
+import { searchPostsSelector } from 'redux/selectors/filteredPosts';
 import HomePage from 'components/pages/home-page/HomePage.jsx';
 
 const mapStateToProps = (state) => ({
-  user: state.user,
-  posts: [ ...state.posts.posts].reverse(),
+  posts: searchPostsSelector(state),
 });
 
 const mapDispatchToProps = {

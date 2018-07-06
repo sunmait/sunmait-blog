@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PostContainer from 'components/containers/post/PostContainer';
 import 'assets/styles/HomePage.css';
-import Header from 'components/common/header/Header.jsx';
+import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
 import store from '../../../redux/store';
 const action =type => store.dispatch({type});
 
@@ -11,28 +11,31 @@ class HomePage extends React.Component {
     action('GET_POSTS_SAGA');
   }
 
-  renderPosts() {
-    if (this.props.posts)
-      return this.props.posts.map(
-        post => (
-          <PostContainer
-            key={post.id}
-            post={post}
-          />
-        )
+  renderPostList() {
+    const {posts} = this.props;
+
+    if (posts) return posts.map(
+      post => (
+        <PostContainer
+          key={post.id}
+          post={post}
+        />
       )
+    )
+ 
+    return null;
   }
 
   render() {
     return (
-      <div className="main">
-        <Header />
-        <div className="content">
-          <div className="list-of-articles">
-          {this.renderPosts()}
-          </div>
+      <React.Fragment>
+        <div className="searchbar">
+          <SearchBar />
         </div>
-      </div>
+        <div className="list-of-articles">
+          {this.renderPostList()}
+        </div>
+      </React.Fragment>
     );
   }
 }

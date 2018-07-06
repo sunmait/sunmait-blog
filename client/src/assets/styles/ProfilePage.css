@@ -9,3 +9,14 @@
 .user-profile__avatar {
   margin-right: 20px;
 }
+
+.user-profile-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  align-items: center;
+}
+
+.user-profile-form__save-button {
+  margin-top: 15px;
+}

@@ -8,6 +8,9 @@
   font-family: var(--default-font-family);
   font-size: var(--font-size--sm);
 }
+.custom-button:disabled {
+  opacity: 0.6;
+}
 .custom-button.default {
   background: var(--primary-background);
   color: var(--secondary-color);

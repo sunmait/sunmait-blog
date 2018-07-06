@@ -1,7 +1,7 @@
 import 'assets/styles/main.css';
 import 'assets/images/logo.svg';
 
-import * as React from 'react';
+import React from 'react';
 import {render} from 'react-dom';
 import Router from 'components/containers/Router';
 import {Provider} from 'react-redux';

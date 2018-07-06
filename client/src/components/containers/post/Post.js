@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -92,7 +92,8 @@ class Post extends React.Component {
   }
 
   renderArticleBody() {
-    const {isPreviewVersion, Title, id} = this.props.post;
+    const {Title, id} = this.props.post;
+    const {isPreviewVersion} = this.props;
 
     return (
       <React.Fragment>

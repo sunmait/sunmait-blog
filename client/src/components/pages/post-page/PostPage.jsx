@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Header from 'components/common/header/Header.jsx';
 import PostContainer from 'components/containers/post/PostContainer';
 
 class PostPage extends React.Component {
@@ -12,6 +11,7 @@ class PostPage extends React.Component {
   }
 
   componentDidMount() {
+    // TODO change to this.props.match.params.userId after removing ':' from url
     const postId = +this.props.location.pathname.split(':')[1];
     this.setState({postId});
   }
@@ -45,13 +45,8 @@ class PostPage extends React.Component {
 
   render() {
     return (
-      <div className="main">
-        <Header />
-        <div className="content">
-          <div>
-            {this.renderSelectedPost()}
-          </div>
-        </div>
+      <div>
+        { this.renderSelectedPost() }
       </div>
     );
   }
