@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../assets/styles/MyPostsPage.less';
+import '../../../assets/styles/MyPostsPage.css';
 import Header from 'components/common/header/Header.jsx';
 import Footer from 'components/common/footer/index.jsx';
 import Post from 'components/common/post/index.jsx';

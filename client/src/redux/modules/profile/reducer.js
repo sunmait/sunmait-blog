@@ -15,8 +15,8 @@ export default function(state = defaultState, action) {
     case 'CHANGE':
       return handleChange(state, action.payload);
 
-    case 'CHANGE_PASSWORD':
-      return handleAccessTokenExpired(state, payload);
+    // case 'CHANGE_PASSWORD':
+    //   return handleAccessTokenExpired(state, payload);
 
     default:
       return state;

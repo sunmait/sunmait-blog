@@ -1,5 +1,5 @@
 import * as React from 'react';
-import 'assets/styles/Button.less';
+import 'assets/styles/Button.css';
 import { Link } from 'react-router-dom';
 
 const Button = props => {

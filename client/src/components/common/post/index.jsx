@@ -1,5 +1,5 @@
 import * as React from 'react';
-import 'assets/styles/Post.less';
+import 'assets/styles/Post.css';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ButtonLink from 'components/common/button/ButtonLink.jsx';
@@ -10,9 +10,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import store from '../../../redux/store';
-const action = ({ type, payload }) => store.dispatch({type, payload});
 import { getBEMClasses } from 'components/helpers/BEMHelper';
-import 'assets/styles/Article.less';
+import 'assets/styles/Article.css';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 
 const article = 'article';
 const bemClasses = getBEMClasses([article]);

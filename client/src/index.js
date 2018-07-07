@@ -1,4 +1,4 @@
-import 'assets/styles/main.less';
+import 'assets/styles/main.css';
 import 'assets/images/logo.svg';
 
 import * as React from 'react';
@@ -11,5 +11,5 @@ render(
   <Provider store={store}>
     <Router />
   </Provider>,
-  document.getElementById('main'),
+  document.getElementById('root'),
 );

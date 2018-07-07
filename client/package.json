@@ -1,108 +1,44 @@
 {
   "dependencies": {
-    "@types/enzyme": "^3.1.0",
-    "@types/react": "^16.0.40",
-    "@types/react-dom": "^16.0.4",
-    "@types/react-redux": "^5.0.14",
-    "@types/react-router": "^4.0.21",
-    "@types/react-router-dom": "^4.2.3",
-    "@types/redux": "^3.6.0",
-    "@types/redux-promise-middleware": "0.0.9",
-    "@types/redux-thunk": "^2.1.0",
-    "@types/superagent": "^3.5.7",
-    "autoprefixer": "^8.1.0",
     "axios": "^0.18.0",
-    "babel-runtime": "^6.26.0",
     "date-fns": "^1.29.0",
-    "file-loader": "^1.1.9",
-    "fs": "0.0.1-security",
     "marked": "^0.3.19",
     "material-ui": "^1.0.0-beta.41",
     "material-ui-icons": "^1.0.0-beta.36",
-    "postcss-cssnext": "^3.1.0",
-    "react": "^16.2.0",
+    "react": "^16.4.1",
     "react-bem-helper": "^1.4.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-promise-middleware": "^5.0.0",
     "redux-saga": "^0.16.0",
-    "redux-thunk": "^2.2.0",
-    "superagent": "^3.8.2",
-    "transform-runtime": "0.0.0",
-    "ts-loader": "^4.0.1",
-    "webpack-cli": "^2.0.11",
-    "webpack-merge": "^4.1.2"
+    "redux-thunk": "^2.2.0"
   },
   "engines": {
     "node": ">=4.5.0"
   },
   "scripts": {
-    "build": "webpack --config webpack/dev.config.js --watch --progress",
-    "build-prod": "NODE_ENV=production node_modules/webpack/bin/webpack.js --config webpack/prod.config.js",
-    "test": "jest --coverage",
-    "e2e-test": "cypress open"
+    "start": "npm run build-css && run-p -ncr watch-css start-js",
+    "start-js": "react-scripts start",
+    "build": "run-s -n build-css build-js",
+    "build-js": "react-scripts build",
+    "build-css": "node-less-chokidar src",
+    "watch-css": "node-less-chokidar src --watch",
+    "test": "run-s -n build-css test-js",
+    "test-js": "react-scripts test --env=jsdom",
+    "e2e-test": "cypress open",
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.0",
-    "awesome-typescript-loader": "^3.4.1",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "compression-webpack-plugin": "^1.1.2",
-    "css-loader": "^0.28.7",
     "cypress": "^2.1.0",
     "cypress-cucumber-preprocessor": "^0.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^1.1.9",
-    "html-webpack-plugin": "^3.1.0",
     "jest": "^22.4.2",
-    "less": "^2.7.3",
-    "less-loader": "^4.0.5",
-    "postcss-import": "^11.0.0",
-    "postcss-loader": "^2.1.3",
-    "react-scripts-ts": "2.8.0",
-    "react-test-renderer": "^16.2.0",
-    "source-map-loader": "^0.2.3",
-    "style-ext-html-webpack-plugin": "^3.4.5",
-    "style-loader": "^0.19.1",
-    "sugarss": "^1.0.1",
-    "tslint": "^5.9.1",
-    "tslint-loader": "^3.5.3",
-    "typescript": "^2.6.2",
-    "uglifyjs-webpack-plugin": "^1.2.3",
-    "webpack": "^4.1.1"
-  },
-  "jest": {
-    "coverageThreshold": {
-      "./src/**/*.tsx": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    },
-    "setupFiles": [
-      "<rootDir>/test-setup.js"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js",
-      "^.+\\.(css|less)$": "./styleMock.js"
-    },
-    "testMatch": [
-      "**/__tests__/*.(ts|tsx|js)"
-    ]
+    "node-less-chokidar": "^0.1.2",
+    "npm-run-all": "^4.1.3"
   }
 }
