@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../assets/styles/ProfilePage.less';
+import '../../../assets/styles/ProfilePage.css';
 import Header from 'components/common/header/Header.jsx';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/button/Button.jsx';

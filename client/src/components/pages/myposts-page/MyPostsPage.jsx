@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../../assets/styles/MyPostsPage.less';
+import '../../../assets/styles/MyPostsPage.css';
 import Header from 'components/common/header/Header.jsx';
 import PostContainer from 'components/containers/post/PostContainer';
 import store from '../../../redux/store';

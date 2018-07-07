@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import 'assets/styles/HomePage.less';
 import PostContainer from 'components/containers/post/PostContainer';
+import 'assets/styles/HomePage.css';
 import Header from 'components/common/header/Header.jsx';
 import store from '../../../redux/store';
 const action =type => store.dispatch({type});

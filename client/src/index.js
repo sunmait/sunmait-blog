@@ -1,4 +1,4 @@
-import 'assets/styles/main.less';
+import 'assets/styles/main.css';
 import 'assets/images/logo.svg';
 
 import * as React from 'react';

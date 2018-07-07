@@ -6,7 +6,7 @@ import Dialog, {
   DialogContent,
   DialogTitle
 } from 'material-ui/Dialog';
-import 'assets/styles/Popover.less';
+import 'assets/styles/Popover.css';
 
 class LoginPopover extends React.Component {
   constructor(props) {

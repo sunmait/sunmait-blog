@@ -16,7 +16,7 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 import LoginPopover from './LoginPopover.jsx'
-import 'assets/styles/Header.less';
+import 'assets/styles/Header.css';
 import store from '../../../redux/store';
 const action = ({ type, payload }) => store.dispatch({type, payload});
 class Header extends React.Component {

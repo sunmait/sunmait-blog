@@ -1,13 +1,13 @@
 import * as React from 'react';
-import 'assets/styles/AddPostPage.less';
+import 'assets/styles/AddPostPage.css';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Header from 'components/common/header/Header.jsx';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import { Redirect } from 'react-router-dom';
-let myMarkdown = require('marked');
 import store from '../../../redux/store';
+let myMarkdown = require('marked');
 const action = ({ type, payload }) => store.dispatch({type, payload});
 
 class AddPostPage extends React.Component {
