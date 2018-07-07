@@ -1,14 +1,11 @@
 .popover > div {
   min-width: 320px;
 }
-
 .popover__content {
   display: flex;
   flex-direction: column;
 }
-
 .popover__actions {
   margin: 0;
   padding: 24px;
 }
-

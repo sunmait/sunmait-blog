@@ -1,0 +1,16 @@
+@import './theme/variables.css';
+
+.custom-button {
+  border: var(--secondary-border);
+  border-color: var(--primary-border-color);
+  border-radius: var(--default-border-radius);
+  padding: 6px 40px;
+}
+.custom-button.default {
+  background: var(--primary-background);
+  color: var(--secondary-color);
+}
+.custom-button.primary {
+  background: var(--secondary-background);
+  color: var(--inversed-color);
+}

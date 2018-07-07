@@ -21,14 +21,9 @@
     "node": ">=4.5.0"
   },
   "scripts": {
-    "start": "npm run build-css && run-p -ncr watch-css start-js",
-    "start-js": "react-scripts start",
-    "build": "run-s -n build-css build-js",
-    "build-js": "react-scripts build",
-    "build-css": "node-less-chokidar src",
-    "watch-css": "node-less-chokidar src --watch",
-    "test": "run-s -n build-css test-js",
-    "test-js": "react-scripts test --env=jsdom",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "e2e-test": "cypress open",
     "eject": "react-scripts eject"
   },
@@ -37,8 +32,6 @@
     "cypress-cucumber-preprocessor": "^0.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^22.4.2",
-    "node-less-chokidar": "^0.1.2",
-    "npm-run-all": "^4.1.3"
+    "jest": "^22.4.2"
   }
 }

@@ -1,0 +1,27 @@
+@import './palette.css';
+
+:root{
+  /** Fonts */
+  --font_family: 'Lato', sans-serif;
+
+  /**Colors */
+  --primary-color: var(--palette2);
+  --secondary-color: var(--palette3);
+  --inversed-color: var(--palette1);
+  
+  /**Backgrounds */
+  --primary-background: var(--palette1);
+  --secondary-background: var(--palette3);
+  
+  /**Borders */
+  --primary-border-color: var(--palette3);
+  --secondary-border-color: var(--palette4);
+  --default-border-radius: 30px;
+  --small-border-radius: 20px;
+  --primary-border: 2px solid var(--palette3);
+  --secondary-border: 1px solid var(--palette4);
+  
+  /**Heights */
+  --default-button-height: 40px;
+}
+

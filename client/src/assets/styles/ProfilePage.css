@@ -1,0 +1,45 @@
+.ProfilePage {
+  text-align: center;
+  background-color: white;
+  width: 80%;
+}
+.ProfilePage .form {
+  padding-top: 10px;
+  height: 450px;
+  text-align: center;
+}
+.ProfilePage .form .avatar-container {
+  padding-top: 30px;
+}
+.ProfilePage .form .avatar-container .avatar {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+}
+.ProfilePage .form .avatar-container .bar-username {
+  font-family: Marker Felt;
+  font-size: 20px;
+  display: inline-block;
+  margin-bottom: 50px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.ProfilePage .form .container {
+  height: 95px;
+}
+.ProfilePage .avatar-container {
+  padding-top: 30px;
+}
+.ProfilePage .avatar-container .avatar {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+}
+.ProfilePage .avatar-container .bar-username {
+  font-family: Marker Felt;
+  font-size: 20px;
+  display: inline-block;
+  margin-bottom: 50px;
+  vertical-align: middle;
+  margin-left: 10px;
+}

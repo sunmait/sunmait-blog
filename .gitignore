@@ -83,6 +83,3 @@ server/**/*.js.map
 !server/migrations/**/*.js
 server/API/config/default.json
 server/migrations/config/config.json
-
-client/src/**/*.css
-client/src/**/*.css.map
