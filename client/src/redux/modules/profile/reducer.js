@@ -1,20 +1,22 @@
+import { USER_CONSTANTS } from './constants';
+
 const defaultState = {
   profile: null,
   usersById: {},
 };
 
-export default function(state = defaultState, action) {
-  switch (action.type) {
-    case 'GET_USERS':
-      return handleGetUsers(state, action.payload);
+export default function (state = defaultState, {type, payload}) {
+  switch (type) {
+    case USER_CONSTANTS.GET_USERS:
+      return handleGetUsers(state, payload);
 
-    case 'GET_USER':
-      return handleGetUser(state, action.payload);
+    case USER_CONSTANTS.GET_USER:
+      return handleGetUser(state, payload);
 
-    case 'CHANGE':
-      return handleChange(state, action.payload);
+    case USER_CONSTANTS.CHANGE:
+      return handleChange(state, payload);
 
-    // case 'CHANGE_PASSWORD':
+    // case USER_CONSTANTS.CHANGE_PASSWORD::
     //   return handleAccessTokenExpired(state, payload);
 
     default:
@@ -24,29 +26,15 @@ export default function(state = defaultState, action) {
 
 function handleGetUsers(state, selectedUsers) {
   let newUsersByIdNames = {};
-  selectedUsers.forEach(function(item, i) {
-    newUsersByIdNames = Object.assign(
-      {}, newUsersByIdNames,
-      {
-        [item.id]: item.FirstName
-      }
-    );
+  selectedUsers.forEach(item => {
+    newUsersByIdNames = {...newUsersByIdNames, [item.id]: item.FirstName};
   });
-  return Object.assign(
-    {}, state,
-    {
-      usersById: newUsersByIdNames
-    }
-  );
+
+  return {...state, usersById: newUsersByIdNames};
 }
 
 function handleGetUser(state, selectedUser) {
-  return Object.assign(
-    {}, state,
-    {
-      profile: selectedUser
-    }
-  );
+  return {...state, profile: selectedUser};
 }
 
 function handleChange(state, updated) {

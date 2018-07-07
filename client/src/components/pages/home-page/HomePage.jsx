@@ -8,21 +8,23 @@ const action =type => store.dispatch({type});
 
 class HomePage extends React.Component {
   componentDidMount() {
-    action('GET_POSTS_SAGA');
+   this.props.getPosts();
   }
 
   renderPostList() {
     const {posts} = this.props;
 
-    if (posts) return posts.map(
-      post => (
-        <PostContainer
-          key={post.id}
-          post={post}
-        />
-      )
-    )
- 
+    if (posts) {
+      return posts.map(
+        post => (
+          <PostContainer
+            key={post.id}
+            post={post}
+          />
+        )
+      );
+    }
+
     return null;
   }
 

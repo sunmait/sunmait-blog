@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LoginForm from './LoginForm.jsx';
 import Dialog, {
   DialogContent,
@@ -6,8 +7,6 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Modal.css';
-import store from '../../../redux/store';
-const action = ({ type, payload }) => store.dispatch({type, payload});
 
 const modal = 'modal';
 const bemClasses = getBEMClasses([modal]);
@@ -15,8 +14,8 @@ const bemClasses = getBEMClasses([modal]);
 class LoginModal extends React.Component {
   handleSubmit = (values) => {
     const {login, password} = values;
-    
-    action({type : 'LOGIN_SAGA', payload: {Login: login, Password: password}});
+
+    this.props.login({Login: login, Password: password});
     this.props.handleClose();
   }
 
@@ -38,8 +37,14 @@ class LoginModal extends React.Component {
           <LoginForm onSubmit={this.handleSubmit}/>
         </DialogContent>
       </Dialog>   
-    )
+    );
   }
 }
+
+LoginModal.propTypes ={
+  isOpen: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+};
 
 export default LoginModal;

@@ -2,36 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
 import ButtonLink from 'components/common/button/ButtonLink.jsx';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
-import { getMarkdownLayout } from 'components/helpers/markdownHelper';
 import 'assets/styles/Article.css';
-import store from '../../../redux/store';
-const action = ({type, payload}) => store.dispatch({type, payload});
 
 const article = 'article';
 const bemClasses = getBEMClasses([article]);
 
 class Post extends React.Component {
-  componentDidMount() {
-    const {id, Description} = this.props.post;
-    const {isPreviewVersion} = this.props;
-
-    getMarkdownLayout(id, Description, isPreviewVersion);
-  }
-
   handleDeletePost() {
-    //TODO: move redirect to separate action
-    action({type: 'DELETE_POST_SAGA', payload: {id: this.props.post.id}});
+    this.props.deletePost(this.props.post.id);
     this.props.history.push('/home');
   }
 
   renderEditButtons() {
-    const {UserId, id} = this.props.post;
-    const {user} = this.props;
+    const {user, post: {UserId, id}} = this.props;
 
     if (user && (user.id === UserId)) {
       return (
@@ -55,16 +44,17 @@ class Post extends React.Component {
 
   renderArticleInformation() {
     const {
-      CreatedAt,
-      UpdatedAt,
-      UserId,
-      isPreviewVersion,
-    } = this.props.post;
-    const {users} = this.props;
+      users,
+      post: {
+        CreatedAt,
+        UpdatedAt,
+        UserId,
+        isPreviewVersion,
+      }
+    } = this.props;
 
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
     const updatingDate = format(UpdatedAt, 'MMM D, YYYY');
-
 
     return (
       <div className={bemClasses('info')}>
@@ -114,7 +104,7 @@ class Post extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <div id={`article-${id}`} />
+            <ReactMarkdown source={this.props.post.Description} />
           </div>
         </div>
       </React.Fragment>
@@ -122,24 +112,23 @@ class Post extends React.Component {
   }
 
   render() {
-    if (this.props.isPreviewVersion) {
-      return (
-        <div className="preview-article-container">
-          <div>
+    return (
+      <React.Fragment>
+        {this.props.isPreviewVersion ?
+          <div className="preview-article-container">
+            <div>
+              {this.renderArticleBody()}
+            </div>
+            <div className={bemClasses('post-content')}>
+              {this.renderReadMoreButton()}
+            </div>
+          </div> :
+          <div className="full-article-container">
             {this.renderArticleBody()}
           </div>
-          <div className={bemClasses('post-content')}>
-            {this.renderReadMoreButton()}
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="full-article-container">
-          {this.renderArticleBody()}
-        </div>
-      )
-    }
+        }
+      </React.Fragment>
+    );
   }
 }
 
@@ -148,6 +137,7 @@ Post.propTypes = {
   isPreviewVersion: PropTypes.bool,
   users: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired,
 };
 
 Post.defaultProps = {

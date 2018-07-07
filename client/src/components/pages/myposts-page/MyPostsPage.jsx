@@ -1,13 +1,12 @@
 import React from 'react';
-import '../../../assets/styles/MyPostsPage.css';
+import PropTypes from 'prop-types';
 import PostContainer from 'components/containers/post/PostContainer';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
-import store from '../../../redux/store';
-const action = type => store.dispatch({type});
+import '../../../assets/styles/MyPostsPage.css';
 
 class MyPostsPage extends React.Component {
   componentDidMount() {
-    action('GET_POSTS_SAGA');
+   this.props.getPosts();
   }
 
   renderPostList = () => {
@@ -23,7 +22,7 @@ class MyPostsPage extends React.Component {
         )
       )
     }
-    
+
     return null;
   }
 
@@ -40,5 +39,11 @@ class MyPostsPage extends React.Component {
     );
   }
 }
+
+MyPostsPage.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array,
+};
+
 
 export default MyPostsPage;

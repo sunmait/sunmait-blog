@@ -39,7 +39,7 @@ class Menu extends React.Component {
       </Popover>
     );
   };
-};
+}
 
 Menu.propTypes = {
   isOpen: PropTypes.bool.isRequired,

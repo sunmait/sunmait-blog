@@ -28,6 +28,6 @@ const ConfirmationModal = props => {
       </DialogContent>
     </Dialog>   
   )
-}
+};
 
 export default ConfirmationModal;

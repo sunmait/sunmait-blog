@@ -1,17 +1,15 @@
 import React from 'react';
-import '../../../assets/styles/ProfilePage.css';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
-import store from '../../../redux/store';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
-const action = ({ type, payload }) => store.dispatch({type, payload});
+import '../../../assets/styles/ProfilePage.css';
 
 const userProfile = 'user-profile';
 const bemClasses = getBEMClasses([userProfile]);
 
 class ProfilePage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,9 +18,10 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    this.reloadProfile(this.props);
+    this.props.getUser(this.getUserId(this.props));
   }
-  
+
+  //TODO: maybe it remove
   componentWillReceiveProps(newProps) {
     if (newProps.location.pathname !== this.props.location.pathname) {
       this.reloadProfile(newProps);
@@ -31,8 +30,13 @@ class ProfilePage extends React.Component {
 
   reloadProfile = (props) => {
     // TODO change to props.match.params.userId after removing ':' from url
-    const userId = +props.location.pathname.split(':')[1];
-    action({type : 'GET_USER_SAGA', payload: {userId}});
+    this.props.getUser(this.getUserId(props));
+  }
+
+  getUserId(props) {
+    const userId = props.location.pathname.split(':')[1];
+    this.setState({id: userId});
+    return userId;
   }
 
   handleSubmitChanges = () => {
@@ -43,19 +47,18 @@ class ProfilePage extends React.Component {
 
   change = () => {
     const { userFormValues, confirmFormValues, user } = this.props;
-
-    action({type : 'CHANGE_USER_SAGA',
-      payload: {
-        Login: user.Login,
-        Password: confirmFormValues,
-        changedUser: {
-          id: user.id,
-          name: userFormValues.FirstName,
-          secondName: userFormValues.LastName,
-          login: userFormValues.Login
-        }
+    const updatedUserData = {
+      Login: user.Login,
+      Password: confirmFormValues,
+      changedUser: {
+        id: user.id,
+        name: userFormValues.FirstName,
+        secondName: userFormValues.LastName,
+        login: userFormValues.Login
       }
-    });
+    };
+
+    this.props.updateUser(updatedUserData);
     this.props.history.push('/home');
   }
 
@@ -73,7 +76,7 @@ class ProfilePage extends React.Component {
   renderProfileInfo() {
     return (
       <div className={bemClasses('profile-info-block')}>
-        <Avatar 
+        <Avatar
           alt="Username"
           src={this.props.profile.PhotoUrl}
           className={bemClasses('avatar')}
@@ -95,7 +98,7 @@ class ProfilePage extends React.Component {
           handleClose={this.handleClose}
           handleSubmit={this.change}
         />
-      </React.Fragment>      
+      </React.Fragment>
     );
   }
 
@@ -116,5 +119,10 @@ class ProfilePage extends React.Component {
     return null;
   }
 }
+
+ProfilePage.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
+};
 
 export default ProfilePage;

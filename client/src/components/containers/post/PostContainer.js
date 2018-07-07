@@ -1,11 +1,15 @@
-import Post from './Post';
+import {withRouter} from 'react-router';
 import { connect } from 'react-redux';
+import {deletePost} from 'redux/modules/posts/actions';
+import Post from './Post';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   users: state.profile.usersById,
   user: state.user.user
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  deletePost
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post));

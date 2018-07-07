@@ -28,7 +28,7 @@ const LoginForm = props => {
 };
 
 const validate = values => {
-  const errors = {}
+  const errors = {};
   if (!values.login) {
     errors.password = 'Required'
   } 
@@ -37,6 +37,6 @@ const validate = values => {
   } 
 
   return errors;
-}
+};
 
 export default reduxForm({ form: 'authorization', validate })(LoginForm);

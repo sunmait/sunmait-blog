@@ -11,7 +11,11 @@ class PostPage extends React.Component {
   }
 
   componentDidMount() {
-    // TODO change to this.props.match.params.userId after removing ':' from url
+    this.getPostId();
+    this.props.getPosts();
+  }
+
+  getPostId() {
     const postId = +this.props.location.pathname.split(':')[1];
     this.setState({postId});
   }
@@ -30,15 +34,14 @@ class PostPage extends React.Component {
             isEditable = true;
           }
           return (
-            <div>
-              <PostContainer
-                key={post.id}
-                post={post}
-                isPreviewVersion={false}
-              />
-            </div>
-          )
+            <PostContainer
+              key={post.id}
+              post={post}
+              isPreviewVersion={false}
+            />
+          );
         }
+        return false;
       }
     )
   }
@@ -53,6 +56,7 @@ class PostPage extends React.Component {
 }
 
 PostContainer.propTypes = {
+  getPosts: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
 };

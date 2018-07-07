@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from './history';
@@ -9,14 +10,13 @@ import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/addpost-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
-import store from '../../redux/store';
-const action = type => store.dispatch({type});
+import {getUsers} from 'redux/modules/profile/actions';
+import {verifyCredentials} from 'redux/modules/auth/actions';
 
 class AppComponent extends React.Component {
   componentDidMount() {
-    action('VERIFY_CREDENTIALS_SAGA');
-    action('GET_USERS_SAGA');
-    action('GET_POSTS_SAGA');
+    this.props.verifyCredentials();
+    this.props.getUsers();
   }
 
   render() {
@@ -28,38 +28,32 @@ class AppComponent extends React.Component {
                 exact
                 path='/home'
                 component={HomePage}
-                history={this.props.history}
               />
               <Route
                 exact
                 path='/profile/:userId'
-                history={this.props.history}
                 component={ProfilePage}
               />
               <Route
                 exact
                 path='/myposts'
-                history={this.props.history}
                 component={MyPostsPage}
               />
               <PrivateRoute
                 exact
                 path='/addpost'
                 auth={this.props.auth}
-                history={this.props.history}
                 component={AddPostPage}
               />
               <PrivateRoute
                 exact
                 path='/addpost/:postId'
                 auth={this.props.auth}
-                history={this.props.history}
                 component={AddPostPage}
               />
               <Route
                 exact
                 path='/post/:postId'
-                history={this.props.history}
                 component={PostPage}
               />
               <Redirect from="/" exact to="/home" />
@@ -74,4 +68,14 @@ const mapStateToProps = (state) => ({
   auth: state.user
 });
 
-export default connect(mapStateToProps)(AppComponent);
+const mapDispatchToProps ={
+  getUsers,
+  verifyCredentials
+};
+
+AppComponent.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  verifyCredentials: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(AppComponent);

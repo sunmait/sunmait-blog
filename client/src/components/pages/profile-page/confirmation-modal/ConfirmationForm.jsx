@@ -27,12 +27,12 @@ const ConfirmationForm = props => {
 };
 
 const validate = values => {
-  const errors = {}
+  const errors = {};
   if (!values.password) {
     errors.password = 'Required'
   } 
 
   return errors;
-}
+};
 
 export default reduxForm({ form: 'userPasswordConfirm', validate })(ConfirmationForm);

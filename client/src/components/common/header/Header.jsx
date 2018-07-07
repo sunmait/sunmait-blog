@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ButtonLink from 'components/common/button/ButtonLink.jsx';
 import Button from 'components/common/button/Button.jsx';
 import Avatar from 'material-ui/Avatar';
@@ -7,8 +8,6 @@ import LoginModal from 'components/containers/login-modal/index.jsx';
 import Menu from './menu/Menu.jsx';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Header.css';
-import store from '../../../redux/store';
-const action = ({ type, payload }) => store.dispatch({type, payload});
 
 const headerClass = 'header';
 const bemClasses = getBEMClasses([headerClass]);
@@ -24,7 +23,7 @@ class Header extends React.Component {
 
   logout = () => {
     const refreshToken = localStorage.getItem('RefreshToken');
-    action({type : 'LOGOUT_SAGA', payload: {refreshToken}});
+    this.props.logout(refreshToken);
   }
 
   handleOpenLoginModal = (event) => {
@@ -77,7 +76,7 @@ class Header extends React.Component {
             onClick={this.handleOpenMenu}
           />
         </div>
-        <Menu 
+        <Menu
           isOpen={this.state.isMenuOpen}
           handleClose={this.handleCloseMenu}
           user={this.props.user}
@@ -99,7 +98,6 @@ class Header extends React.Component {
         <LoginModal
           isOpen={this.state.isLoginModalOpen}
           handleClose={this.handleCloseModal}
-          login={this.login}
         />
       </React.Fragment>
     )
@@ -113,7 +111,7 @@ class Header extends React.Component {
     }
   }
 
-  render = () => {
+  render() {
     return (
       <header>
         <Link to="/home">
@@ -123,6 +121,13 @@ class Header extends React.Component {
       </header>
     );
   };
+}
+
+Header.propTypes = {
+  user: PropTypes.object.isRequired,
+  updatedUser: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequire,
+  logout: PropTypes.func.isRequire,
 };
 
 export default Header;

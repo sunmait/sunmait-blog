@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router';
+import {getUser, updateUser} from 'redux/modules/profile/actions';
 import { formValueSelector } from 'redux-form';
 import ProfilePage from 'components/pages/profile-page/ProfilePage.jsx';
 
@@ -15,4 +17,9 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(ProfilePage);
+const mapDispatchToProps = {
+  getUser,
+  updateUser
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePage));

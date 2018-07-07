@@ -1,10 +1,9 @@
 import React from 'react';
-import 'assets/styles/AddPostPage.css';
+import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import store from '../../../redux/store';
-const action = ({ type, payload }) => store.dispatch({type, payload});
+import 'assets/styles/AddPostPage.css';
 
 class AddPostPage extends React.Component {
 
@@ -38,8 +37,10 @@ class AddPostPage extends React.Component {
   handleAddPost(title, description) {
     if( title && description ){
       if(description.length > 50){
-        action({type : 'ADD_POST_SAGA', payload: {title, description}});
+
+        this.props.addPost(title, description);
         this.props.history.push('/home');
+
         this.setState({
           errorDescription: null,
           errorTitle: null,
@@ -62,7 +63,7 @@ class AddPostPage extends React.Component {
   }
 
   handleUpdatePost(title, description, idPost) {
-    action({type : 'UPDATE_POST_SAGA', payload: {title, description, idPost}});
+    this.props.updatePost(title, description, idPost);
     this.props.history.push(`/post/:${idPost}`);
   }
 
@@ -131,12 +132,17 @@ class AddPostPage extends React.Component {
             <CardActions className="button">
               <div >
                 { this.renderButton(idPost) }
-              </div> 
+              </div>
             </CardActions>
           </Card>
         </div>
     );
   }
 }
+
+AddPostPage.propTypes = {
+  addPost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
+};
 
 export default AddPostPage;
