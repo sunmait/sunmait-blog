@@ -1,0 +1,33 @@
+.AddPage {
+  text-align: center;
+  background-color: white;
+  width: 80%;
+}
+.AddPage .post-form {
+  background-color: #799a98;
+}
+.AddPage .post-form .desc {
+  padding-top: 10px;
+  color: white;
+  margin: 0;
+}
+.AddPage .post-form .field {
+  width: 90%;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.54);
+}
+.AddPage .post-form .field input {
+  padding: 8px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 18px;
+}
+.AddPage .post-form .field textarea {
+  padding: 8px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+}
+.AddPage .post-form .button {
+  padding-bottom: 15px;
+  padding-top: 10px;
+  justify-content: center;
+}

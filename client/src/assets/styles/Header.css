@@ -1,0 +1,46 @@
+@import './theme/variables.css';
+
+header {
+  min-height: 69px;
+  background: var(--primary-background);
+  border-bottom: var(--secondary-border);
+  padding: 0 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .logo {
+  float: left;
+  height: 40px;
+  width: 140px;
+  background-image: url("../images/logo.svg");
+  background-size: cover;
+}
+header .header-for-authorised {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+header .header-for-authorised .header-for-authorised--create-button {
+  padding-right: 40px;
+}
+header .header-for-authorised .header-for-authorised--user {
+  padding-right: 16px;
+}
+header button.login-button {
+  border: 0;
+  box-shadow: 0;
+  width: 100px;
+  height: 20px;
+  float: right;
+  clear: 'lest';
+}
+header .login-button-popup {
+  border: 0;
+  box-shadow: 0;
+  width: 100px;
+  height: 20px;
+  position: center;
+  clear: lest;
+}
