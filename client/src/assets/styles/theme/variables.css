@@ -3,11 +3,14 @@
 :root{
   /** Fonts */
   --default-font-family: 'Lato', sans-serif;
+  --font-size--sm: 16px;
+  --font-size--md: 20px;
+  --font-size--lg: 30px;
 
   /**Colors */
   --primary-color: var(--palette2);
   --secondary-color: var(--palette3);
-  --inversed-color: var(--palette1);
+  --color-for-secondary-background: var(--palette1);
   
   /**Backgrounds */
   --primary-background: var(--palette1);
@@ -24,4 +27,3 @@
   /**Heights */
   --default-button-height: 40px;
 }
-

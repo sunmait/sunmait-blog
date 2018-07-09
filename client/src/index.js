@@ -24,5 +24,5 @@ render(
       <Router />
     </Provider>
   </MuiThemeProvider>,
-  document.getElementById('main'),
+  document.getElementById('root'),
 );

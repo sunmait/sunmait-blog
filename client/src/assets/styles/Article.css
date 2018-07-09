@@ -37,7 +37,7 @@
   margin: 20px 0 10px;
 }
 .article__title {
-  font-size: @font-size--lg;
+  font-size: var(--font-size--lg);
   text-transform: uppercase;
 }
 .article__info {

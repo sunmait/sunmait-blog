@@ -1,13 +1,13 @@
 @import './theme/variables.css';
 
-html, body, #main {
+html, body, #root {
   margin: 0;
   font-family: var(--default-font-family);
   font-size: var(--font-size--sm);
   height: 100vh;
 }
 
-#main {
+#root {
   display: flex;
   flex-direction: column;
 }

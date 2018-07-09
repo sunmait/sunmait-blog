@@ -5,10 +5,16 @@
   border-color: var(--primary-border-color);
   border-radius: var(--default-border-radius);
   padding: 6px 40px;
+  font-family: var(--default-font-family);
+  font-size: var(--font-size--sm);
 }
 .custom-button.default {
   background: var(--primary-background);
   color: var(--secondary-color);
+}
+.custom-button.default:hover {
+  background: var(--secondary-background);
+  color: var(--inversed-color);
 }
 .custom-button.primary {
   background: var(--secondary-background);
