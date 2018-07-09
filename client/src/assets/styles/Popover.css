@@ -1,13 +1,13 @@
-@import './theme/variables.less';
+@import './theme/variables.css';
 
 .popover > div {
   min-width: 320px;
 }
 
 .popover__title > h2 {
-  font-family: @default-font-family;
-  font-size: @font-size--md;
-  color: @secondary-color;
+  font-family: var(--default-font-family);
+  font-size: var(--font-size--md);
+  color: var(--secondary-color);
 }
 
 .popover__content {

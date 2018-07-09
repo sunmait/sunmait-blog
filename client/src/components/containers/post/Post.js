@@ -8,10 +8,9 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import { getMarkdownLayout } from 'components/helpers/markdownHelper';
+import 'assets/styles/Article.css';
 import store from '../../../redux/store';
-
 const action = ({type, payload}) => store.dispatch({type, payload});
-import 'assets/styles/Article.less';
 
 const article = 'article';
 const bemClasses = getBEMClasses([article]);

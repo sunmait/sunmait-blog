@@ -12,12 +12,11 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
+import store from '../../../redux/store';
+const action = ({ type, payload }) => store.dispatch({type, payload});
 
 const userProfile = 'user-profile';
 const bemClasses = getBEMClasses([userProfile]);
-
-import store from '../../../redux/store';
-const action = ({ type, payload }) => store.dispatch({type, payload});
 
 class ProfilePage extends React.Component {
 
