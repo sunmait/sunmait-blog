@@ -14,9 +14,9 @@
 }
 .custom-button.default:hover {
   background: var(--secondary-background);
-  color: var(--inversed-color);
+  color: var(--color-for-secondary-background);
 }
 .custom-button.primary {
   background: var(--secondary-background);
-  color: var(--inversed-color);
+  color: var(--color-for-secondary-background);
 }
