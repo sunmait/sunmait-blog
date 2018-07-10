@@ -1,42 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from 'material-ui/Input';
 import { Field } from 'redux-form';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 
-const baseClass = 'input-component';
+const baseClass = 'textarea-component';
 
-export const InputComponent = props => {
+export const TextareaComponent = props => {
   const classes = getBEMClasses([baseClass, props.customClass]);
-  const { input } = props;
+  const {input} = props;
 
   return (
-    <Input
+    <textarea
       {...input}
-      id={props.id}
-      className={classes()}
       placeholder={props.placeholder}
-      type={props.type}
-      autoComplete={props.autoComplete}
+      className={classes()}
     />
   );
 };
 
-const InputWithPlaceholder = props => {
-  return <Field name={props.name} component={InputComponent} {...props} />;
+const Textarea = props => {
+  return <Field name={props.name} component={TextareaComponent} {...props} />;
 };
 
-InputWithPlaceholder.propTypes = {
+Textarea.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   customClass: PropTypes.string,
   classModifiers: PropTypes.arrayOf(PropTypes.string),
 };
 
-InputWithPlaceholder.defaultProps = {
+Textarea.defaultProps = {
   customClass: 'custom-input-component',
   classModifiers: [],
-  type: 'text',
 };
 
-export default InputWithPlaceholder;
+export default Textarea;
