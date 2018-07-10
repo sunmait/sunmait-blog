@@ -7,7 +7,7 @@ import App from '../common/app/index.jsx';
 import HomePage from '../pages/home-page/index.jsx';
 import ProfilePage from '../pages/profile-page/index.jsx';
 import MyPostsPage from '../pages/myposts-page/index.jsx';
-import AddPostPage from '../pages/addpost-page/index.jsx';
+import AddPostPage from '../pages/add-post-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
 import {getUsers} from 'redux/modules/profile/actions';

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import PostContainer from 'components/containers/post/PostContainer';
 import 'assets/styles/HomePage.css';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
-import store from '../../../redux/store';
-const action =type => store.dispatch({type});
 
 class HomePage extends React.Component {
   componentDidMount() {

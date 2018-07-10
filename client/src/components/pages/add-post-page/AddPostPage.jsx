@@ -6,7 +6,6 @@ import TextField from 'material-ui/TextField';
 import 'assets/styles/AddPostPage.css';
 
 class AddPostPage extends React.Component {
-
   constructor(props) {
     super(props);
     let idPost = +this.props.location.pathname.split(':')[1];
