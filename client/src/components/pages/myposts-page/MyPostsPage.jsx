@@ -1,8 +1,13 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getBEMClasses } from 'components/helpers/BEMHelper';
 import PostContainer from 'components/containers/post/PostContainer';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
-import '../../../assets/styles/MyPostsPage.css';
+import 'assets/styles/PostsPages.css';
+
+const pageClass = 'posts-page';
+const bemClasses = getBEMClasses([pageClass]);
 
 class MyPostsPage extends React.Component {
   componentDidMount() {
@@ -29,10 +34,10 @@ class MyPostsPage extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="searchbar">
+        <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>
-        <div className="list-of-articles">
+        <div className={bemClasses('list-of-articles')}>
           {this.renderPostList()}
         </div>
       </React.Fragment>

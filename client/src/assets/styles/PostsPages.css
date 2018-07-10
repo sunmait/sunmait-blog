@@ -1,0 +1,15 @@
+.posts-page__searchbar {
+  width: 830px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+.posts-page__searchbar div {
+  width: 100%;
+}
+.posts-page__list-of-articles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 850px;
+}

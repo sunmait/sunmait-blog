@@ -1,15 +1,21 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { getPosts } from 'redux/modules/posts/actions';
-import PostPage from 'components/pages/post-page/PostPage.jsx';
+import {deletePost} from 'redux/modules/posts/actions';
+import PostPage from './PostPage.jsx';
 
-const mapStateToProps = state => ({
-  posts: state.posts.posts,
-  user: state.user.user,
-});
+const mapStateToProps = (state, props) => {
+  const postId = Number(props.match.params.postId);
+
+  return ({
+    posts: state.posts.posts,
+    selectedPost: state.posts.posts.find(post => post.id === postId),
+    users: state.profile.usersById,
+    user: state.user.user
+  });
+}
 
 const mapDispatchToProps = {
-  getPosts
+  deletePost
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostPage));

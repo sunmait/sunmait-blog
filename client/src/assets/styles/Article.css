@@ -1,16 +1,9 @@
 @import './theme/variables.css';
 
-.list-of-articles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: stretch;
-  width: 850px;
-}
-.full-article-container {
+.article__container--full {
   width: 700px;
 }
-.preview-article-container {
+.article__container--preview {
   max-width: 400px;
   border: var(--secondary-border);
   border-radius: var(--small-border-radius);

@@ -9,18 +9,17 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-header .logo {
-  float: left;
-  height: 40px;
-  width: 140px;
-  background-image: url("../images/logo.svg");
-  background-size: cover;
-}
 .header--for-authorised {
   cursor: pointer;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.header__logo {
+  height: 40px;
+  width: 140px;
+  background-image: url("../images/logo.svg");
+  background-size: cover;
 }
 .header__create-button {
   padding-right: 40px;
