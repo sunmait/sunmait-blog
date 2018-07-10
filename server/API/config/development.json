@@ -1,11 +1,13 @@
 {
   "database": {
     "dialect": "mysql",
-    "database": "sunmait_blog",
+    "database": "sunmait_blog_development",
     "username": "root",
     "password": "password",
-    "host": "proddb"
+    "host": "devdb",
+    "port": 3307
   },
   "secretKey": "bbabb",
   "hostname": "http://localhost:5000"
 }
+

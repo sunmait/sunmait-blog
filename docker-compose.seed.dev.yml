@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  devdb:
+    image: mariadb
+    environment:
+        MYSQL_DATABASE: sunmait_blog_development
+        MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3307:3307
+    volumes:
+      - "./dev.cnf:/etc/mysql/conf.d/my.cnf"
+    container_name: devdb
+    networks:
+      - mynetwork
+
+  dbseed:
+    environment:
+      - NODE_ENV=development
+    links:
+      - devdb
+    depends_on:
+      - devdb
+    command: ./wait-for-db.sh devdb:3307 -- npm run dbinit
+
+volumes:
+  devdata:
+
+networks:
+  mynetwork:
+     driver: bridge

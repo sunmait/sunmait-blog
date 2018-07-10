@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  proddb:
+    image: mariadb
+    environment:
+        MYSQL_DATABASE: sunmait_blog
+        MYSQL_ROOT_PASSWORD: password
+    container_name: proddb
+    networks:
+      - mynetwork
+
+  prod-server:
+    image: prod-server
+    ports:
+      - 5000:3000
+    links:
+      - proddb
+    depends_on:
+      - proddb
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mynetwork
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mynetwork      
+
+volumes:
+  proddata:
+
+networks:
+  mynetwork:
+     driver: bridge
