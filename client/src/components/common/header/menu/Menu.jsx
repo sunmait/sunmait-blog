@@ -16,7 +16,7 @@ class Menu extends React.Component {
         anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
         targetOrigin={{"horizontal":"middle","vertical":"top"}}
       >
-        <Link to={`/profile/:${user.id}`}>
+        <Link to={`/profile/${user.id}`}>
           <MenuItem onClick={handleClose}>
             Profile
           </MenuItem>

@@ -9,7 +9,7 @@ class AddPostPage extends React.Component {
 
   constructor(props) {
     super(props);
-    let idPost = +this.props.location.pathname.split(':')[1];
+    const idPost = Number(this.props.match.params.postId);
     if ( idPost ) {
       const editablePost = this.props.posts.posts.find((post) => post.id === idPost);
       this.state = {
@@ -64,7 +64,7 @@ class AddPostPage extends React.Component {
 
   handleUpdatePost(title, description, idPost) {
     this.props.updatePost(title, description, idPost);
-    this.props.history.push(`/post/:${idPost}`);
+    this.props.history.push(`/post/${idPost}`);
   }
 
   renderButton = (idPost) => {
@@ -92,7 +92,7 @@ class AddPostPage extends React.Component {
   }
 
   render() {
-    const idPost = this.props.location.pathname.split(':')[1];
+    const idPost = Number(this.props.match.params.postId);
     const defaulValueTitle = 'Input title of your post.';
     const defaulValueDescription = 'Input description of your post.';
 

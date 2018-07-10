@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {withRouter} from 'react-router';
 import {getUser, updateUser} from 'redux/modules/profile/actions';
 import { formValueSelector } from 'redux-form';
-import ProfilePage from 'components/pages/profile-page/ProfilePage.jsx';
+import ProfilePage from './ProfilePage.jsx';
 
 const userFormSelector = formValueSelector('userProfile');
 const confirmFormSelector = formValueSelector('userPasswordConfirm');

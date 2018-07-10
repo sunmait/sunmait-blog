@@ -18,10 +18,9 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUser(this.getUserId(this.props));
+    this.reloadProfile(this.props);
   }
 
-  //TODO: maybe it remove
   componentWillReceiveProps(newProps) {
     if (newProps.location.pathname !== this.props.location.pathname) {
       this.reloadProfile(newProps);
@@ -29,14 +28,7 @@ class ProfilePage extends React.Component {
   }
 
   reloadProfile = (props) => {
-    // TODO change to props.match.params.userId after removing ':' from url
-    this.props.getUser(this.getUserId(props));
-  }
-
-  getUserId(props) {
-    const userId = props.location.pathname.split(':')[1];
-    this.setState({id: userId});
-    return userId;
+    this.props.getUser(props.match.params.userId);
   }
 
   handleSubmitChanges = () => {
@@ -74,49 +66,52 @@ class ProfilePage extends React.Component {
   };
 
   renderProfileInfo() {
-    return (
-      <div className={bemClasses('profile-info-block')}>
-        <Avatar
-          alt="Username"
-          src={this.props.profile.PhotoUrl}
-          className={bemClasses('avatar')}
-        />
-        <div>
-          {this.props.profile.FirstName} {this.props.profile.LastName}
+    const { profile } = this.props;
+
+    if (profile) {
+      return (
+        <div className={bemClasses('profile-info-block')}>
+          <Avatar
+            alt="Username"
+            src={this.props.profile.PhotoUrl}
+            className={bemClasses('avatar')}
+          />
+          <div>
+            {this.props.profile.FirstName} {this.props.profile.LastName}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
+    
+    return null;
   }
 
-  renderAuthorisedProfile = () => {
+  renderProfileForm = () => {
+    const { profile, user } = this.props;
+
+    if (profile && user && user.id === profile.id) {
+      return (
+        <React.Fragment>
+          <UserInfoForm onSubmit={this.handleSubmitChanges} />
+          <ConfirmationModal
+            openDialog={this.state.openDialog}
+            handleClose={this.handleClose}
+            handleSubmit={this.change}
+          />
+        </React.Fragment>
+      );
+    }
+    return null;
+    
+  }
+
+   render = () => {
     return (
       <React.Fragment>
         {this.renderProfileInfo()}
-        <UserInfoForm onSubmit={this.handleSubmitChanges} />
-        <ConfirmationModal
-          openDialog={this.state.openDialog}
-          handleClose={this.handleClose}
-          handleSubmit={this.change}
-        />
+        {this.renderProfileForm()}
       </React.Fragment>
     );
-  }
-
-  renderNotAuthorisedProfile = () => {
-    return this.renderProfileInfo();
-  }
-
-  render = () => {
-    const { profile, user } = this.props;
-
-    if (profile && user) {
-      if (user.id === profile.id) {
-        return this.renderAuthorisedProfile();
-      } else {
-        return this.renderNotAuthorisedProfile();
-      }
-    }
-    return null;
   }
 }
 

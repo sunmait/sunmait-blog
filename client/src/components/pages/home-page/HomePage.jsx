@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PostContainer from 'components/containers/post/PostContainer';
-import 'assets/styles/HomePage.css';
+import { getBEMClasses } from 'components/helpers/BEMHelper';
+import 'assets/styles/PostsPages.css';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
-import store from '../../../redux/store';
-const action =type => store.dispatch({type});
+
+const pageClass = 'posts-page';
+const bemClasses = getBEMClasses([pageClass]);
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -31,10 +33,10 @@ class HomePage extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="searchbar">
+        <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>
-        <div className="list-of-articles">
+        <div className={bemClasses('list-of-articles')}>
           {this.renderPostList()}
         </div>
       </React.Fragment>

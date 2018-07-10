@@ -115,7 +115,7 @@ class Header extends React.Component {
     return (
       <header>
         <Link to="/home">
-          <div className="logo"/>
+          <div className={bemClasses('logo')} />
         </Link>
         { this.renderIsAuthorisedHeader() }
       </header>

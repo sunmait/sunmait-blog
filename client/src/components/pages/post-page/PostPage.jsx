@@ -1,64 +1,117 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PostContainer from 'components/containers/post/PostContainer';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
+
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
+import Edit from 'material-ui-icons/Edit';
+import { getBEMClasses } from 'components/helpers/BEMHelper';
+import 'assets/styles/Article.css';
+
+const article = 'article';
+const bemClasses = getBEMClasses([article]);
 
 class PostPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postId: null
-    };
+  handleDeletePost() {
+    this.props.deletePost(this.props.selectedPost.id);
+    this.props.history.push('/home');
   }
 
-  componentDidMount() {
-    this.getPostId();
-    this.props.getPosts();
-  }
+  renderEditButtons() {
+    const {user, selectedPost: {UserId, id}} = this.props;
 
-  getPostId() {
-    const postId = +this.props.location.pathname.split(':')[1];
-    this.setState({postId});
-  }
-
-  renderSelectedPost() {
-    let isEditable = false;
-    const {posts, user} = this.props;
-
-    if (!posts) {
-      return;
+    if (user && (user.id === UserId)) {
+      return (
+        <div className={bemClasses('edit-buttons')}>
+          <Link to={`/addPost/${id}`}>
+            <IconButton mini>
+              <Edit />
+            </IconButton>
+          </Link>
+          <IconButton
+            aria-label="delete"
+            onClick={() => this.handleDeletePost()}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      );
     }
+  }
 
-    return posts.map(post => {
-        if (post.id === this.state.postId) {
-          if (user && post.UserId === user.id) {
-            isEditable = true;
-          }
-          return (
-            <PostContainer
-              key={post.id}
-              post={post}
-              isPreviewVersion={false}
-            />
-          );
-        }
-        return false;
+  renderArticleInformation() {
+    const {
+      users,
+      selectedPost: {
+        CreatedAt,
+        UpdatedAt,
+        UserId,
       }
+    } = this.props;
+
+    const publishingDate = format(CreatedAt, 'MMM D, YYYY');
+    const updatingDate = format(UpdatedAt, 'MMM D, YYYY');
+
+    return (
+      <div className={bemClasses('info')}>
+        {'By '}
+        <Link to={`/profile/${UserId}`}>
+          {users[UserId]}
+        </Link>
+        {` / Published ${publishingDate} / Updated ${updatingDate}`}
+      </div>
+    )
+  }
+
+  renderArticleBody() {
+    const {Title, Description, id} = this.props.selectedPost;
+
+    return (
+      <React.Fragment>
+        <Link to={`/post/${id}`}>
+          <div
+            className={bemClasses('main-post-image')}
+            style={{backgroundImage: 'url(https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg)'}}
+          />
+        </Link>
+        <div className={bemClasses('post-content')}>
+          <div className={bemClasses('header')}>
+            <div className={bemClasses('title')}>
+              <Link to={`/post/${id}`}>
+                {Title}
+              </Link>
+            </div>
+            {this.renderEditButtons()}
+          </div>
+          {this.renderArticleInformation()}
+          <div className={bemClasses('description')}>
+            <ReactMarkdown source={Description} />
+          </div>
+        </div>
+      </React.Fragment>
     )
   }
 
   render() {
-    return (
-      <div>
-        { this.renderSelectedPost() }
-      </div>
-    );
+    if (this.props.selectedPost) {
+      return (
+        <div className={bemClasses('container', 'full')}>
+          {this.renderArticleBody()}
+        </div>
+      );
+    } 
+    return null;
   }
 }
-
-PostContainer.propTypes = {
+PostPage.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  selectedPost: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-};
+  users: PropTypes.array.isRequired,
+}
+
 
 export default PostPage;
