@@ -42,14 +42,14 @@ class Post extends React.Component {
   }
 
   renderArticleBody() {
-    const {Title, id} = this.props.post;
+    const {Title, Description, id, ImageUrl} = this.props.post;
 
     return (
       <React.Fragment>
         <Link to={`/post/${id}`}>
           <div
             className={bemClasses('main-post-image')}
-            style={{backgroundImage: 'url(https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg)'}}
+            style={{backgroundImage: `url(${ImageUrl})`}}
           />
         </Link>
         <div className={bemClasses('post-content')}>
@@ -62,7 +62,7 @@ class Post extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <ReactMarkdown source={this.props.post.Description} />
+            <ReactMarkdown source={Description} />
           </div>
         </div>
       </React.Fragment>

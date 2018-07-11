@@ -1,3 +1,4 @@
+
 import {SAGAS_POSTS_CONSTANTS} from 'sagas/posts/constants';
 
 export const getPosts = () => {
@@ -6,22 +7,33 @@ export const getPosts = () => {
   }
 };
 
-export const addPost = (title, description) => {
+export const addPost = (title, description, imageUrl) => {
   return {
     type: SAGAS_POSTS_CONSTANTS.ADD_POST,
     payload: {
       title,
-      description
+      description,
+      imageUrl
     }
   }
 };
 
-export const updatePost = (title, description, idPost) => {
+export const loadPostImage = (file) => {
+  return {
+    type: SAGAS_POSTS_CONSTANTS.LOAD_POST_IMAGE,
+    payload: {
+      file
+    }
+  }
+};
+
+export const updatePost = (title, description, imageUrl, idPost) => {
   return {
     type: SAGAS_POSTS_CONSTANTS.UPDATE_POST,
     payload: {
       title,
       description,
+      imageUrl,
       idPost,
     }
   }

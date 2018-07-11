@@ -7,6 +7,7 @@
   padding: 6px 40px;
   font-family: var(--default-font-family);
   font-size: var(--font-size--sm);
+  outline: none;
 }
 .custom-button:disabled {
   opacity: 0.6;

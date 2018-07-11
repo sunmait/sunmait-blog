@@ -7,7 +7,11 @@ import rootSaga from '../sagas/sagas';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(
+    applyMiddleware(
+      sagaMiddleware,
+    )
+  )
 );
 export default store;
 

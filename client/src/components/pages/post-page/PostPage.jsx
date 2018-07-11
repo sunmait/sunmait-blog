@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
-
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
@@ -66,22 +65,18 @@ class PostPage extends React.Component {
   }
 
   renderArticleBody() {
-    const {Title, Description, id} = this.props.selectedPost;
+    const {Title, Description, ImageUrl} = this.props.selectedPost;
 
     return (
       <React.Fragment>
-        <Link to={`/post/${id}`}>
-          <div
-            className={bemClasses('main-post-image')}
-            style={{backgroundImage: 'url(https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg)'}}
-          />
-        </Link>
+        <div
+          className={bemClasses('main-post-image')}
+          style={{backgroundImage: `url(${ImageUrl})`}}
+        />
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>
             <div className={bemClasses('title')}>
-              <Link to={`/post/${id}`}>
-                {Title}
-              </Link>
+              {Title}
             </div>
             {this.renderEditButtons()}
           </div>

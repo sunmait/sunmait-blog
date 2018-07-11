@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       UpdatedAt: DataTypes.DATE,
       Description: DataTypes.TEXT,
       Title: DataTypes.STRING,
+      ImageUrl: DataTypes.STRING,
     },
     {
       classMethods: {

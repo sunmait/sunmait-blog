@@ -50,4 +50,8 @@ export default class PostEntity extends Model<PostEntity> {
   @AllowNull(false)
   @Column(DataType.STRING)
   public Title: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  public ImageUrl: string;
 }

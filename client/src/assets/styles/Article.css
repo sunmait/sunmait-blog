@@ -28,10 +28,14 @@
   justify-content: space-between;
   align-items: center;
   margin: 20px 0 10px;
+  color: var(--secondary-color);
 }
 .article__title {
   font-size: var(--font-size--lg);
   text-transform: uppercase;
+}
+.article__description {
+  word-break: break-all;
 }
 .article__info {
   margin-bottom: 20px;

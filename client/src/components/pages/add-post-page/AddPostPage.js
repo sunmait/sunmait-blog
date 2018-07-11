@@ -7,35 +7,19 @@ import 'assets/styles/AddPostPage.css';
 const editPost = 'add-post';
 const bemClasses = getBEMClasses([editPost]);
 
-class AddPostPageNew extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postId: null
-    };
-  }
-
-  componentDidMount() {
-    this.getPostId();
-  }
-
-  getPostId() {
-    const postId = parseInt(this.props.location.pathname.split(':')[1], 10);
-    this.setState({postId});
-  }
-
+class AddPostPage extends React.Component {
   updatePost() {
-    const {Title, Description} = this.props.editPostValues;
-    const {postId} = this.state;
-
-    this.props.updatePost(Title, Description, postId);
-    this.props.history.push(`/post/:${postId}`);
+    const {Title, Description, ImageUrl} = this.props.editPostValues;
+    const postId = this.props.match.params.postId;
+    
+    this.props.updatePost(Title, Description, ImageUrl, postId);
+    this.props.history.push(`/post/${postId}`);
   }
 
   addPost() {
-    const {Title, Description} = this.props.editPostValues;
+    const {Title, Description, ImageUrl} = this.props.editPostValues;
 
-    this.props.addPost(Title, Description);
+    this.props.addPost(Title, Description, ImageUrl);
     this.props.history.push('/home');
   }
 
@@ -47,7 +31,7 @@ class AddPostPageNew extends React.Component {
   }
 
   render() {
-    const {postId} = this.state;
+    const postId = Number(this.props.match.params.postId);
 
     return (
       <div className={bemClasses()}>
@@ -61,9 +45,9 @@ class AddPostPageNew extends React.Component {
   }
 }
 
-AddPostPageNew.propTypes = {
+AddPostPage.propTypes = {
   addPost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired,
 };
 
-export default AddPostPageNew;
+export default AddPostPage;
