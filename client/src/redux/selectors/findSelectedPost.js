@@ -1,7 +1,15 @@
 import { createSelector } from 'reselect';
 
 const findPost = (posts, postId) => {
-  return posts.find(post => post.id === postId)
+  const post = posts.find(post => post.id === postId);
+  if (post) {
+    return post;
+  }
+  return {
+    Title: '',
+    Description: '',
+    ImageUrl: '',
+  }
 };
 
 export const findSelectedPost = createSelector(

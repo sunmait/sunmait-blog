@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { reduxForm, formValueSelector } from 'redux-form';
+import {loadPostImage} from 'redux/modules/posts/actions';
+import { formValueSelector } from 'redux-form';
 import { findSelectedPost } from 'redux/selectors/findSelectedPost';
 import EditPost from './AddPostForm';
 
-const mapStateToProps = (state, props) => {
-  const insightPostSelector = formValueSelector('post');
+const postSelector = formValueSelector('post');
 
+const mapStateToProps = (state, props) => {
   return {
     initialValues: findSelectedPost(state.posts.posts, props.postId),
-    description: insightPostSelector(state, 'Description'),
+    description: postSelector(state, 'Description'),
   }
 };
 
-export default withRouter(connect(mapStateToProps)(EditPost));
+const mapDispatchToProps = {
+  loadPostImage
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPost));

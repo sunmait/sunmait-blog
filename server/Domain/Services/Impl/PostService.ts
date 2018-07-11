@@ -27,6 +27,7 @@ export class PostService implements IPostService {
 
     post.Description = data.Description;
     post.Title = data.Title;
+    post.ImageUrl = data.ImageUrl;
     post.UpdatedAt = new Date();
 
     return this._postRepository.update(post);

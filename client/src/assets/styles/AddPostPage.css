@@ -1,7 +1,17 @@
-@import './theme/palette.css';
+@import './theme/variables.css';
 
 .add-post {
-  width: 80%;
+  width: 700px;
+}
+
+.add-post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-post-form > div {
+  width: 100%
 }
 
 .add-post-form__title-container {
@@ -11,11 +21,6 @@
 
 .add-post-form__title {
   flex-grow: 7;
-}
-
-.add-post-form__title input {
-  text-transform: uppercase;
-  color: var(--palette3);
 }
 
 .add-post-form__title:hover {
@@ -31,29 +36,12 @@ div.add-post-form__title::before {
   background: none;
 }
 
-.add-post-form__upload-image {
-  flex-grow: 0;
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
 .add-post-form__upload-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-grow: 1;
-  border: 1px solid var(--palette3);
-  color: var(--palette3);
-  border-radius: var(--default-border-radius);
-  cursor: pointer;
 }
 
 .add-post-form__divider {
-  border-bottom: 2px solid var(--palette3);
+  border-bottom: var(--primary-border);
   margin: 10px 0;
 }
 
@@ -72,10 +60,32 @@ div.add-post-form__title::before {
   outline: none;
   width: 100%;
   height: 40rem;
+  font-family: var(--default-font-family);
+  font-size: var(--font-size--sm);
+  border: none;
 }
 
-.add-post-form__publish-post {
+.add-post-form__publish-post-button {
   display: flex;
   justify-content: center;
   padding-top: 10px;
+}
+
+.add-post-load-image {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-post-image-preview {
+  height: 40px;
+}
+
+.add-post-image-preview__image {
+  height: 100%;
+}
+
+.add-post-media-widget__menu-items {
+  display: flex;
+  margin: 0;
+  padding: 0;
 }

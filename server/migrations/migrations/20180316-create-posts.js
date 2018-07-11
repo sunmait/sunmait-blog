@@ -30,6 +30,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      ImageUrl: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
