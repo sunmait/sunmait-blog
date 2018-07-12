@@ -81,5 +81,3 @@ tests/baselines/reference/dt
 server/**/*.js
 server/**/*.js.map
 !server/migrations/**/*.js
-server/API/config/default.json
-server/migrations/config/config.json

@@ -1,0 +1,46 @@
+version: '3.1'
+services:
+  devdb:
+    image: mariadb
+    environment:
+        MYSQL_DATABASE: sunmait_blog_development
+        MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3307:3307
+    volumes:
+      - "./dev.cnf:/etc/mysql/conf.d/my.cnf"
+    container_name: devdb
+    networks:
+      - mynetwork
+
+  dev-server:
+    image: dev-server
+    ports:      
+      - 5000:3000
+      - 49153:49153
+    links:
+      - devdb
+    depends_on:
+      - devdb
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server/:/server/
+    networks:
+      - mynetwork
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mynetwork      
+
+volumes:
+  devdata:
+
+networks:
+  mynetwork:
+     driver: bridge

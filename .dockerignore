@@ -1,0 +1,13 @@
+# directories
+**/bin/
+**/obj/
+**/out/
+**/node_modules/
+
+.git
+npm-debug
+
+# files
+Dockerfile*
+**/*.trx
+**/*.md
