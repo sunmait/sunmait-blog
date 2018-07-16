@@ -17,11 +17,9 @@ let cssVarPoly = {
     // Edge supports supports, so check for actual variable support
     if (window.CSS && window.CSS.supports && window.CSS.supports('(--foo: red)')) {
       // this browser does support variables, abort
-      console.log('your browser supports CSS variables, aborting and letting the native support handle things.');
       return;
     } else {
       // edge barfs on console statements if the console is not open... lame!
-      console.log('no support for you! polyfill all (some of) the things!!');
       document.querySelector('body').classList.add('cssvars-polyfilled');
     }
 
@@ -183,9 +181,3 @@ let cssVarPoly = {
 cssVarPoly.init();
 
 // export default makeFit;
-
-// stuff for hiding documentation for Opera Mini testing
-document.querySelector('.hide-docs').addEventListener('click',function(event){
-  event.preventDefault();
-  document.querySelector('body').classList.toggle('hide-the-docs');
-});

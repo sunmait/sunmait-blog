@@ -1,11 +1,11 @@
 {
   "development": {
-    "username": <YOUR USERNAME>,
-    "password": <YOUR PASSWORD>,
+    "username": "root",
+    "password": "password",
     "database": "sunmait_blog_development",
-    "host": "localhost",
-    "port": <YOUR PORT>,
-    "dialect": "mysql"
+    "host": "devdb",
+    "dialect": "mysql",
+    "port": 3307
   },
   "test": {
     "username": "root",
@@ -16,9 +16,9 @@
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "password",
     "database": "sunmait_blog",
-    "host": "127.0.0.1",
+    "host": "proddb",
     "dialect": "mysql"
   }
 }
