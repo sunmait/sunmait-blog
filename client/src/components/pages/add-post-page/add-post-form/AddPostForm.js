@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import Button from 'components/common/button/Button.jsx';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
-import Textarea from 'components/common/input/Textarea';
+import Textarea from './post-editing-textarea/Textarea';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import LoadPostImage from './load-post-image/LoadPostImage.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
@@ -13,8 +13,31 @@ const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
 
 class EditPost extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      widgetPositionStart: 0,
+      widgetPadding: 0,
+      isRowEmpty: (props.initialValues.Description.length === 0),
+    };
+    this.widgetRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setState({widgetPositionStart: this.widgetRef.current.offsetTop + 16});
+  }
+
+  getCaretParams = (caretPosition, isRowEmpty) => {
+    const {widgetPositionStart} = this.state;
+    if (widgetPositionStart !== 0) {
+      const widgetPadding = caretPosition - widgetPositionStart;
+      this.setState({widgetPadding: widgetPadding, isRowEmpty: isRowEmpty});
+    }
+  }
+
   render() {
-    const {valid, handleSubmit, label, description} = this.props;
+    const {valid, handleSubmit, label, setTextareaSelectionValues} = this.props;
+    const {isRowEmpty, widgetPadding} = this.state;
 
     return (
       <form onSubmit={handleSubmit} className={bemClasses()}>
@@ -30,14 +53,17 @@ class EditPost extends React.Component {
           </div>
         </div>
         <div className={bemClasses('divider')} />
-        <div className={bemClasses('description-container')}>
-          <div className={bemClasses('add-button')}>
-            <MediaWidget />
+        <div className={bemClasses('description-container')} id='description-container'>
+          <div className={bemClasses('add-button')} ref={this.widgetRef}>
+            {isRowEmpty && <MediaWidget paddingTop={widgetPadding} />}
           </div>
           <Textarea
             customClass={bemClasses('textarea')}
             name="Description"
             placeholder="Enter description of your post"
+            setSelectionValues={setTextareaSelectionValues}
+            setCurrentRowValues={this.setCurrentRowValues}
+            getCaretParams={this.getCaretParams}
           />
         </div>
         <div className={bemClasses('publish-post-button')}>
@@ -74,7 +100,6 @@ const validate = values => {
 
 EditPost.propTypes = {
   label: PropTypes.string.isRequired,
-  description: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
 };
 

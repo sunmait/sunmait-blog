@@ -1,7 +1,7 @@
 @import './theme/variables.css';
 
 .modal > div {
-  min-width: 320px;
+  min-width: 32rem;
 }
 
 .modal__title > h2 {
@@ -17,7 +17,7 @@
 
 .modal__actions {
   margin: 0;
-  padding: 24px;
+  padding: 2.4rem;
 }
 
 .modal-form {
@@ -25,7 +25,11 @@
   flex-direction: column;
 }
 
+.modal-form p {
+  font-size: 1rem !important;
+}
+
 .modal-form__action-button {
-  margin-top: 24px;
+  margin-top: 2.4rem;
   align-self: flex-end;
 }

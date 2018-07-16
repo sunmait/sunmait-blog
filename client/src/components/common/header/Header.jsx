@@ -124,9 +124,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.object.isRequired,
-  updatedUser: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequire,
+  user: PropTypes.object,
+  logout: PropTypes.func.isRequired,
 };
 
 export default Header;

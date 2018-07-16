@@ -6,7 +6,7 @@ import { getBEMClasses } from 'components/helpers/BEMHelper';
 const baseClass = 'add-post-image-preview';
 const bemClasses = getBEMClasses([baseClass]);
 
-const defaultUrl = 'https://st3.depositphotos.com/1742172/18355/v/1600/depositphotos_183552448-stock-illustration-vector-illustration-funny-cartoon-cat.jpg'
+const defaultUrl = 'https://currys-ssl.cdn.dixons.com/grafx/images/blank.gif'
 
 export const ImagePreview = props => {
   const imageUrl = props.input.value;

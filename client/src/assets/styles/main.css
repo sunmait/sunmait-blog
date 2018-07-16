@@ -3,11 +3,12 @@
 html, body, #root {
   margin: 0;
   font-family: var(--default-font-family);
-  font-size: var(--font-size--sm);
+  font-size: 10px;
   height: 100vh;
 }
 
 #root {
+  font-size: var(--font-size--sm);
   display: flex;
   flex-direction: column;
 }
@@ -23,10 +24,14 @@ a {
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-height: 450px;
-  margin-bottom: 50px;
-  padding-top: 35px;
+  min-height: 45rem;
+  margin-bottom: 5rem;
+  padding-top: 3.5rem;
 }
 p {
-  margin: 8px 0;
+  margin: 0.8rem 0;
+}
+
+input, label, textarea, li {
+  font-size: var(--font-size--sm) !important;
 }

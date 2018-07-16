@@ -27,9 +27,9 @@ class LoadPostImage extends React.Component {
     // TODO add progress spiner when image is loading
     return (
       <div className={bemClasses()}>
+        <ImagePreviewField name="ImageUrl" />
         <input type="file" id="fileElem" accept="image/*" style={{display: 'none'}} onChange={this.handleFiles} />
         <Button onClick={this.handleFileLoad} label="Load image" />
-        <ImagePreviewField name="ImageUrl" />
       </div>
     );
   }

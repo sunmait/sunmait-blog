@@ -13,8 +13,7 @@ class Menu extends React.Component {
         open={isOpen}
         onClose={handleClose}
         anchorEl={anchorEl}
-        anchorOrigin={{"horizontal":"middle","vertical":"bottom"}}
-        targetOrigin={{"horizontal":"middle","vertical":"top"}}
+        anchorOrigin={{"horizontal":"center","vertical":"bottom"}}
       >
         <Link to={`/profile/${user.id}`}>
           <MenuItem onClick={handleClose}>
@@ -45,7 +44,7 @@ Menu.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  anchorEl: PropTypes.object.isRequired,
+  anchorEl: PropTypes.object,
   logout: PropTypes.func.isRequired,
 };
 
