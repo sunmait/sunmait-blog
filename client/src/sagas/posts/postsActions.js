@@ -27,9 +27,8 @@ function* addPost(payload) {
 
 function* loadPostImage(payload) {
   const res = yield cloudinaryApi.postImage(payload.payload.file)
-  const imageUrl = res.data;
-
-  yield put(change('post', 'ImageUrl', imageUrl));
+  
+  yield put(change('post', 'ImageUrl', res.data));
 }
 
 function* updatePost(payload) {

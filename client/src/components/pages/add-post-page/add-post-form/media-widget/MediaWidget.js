@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Button from 'components/common/button/Button.jsx';
 import Popover from 'material-ui/Popover';
 import { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
+import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import AddCircleOutline from 'material-ui-icons/AddCircleOutline';
+import Movie from 'material-ui-icons/Movie';
+import Image from 'material-ui-icons/Image';
+import Remove from 'material-ui-icons/Remove';
 
 const mediaWidget = 'add-post-media-widget';
 const bemClasses = getBEMClasses([mediaWidget]);
@@ -14,7 +17,9 @@ class MediaWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMenuOpen: false
+      isMenuOpen: false,
+      isImageInputOpen: false,
+      isVideoInputOpen: false,
     };
   }
 
@@ -31,47 +36,85 @@ class MediaWidget extends React.Component {
   };
 
   handleClickInsertImage = (e) => {
-    this.handleCloseMenu();
+    const {isImageInputOpen} = this.state;
+    const {insertImageUrl} = this.props;
+
+    if (isImageInputOpen) {
+      this.props.insertImageIntoText(insertImageUrl);
+      this.handleCloseMenu();
+    } else {
+      this.setState({isImageInputOpen: true, isVideoInputOpen: false});
+    }
   };
 
   handleClickInsertVideo = (e) => {
-    this.handleCloseMenu();
+    const {isVideoInputOpen} = this.state;
+    const {insertVideoUrl} = this.props;
+
+    if (isVideoInputOpen) {
+      this.props.insertVideoIntoText(insertVideoUrl); 
+      this.handleCloseMenu();
+    } else {
+      this.setState({isImageInputOpen: false, isVideoInputOpen: true});
+    }
   };
 
   handleClickInsertDivider = (e) => {
+    this.props.insertDividerIntoText()
     this.handleCloseMenu();
   };
 
   handleCloseMenu = () => {
     this.setState({
-      isMenuOpen: false
+      isMenuOpen: false,
+      isImageInputOpen: false,
+      isVideoInputOpen: false,
     });
   };
 
   renderMenu() {
+    const imageInputWidth = (this.state.isImageInputOpen) ? 220 : 0;
+    const imageButtonColor =  (this.state.isImageInputOpen) ? 'primary' : 'secondary';
+    const videoInputWidth = (this.state.isVideoInputOpen) ? 220 : 0;
+    const videoButtonColor =  (this.state.isVideoInputOpen) ? 'primary' : 'secondary';
+
     return (
       <Popover
         open={this.state.isMenuOpen}
         onClose={this.handleClose}
         anchorEl={this.state.anchorEl}
         anchorOrigin={{
-          'vertical': 'middle',
+          'vertical': 'center',
           'horizontal': 'right',
         }}
         transformOrigin={{
-          'vertical': 'middle',
+          'vertical': 'center',
           'horizontal': 'left',
         }}
       >
         <ul className={bemClasses('menu-items')}>
           <MenuItem onClick={this.handleClickInsertImage}>
-            <AddCircleOutline />
+            <Image color={imageButtonColor} />
           </MenuItem>
+          <div className={bemClasses('menu-item-hidden-input')} style={{width: imageInputWidth}}>
+            <InputWithPlaceholder
+              name="insertImageUrl"
+              placeholder="Enter image url"
+              autoComplete="off"
+            />
+          </div>
           <MenuItem onClick={this.handleClickInsertVideo}>
-            <AddCircleOutline />
+            <Movie color={videoButtonColor}  />
           </MenuItem>
+          <div className={bemClasses('menu-item-hidden-input')} style={{width: videoInputWidth}}>
+            <InputWithPlaceholder
+              name="insertVideoUrl"
+              placeholder="Enter video url"
+              autoComplete="off"
+            />
+          </div>
           <MenuItem onClick={this.handleClickInsertDivider}>
-            <AddCircleOutline />
+            <Remove color="secondary" />
           </MenuItem>
         </ul>
       </Popover>
@@ -79,9 +122,8 @@ class MediaWidget extends React.Component {
   };
 
   render() {
-    // TODO add progress spiner when image is loading
     return (
-      <div classname={bemClasses()}>
+      <div className={bemClasses()} style={{top: this.props.paddingTop}}>
         {this.renderMenu()}
         <IconButton
           aria-label="open-widgets"
@@ -95,6 +137,7 @@ class MediaWidget extends React.Component {
 };
 
 MediaWidget.propTypes = {
+  paddingTop: PropTypes.number.isRequired,
 };
 
 export default MediaWidget;

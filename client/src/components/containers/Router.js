@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import { Router, Switch, Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from './history';
 import App from '../common/app/index.jsx';
