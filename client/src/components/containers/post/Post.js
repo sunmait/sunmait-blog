@@ -43,6 +43,12 @@ class Post extends React.Component {
 
   renderArticleBody() {
     const {Title, Description, id, ImageUrl} = this.props.post;
+    let text = Description;
+
+    if (text.length > 350) {
+      text = text.slice(0, 350);
+      text += '...';
+    }
 
     return (
       <React.Fragment>
@@ -62,7 +68,7 @@ class Post extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <ReactMarkdown source={Description} />
+            <ReactMarkdown skipHtml={true} source={text} />
           </div>
         </div>
       </React.Fragment>
@@ -85,7 +91,7 @@ class Post extends React.Component {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
+  users: PropTypes.object.isRequired,
 };
 
 export default Post;

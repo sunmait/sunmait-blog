@@ -13,6 +13,10 @@ const article = 'article';
 const bemClasses = getBEMClasses([article]);
 
 class PostPage extends React.Component {
+  componentDidMount() {
+    this.props.getPosts();
+  }
+
   handleDeletePost() {
     this.props.deletePost(this.props.selectedPost.id);
     this.props.history.push('/home');
@@ -25,7 +29,7 @@ class PostPage extends React.Component {
       return (
         <div className={bemClasses('edit-buttons')}>
           <Link to={`/addPost/${id}`}>
-            <IconButton mini>
+            <IconButton>
               <Edit />
             </IconButton>
           </Link>
@@ -82,7 +86,7 @@ class PostPage extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <ReactMarkdown source={Description} />
+            <ReactMarkdown escapeHtml={false} source={Description} />
           </div>
         </div>
       </React.Fragment>
@@ -103,9 +107,9 @@ class PostPage extends React.Component {
 PostPage.propTypes = {
   getPosts: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  selectedPost: PropTypes.object.isRequired,
+  selectedPost: PropTypes.object,
   user: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
+  users: PropTypes.object.isRequired,
 }
 
 

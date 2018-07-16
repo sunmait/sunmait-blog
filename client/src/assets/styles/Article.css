@@ -37,10 +37,28 @@
 .article__description {
   word-break: break-all;
 }
+.article__description hr {
+  height: 2px;
+  background: var(--secondary-color);
+  border: none;
+  width: 20%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.article__description img {
+  max-width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article__description iframe {
+  margin: 1.5rem auto;
+  max-width: 100%;
+}
 .article__info {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 .article__more-button {
-  height: 35px;
-  margin: 35px 0 15px;
+  height: 3.5rem;
+  margin: 3.5rem 0 1.5rem;
 }

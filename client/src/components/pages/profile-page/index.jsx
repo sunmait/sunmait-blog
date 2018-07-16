@@ -7,15 +7,13 @@ import ProfilePage from './ProfilePage.jsx';
 const userFormSelector = formValueSelector('userProfile');
 const confirmFormSelector = formValueSelector('userPasswordConfirm');
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user,
-    profile: state.profile.profile,
-    users: state.profile.usersById,
-    userFormValues: userFormSelector(state, 'FirstName', 'LastName', 'Login'),
-    confirmFormValues: confirmFormSelector(state, 'password')
-  }
-};
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+  profile: state.profile.profile,
+  users: state.profile.usersById,
+  userFormValues: userFormSelector(state, 'FirstName', 'LastName', 'Login'),
+  confirmFormValues: confirmFormSelector(state, 'password')
+});
 
 const mapDispatchToProps = {
   getUser,

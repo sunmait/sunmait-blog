@@ -25,6 +25,10 @@
   flex-direction: column;
 }
 
+.modal-form p {
+  font-size: 1rem !important;
+}
+
 .modal-form__action-button {
   margin-top: 24px;
   align-self: flex-end;
