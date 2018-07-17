@@ -1,25 +1,9 @@
 version: '3.1'  
 services:
-  proddb:
-    image: mariadb
-    environment:
-        MYSQL_DATABASE: sunmait_blog
-        MYSQL_ROOT_PASSWORD: password
-    container_name: proddb
-    networks:
-      - mynetwork
- 
   dbseed:
     environment:
       - NODE_ENV=production
-    links:
-      - proddb
-    depends_on:
-      - proddb
     command: ./wait-for-db.sh proddb:3306 -- npm run dbinit
-
-volumes:
-  proddata:
 
 networks:
   mynetwork:
