@@ -19,7 +19,7 @@
     "migrate-win": "cd .\\migrations && ..\\node_modules\\.bin\\sequelize db:migrate",
     "migrate:undo": "cd ./migrations && ../node_modules/.bin/sequelize db:migrate:undo:all",
     "migrate-win:undo": "cd .\\migrations && ..\\node_modules\\.bin\\sequelize db:migrate:undo:all",
-    "dbinit": "npm run migrate && npm run seed"
+    "dbinit": "npm run migrate:undo && npm run migrate && npm run seed"
   },
   "description": "Sunmait.Boilerplate",
   "author": {
