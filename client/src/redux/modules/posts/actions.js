@@ -1,5 +1,4 @@
 import {SAGAS_POSTS_CONSTANTS} from 'sagas/posts/constants';
-import {POSTS_CONSTANTS} from './constants';
 
 export const getPosts = () => {
   return {
@@ -29,7 +28,7 @@ export const loadPostImage = (file) => {
 
 export const setTextareaSelectionValues = (start, end) => {
   return {
-    type: POSTS_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES,
+    type: SAGAS_POSTS_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES,
     payload: {
       start,
       end,
@@ -39,7 +38,7 @@ export const setTextareaSelectionValues = (start, end) => {
 
 export const insertImageIntoText = (url) => {
   return {
-    type: POSTS_CONSTANTS.INSERT_IMAGE,
+    type: SAGAS_POSTS_CONSTANTS.INSERT_IMAGE,
     payload: {
       url
     }
@@ -48,7 +47,7 @@ export const insertImageIntoText = (url) => {
 
 export const insertVideoIntoText = (url) => {
   return {
-    type: POSTS_CONSTANTS.INSERT_VIDEO,
+    type: SAGAS_POSTS_CONSTANTS.INSERT_VIDEO,
     payload: {
       url
     }
@@ -57,7 +56,7 @@ export const insertVideoIntoText = (url) => {
 
 export const insertDividerIntoText = () => {
   return {
-    type: POSTS_CONSTANTS.INSERT_DIVIDER,
+    type: SAGAS_POSTS_CONSTANTS.INSERT_DIVIDER,
     payload: {}
   }
 };

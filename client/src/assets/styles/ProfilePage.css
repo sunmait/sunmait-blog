@@ -3,20 +3,20 @@
   align-items: center;
   justify-content: center;
   font-size: var(--font-size--md);
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
 .user-profile__avatar {
-  margin-right: 20px;
+  margin-right: 2rem;
 }
 
 .user-profile-form {
   display: flex;
   flex-direction: column;
-  max-width: 450px;
+  max-width: 45rem;
   align-items: center;
 }
 
 .user-profile-form__save-button {
-  margin-top: 15px;
+  margin-top: 1.5rem;
 }

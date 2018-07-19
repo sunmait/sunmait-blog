@@ -4,7 +4,7 @@
   border: var(--secondary-border);
   border-color: var(--primary-border-color);
   border-radius: var(--default-border-radius);
-  padding: 6px 40px;
+  padding: 0.6rem 4rem;
   font-family: var(--default-font-family);
   font-size: var(--font-size--sm);
   outline: none;

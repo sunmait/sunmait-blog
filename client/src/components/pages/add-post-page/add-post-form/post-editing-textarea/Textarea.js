@@ -33,6 +33,10 @@ class TextareaComponent extends React.Component {
     this.setParams(e, this.textareaRef);
   }
 
+  customOnScroll = (e) => {
+    this.setParams(e, this.textareaRef);
+  }
+
   setParams = (event, textareaRef) => {
     const start = event.target.selectionStart;
     const end = event.target.selectionEnd;
@@ -47,7 +51,7 @@ class TextareaComponent extends React.Component {
   render() {
     const classes = getBEMClasses([baseClass, this.props.customClass]);
     const {input, placeholder} = this.props;
-  
+
     return (
       <textarea
         {...input}
@@ -57,6 +61,7 @@ class TextareaComponent extends React.Component {
         onClick={this.customOnClick}
         onChange={this.customOnChange}
         onKeyUp={this.customOnKeyUp}
+        onScroll={this.customOnScroll}
         ref={this.textareaRef}
       />
     );

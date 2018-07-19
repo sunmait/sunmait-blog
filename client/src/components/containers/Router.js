@@ -20,47 +20,50 @@ class AppComponent extends React.Component {
   }
 
   render() {
-    return (
-      <Router history={history}>
-          <App>
-            <Switch>
-              <Route
-                exact
-                path='/home'
-                component={HomePage}
-              />
-              <Route
-                exact
-                path='/profile/:userId'
-                component={ProfilePage}
-              />
-              <Route
-                exact
-                path='/myposts'
-                component={MyPostsPage}
-              />
-              <PrivateRoute
-                exact
-                path='/addpost'
-                auth={this.props.auth}
-                component={AddPostPage}
-              />
-              <PrivateRoute
-                exact
-                path='/addpost/:postId'
-                auth={this.props.auth}
-                component={AddPostPage}
-              />
-              <Route
-                exact
-                path='/post/:postId'
-                component={PostPage}
-              />
-              <Redirect from="/" exact to="/home" />
-            </Switch>
-          </App>
-      </Router>
-    );
+    if (this.props.auth.isCredentialsChecked) {
+      return (
+        <Router history={history}>
+            <App>
+              <Switch>
+                <Route
+                  exact
+                  path='/home'
+                  component={HomePage}
+                />
+                <Route
+                  exact
+                  path='/profile/:userId'
+                  component={ProfilePage}
+                />
+                <Route
+                  exact
+                  path='/myposts'
+                  component={MyPostsPage}
+                />
+                <PrivateRoute
+                  exact
+                  path='/addpost'
+                  auth={this.props.auth}
+                  component={AddPostPage}
+                />
+                <PrivateRoute
+                  exact
+                  path='/addpost/:postId'
+                  auth={this.props.auth}
+                  component={AddPostPage}
+                />
+                <Route
+                  exact
+                  path='/post/:postId'
+                  component={PostPage}
+                />
+                <Redirect from="/" exact to="/home" />
+              </Switch>
+            </App>
+        </Router>
+      );
+    }
+    return null;
   }
 }
 

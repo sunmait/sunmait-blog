@@ -5,7 +5,7 @@ import Button from 'components/common/button/Button.jsx';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import Textarea from './post-editing-textarea/Textarea';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
-import LoadPostImage from './load-post-image/LoadPostImage.js';
+import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
 import 'assets/styles/AddPostPage.css';
 
@@ -18,7 +18,7 @@ class EditPost extends React.Component {
     this.state = {
       widgetPositionStart: 0,
       widgetPadding: 0,
-      isRowEmpty: (props.initialValues.Description.length === 0),
+      isRowEmpty: (this.props.initialValues.Description.length === 0),
     };
     this.widgetRef = React.createRef();
   }
@@ -27,6 +27,12 @@ class EditPost extends React.Component {
     this.setState({widgetPositionStart: this.widgetRef.current.offsetTop + 16});
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.initialValues !== this.props.initialValues) {
+      this.setState({isRowEmpty: (newProps.initialValues.Description.length === 0)});
+    }
+  }
+  
   getCaretParams = (caretPosition, isRowEmpty) => {
     const {widgetPositionStart} = this.state;
     if (widgetPositionStart !== 0) {
@@ -49,7 +55,7 @@ class EditPost extends React.Component {
             autoComplete="off"
           />
           <div className={bemClasses('upload-label')}>
-            <LoadPostImage {...this.props} />
+            <LoadPostImage />
           </div>
         </div>
         <div className={bemClasses('divider')} />
@@ -103,4 +109,4 @@ EditPost.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 };
 
-export default reduxForm({form: 'post', validate})(EditPost);
+export default reduxForm({form: 'post', validate, enableReinitialize: true})(EditPost);

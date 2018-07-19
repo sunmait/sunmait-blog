@@ -1,7 +1,8 @@
 const defaultState = {
   user: null,
   accessToken: null,
-  refreshToken: null
+  refreshToken: null,
+  isCredentialsChecked: false,
 };
 
 export default function(state = defaultState, action) {
@@ -21,6 +22,9 @@ export default function(state = defaultState, action) {
     case 'REFRESH_TOKEN_EXPIRED':
       return handleAccessTokenExpired(state, action.payload);
 
+    case 'CREDENTIALS_CHECKED':
+      return handleCredentialsChecked(state);
+
     default:
       return state;
   }
@@ -31,7 +35,7 @@ function handleLogin(state, loginData) {
     ...state,
     user: loginData.Data,
     accessToken: loginData.AccessToken,
-    refreshToken: loginData.RefreshToken
+    refreshToken: loginData.RefreshToken,
   };
 }
 
@@ -40,7 +44,7 @@ function handleLogout(state) {
     ...state,
     user: null,
     accessToken: null,
-    refreshToken: null
+    refreshToken: null,
   };
 }
 
@@ -50,4 +54,11 @@ function handleAccessTokenExpired(state, tokens) {
     accessToken: tokens.AccessToken,
     refreshToken: tokens.RefreshToken
   };
+}
+
+function handleCredentialsChecked(state) {
+  return {
+    ...state,
+    isCredentialsChecked: true,
+  }
 }

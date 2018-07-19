@@ -8,11 +8,7 @@ const findCaretYPosition = (textareaRef, textarea) => {
   } = textareaRef.current;
   const {selectionStart} = textarea;
   const { y } = getCursorXY(textarea, selectionStart);
-  const newTop = Math.min(
-    y - scrollTop,
-    (offsetTop + offsetHeight + 10)
-  );
-
+  const newTop = scrollTop + offsetTop + offsetHeight + 10
   return (y - newTop);
 }
 

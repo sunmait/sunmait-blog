@@ -8,6 +8,10 @@ const editPost = 'add-post';
 const bemClasses = getBEMClasses([editPost]);
 
 class AddPostPage extends React.Component {
+  componentDidMount() {
+    this.props.getPosts();
+   }
+
   updatePost() {
     const {Title, Description, ImageUrl} = this.props.editPostValues;
     const postId = this.props.match.params.postId;
@@ -46,6 +50,7 @@ class AddPostPage extends React.Component {
 }
 
 AddPostPage.propTypes = {
+  getPosts: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired,
 };

@@ -19,6 +19,7 @@ function* verifyCredentials() {
 
     yield put({type: AUTH_CONSTANTS.LOGIN, payload: res.data});
   }
+  yield put({type: AUTH_CONSTANTS.CREDENTIALS_CHECKED})
 }
 
 function* login(payload) {

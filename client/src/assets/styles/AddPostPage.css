@@ -47,13 +47,15 @@ div.add-post-form__title::before {
 
 .add-post-form__description-container {
   display: flex;
+  height: 61rem;
 }
 
 .add-post-form__add-button {
   position: absolute;
-  height: 5rem;
+  height: inherit;
   transform: translate(-5rem,0);
-  margin-top: -1.1rem
+  margin-top: -1.1rem;
+  overflow: hidden;
 }
 
 .add-post-form__textarea {
@@ -75,6 +77,11 @@ div.add-post-form__title::before {
 .add-post-load-image {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.add-post-load-image__progress-wrapper {
+  min-width: 2rem;
 }
 
 .add-post-image-preview {

@@ -1,7 +1,7 @@
 .posts-page__searchbar {
-  width: 830px;
-  padding: 0 10px;
-  margin-bottom: 10px;
+  width: 83rem;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 .posts-page__searchbar div {
   width: 100%;
@@ -11,5 +11,5 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: stretch;
-  width: 850px;
+  width: 85rem;
 }

@@ -28,7 +28,7 @@ class PostPage extends React.Component {
     if (user && (user.id === UserId)) {
       return (
         <div className={bemClasses('edit-buttons')}>
-          <Link to={`/addPost/${id}`}>
+          <Link to={`/addpost/${id}`}>
             <IconButton>
               <Edit />
             </IconButton>

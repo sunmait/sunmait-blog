@@ -2,7 +2,7 @@
 
 footer {
   color: var(--color-for-secondary-background);
-  padding: 25px 55px;
+  padding: 2.5rem 5.5rem;
   background-color: var(--secondary-background);
   flex-shrink: 0;
 }
