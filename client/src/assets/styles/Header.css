@@ -27,3 +27,27 @@ header {
 .header__user-info {
   padding-right: 1.6rem;
 }
+
+@media (max-width: 700px) {
+  header {
+    padding: 0 2.5rem;
+  }
+  .header__create-button {
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .header__create-button {
+    display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  header {
+    padding: 0 1rem;
+  }
+  .header__user-info {
+    padding-right: 0.5rem;
+  }
+}

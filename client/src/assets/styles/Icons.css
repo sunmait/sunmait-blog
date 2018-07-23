@@ -1,0 +1,15 @@
+@import './theme/palette.css';
+
+.custom-icons {
+  outline: none;
+}
+.custom-icons circle {
+  fill: var(--palette1);
+}
+.custom-icons path {
+  fill: var(--palette5);
+  stroke: var(--palette5);
+}
+.custom-icons:hover circle {
+  fill: rgba(0, 0, 0, 0.05);
+}

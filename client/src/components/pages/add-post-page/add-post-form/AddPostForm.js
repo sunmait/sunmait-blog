@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
-import Button from 'components/common/button/Button.jsx';
+import { Helmet } from 'react-helmet';
+import Button from 'components/common/button/Button.js'
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import Textarea from './post-editing-textarea/Textarea';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
@@ -42,11 +43,13 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const {valid, handleSubmit, label, setTextareaSelectionValues} = this.props;
+    const {valid, handleSubmit, label, setTextareaSelectionValues, initialValues} = this.props;
     const {isRowEmpty, widgetPadding} = this.state;
+    const pageTitle = initialValues.Title.length > 0 ? initialValues.Title : 'Create new post';
 
     return (
       <form onSubmit={handleSubmit} className={bemClasses()}>
+        <Helmet title={pageTitle} />
         <div className={bemClasses('title-container')}>
           <InputWithPlaceholder
             customClass={bemClasses('title')}
@@ -74,11 +77,13 @@ class EditPost extends React.Component {
         </div>
         <div className={bemClasses('publish-post-button')}>
           <Button
-            type="submit"
+            as="button"
             buttonColor="primary"
-            label={label}
+            type="submit"
             disabled={!valid}
-          />
+          >
+            {label}
+          </Button>
         </div>
       </form>
     );

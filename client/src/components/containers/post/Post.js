@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
-import ButtonLink from 'components/common/button/ButtonLink.jsx';
+import Button from 'components/common/button/Button.js'
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Article.css';
 
@@ -33,10 +33,12 @@ class Post extends React.Component {
 
     return (
       <div className={bemClasses('more-button')}>
-        <ButtonLink
-          linkUrl={`/post/${id}`}
-          label="Read more"
-        />
+        <Button
+          as={Link}
+          to={`/post/${id}`}
+        >
+          Read more
+        </Button>
       </div>
     )
   }

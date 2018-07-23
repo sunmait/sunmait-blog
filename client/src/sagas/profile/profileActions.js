@@ -38,7 +38,6 @@ function* changeUser(payload) {
       );
       yield put({type: USER_CONSTANTS.CHANGE, payload: result.data});
       localStorage.clear();
-      yield put({type: AUTH_CONSTANTS.LOGIN});
       const result1 = yield axios.post(
         '/api/auth', {Login: NewLogin, Password}
       );

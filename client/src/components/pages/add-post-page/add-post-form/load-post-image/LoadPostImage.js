@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/common/button/Button.jsx';
+import Button from 'components/common/button/Button.js'
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import ImagePreviewField from './image-preview/ImagePreview.js';
 import { CircularProgress } from 'material-ui/Progress';
@@ -46,7 +46,12 @@ class LoadPostImage extends React.Component {
           {this.state.isLoading && <CircularProgress size={20} thickness={4} />}
         </div>
         <input type="file" id="fileElem" accept="image/*" style={{display: 'none'}} onChange={this.handleFiles} />
-        <Button onClick={this.handleFileLoad} label="Load image" />
+        <Button
+          as="button"
+          onClick={this.handleFileLoad} 
+        >
+          Load image
+        </Button>
       </div>
     );
   }

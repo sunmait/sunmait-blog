@@ -13,3 +13,25 @@
   align-items: stretch;
   width: 85rem;
 }
+.posts-page__create-button {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .posts-page__list-of-articles {
+    width: 100%;
+  }
+  .posts-page__searchbar {
+    width: 95%;
+  }
+  .posts-page__searchbar form {
+    margin-left: 2%;
+  }
+}
+
+@media (max-width: 580px) {
+  .posts-page__create-button {
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+}

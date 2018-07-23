@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
 import '../../../assets/styles/ProfilePage.css';
@@ -69,15 +70,18 @@ class ProfilePage extends React.Component {
     const { profile } = this.props;
 
     if (profile) {
+      const fullName = `${profile.FirstName} ${profile.LastName}`;
+
       return (
         <div className={bemClasses('profile-info-block')}>
+          <Helmet title={fullName} />
           <Avatar
             alt="Username"
             src={this.props.profile.PhotoUrl}
             className={bemClasses('avatar')}
           />
           <div>
-            {this.props.profile.FirstName} {this.props.profile.LastName}
+            {fullName}
           </div>
         </div>
       )

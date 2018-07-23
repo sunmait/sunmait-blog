@@ -35,6 +35,7 @@ function* login(payload) {
     localStorage.setItem('AccessToken', AccessToken);
     localStorage.setItem('RefreshToken', RefreshToken);
     localStorage.setItem('User', User);
+
     yield put({type: AUTH_CONSTANTS.LOGIN, payload: res.data});
   } catch ( err ) {
     console.error(err);

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonLink from 'components/common/button/ButtonLink.jsx';
-import Button from 'components/common/button/Button.jsx';
-import Avatar from 'material-ui/Avatar';
+import Button from 'components/common/button/Button.js'
 import { Link } from 'react-router-dom';
+import Avatar from 'material-ui/Avatar';
 import LoginModal from 'components/containers/login-modal/index.jsx';
 import Menu from './menu/Menu.jsx';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
@@ -58,11 +57,13 @@ class Header extends React.Component {
       <React.Fragment>
         <div className={bemClasses(null, 'for-authorised')}>
           <div className={bemClasses('create-button')}>
-            <ButtonLink 
+            <Button
+              as={Link}
+              to="/addpost"
               buttonColor="primary"
-              linkUrl="/addpost"
-              label="Create new post"
-            />
+            >
+              Create new post
+            </Button>
           </div>
           <div
             className={bemClasses('user-info')}
@@ -91,10 +92,12 @@ class Header extends React.Component {
     return (
       <React.Fragment>
         <Button
+          as="button"
           buttonColor="primary"
           onClick={() => this.handleOpenLoginModal()}
-          label="Log In"
-        />
+        >
+          Log In
+        </Button>
         <LoginModal
           isOpen={this.state.isLoginModalOpen}
           handleClose={this.handleCloseModal}

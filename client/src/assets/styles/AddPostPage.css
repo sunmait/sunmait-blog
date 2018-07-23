@@ -108,3 +108,27 @@ div.add-post-form__title::before {
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 780px) {
+  .add-post {
+    width: 90%;
+  }
+  .add-post-form__add-button {
+    transform: translate(-3.7rem,0);
+  }
+}
+
+@media (max-width: 600px) {
+  .add-post {
+    width: 85%;
+  }
+  .add-post-form__title-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 450px) {
+  .add-post-form__add-button {
+    transform: translate(-3.4rem,0);
+  }
+}

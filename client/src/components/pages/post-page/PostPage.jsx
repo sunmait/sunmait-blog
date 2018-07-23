@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
+import { Helmet } from 'react-helmet';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
+import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
+import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
 import 'assets/styles/Article.css';
 
@@ -44,6 +47,22 @@ class PostPage extends React.Component {
     }
   }
 
+  renderShareButtons() {
+    const {Title} = this.props.selectedPost;
+
+    let text = `${Title} (posted on Sunmait Blog). `
+    return (
+      <div className={bemClasses('share-buttons')}>
+        <div className={bemClasses('share-button-wrapper')}>
+          <TwitterShareButton innerText={text} url={document.URL} />
+        </div>
+        <div className={bemClasses('share-button-wrapper')}>
+          <FacebookShareButton innerText={text} url={document.URL} />
+        </div>
+      </div>
+    );
+  }
+
   renderArticleInformation() {
     const {
       users,
@@ -68,11 +87,26 @@ class PostPage extends React.Component {
     )
   }
 
+  renderPageMeta() {
+    const {Title, ImageUrl} = this.props.selectedPost;
+
+    return (
+      <Helmet title={Title}>
+        <meta name="twitter:card" content="summary" />
+        <meta property="og:url" content={document.URL} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={Title} />
+        <meta property="og:image" content={ImageUrl} />
+      </Helmet>
+    );
+  }
+
   renderArticleBody() {
     const {Title, Description, ImageUrl} = this.props.selectedPost;
 
     return (
       <React.Fragment>
+        {this.renderPageMeta()}
         <div
           className={bemClasses('main-post-image')}
           style={{backgroundImage: `url(${ImageUrl})`}}
@@ -88,6 +122,7 @@ class PostPage extends React.Component {
           <div className={bemClasses('description')}>
             <ReactMarkdown escapeHtml={false} source={Description} />
           </div>
+          {this.renderShareButtons()}
         </div>
       </React.Fragment>
     )

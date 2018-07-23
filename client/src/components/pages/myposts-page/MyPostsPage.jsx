@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
+import Button from 'components/common/button/Button.js'
+import { Link } from 'react-router-dom';
 import PostContainer from 'components/containers/post/PostContainer';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
 import 'assets/styles/PostsPages.css';
@@ -34,6 +36,15 @@ class MyPostsPage extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <div className={bemClasses('create-button')}>
+          <Button
+            as={Link}
+            to="/addpost"
+            buttonColor="primary"
+          >
+            Create new post
+          </Button>
+        </div>
         <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>

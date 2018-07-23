@@ -35,3 +35,9 @@ p {
 input, label, textarea, li {
   font-size: var(--font-size--sm) !important;
 }
+
+@media (max-width: 550px) {
+  .content {
+    margin-bottom: 2.5rem;
+  }
+}
