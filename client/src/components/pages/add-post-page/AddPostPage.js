@@ -38,12 +38,14 @@ class AddPostPage extends React.Component {
     const postId = Number(this.props.match.params.postId);
 
     return (
-      <div className={bemClasses()}>
-        <AddPostFormContainer
-          label={postId ? " Update post" : "Publish post"}
-          postId={postId}
-          onSubmit={this.handleSubmit}
-        />
+      <div className="content">
+        <div className={bemClasses()}>
+          <AddPostFormContainer
+            label={postId ? " Update post" : "Publish post"}
+            postId={postId}
+            onSubmit={this.handleSubmit}
+          />
+        </div>
       </div>
     );
   }

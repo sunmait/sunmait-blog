@@ -3,11 +3,12 @@
 header {
   min-height: 7rem;
   background: var(--primary-background);
-  border-bottom: var(--secondary-border);
   padding: 0 5.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 -2px 1.5rem 0 rgba(0,0,0,0.2);
+  z-index: 2;
 }
 .header--for-authorised {
   cursor: pointer;

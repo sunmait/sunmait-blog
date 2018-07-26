@@ -32,14 +32,14 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="content content--with-grey-background">
         <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>
         <div className={bemClasses('list-of-articles')}>
           {this.renderPostList()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

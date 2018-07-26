@@ -131,8 +131,10 @@ class PostPage extends React.Component {
   render() {
     if (this.props.selectedPost) {
       return (
-        <div className={bemClasses('container', 'full')}>
-          {this.renderArticleBody()}
+        <div className="content">
+          <div className={bemClasses('container', 'full')}>
+            {this.renderArticleBody()}
+          </div>
         </div>
       );
     } 

@@ -111,10 +111,10 @@ class ProfilePage extends React.Component {
 
    render = () => {
     return (
-      <React.Fragment>
+      <div className="content">
         {this.renderProfileInfo()}
         {this.renderProfileForm()}
-      </React.Fragment>
+      </div>
     );
   }
 }

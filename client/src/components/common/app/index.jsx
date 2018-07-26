@@ -12,9 +12,7 @@ const App = (props) => {
       />
       <div className="app-container">
         <HeaderContainer />
-        <div className="content">
-          {props.children}
-        </div>
+        {props.children}
       </div>
       <Footer />
     </React.Fragment>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { getBEMClasses } from 'components/helpers/BEMHelper';
-import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
+import Input from 'components/common/input/Input.js';
 
 const searchBar = 'search-bar';
 const bemClasses = getBEMClasses([searchBar]);
@@ -9,7 +9,7 @@ const bemClasses = getBEMClasses([searchBar]);
 const SearchBar = props => {
   return (
     <form className={bemClasses('form')}>
-      <InputWithPlaceholder name="searchQuery" placeholder="Search" />
+      <Input name="searchQuery" placeholder="Search" customClass={bemClasses('input')} />
     </form>
     );
 };

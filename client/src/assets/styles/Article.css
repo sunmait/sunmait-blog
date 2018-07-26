@@ -5,7 +5,7 @@
 }
 .article__container--preview {
   max-width: 47%;
-  border: var(--secondary-border);
+ /* border: var(--secondary-border);*/
   border-radius: var(--small-border-radius);
   overflow: hidden;
   margin: 2rem 0.5rem;
@@ -13,6 +13,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background: var(--primary-background);
+  box-shadow: 0 0 1.5rem -0.5rem rgba(0,0,0,0.25);
+  transition: box-shadow 0.5s;
+  transition-delay: 0.1s;
+}
+.article__container--preview:hover {
+  box-shadow: 0 0 2rem 0 rgba(0,0,0,0.3);
+  transition: box-shadow 0.2s;
+  transition-delay: 0s;
 }
 .article__main-post-image {
   width: 100%;
@@ -31,34 +40,40 @@
   margin: 2rem 0 1rem;
   color: var(--secondary-color);
 }
+.article__container--full .article__header {
+  margin: 2rem 0 0;
+}
 .article__title {
   font-size: var(--font-size--lg);
   text-transform: uppercase;
 }
+.article__info {
+  margin-bottom: 2rem;
+}
+.article__container--full .article__info {
+  margin-bottom: 3rem;
+}
 .article__description {
   word-break: break-all;
+}
+.article__container--full p {
+  margin: 1.5rem 0;
 }
 .article__description hr {
   height: 2px;
   background: var(--secondary-color);
   border: none;
   width: 20%;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 4rem auto;
 }
 .article__description img {
   max-width: 100%;
   max-height: 70rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 4rem auto;
 }
-
 .article__description iframe {
-  margin: 1.5rem auto;
+  margin: 4rem auto;
   max-width: 100%;
-}
-.article__info {
-  margin-bottom: 2rem;
 }
 .article__more-button {
   height: 3.5rem;
@@ -68,14 +83,14 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  transform: translate(-5.5rem, 0);
+  transform: translate(-8.5rem, 0);
   top: 33rem;
 }
 .article__share-button-wrapper {
   margin: 0.5rem 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .article__share-buttons {
     position: static;
     transform: none;
@@ -87,9 +102,16 @@
   }
 }
 
+@media (max-width: 760px) {
+  .article__container--preview  {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 700px) {
   .article__container--full  {
     width: 100%;
+    margin-top: -3.5rem;
   }
 
   .article__header {
@@ -98,11 +120,8 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (min-width: 1300px) {
   .article__container--preview  {
-    max-width: 100%;
-  }
-  .article__container--full {
-    margin-top: -3.5rem;
+    max-width: 31%;
   }
 }

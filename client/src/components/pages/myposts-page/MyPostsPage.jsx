@@ -35,7 +35,7 @@ class MyPostsPage extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="content content--with-grey-background">
         <div className={bemClasses('create-button')}>
           <Button
             as={Link}
@@ -51,7 +51,7 @@ class MyPostsPage extends React.Component {
         <div className={bemClasses('list-of-articles')}>
           {this.renderPostList()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
