@@ -18,3 +18,14 @@ export const testUserIsLoggedOut = () => {
   expect(refreshToken).to.eq(null);
   expect(user).to.eq(null);
 };
+
+export const testUserIsLoggedIn = () => {
+  const accessToken = localStorage.getItem('AccessToken');
+  const refreshToken = localStorage.getItem('RefreshToken');
+  const user = localStorage.getItem('User');
+
+  expect(accessToken).to.not.eq(null);
+  expect(refreshToken).to.not.eq(null);
+  expect(user).to.not.eq(null);
+};
+

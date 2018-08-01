@@ -13,9 +13,9 @@ const bemClasses = getBEMClasses([modal]);
 
 class LoginModal extends React.Component {
   handleSubmit = (values) => {
-    const {login, password} = values;
+    const { login, password } = values;
 
-    this.props.login({Login: login, Password: password});
+    this.props.login({ Login: login, Password: password });
     this.props.handleClose();
   }
 
@@ -30,18 +30,20 @@ class LoginModal extends React.Component {
         aria-describedby="alert-dialog-description"
         className={bemClasses()}
       >
-        <DialogTitle id="form-dialog-title" className={bemClasses('title')}>
-          Welcome back
-        </DialogTitle>
-        <DialogContent className={bemClasses('content')}>
-          <LoginForm onSubmit={this.handleSubmit}/>
-        </DialogContent>
-      </Dialog>   
+        <div data-cy="login-modal">
+          <DialogTitle id="form-dialog-title" className={bemClasses('title')}>
+            Welcome back
+          </DialogTitle>
+          <DialogContent className={bemClasses('content')}>
+            <LoginForm onSubmit={this.handleSubmit} />
+          </DialogContent>
+        </div>
+      </Dialog>
     );
   }
 }
 
-LoginModal.propTypes ={
+LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
