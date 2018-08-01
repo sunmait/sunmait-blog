@@ -1,7 +1,7 @@
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import { put, takeLatest, all, select } from 'redux-saga/effects';
 import { change } from 'redux-form';
-import getYoutubeId from 'components/helpers/getYoutubeId.js';
+import getYoutubeId from 'helpers//getYoutubeId.js';
 import * as axios from 'axios';
 import { POSTS_CONSTANTS } from 'redux/modules/posts/constants';
 import { SAGAS_POSTS_CONSTANTS } from './constants';

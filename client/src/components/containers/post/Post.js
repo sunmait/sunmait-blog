@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import Button from 'components/common/button/Button.js'
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Article.css';
 
 const article = 'article';

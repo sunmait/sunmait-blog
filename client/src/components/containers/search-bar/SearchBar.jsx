@@ -1,6 +1,6 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import Input from 'components/common/input/Input.js';
 
 const searchBar = 'search-bar';

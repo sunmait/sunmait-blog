@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import Button from 'components/common/button/Button.js'
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import Textarea from './post-editing-textarea/Textarea';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
 import 'assets/styles/AddPostPage.css';

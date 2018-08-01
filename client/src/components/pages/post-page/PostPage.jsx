@@ -9,7 +9,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Article.css';
 
 const article = 'article';

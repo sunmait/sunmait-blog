@@ -5,7 +5,7 @@ import Dialog, {
   DialogContent,
   DialogTitle
 } from 'material-ui/Dialog';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Modal.css';
 
 const modal = 'modal';

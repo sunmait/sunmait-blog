@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import Button from 'components/common/button/Button.js'
 import { Link } from 'react-router-dom';
 import PostContainer from 'components/containers/post/PostContainer';

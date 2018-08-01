@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Popover from 'material-ui/Popover';
 import { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import AddCircleOutline from 'material-ui-icons/AddCircleOutline';
 import Movie from 'material-ui-icons/Movie';

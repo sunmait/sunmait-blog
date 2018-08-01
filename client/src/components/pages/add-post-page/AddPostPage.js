@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddPostFormContainer from './add-post-form/AddPostFormContainer';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/AddPostPage.css';
 
 const editPost = 'add-post';

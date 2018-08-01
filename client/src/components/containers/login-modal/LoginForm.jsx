@@ -3,7 +3,7 @@ import { reduxForm } from 'redux-form';
 import Button from 'components/common/button/Button.js'
 import InputWithLabel from 'components/common/input/InputWithLabel.jsx';
 
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 
 const modalForm = 'modal-form';
 const bemClasses = getBEMClasses([modalForm]);

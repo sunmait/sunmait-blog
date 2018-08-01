@@ -10,5 +10,7 @@
     "server/**/*.js.map": true
   },
   "editor.tabSize": 2,
-  "editor.insertSpaces": true
+  "editor.insertSpaces": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "editor.fontSize": 20,
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PostContainer from 'components/containers/post/PostContainer';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/PostsPages.css';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
 

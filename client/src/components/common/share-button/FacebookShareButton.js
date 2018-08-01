@@ -1,5 +1,5 @@
 import React from 'react';
-import findPopupPosition from 'components/helpers/findPopupPosition';
+import findPopupPosition from 'helpers//findPopupPosition';
 import FacebookIcon from './FacebookIcon';
 
 class FacebookShareButton extends React.Component {

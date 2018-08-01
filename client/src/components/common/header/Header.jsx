@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Avatar from 'material-ui/Avatar';
 import LoginModal from 'components/containers/login-modal/index.jsx';
 import Menu from './menu/Menu.jsx';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Header.css';
 
 const headerClass = 'header';
@@ -61,6 +61,7 @@ class Header extends React.Component {
               as={Link}
               to="/addpost"
               buttonColor="primary"
+              data-cy="create-post"
             >
               Create new post
             </Button>
@@ -75,6 +76,7 @@ class Header extends React.Component {
             alt="Username"
             src={this.props.user.PhotoUrl}
             onClick={this.handleOpenMenu}
+            data-cy="avatar"
           />
         </div>
         <Menu
@@ -95,6 +97,7 @@ class Header extends React.Component {
           as="button"
           buttonColor="primary"
           onClick={() => this.handleOpenLoginModal()}
+          data-cy="login-btn"
         >
           Log In
         </Button>
@@ -106,7 +109,7 @@ class Header extends React.Component {
     )
   }
 
-  renderIsAuthorisedHeader = () => {
+  renderHeaderForAuthorizedUser = () => {
     if ( this.props.user ) {
       return this.renderAuthorisedHeader();
     } else {
@@ -120,7 +123,7 @@ class Header extends React.Component {
         <Link to="/home">
           <div className={bemClasses('logo')} />
         </Link>
-        { this.renderIsAuthorisedHeader() }
+        { this.renderHeaderForAuthorizedUser() }
       </header>
     );
   };

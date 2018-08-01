@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Icons.css';
 
 const iconClass = 'custom-icons';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';

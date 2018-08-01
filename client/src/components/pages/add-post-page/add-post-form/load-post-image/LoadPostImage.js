@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/common/button/Button.js'
-import { getBEMClasses } from 'components/helpers/BEMHelper';
+import { getBEMClasses } from 'helpers//BEMHelper';
 import ImagePreviewField from './image-preview/ImagePreview.js';
 import { CircularProgress } from 'material-ui/Progress';
 

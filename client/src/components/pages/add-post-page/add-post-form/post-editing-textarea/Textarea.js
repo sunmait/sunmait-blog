@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getBEMClasses } from 'components/helpers/BEMHelper';
-import findCaretYPosition from 'components/helpers/findCaretYPosition';
-import checkIfRowIsEmpty from 'components/helpers/checkIfRowIsEmpty';
+import { getBEMClasses } from 'helpers//BEMHelper';
+import findCaretYPosition from 'helpers//findCaretYPosition';
+import checkIfRowIsEmpty from 'helpers//checkIfRowIsEmpty';
 
 const baseClass = 'textarea-component';
 
