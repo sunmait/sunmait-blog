@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "e2e-test": "cypress open",
+    "e2e": "cypress open",
+    "e2e-no-watch": "cypress open --config watchForFileChanges=false",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

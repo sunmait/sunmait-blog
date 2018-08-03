@@ -9,12 +9,12 @@ describe('Header', () => {
   });
 
   describe('for not authorized user', () => {
-    it('should has logo with image', () => {
+    it('should have logo with image', () => {
       cy.visit('/');
       cy.get('header .header__logo').should('have.css', 'background-image');
     });
 
-    it('should has login button', () => {
+    it('should have login button', () => {
       cy.visit('/');
       cy.get('[data-cy=login-btn]').should('be.visible');
     });
@@ -52,16 +52,16 @@ describe('Header', () => {
       cy.visit('/');
     });
 
-    it('should has create post button', () => {
+    it('should have create post button', () => {
       cy.get('header [data-cy=create-post]').should('be.visible');
     });
 
-    it('should has full name of authorized user', () => {
+    it('should have full name of authorized user', () => {
       const fullName = getUserFullName();
       cy.get('header').contains(fullName);
     });
 
-    it('should has avatar of authorized user', () => {
+    it('should have avatar of authorized user', () => {
       cy.get(`${avatarSelector} img`).should('be.visible');
     });
 

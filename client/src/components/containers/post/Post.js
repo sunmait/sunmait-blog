@@ -20,10 +20,12 @@ class Post extends React.Component {
     return (
       <div className={bemClasses('info')}>
         {'By '}
-        <Link to={`/profile/${UserId}`}>
+        <Link to={`/profile/${UserId}`} data-cy="post-author">
           {users[UserId]}
         </Link>
-        {` / Published ${publishingDate}`}
+        <span data-cy="post-publication-date">
+          {` / Published ${publishingDate}`}
+        </span>
       </div>
     )
   }
