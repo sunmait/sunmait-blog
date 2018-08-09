@@ -13,23 +13,17 @@ class Menu extends React.Component {
         open={isOpen}
         onClose={handleClose}
         anchorEl={anchorEl}
-        anchorOrigin={{ "horizontal": "center", "vertical": "bottom" }}
+        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       >
         <div data-cy="user-menu">
           <Link to={`/profile/${user.id}`}>
-            <MenuItem onClick={handleClose}>
-              Profile
-          </MenuItem>
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
           </Link>
           <Link to="/myposts">
-            <MenuItem onClick={handleClose}>
-              My posts
-          </MenuItem>
+            <MenuItem onClick={handleClose}>My posts</MenuItem>
           </Link>
           <MenuItem onClick={logout}>
-            <Link to="/home">
-              Log Out
-          </Link>
+            <Link to="/home">Log Out</Link>
           </MenuItem>
         </div>
       </Popover>

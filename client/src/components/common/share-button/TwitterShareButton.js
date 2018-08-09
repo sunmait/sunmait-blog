@@ -3,7 +3,7 @@ import findPopupPosition from 'helpers//findPopupPosition';
 import TwitterIcon from './TwitterIcon';
 
 class TwitterShareButton extends React.Component {
-  customOnClick = (e) => {
+  customOnClick = e => {
     e.preventDefault();
     const params = `text=${this.props.innerText}&url=${this.props.url}`;
     const width = 600;
@@ -17,7 +17,7 @@ class TwitterShareButton extends React.Component {
     if (twitterWindow.focus) {
       twitterWindow.focus();
     }
-  }
+  };
 
   render() {
     return (
@@ -29,4 +29,3 @@ class TwitterShareButton extends React.Component {
 }
 
 export default TwitterShareButton;
-

@@ -5,9 +5,8 @@ export const getBEMClasses = classes => {
     className =>
       new BEMHelper({
         name: className,
-        outputIsString: true
+        outputIsString: true,
       })
   );
-  return (element, modifier) =>
-    BEMClasses.map(BEMClass => BEMClass(element, modifier)).join(' ');
+  return (element, modifier) => BEMClasses.map(BEMClass => BEMClass(element, modifier)).join(' ');
 };

@@ -23,44 +23,44 @@ class MediaWidget extends React.Component {
     };
   }
 
-  handleOpenWidgets = (e) => {
+  handleOpenWidgets = e => {
     e.preventDefault();
     this.setState({
       isMenuOpen: true,
-      anchorEl: e.currentTarget
-    })
-  }
+      anchorEl: e.currentTarget,
+    });
+  };
 
-  handleClose = (e) => {
+  handleClose = e => {
     this.handleCloseMenu();
   };
 
-  handleClickInsertImage = (e) => {
-    const {isImageInputOpen} = this.state;
-    const {insertImageUrl} = this.props;
+  handleClickInsertImage = e => {
+    const { isImageInputOpen } = this.state;
+    const { insertImageUrl } = this.props;
 
     if (isImageInputOpen) {
       this.props.insertImageIntoText(insertImageUrl);
       this.handleCloseMenu();
     } else {
-      this.setState({isImageInputOpen: true, isVideoInputOpen: false});
+      this.setState({ isImageInputOpen: true, isVideoInputOpen: false });
     }
   };
 
-  handleClickInsertVideo = (e) => {
-    const {isVideoInputOpen} = this.state;
-    const {insertVideoUrl} = this.props;
+  handleClickInsertVideo = e => {
+    const { isVideoInputOpen } = this.state;
+    const { insertVideoUrl } = this.props;
 
     if (isVideoInputOpen) {
-      this.props.insertVideoIntoText(insertVideoUrl); 
+      this.props.insertVideoIntoText(insertVideoUrl);
       this.handleCloseMenu();
     } else {
-      this.setState({isImageInputOpen: false, isVideoInputOpen: true});
+      this.setState({ isImageInputOpen: false, isVideoInputOpen: true });
     }
   };
 
-  handleClickInsertDivider = (e) => {
-    this.props.insertDividerIntoText()
+  handleClickInsertDivider = e => {
+    this.props.insertDividerIntoText();
     this.handleCloseMenu();
   };
 
@@ -73,10 +73,10 @@ class MediaWidget extends React.Component {
   };
 
   renderMenu() {
-    const imageInputWidth = (this.state.isImageInputOpen) ? 220 : 0;
-    const imageButtonColor =  (this.state.isImageInputOpen) ? 'primary' : 'secondary';
-    const videoInputWidth = (this.state.isVideoInputOpen) ? 220 : 0;
-    const videoButtonColor =  (this.state.isVideoInputOpen) ? 'primary' : 'secondary';
+    const imageInputWidth = this.state.isImageInputOpen ? 220 : 0;
+    const imageButtonColor = this.state.isImageInputOpen ? 'primary' : 'secondary';
+    const videoInputWidth = this.state.isVideoInputOpen ? 220 : 0;
+    const videoButtonColor = this.state.isVideoInputOpen ? 'primary' : 'secondary';
 
     return (
       <Popover
@@ -84,34 +84,26 @@ class MediaWidget extends React.Component {
         onClose={this.handleClose}
         anchorEl={this.state.anchorEl}
         anchorOrigin={{
-          'vertical': 'center',
-          'horizontal': 'right',
+          vertical: 'center',
+          horizontal: 'right',
         }}
         transformOrigin={{
-          'vertical': 'center',
-          'horizontal': 'left',
+          vertical: 'center',
+          horizontal: 'left',
         }}
       >
         <ul className={bemClasses('menu-items')}>
           <MenuItem onClick={this.handleClickInsertImage}>
             <Image color={imageButtonColor} />
           </MenuItem>
-          <div className={bemClasses('menu-item-hidden-input')} style={{width: imageInputWidth}}>
-            <InputWithPlaceholder
-              name="insertImageUrl"
-              placeholder="Enter image url"
-              autoComplete="off"
-            />
+          <div className={bemClasses('menu-item-hidden-input')} style={{ width: imageInputWidth }}>
+            <InputWithPlaceholder name="insertImageUrl" placeholder="Enter image url" autoComplete="off" />
           </div>
           <MenuItem onClick={this.handleClickInsertVideo}>
-            <Movie color={videoButtonColor}  />
+            <Movie color={videoButtonColor} />
           </MenuItem>
-          <div className={bemClasses('menu-item-hidden-input')} style={{width: videoInputWidth}}>
-            <InputWithPlaceholder
-              name="insertVideoUrl"
-              placeholder="Enter video url"
-              autoComplete="off"
-            />
+          <div className={bemClasses('menu-item-hidden-input')} style={{ width: videoInputWidth }}>
+            <InputWithPlaceholder name="insertVideoUrl" placeholder="Enter video url" autoComplete="off" />
           </div>
           <MenuItem onClick={this.handleClickInsertDivider}>
             <Remove color="secondary" />
@@ -119,22 +111,19 @@ class MediaWidget extends React.Component {
         </ul>
       </Popover>
     );
-  };
+  }
 
   render() {
     return (
-      <div className={bemClasses()} style={{top: this.props.paddingTop}}>
+      <div className={bemClasses()} style={{ top: this.props.paddingTop }}>
         {this.renderMenu()}
-        <IconButton
-          aria-label="open-widgets"
-          onClick={this.handleOpenWidgets}
-        >
+        <IconButton aria-label="open-widgets" onClick={this.handleOpenWidgets}>
           <AddCircleOutline />
         </IconButton>
       </div>
     );
   }
-};
+}
 
 MediaWidget.propTypes = {
   paddingTop: PropTypes.number.isRequired,

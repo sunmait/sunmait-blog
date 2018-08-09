@@ -1,6 +1,6 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import Button from 'components/common/button/Button.js'
+import Button from 'components/common/button/Button.js';
 import InputWithLabel from 'components/common/input/InputWithLabel.jsx';
 
 import { getBEMClasses } from 'helpers//BEMHelper';
@@ -15,24 +15,19 @@ const ConfirmationForm = props => {
     <form className={bemClasses()} onSubmit={handleSubmit}>
       <InputWithLabel type="password" name="password" placeholder="Enter password" />
       <div className={bemClasses('action-button')}>
-        <Button
-          as="button"
-          buttonColor="primary"
-          type="submit"
-          disabled={!valid}
-        >
+        <Button as="button" buttonColor="primary" type="submit" disabled={!valid}>
           Change
         </Button>
-      </div>  
-    </form>  
+      </div>
+    </form>
   );
 };
 
 const validate = values => {
   const errors = {};
   if (!values.password) {
-    errors.password = 'Required'
-  } 
+    errors.password = 'Required';
+  }
 
   return errors;
 };

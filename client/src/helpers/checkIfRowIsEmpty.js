@@ -1,5 +1,5 @@
 const checkIfRowIsEmpty = (textarea, selection) => {
-  const position = (selection > 0) ? selection - 1 : 0
+  const position = selection > 0 ? selection - 1 : 0;
   const symbolsNearTheCaret = textarea.value.substr(position, 2);
   let rowIsEmpty = false;
   if (symbolsNearTheCaret.length === 2 && symbolsNearTheCaret === '\n\n') {
@@ -10,6 +10,6 @@ const checkIfRowIsEmpty = (textarea, selection) => {
   }
 
   return rowIsEmpty;
-}
+};
 
-export default checkIfRowIsEmpty
+export default checkIfRowIsEmpty;

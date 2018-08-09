@@ -4,7 +4,7 @@ const defaultState = {
   posts: [],
 };
 
-export default function (state = defaultState, {type, payload}) {
+export default function(state = defaultState, { type, payload }) {
   switch (type) {
     case POSTS_CONSTANTS.GET_POSTS:
       return handlePosts(state, payload);
@@ -24,13 +24,13 @@ export default function (state = defaultState, {type, payload}) {
 }
 
 function handleDeletePost(state, payload) {
-  return {...state, posts: payload};
+  return { ...state, posts: payload };
 }
 
 function handleUpdatedPosts(state, updatedPosts) {
-  return {...state, posts: updatedPosts};
+  return { ...state, posts: updatedPosts };
 }
 
 function handlePosts(state, posts) {
-  return {...state, posts};
+  return { ...state, posts };
 }

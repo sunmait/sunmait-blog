@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from './LoginForm.jsx';
-import Dialog, {
-  DialogContent,
-  DialogTitle
-} from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Modal.css';
 
@@ -12,12 +9,12 @@ const modal = 'modal';
 const bemClasses = getBEMClasses([modal]);
 
 class LoginModal extends React.Component {
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     const { login, password } = values;
 
     this.props.login({ Login: login, Password: password });
     this.props.handleClose();
-  }
+  };
 
   render() {
     const { isOpen, handleClose } = this.props;

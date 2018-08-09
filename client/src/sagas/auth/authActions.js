@@ -9,18 +9,16 @@ function* verifyCredentials() {
   const accessToken = localStorage.getItem('AccessToken');
   const refreshToken = localStorage.getItem('RefreshToken');
   if (accessToken && refreshToken) {
-    const res = yield axios.patch(
-      '/api/auth/verify-credentials', {
-        accessToken,
-        refreshToken
-      }
-    );
-    const {AccessToken, RefreshToken, Data} = res.data;
+    const res = yield axios.patch('/api/auth/verify-credentials', {
+      accessToken,
+      refreshToken,
+    });
+    const { AccessToken, RefreshToken, Data } = res.data;
     authHelper.setAuthDataToLocalStorage(AccessToken, RefreshToken, JSON.stringify(Data));
 
-    yield put({type: AUTH_CONSTANTS.LOGIN, payload: res.data});
+    yield put({ type: AUTH_CONSTANTS.LOGIN, payload: res.data });
   }
-  yield put({type: AUTH_CONSTANTS.CREDENTIALS_CHECKED});
+  yield put({ type: AUTH_CONSTANTS.CREDENTIALS_CHECKED });
 }
 
 function* login(payload) {
@@ -28,24 +26,22 @@ function* login(payload) {
   const Password = payload.payload.Password;
   try {
     const res = yield authApi.login(Login, Password);
-    const {AccessToken, RefreshToken} = res.data;
+    const { AccessToken, RefreshToken } = res.data;
     const User = JSON.stringify(res.data.Data);
 
     authHelper.setAuthDataToLocalStorage(AccessToken, RefreshToken, User);
 
-    yield put({type: AUTH_CONSTANTS.LOGIN, payload: res.data});
-  } catch ( err ) {
+    yield put({ type: AUTH_CONSTANTS.LOGIN, payload: res.data });
+  } catch (err) {
     console.error(err);
   }
 }
 
 function* logout(payload) {
   const refToken = payload.payload.refreshToken;
-  yield axios.delete(
-    `/api/auth/${refToken}`
-  );
+  yield axios.delete(`/api/auth/${refToken}`);
   localStorage.clear();
-  yield put({type: AUTH_CONSTANTS.LOGOUT});
+  yield put({ type: AUTH_CONSTANTS.LOGOUT });
 }
 
 export function* authSagas() {

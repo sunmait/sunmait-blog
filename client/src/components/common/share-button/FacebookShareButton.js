@@ -3,7 +3,7 @@ import findPopupPosition from 'helpers//findPopupPosition';
 import FacebookIcon from './FacebookIcon';
 
 class FacebookShareButton extends React.Component {
-  customOnClick = (e) => {
+  customOnClick = e => {
     e.preventDefault();
     const width = 600;
     const height = 350;
@@ -13,10 +13,10 @@ class FacebookShareButton extends React.Component {
       'facebook-popup',
       `height=${height}, width=${width}, left=${left}, top=${top}`
     );
-    if(facebookWindow.focus) {
+    if (facebookWindow.focus) {
       facebookWindow.focus();
     }
-  }
+  };
 
   render() {
     return (

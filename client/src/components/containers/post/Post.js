@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
-import Button from 'components/common/button/Button.js'
+import Button from 'components/common/button/Button.js';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Article.css';
 
@@ -12,8 +12,8 @@ const bemClasses = getBEMClasses([article]);
 
 class Post extends React.Component {
   renderArticleInformation() {
-    const {CreatedAt, UserId} = this.props.post;
-    const {users} = this.props;
+    const { CreatedAt, UserId } = this.props.post;
+    const { users } = this.props;
 
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
 
@@ -23,30 +23,25 @@ class Post extends React.Component {
         <Link to={`/profile/${UserId}`} data-cy="post-author">
           {users[UserId]}
         </Link>
-        <span data-cy="post-publication-date">
-          {` / Published ${publishingDate}`}
-        </span>
+        <span data-cy="post-publication-date">{` / Published ${publishingDate}`}</span>
       </div>
-    )
+    );
   }
 
   renderReadMoreButton() {
-    const {id} = this.props.post;
+    const { id } = this.props.post;
 
     return (
       <div className={bemClasses('more-button')}>
-        <Button
-          as={Link}
-          to={`/post/${id}`}
-        >
+        <Button as={Link} to={`/post/${id}`}>
           Read more
         </Button>
       </div>
-    )
+    );
   }
 
   renderArticleBody() {
-    const {Title, Description, id, ImageUrl} = this.props.post;
+    const { Title, Description, id, ImageUrl } = this.props.post;
     let text = Description;
 
     if (text.length > 350) {
@@ -57,17 +52,12 @@ class Post extends React.Component {
     return (
       <React.Fragment>
         <Link to={`/post/${id}`}>
-          <div
-            className={bemClasses('main-post-image')}
-            style={{backgroundImage: `url(${ImageUrl})`}}
-          />
+          <div className={bemClasses('main-post-image')} style={{ backgroundImage: `url(${ImageUrl})` }} />
         </Link>
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>
             <div className={bemClasses('title')}>
-              <Link to={`/post/${id}`}>
-                {Title}
-              </Link>
+              <Link to={`/post/${id}`}>{Title}</Link>
             </div>
           </div>
           {this.renderArticleInformation()}
@@ -76,20 +66,16 @@ class Post extends React.Component {
           </div>
         </div>
       </React.Fragment>
-    )
+    );
   }
 
   render() {
     return (
       <div className={bemClasses('container', 'preview')}>
-        <div>
-          {this.renderArticleBody()}
-        </div>
-        <div className={bemClasses('post-content')}>
-          {this.renderReadMoreButton()}
-        </div>
+        <div>{this.renderArticleBody()}</div>
+        <div className={bemClasses('post-content')}>{this.renderReadMoreButton()}</div>
       </div>
-    ) 
+    );
   }
 }
 

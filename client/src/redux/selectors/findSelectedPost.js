@@ -7,15 +7,11 @@ const findPost = (posts, postId) => {
       Title: '',
       Description: '',
       ImageUrl: '',
-    }
+    };
   }
-  post = {...post, textareaSelectionStart: 0, textareaSelectionEnd: 0}
+  post = { ...post, textareaSelectionStart: 0, textareaSelectionEnd: 0 };
 
   return post;
 };
 
-export const findSelectedPost = createSelector(
-  (posts, postId) => posts,
-  (posts, postId) => postId,
-  findPost
-);
+export const findSelectedPost = createSelector((posts, postId) => posts, (posts, postId) => postId, findPost);

@@ -1,10 +1,10 @@
 const getCursorXY = (input, selectionPoint) => {
-  const {value} = input;
+  const { value } = input;
 
   const div = document.createElement('div');
   const copyStyle = getComputedStyle(input);
   for (const prop of copyStyle) {
-    div.style[prop] = copyStyle[prop]
+    div.style[prop] = copyStyle[prop];
   }
   const textContent = value.substr(0, selectionPoint);
   div.textContent = textContent;
@@ -13,12 +13,12 @@ const getCursorXY = (input, selectionPoint) => {
   span.textContent = value.substr(selectionPoint) || '.';
   div.appendChild(span);
   document.body.appendChild(div);
-  const { offsetLeft: spanX, offsetTop: spanY } = span
-  document.body.removeChild(div)
+  const { offsetLeft: spanX, offsetTop: spanY } = span;
+  document.body.removeChild(div);
   return {
     x: spanX,
-    y: spanY
-  }
-}
+    y: spanY,
+  };
+};
 
-export default getCursorXY
+export default getCursorXY;

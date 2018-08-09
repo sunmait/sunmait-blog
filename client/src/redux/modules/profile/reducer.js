@@ -5,7 +5,7 @@ const defaultState = {
   usersById: {},
 };
 
-export default function (state = defaultState, {type, payload}) {
+export default function(state = defaultState, { type, payload }) {
   switch (type) {
     case USER_CONSTANTS.GET_USERS:
       return handleGetUsers(state, payload);
@@ -27,23 +27,20 @@ export default function (state = defaultState, {type, payload}) {
 function handleGetUsers(state, selectedUsers) {
   let newUsersByIdNames = {};
   selectedUsers.forEach(item => {
-    newUsersByIdNames = {...newUsersByIdNames, [item.id]: item.FirstName};
+    newUsersByIdNames = { ...newUsersByIdNames, [item.id]: item.FirstName };
   });
 
-  return {...state, usersById: newUsersByIdNames};
+  return { ...state, usersById: newUsersByIdNames };
 }
 
 function handleGetUser(state, selectedUser) {
-  return {...state, profile: selectedUser};
+  return { ...state, profile: selectedUser };
 }
 
 function handleChange(state, updated) {
-  const updatedUserById = { ...state.usersById, [updated.id]: updated.FirstName};
-  return Object.assign(
-    {}, state,
-    {
-      usersById: updatedUserById,
-      profile: null,
-    }
-  );
+  const updatedUserById = { ...state.usersById, [updated.id]: updated.FirstName };
+  return Object.assign({}, state, {
+    usersById: updatedUserById,
+    profile: null,
+  });
 }

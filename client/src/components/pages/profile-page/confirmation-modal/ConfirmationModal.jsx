@@ -1,9 +1,6 @@
 import React from 'react';
 import ConfirmationForm from './ConfirmationForm.jsx';
-import Dialog, {
-  DialogContent,
-  DialogTitle
-} from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import 'assets/styles/Modal.css';
 
 import { getBEMClasses } from 'helpers//BEMHelper';
@@ -24,10 +21,10 @@ const ConfirmationModal = props => {
         Confirm changes
       </DialogTitle>
       <DialogContent className={bemClasses('content')}>
-        <ConfirmationForm onSubmit={props.handleSubmit}/>
+        <ConfirmationForm onSubmit={props.handleSubmit} />
       </DialogContent>
-    </Dialog>   
-  )
+    </Dialog>
+  );
 };
 
 export default ConfirmationModal;

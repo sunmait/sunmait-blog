@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/common/button/Button.js'
+import Button from 'components/common/button/Button.js';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import ImagePreviewField from './image-preview/ImagePreview.js';
 import { CircularProgress } from 'material-ui/Progress';
@@ -12,29 +12,29 @@ class LoadPostImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false
+      isLoading: false,
     };
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.urlValue !== this.props.urlValue) {
-      this.setState({isLoading: false});
+      this.setState({ isLoading: false });
     }
   }
 
-  handleFileLoad = (e) => {
+  handleFileLoad = e => {
     e.preventDefault();
-    const fileElem = document.getElementById("fileElem");
+    const fileElem = document.getElementById('fileElem');
 
     if (fileElem) {
       fileElem.click();
     }
-  }
- 
-  handleFiles = (e) => {
+  };
+
+  handleFiles = e => {
     const file = e.target.files[0];
 
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     this.props.loadPostImage(file);
   };
 
@@ -45,17 +45,14 @@ class LoadPostImage extends React.Component {
         <div className={bemClasses('progress-wrapper')}>
           {this.state.isLoading && <CircularProgress size={20} thickness={4} />}
         </div>
-        <input type="file" id="fileElem" accept="image/*" style={{display: 'none'}} onChange={this.handleFiles} />
-        <Button
-          as="button"
-          onClick={this.handleFileLoad} 
-        >
+        <input type="file" id="fileElem" accept="image/*" style={{ display: 'none' }} onChange={this.handleFiles} />
+        <Button as="button" onClick={this.handleFileLoad}>
           Load image
         </Button>
       </div>
     );
   }
-};
+}
 
 LoadPostImage.propTypes = {
   loadPostImage: PropTypes.func.isRequired,

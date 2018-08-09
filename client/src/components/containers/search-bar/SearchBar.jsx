@@ -11,7 +11,7 @@ const SearchBar = props => {
     <form className={bemClasses('form')}>
       <Input name="searchQuery" placeholder="Search" customClass={bemClasses('input')} />
     </form>
-    );
+  );
 };
 
 export default reduxForm({ form: 'searchBar' })(SearchBar);

@@ -1,9 +1,9 @@
-import {SAGAS_POSTS_CONSTANTS} from 'sagas/posts/constants';
+import { SAGAS_POSTS_CONSTANTS } from 'sagas/posts/constants';
 
 export const getPosts = () => {
   return {
-    type: SAGAS_POSTS_CONSTANTS.GET_POSTS
-  }
+    type: SAGAS_POSTS_CONSTANTS.GET_POSTS,
+  };
 };
 
 export const addPost = (title, description, imageUrl) => {
@@ -12,18 +12,18 @@ export const addPost = (title, description, imageUrl) => {
     payload: {
       title,
       description,
-      imageUrl
-    }
-  }
+      imageUrl,
+    },
+  };
 };
 
-export const loadPostImage = (file) => {
+export const loadPostImage = file => {
   return {
     type: SAGAS_POSTS_CONSTANTS.LOAD_POST_IMAGE,
     payload: {
-      file
-    }
-  }
+      file,
+    },
+  };
 };
 
 export const setTextareaSelectionValues = (start, end) => {
@@ -32,33 +32,33 @@ export const setTextareaSelectionValues = (start, end) => {
     payload: {
       start,
       end,
-    }
-  }
+    },
+  };
 };
 
-export const insertImageIntoText = (url) => {
+export const insertImageIntoText = url => {
   return {
     type: SAGAS_POSTS_CONSTANTS.INSERT_IMAGE,
     payload: {
-      url
-    }
-  }
+      url,
+    },
+  };
 };
 
-export const insertVideoIntoText = (url) => {
+export const insertVideoIntoText = url => {
   return {
     type: SAGAS_POSTS_CONSTANTS.INSERT_VIDEO,
     payload: {
-      url
-    }
-  }
+      url,
+    },
+  };
 };
 
 export const insertDividerIntoText = () => {
   return {
     type: SAGAS_POSTS_CONSTANTS.INSERT_DIVIDER,
-    payload: {}
-  }
+    payload: {},
+  };
 };
 
 export const updatePost = (title, description, imageUrl, idPost) => {
@@ -69,13 +69,13 @@ export const updatePost = (title, description, imageUrl, idPost) => {
       description,
       imageUrl,
       idPost,
-    }
-  }
+    },
+  };
 };
 
 export const deletePost = id => {
   return {
     type: SAGAS_POSTS_CONSTANTS.DELETE_POST,
-    payload: {postId: id}
-  }
+    payload: { postId: id },
+  };
 };

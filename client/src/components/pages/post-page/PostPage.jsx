@@ -26,9 +26,12 @@ class PostPage extends React.Component {
   }
 
   renderEditButtons() {
-    const {user, selectedPost: {UserId, id}} = this.props;
+    const {
+      user,
+      selectedPost: { UserId, id },
+    } = this.props;
 
-    if (user && (user.id === UserId)) {
+    if (user && user.id === UserId) {
       return (
         <div className={bemClasses('edit-buttons')}>
           <Link to={`/addpost/${id}`}>
@@ -36,10 +39,7 @@ class PostPage extends React.Component {
               <Edit />
             </IconButton>
           </Link>
-          <IconButton
-            aria-label="delete"
-            onClick={() => this.handleDeletePost()}
-          >
+          <IconButton aria-label="delete" onClick={() => this.handleDeletePost()}>
             <DeleteIcon />
           </IconButton>
         </div>
@@ -48,9 +48,9 @@ class PostPage extends React.Component {
   }
 
   renderShareButtons() {
-    const {Title} = this.props.selectedPost;
+    const { Title } = this.props.selectedPost;
 
-    let text = `${Title} (posted on Sunmait Blog). `
+    let text = `${Title} (posted on Sunmait Blog). `;
     return (
       <div className={bemClasses('share-buttons')}>
         <div className={bemClasses('share-button-wrapper')}>
@@ -66,11 +66,7 @@ class PostPage extends React.Component {
   renderArticleInformation() {
     const {
       users,
-      selectedPost: {
-        CreatedAt,
-        UpdatedAt,
-        UserId,
-      }
+      selectedPost: { CreatedAt, UpdatedAt, UserId },
     } = this.props;
 
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
@@ -79,16 +75,14 @@ class PostPage extends React.Component {
     return (
       <div className={bemClasses('info')}>
         {'By '}
-        <Link to={`/profile/${UserId}`}>
-          {users[UserId]}
-        </Link>
+        <Link to={`/profile/${UserId}`}>{users[UserId]}</Link>
         {` / Published ${publishingDate} / Updated ${updatingDate}`}
       </div>
-    )
+    );
   }
 
   renderPageMeta() {
-    const {Title, ImageUrl} = this.props.selectedPost;
+    const { Title, ImageUrl } = this.props.selectedPost;
 
     return (
       <Helmet title={Title}>
@@ -102,20 +96,15 @@ class PostPage extends React.Component {
   }
 
   renderArticleBody() {
-    const {Title, Description, ImageUrl} = this.props.selectedPost;
+    const { Title, Description, ImageUrl } = this.props.selectedPost;
 
     return (
       <React.Fragment>
         {this.renderPageMeta()}
-        <div
-          className={bemClasses('main-post-image')}
-          style={{backgroundImage: `url(${ImageUrl})`}}
-        />
+        <div className={bemClasses('main-post-image')} style={{ backgroundImage: `url(${ImageUrl})` }} />
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>
-            <div className={bemClasses('title')}>
-              {Title}
-            </div>
+            <div className={bemClasses('title')}>{Title}</div>
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
@@ -125,19 +114,17 @@ class PostPage extends React.Component {
           {this.renderShareButtons()}
         </div>
       </React.Fragment>
-    )
+    );
   }
 
   render() {
     if (this.props.selectedPost) {
       return (
         <div className="content">
-          <div className={bemClasses('container', 'full')}>
-            {this.renderArticleBody()}
-          </div>
+          <div className={bemClasses('container', 'full')}>{this.renderArticleBody()}</div>
         </div>
       );
-    } 
+    }
     return null;
   }
 }
@@ -147,7 +134,6 @@ PostPage.propTypes = {
   selectedPost: PropTypes.object,
   user: PropTypes.object.isRequired,
   users: PropTypes.object.isRequired,
-}
-
+};
 
 export default PostPage;

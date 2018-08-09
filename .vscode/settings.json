@@ -12,5 +12,5 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "editor.fontSize": 20,
+  "editor.fontSize": 14,
 }

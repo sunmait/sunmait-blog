@@ -51,7 +51,7 @@ function handleAccessTokenExpired(state, tokens) {
   return {
     ...state,
     accessToken: tokens.AccessToken,
-    refreshToken: tokens.RefreshToken
+    refreshToken: tokens.RefreshToken,
   };
 }
 
@@ -59,5 +59,5 @@ function handleCredentialsChecked(state) {
   return {
     ...state,
     isCredentialsChecked: true,
-  }
+  };
 }

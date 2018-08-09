@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'components/common/button/Button.js'
+import Button from 'components/common/button/Button.js';
 import { Link } from 'react-router-dom';
 import Avatar from 'material-ui/Avatar';
 import LoginModal from 'components/containers/login-modal/index.jsx';
@@ -16,18 +16,18 @@ class Header extends React.Component {
     super(props);
     this.state = {
       isLoginModalOpen: false,
-      isMenuOpen: false
+      isMenuOpen: false,
     };
   }
 
   logout = () => {
     const refreshToken = localStorage.getItem('RefreshToken');
     this.props.logout(refreshToken);
-  }
+  };
 
-  handleOpenLoginModal = (event) => {
+  handleOpenLoginModal = event => {
     this.setState({
-      isLoginModalOpen: true
+      isLoginModalOpen: true,
     });
   };
 
@@ -38,17 +38,17 @@ class Header extends React.Component {
     });
   };
 
-  handleOpenMenu = (event) => {
+  handleOpenMenu = event => {
     event.preventDefault();
     this.setState({
       isMenuOpen: true,
-      anchorEl: event.currentTarget
-    })
-  }
+      anchorEl: event.currentTarget,
+    });
+  };
 
-  handleCloseMenu = (e) => {
+  handleCloseMenu = e => {
     this.setState({
-      isMenuOpen: false
+      isMenuOpen: false,
     });
   };
 
@@ -57,27 +57,14 @@ class Header extends React.Component {
       <React.Fragment>
         <div className={bemClasses(null, 'for-authorised')}>
           <div className={bemClasses('create-button')}>
-            <Button
-              as={Link}
-              to="/addpost"
-              buttonColor="primary"
-              data-cy="create-post"
-            >
+            <Button as={Link} to="/addpost" buttonColor="primary" data-cy="create-post">
               Create new post
             </Button>
           </div>
-          <div
-            className={bemClasses('user-info')}
-            onClick={this.handleOpenMenu}
-          >
+          <div className={bemClasses('user-info')} onClick={this.handleOpenMenu}>
             {`${this.props.user.FirstName} ${this.props.user.LastName}`}
           </div>
-          <Avatar
-            alt="Username"
-            src={this.props.user.PhotoUrl}
-            onClick={this.handleOpenMenu}
-            data-cy="avatar"
-          />
+          <Avatar alt="Username" src={this.props.user.PhotoUrl} onClick={this.handleOpenMenu} data-cy="avatar" />
         </div>
         <Menu
           isOpen={this.state.isMenuOpen}
@@ -87,35 +74,27 @@ class Header extends React.Component {
           logout={this.logout}
         />
       </React.Fragment>
-    )
+    );
   }
 
   renderNotAuthorisedHeader() {
     return (
       <React.Fragment>
-        <Button
-          as="button"
-          buttonColor="primary"
-          onClick={() => this.handleOpenLoginModal()}
-          data-cy="login-btn"
-        >
+        <Button as="button" buttonColor="primary" onClick={() => this.handleOpenLoginModal()} data-cy="login-btn">
           Log In
         </Button>
-        <LoginModal
-          isOpen={this.state.isLoginModalOpen}
-          handleClose={this.handleCloseModal}
-        />
+        <LoginModal isOpen={this.state.isLoginModalOpen} handleClose={this.handleCloseModal} />
       </React.Fragment>
-    )
+    );
   }
 
   renderHeaderForAuthorizedUser = () => {
-    if ( this.props.user ) {
+    if (this.props.user) {
       return this.renderAuthorisedHeader();
     } else {
       return this.renderNotAuthorisedHeader();
     }
-  }
+  };
 
   render() {
     return (
@@ -123,10 +102,10 @@ class Header extends React.Component {
         <Link to="/home">
           <div className={bemClasses('logo')} />
         </Link>
-        { this.renderHeaderForAuthorizedUser() }
+        {this.renderHeaderForAuthorizedUser()}
       </header>
     );
-  };
+  }
 }
 
 Header.propTypes = {

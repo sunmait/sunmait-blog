@@ -13,44 +13,41 @@ class TextareaComponent extends React.Component {
     this.textareaRef = React.createRef();
   }
 
-  customOnBlur = (e) => {
+  customOnBlur = e => {
     this.props.input.onBlur(e);
     this.setParams(e, this.textareaRef);
-  }
+  };
 
-  customOnKeyUp = (e) => {
-    if (e.keyCode >= 37 && e.keyCode <=40) {
+  customOnKeyUp = e => {
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
       this.setParams(e, this.textareaRef);
     }
-  }
+  };
 
-  customOnClick = (e) => {
+  customOnClick = e => {
     this.setParams(e, this.textareaRef);
-  }
+  };
 
-  customOnChange = (e) => {
+  customOnChange = e => {
     this.props.input.onChange(e);
     this.setParams(e, this.textareaRef);
-  }
+  };
 
-  customOnScroll = (e) => {
+  customOnScroll = e => {
     this.setParams(e, this.textareaRef);
-  }
+  };
 
   setParams = (event, textareaRef) => {
     const start = event.target.selectionStart;
     const end = event.target.selectionEnd;
 
     this.props.setSelectionValues(start, end);
-    this.props.getCaretParams(
-      findCaretYPosition(textareaRef, event.target),
-      checkIfRowIsEmpty(event.target, start)
-    );
-  }
+    this.props.getCaretParams(findCaretYPosition(textareaRef, event.target), checkIfRowIsEmpty(event.target, start));
+  };
 
   render() {
     const classes = getBEMClasses([baseClass, this.props.customClass]);
-    const {input, placeholder} = this.props;
+    const { input, placeholder } = this.props;
 
     return (
       <textarea
@@ -66,7 +63,7 @@ class TextareaComponent extends React.Component {
       />
     );
   }
-};
+}
 
 const Textarea = props => {
   return <Field name={props.name} component={TextareaComponent} {...props} />;

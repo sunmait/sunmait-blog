@@ -7,15 +7,9 @@ const baseClass = 'textarea-component';
 
 export const TextareaComponent = props => {
   const classes = getBEMClasses([baseClass, props.customClass]);
-  const {input} = props;
+  const { input } = props;
 
-  return (
-    <textarea
-      {...input}
-      placeholder={props.placeholder}
-      className={classes()}
-    />
-  );
+  return <textarea {...input} placeholder={props.placeholder} className={classes()} />;
 };
 
 const Textarea = props => {

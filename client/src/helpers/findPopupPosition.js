@@ -4,10 +4,10 @@ const findPopupPosition = (popupWidth, popupHeight) => {
   const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
   const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
 
-  const left = ((width / 2) - (popupWidth / 2)) + dualScreenLeft;
-  const top = ((height / 2) - (popupHeight / 2)) + dualScreenTop;
+  const left = width / 2 - popupWidth / 2 + dualScreenLeft;
+  const top = height / 2 - popupHeight / 2 + dualScreenTop;
 
-  return { left, top }
-}
+  return { left, top };
+};
 
-export default findPopupPosition
+export default findPopupPosition;

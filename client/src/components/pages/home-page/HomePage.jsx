@@ -10,21 +10,14 @@ const bemClasses = getBEMClasses([pageClass]);
 
 class HomePage extends React.Component {
   componentDidMount() {
-   this.props.getPosts();
+    this.props.getPosts();
   }
 
   renderPostList() {
-    const {posts} = this.props;
+    const { posts } = this.props;
 
     if (posts) {
-      return posts.map(
-        post => (
-          <PostContainer
-            key={post.id}
-            post={post}
-          />
-        )
-      );
+      return posts.map(post => <PostContainer key={post.id} post={post} />);
     }
 
     return null;
@@ -36,9 +29,7 @@ class HomePage extends React.Component {
         <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>
-        <div className={bemClasses('list-of-articles')}>
-          {this.renderPostList()}
-        </div>
+        <div className={bemClasses('list-of-articles')}>{this.renderPostList()}</div>
       </div>
     );
   }

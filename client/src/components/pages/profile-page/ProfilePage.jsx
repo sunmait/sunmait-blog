@@ -14,8 +14,8 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openDialog: false
-    }
+      openDialog: false,
+    };
   }
 
   componentDidMount() {
@@ -28,15 +28,15 @@ class ProfilePage extends React.Component {
     }
   }
 
-  reloadProfile = (props) => {
+  reloadProfile = props => {
     this.props.getUser(props.match.params.userId);
-  }
+  };
 
   handleSubmitChanges = () => {
     this.setState({
-      openDialog: true
+      openDialog: true,
     });
-  }
+  };
 
   change = () => {
     const { userFormValues, confirmFormValues, user } = this.props;
@@ -47,22 +47,22 @@ class ProfilePage extends React.Component {
         id: user.id,
         name: userFormValues.FirstName,
         secondName: userFormValues.LastName,
-        login: userFormValues.Login
-      }
+        login: userFormValues.Login,
+      },
     };
 
     this.props.updateUser(updatedUserData);
     this.props.history.push('/home');
-  }
+  };
 
   logout = () => {
     const refToken = localStorage.getItem('RefreshToken');
     this.props.logout(refToken);
-  }
+  };
 
-  handleClose = (event) => {
+  handleClose = event => {
     this.setState({
-      openDialog: false
+      openDialog: false,
     });
   };
 
@@ -75,18 +75,12 @@ class ProfilePage extends React.Component {
       return (
         <div className={bemClasses('profile-info-block')}>
           <Helmet title={fullName} />
-          <Avatar
-            alt="Username"
-            src={this.props.profile.PhotoUrl}
-            className={bemClasses('avatar')}
-          />
-          <div>
-            {fullName}
-          </div>
+          <Avatar alt="Username" src={this.props.profile.PhotoUrl} className={bemClasses('avatar')} />
+          <div>{fullName}</div>
         </div>
-      )
+      );
     }
-    
+
     return null;
   }
 
@@ -106,17 +100,16 @@ class ProfilePage extends React.Component {
       );
     }
     return null;
-    
-  }
+  };
 
-   render = () => {
+  render = () => {
     return (
       <div className="content">
         {this.renderProfileInfo()}
         {this.renderProfileForm()}
       </div>
     );
-  }
+  };
 }
 
 ProfilePage.propTypes = {

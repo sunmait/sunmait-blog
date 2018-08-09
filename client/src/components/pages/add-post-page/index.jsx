@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formValueSelector } from 'redux-form';
-import { getPosts, addPost, updatePost } from 'redux/modules/posts/actions'
+import { getPosts, addPost, updatePost } from 'redux/modules/posts/actions';
 import AddPostPage from './AddPostPage';
 
 const editPostSelector = formValueSelector('post');
@@ -14,7 +14,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getPosts,
   addPost,
-  updatePost
+  updatePost,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPostPage));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AddPostPage)
+);
