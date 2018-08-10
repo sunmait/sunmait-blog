@@ -16,20 +16,10 @@ import {
 
 export class DomainInstaller extends InstallerBase {
   public install(): void {
-    this.container
-      .bind<IPostService>('PostService')
-      .to(PostService);
-    this.container
-      .bind<ICommentService>('CommentService')
-      .to(CommentService);
-    this.container
-      .bind<ICryptoService>('CryptoService')
-      .to(CryptoService);
-    this.container
-      .bind<IAuthService>('AuthService')
-      .to(AuthService);
-    this.container
-      .bind<IUserService>('UserService')
-      .to(UserService);
+    this.container.bind<IPostService>('PostService').to(PostService);
+    this.container.bind<ICommentService>('CommentService').to(CommentService);
+    this.container.bind<ICryptoService>('CryptoService').to(CryptoService);
+    this.container.bind<IAuthService>('AuthService').to(AuthService);
+    this.container.bind<IUserService>('UserService').to(UserService);
   }
 }

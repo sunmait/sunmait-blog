@@ -4,8 +4,7 @@ import CommentEntity from '../../Entities/CommentEntity';
 import { RepositoryBase } from './RepositoryBase';
 
 @injectable()
-export class CommentRepository extends RepositoryBase<CommentEntity>
-  implements ICommentRepository {
+export class CommentRepository extends RepositoryBase<CommentEntity> implements ICommentRepository {
   constructor(commentEntity: CommentEntity) {
     super(commentEntity);
   }

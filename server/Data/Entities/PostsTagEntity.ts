@@ -1,20 +1,10 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  AllowNull,
-  ForeignKey,
-  PrimaryKey,
-  AutoIncrement,
-} from 'sequelize-typescript';
+import { Table, Column, Model, DataType, AllowNull, ForeignKey, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 
 import PostEntity from './PostEntity';
 import TagEntity from './TagEntity';
 
 @Table({ tableName: 'PostsTag' })
 export default class PostsTagEntity extends Model<PostsTagEntity> {
-
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement

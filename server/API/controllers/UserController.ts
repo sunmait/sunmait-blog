@@ -20,9 +20,7 @@ import { CheckAuth } from '../middlewares/CheckAuth';
 export class UserController implements interfaces.Controller {
   private readonly _userService: IUserService;
 
-  constructor(
-    @inject('UserService') userService: IUserService,
-  ) {
+  constructor(@inject('UserService') userService: IUserService) {
     this._userService = userService;
   }
 
@@ -30,9 +28,7 @@ export class UserController implements interfaces.Controller {
    * Get users
    */
   @httpGet('/')
-  private async gets(
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async gets(@response() res: express.Response): Promise<void> {
     res.json(await this._userService.getUsers());
   }
 
@@ -40,10 +36,7 @@ export class UserController implements interfaces.Controller {
    * Get information about user
    */
   @httpGet('/:id')
-  private async get(
-    @requestParam('id') id: number,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async get(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
     res.json(await this._userService.getUser(id));
   }
 
@@ -54,7 +47,7 @@ export class UserController implements interfaces.Controller {
   private async updateUser(
     @requestParam('id') id: number,
     @requestBody() data: any,
-    @response() res: express.Response,
+    @response() res: express.Response
   ): Promise<void> {
     res.json(await this._userService.updateUser(id, data));
   }

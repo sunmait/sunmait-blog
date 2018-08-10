@@ -16,9 +16,7 @@ export class CryptoService implements ICryptoService {
   }
 
   public decryptAES(data) {
-    return CryptoJS.AES.decrypt(data, this._sectetKey).toString(
-      CryptoJS.enc.Utf8,
-    );
+    return CryptoJS.AES.decrypt(data, this._sectetKey).toString(CryptoJS.enc.Utf8);
   }
 
   public passwordHashing(password: string) {

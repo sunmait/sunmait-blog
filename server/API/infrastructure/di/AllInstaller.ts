@@ -9,8 +9,6 @@ export class AllInstaller extends InstallerBase {
     domainInstaller.install();
     dataInstaller.install();
 
-    this.container
-      .bind<ISettingsProvider>('SettingsProvider')
-      .toConstantValue(new SettingsProvider());
+    this.container.bind<ISettingsProvider>('SettingsProvider').toConstantValue(new SettingsProvider());
   }
 }

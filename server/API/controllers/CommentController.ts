@@ -28,10 +28,7 @@ export class CommentController implements interfaces.Controller {
    * Get comments
    */
   @httpPost('/')
-  private async get(
-    @requestBody('id') id: number,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async get(@requestBody('id') id: number, @response() res: express.Response): Promise<void> {
     res.json(await this._commentService.getCommentById(id));
   }
 
@@ -39,10 +36,7 @@ export class CommentController implements interfaces.Controller {
    * Add comment
    */
   @httpPost('/')
-  private async add(
-    @requestBody() body: any,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async add(@requestBody() body: any, @response() res: express.Response): Promise<void> {
     res.json(await this._commentService.addComment(body));
   }
 
@@ -54,7 +48,7 @@ export class CommentController implements interfaces.Controller {
   private async updateComment(
     @requestParam('id') id: number,
     @requestBody('description') description: string,
-    @response() res: express.Response,
+    @response() res: express.Response
   ): Promise<void> {
     res.json(await this._commentService.updateComment(id, description));
   }
@@ -64,11 +58,7 @@ export class CommentController implements interfaces.Controller {
    * id: comment's id
    */
   @httpDelete('/:id')
-  private async delete(
-    @requestParam('id') id: number,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async delete(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
     res.json(await this._commentService.deleteComment(id));
   }
-
 }

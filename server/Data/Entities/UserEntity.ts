@@ -16,7 +16,6 @@ import {
 
 @Table({ tableName: 'Users' })
 export default class UserEntity extends Model<UserEntity> {
-
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement
@@ -54,5 +53,4 @@ export default class UserEntity extends Model<UserEntity> {
   @UpdatedAt
   @Column(DataType.DATE)
   public UpdatedAt: Date;
-
 }

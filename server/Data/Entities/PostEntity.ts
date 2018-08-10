@@ -17,7 +17,6 @@ import UserEntity from './UserEntity';
 
 @Table({ tableName: 'Posts' })
 export default class PostEntity extends Model<PostEntity> {
-
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement

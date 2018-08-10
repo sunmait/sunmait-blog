@@ -29,14 +29,15 @@ module.exports = {
           id: 3,
           FirstName: 'Hannah',
           LastName: 'Bugai',
-          PhotoUrl: 'https://st3.depositphotos.com/1742172/18355/v/1600/depositphotos_183552448-stock-illustration-vector-illustration-funny-cartoon-cat.jpg',
+          PhotoUrl:
+            'https://st3.depositphotos.com/1742172/18355/v/1600/depositphotos_183552448-stock-illustration-vector-illustration-funny-cartoon-cat.jpg',
           Login: 'chornycmok',
           PasswordHash: 'sha1$cf8d3dea$1$4a42e619fafe036cc629a3cf1942c7ef81fda64a',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
         },
       ],
-      {},
+      {}
     );
   },
 
@@ -44,4 +45,3 @@ module.exports = {
     return queryInterface.bulkDelete('Users', null, {});
   },
 };
- 

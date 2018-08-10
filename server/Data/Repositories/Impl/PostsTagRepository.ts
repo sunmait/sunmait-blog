@@ -4,8 +4,7 @@ import PostsTagEntity from '../../Entities/PostsTagEntity';
 import { RepositoryBase } from './RepositoryBase';
 
 @injectable()
-export class PostsTagRepository extends RepositoryBase<PostsTagEntity>
-  implements IPostsTagRepository {
+export class PostsTagRepository extends RepositoryBase<PostsTagEntity> implements IPostsTagRepository {
   constructor(postsTagEntity: PostsTagEntity) {
     super(postsTagEntity);
   }

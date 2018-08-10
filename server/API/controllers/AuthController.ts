@@ -7,7 +7,8 @@ import {
   response,
   requestParam,
   requestBody,
-  next as nextFn, httpDelete,
+  next as nextFn,
+  httpDelete,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { IAuthService } from '../../Domain/Services';
@@ -28,12 +29,10 @@ export class AuthController implements interfaces.Controller {
     @response() res: express.Response,
     @requestBody('Login') Login: string,
     @requestBody('Password') Password: string,
-    @nextFn() next: express.NextFunction,
+    @nextFn() next: express.NextFunction
   ): Promise<void> {
     try {
-      res.json(
-        await this._authService.authWithLoginAndPassword(Login, Password),
-      );
+      res.json(await this._authService.authWithLoginAndPassword(Login, Password));
     } catch (err) {
       next(err);
     }
@@ -43,7 +42,7 @@ export class AuthController implements interfaces.Controller {
   private async refreshSession(
     @response() res: express.Response,
     @requestParam('refreshToken') refreshToken: string,
-    @nextFn() next: express.NextFunction,
+    @nextFn() next: express.NextFunction
   ): Promise<void> {
     try {
       res.json(await this._authService.refreshSession(refreshToken));
@@ -56,7 +55,7 @@ export class AuthController implements interfaces.Controller {
   private async verifyCredentials(
     @response() res: express.Response,
     @requestBody() body: any,
-    @nextFn() next: express.NextFunction,
+    @nextFn() next: express.NextFunction
   ): Promise<void> {
     try {
       res.json(await this._authService.verifyCredentials(body));
@@ -69,7 +68,7 @@ export class AuthController implements interfaces.Controller {
   private async logout(
     @response() res: express.Response,
     @requestParam('refreshToken') refreshToken: string,
-    @nextFn() next: express.NextFunction,
+    @nextFn() next: express.NextFunction
   ): Promise<void> {
     try {
       res.json(await this._authService.logout(refreshToken));

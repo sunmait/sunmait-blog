@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "install-all": "npm i && cd API/ && npm i && cd ../Data/ && npm i && cd ../Domain/ && npm i ",
-    "precommit": "npm run lint",
+    "precommit": "lint-staged && npm run lint",
     "start": "npm run lint && npm-run-all --parallel watch:build watch:server --print-label",
     "start-prod": "npm run lint && npm-run-all --parallel watch:build watch:server-prod --print-label",
     "watch:build": "tsc --watch",
@@ -20,6 +20,12 @@
     "migrate:undo": "cd ./migrations && ../node_modules/.bin/sequelize db:migrate:undo:all",
     "migrate-win:undo": "cd .\\migrations && ..\\node_modules\\.bin\\sequelize db:migrate:undo:all",
     "dbinit": "npm run migrate:undo && npm run migrate && npm run seed"
+  },
+  "lint-staged": {
+    "{API,Data,Domain,migrations}/**/*.{ts,json,js}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "description": "Sunmait.Boilerplate",
   "author": {
@@ -48,6 +54,8 @@
     "npm-run-all": "^4.1.3",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "lint-staged": "^7.2.0",
+    "prettier": "1.14.0"
   }
 }

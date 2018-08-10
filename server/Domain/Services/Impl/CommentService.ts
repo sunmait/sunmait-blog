@@ -6,22 +6,20 @@ import { ICommentRepository } from '../../../Data/Repositories/index';
 @injectable()
 export class CommentService implements ICommentService {
   private readonly _commentRepository: ICommentRepository;
-  constructor(
-    @inject('CommentRepository') commentRepository: ICommentRepository,
-  ) {
+  constructor(@inject('CommentRepository') commentRepository: ICommentRepository) {
     this._commentRepository = commentRepository;
   }
 
   public async getCommentById(id: number): Promise<CommentEntity> {
     return this._commentRepository.find({
-      where: {PostId: id},
+      where: { PostId: id },
     });
   }
 
   public async addComment(data: any): Promise<CommentEntity> {
-      const comment = new CommentEntity(data);
+    const comment = new CommentEntity(data);
 
-      return this._commentRepository.create(comment);
+    return this._commentRepository.create(comment);
   }
 
   public async updateComment(id: number, descriprion: string): Promise<CommentEntity> {
@@ -34,5 +32,4 @@ export class CommentService implements ICommentService {
   public async deleteComment(id: number): Promise<void> {
     await this._commentRepository.remove({ where: { id } });
   }
-
 }

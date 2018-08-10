@@ -1,0 +1,9 @@
+node_modules
+/API/**/*.js
+/Data/**/*.js
+/Domain/**/*.js
+/API/**/*.js.map
+/Data/**/*.js.map
+/Domain/**/*.js.map
+/**/package-lock.json
+/**/package.json

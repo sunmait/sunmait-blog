@@ -1,17 +1,7 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  AllowNull,
-  IsDate,
-  PrimaryKey,
-  AutoIncrement,
-} from 'sequelize-typescript';
+import { Table, Column, Model, DataType, AllowNull, IsDate, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 
 @Table({ tableName: 'Tags' })
 export default class TagEntity extends Model<TagEntity> {
-
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement

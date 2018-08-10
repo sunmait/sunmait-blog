@@ -6,9 +6,7 @@ import { IPostRepository } from '../../../Data/Repositories/index';
 @injectable()
 export class PostService implements IPostService {
   private readonly _postRepository: IPostRepository;
-  constructor(
-    @inject('PostRepository') postRepository: IPostRepository,
-  ) {
+  constructor(@inject('PostRepository') postRepository: IPostRepository) {
     this._postRepository = postRepository;
   }
 
@@ -23,7 +21,7 @@ export class PostService implements IPostService {
   }
 
   public async updatePost(data: any): Promise<PostEntity> {
-    const post = await this._postRepository.find({where: { id: data.idPost }});
+    const post = await this._postRepository.find({ where: { id: data.idPost } });
 
     post.Description = data.Description;
     post.Title = data.Title;
@@ -37,5 +35,4 @@ export class PostService implements IPostService {
     await this._postRepository.remove({ where: { id } });
     return this._postRepository.findAll({});
   }
-
 }

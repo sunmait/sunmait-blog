@@ -6,9 +6,7 @@ import { IUserRepository } from '../../../Data/Repositories/index';
 @injectable()
 export class UserService implements IUserService {
   private readonly _userRepository: IUserRepository;
-  constructor(
-    @inject('UserRepository') userRepository: IUserRepository,
-  ) {
+  constructor(@inject('UserRepository') userRepository: IUserRepository) {
     this._userRepository = userRepository;
   }
 
@@ -25,7 +23,7 @@ export class UserService implements IUserService {
   }
 
   public async getUser(id: number): Promise<UserEntity> {
-    const user = await this._userRepository.find({where: { id }});
+    const user = await this._userRepository.find({ where: { id } });
     const information = {
       FirstName: user.FirstName,
       LastName: user.LastName,
@@ -46,5 +44,4 @@ export class UserService implements IUserService {
 
     return this._userRepository.update(user);
   }
-
 }

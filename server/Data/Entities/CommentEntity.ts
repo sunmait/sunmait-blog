@@ -17,7 +17,6 @@ import UserEntity from './UserEntity';
 
 @Table({ tableName: 'Comments' })
 export default class CommentEntity extends Model<CommentEntity> {
-
   @PrimaryKey
   @AllowNull(false)
   @AutoIncrement

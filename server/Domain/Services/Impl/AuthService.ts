@@ -4,10 +4,7 @@ import * as moment from 'moment';
 
 import { ISettingsProvider } from '../../../API/infrastructure/index';
 import { IAuthService } from '../index';
-import {
-  ISessionRepository,
-  IUserRepository,
-} from '../../../Data/Repositories';
+import { ISessionRepository, IUserRepository } from '../../../Data/Repositories';
 import SessionEntity from '../../../Data/Entities/SessionEntity';
 import { ICryptoService } from '../ICryptoService';
 import UserEntity from '../../../Data/Entities/UserEntity';
@@ -24,7 +21,7 @@ export class AuthService implements IAuthService {
     @inject('UserRepository') userRepository: IUserRepository,
     @inject('CryptoService') cryptoService: ICryptoService,
     @inject('SessionRepository') sessionRepository: ISessionRepository,
-    @inject('SettingsProvider') settingsProvider: ISettingsProvider,
+    @inject('SettingsProvider') settingsProvider: ISettingsProvider
   ) {
     this._userRepository = userRepository;
     this._cryptoService = cryptoService;
@@ -36,10 +33,7 @@ export class AuthService implements IAuthService {
     const user = await this._userRepository.findOne({
       where: { Login: login },
     });
-    if (
-      user &&
-      this._cryptoService.passwordsVerification(password, user.PasswordHash)
-    ) {
+    if (user && this._cryptoService.passwordsVerification(password, user.PasswordHash)) {
       const session = await this.createSession(user.get({ plain: true }));
       return {
         AccessToken: session.AccessToken,
@@ -83,10 +77,7 @@ export class AuthService implements IAuthService {
   public async verifyCredentials({ accessToken, refreshToken }) {
     if (accessToken && refreshToken) {
       try {
-        const payload = jwt.verify(
-          accessToken,
-          this._secretKey,
-        ) as IUserDecodedFromToken;
+        const payload = jwt.verify(accessToken, this._secretKey) as IUserDecodedFromToken;
         return {
           AccessToken: accessToken,
           RefreshToken: refreshToken,
@@ -111,9 +102,7 @@ export class AuthService implements IAuthService {
   }
 
   private async updateSession(session: SessionEntity) {
-    const { AccessToken, RefreshToken } = this.getTokens(
-      session.User.get({ plain: true }),
-    );
+    const { AccessToken, RefreshToken } = this.getTokens(session.User.get({ plain: true }));
     session.LastRefresh = moment().toDate();
     session.ExpiresIn = moment()
       .add(20, 'day')

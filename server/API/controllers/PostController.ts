@@ -29,9 +29,7 @@ export class PostController implements interfaces.Controller {
    * Get posts
    */
   @httpGet('/')
-  private async get(
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async get(@response() res: express.Response): Promise<void> {
     res.json(await this._postService.getPosts());
   }
 
@@ -39,10 +37,7 @@ export class PostController implements interfaces.Controller {
    * Add posts
    */
   @httpPost('/')
-  private async add(
-    @requestBody() body: any,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async add(@requestBody() body: any, @response() res: express.Response): Promise<void> {
     res.json(await this._postService.addPost(body));
   }
 
@@ -51,10 +46,7 @@ export class PostController implements interfaces.Controller {
    * id: post's id
    */
   @httpPatch('/')
-  private async updatePost(
-    @requestBody() data: any,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async updatePost(@requestBody() data: any, @response() res: express.Response): Promise<void> {
     res.json(await this._postService.updatePost(data));
   }
 
@@ -63,11 +55,7 @@ export class PostController implements interfaces.Controller {
    * id: post's id
    */
   @httpDelete('/:id')
-  private async delete(
-    @requestParam() data: any,
-    @response() res: express.Response,
-  ): Promise<void> {
+  private async delete(@requestParam() data: any, @response() res: express.Response): Promise<void> {
     res.json(await this._postService.deletePost(data.id));
   }
-
 }

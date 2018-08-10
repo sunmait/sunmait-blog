@@ -23,10 +23,10 @@ module.exports = {
         {
           id: 4,
           PostId: 4,
-          TagId:4,
+          TagId: 4,
         },
       ],
-      {},
+      {}
     );
   },
 
