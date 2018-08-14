@@ -35,11 +35,11 @@ class PostPage extends React.Component {
       return (
         <div className={bemClasses('edit-buttons')}>
           <Link to={`/addpost/${id}`}>
-            <IconButton>
+            <IconButton data-cy="edit-post-button">
               <Edit />
             </IconButton>
           </Link>
-          <IconButton aria-label="delete" onClick={() => this.handleDeletePost()}>
+          <IconButton aria-label="delete" data-cy="delete-post-button" onClick={() => this.handleDeletePost()}>
             <DeleteIcon />
           </IconButton>
         </div>
@@ -53,10 +53,10 @@ class PostPage extends React.Component {
     let text = `${Title} (posted on Sunmait Blog). `;
     return (
       <div className={bemClasses('share-buttons')}>
-        <div className={bemClasses('share-button-wrapper')}>
+        <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
           <TwitterShareButton innerText={text} url={document.URL} />
         </div>
-        <div className={bemClasses('share-button-wrapper')}>
+        <div className={bemClasses('share-button-wrapper')} data-cy="facebook-share-button">
           <FacebookShareButton innerText={text} url={document.URL} />
         </div>
       </div>
@@ -73,10 +73,11 @@ class PostPage extends React.Component {
     const updatingDate = format(UpdatedAt, 'MMM D, YYYY');
 
     return (
-      <div className={bemClasses('info')}>
+      <div className={bemClasses('info')} data-cy="post-author">
         {'By '}
         <Link to={`/profile/${UserId}`}>{users[UserId]}</Link>
-        {` / Published ${publishingDate} / Updated ${updatingDate}`}
+        <span data-cy="post-publication-date">{` / Published ${publishingDate}`}</span>
+        <span data-cy="post-updating-date">{` / Updated ${updatingDate}`}</span>
       </div>
     );
   }
@@ -101,10 +102,16 @@ class PostPage extends React.Component {
     return (
       <React.Fragment>
         {this.renderPageMeta()}
-        <div className={bemClasses('main-post-image')} style={{ backgroundImage: `url(${ImageUrl})` }} />
+        <div
+          className={bemClasses('main-post-image')}
+          data-cy="post-image"
+          style={{ backgroundImage: `url(${ImageUrl})` }}
+        />
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>
-            <div className={bemClasses('title')}>{Title}</div>
+            <div className={bemClasses('title')} data-cy="post-title">
+              {Title}
+            </div>
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
@@ -121,7 +128,9 @@ class PostPage extends React.Component {
     if (this.props.selectedPost) {
       return (
         <div className="content">
-          <div className={bemClasses('container', 'full')}>{this.renderArticleBody()}</div>
+          <div className={bemClasses('container', 'full')} data-cy="article-container">
+            {this.renderArticleBody()}
+          </div>
         </div>
       );
     }
