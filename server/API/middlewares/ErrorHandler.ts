@@ -2,7 +2,12 @@ import express = require('express');
 
 import IErrorAPIWithMessage from '../helper/IErrorAPIWithMessage';
 
-function ErrorHandler(err: IErrorAPIWithMessage, req: express.Request, res: express.Response) {
+function ErrorHandler(
+  err: IErrorAPIWithMessage,
+  _req: express.Request,
+  res: express.Response,
+  _next: express.NextFunction
+) {
   const code = err.status || 500;
 
   if (err.hasOwnProperty('message')) {

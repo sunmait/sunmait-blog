@@ -8,8 +8,8 @@
     "start": "npm run lint && npm-run-all --parallel watch:build watch:server --print-label",
     "start-prod": "npm run lint && npm-run-all --parallel watch:build watch:server-prod --print-label",
     "watch:build": "tsc --watch",
-    "watch:server": "cross-env NODE_ENV=development nodemon './API/app.js' --watch './'",
-    "watch:server-prod": "cross-env NODE_ENV=production nodemon './API/app.js' --watch './'",
+    "watch:server": "pm2-runtime pm2-config.json",
+    "watch:server-prod": "pm2-runtime pm2-config.json --env production",
     "lint": "tslint -c tslint.json './**/*.ts'",
     "seed": "cd ./migrations && ../node_modules/.bin/sequelize db:seed:all",
     "seed-win": "cd .\\migrations && ..\\node_modules\\.bin\\sequelize db:seed:all",
@@ -22,7 +22,7 @@
     "dbinit": "npm run migrate:undo && npm run migrate && npm run seed"
   },
   "lint-staged": {
-    "{API,Data,Domain,migrations}/**/*.{ts,json,js}": [
+    "./**/*.{ts,json,js}": [
       "prettier --write",
       "git add"
     ]
@@ -50,7 +50,6 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "husky": "^0.14.3",
-    "nodemon": "^1.17.5",
     "npm-run-all": "^4.1.3",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^4.1.1",

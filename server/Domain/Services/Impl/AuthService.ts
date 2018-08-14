@@ -47,7 +47,7 @@ export class AuthService implements IAuthService {
         },
       };
     } else {
-      throw { status: 401 };
+      throw { status: 401, message: 'Invalid username or password' };
     }
   }
 

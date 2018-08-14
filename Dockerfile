@@ -8,7 +8,7 @@ COPY server/Data/package*.json ./Data/
 COPY server/Domain/package*.json ./Domain/
 
 RUN npm run install-all
-
+RUN npm install -g pm2
 COPY server/. .
 
 CMD npm run start-prod

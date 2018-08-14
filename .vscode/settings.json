@@ -1,5 +1,5 @@
 {
-  "tslint.configFile": "tslint.json",
+  "tslint.configFile": "server/tslint.json",
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -12,5 +12,5 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "editor.fontSize": 14,
+  "editor.fontSize": 14
 }

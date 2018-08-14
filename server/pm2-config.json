@@ -1,0 +1,22 @@
+{
+  "apps": [
+    {
+      "script": "./API/app.js",
+      "name": "Sunmait blog API",
+      "instance_var": "INSTANCE_ID",
+      "ignore_watch": ["node_modules", "./logs"],
+      "log_type": "raw",
+      "log_file": "/logs/combined.log",
+      "out_file": "/logs/out.log",
+      "error_file": "/logs/err.log",
+      "merge_logs": true,
+      "watch": true,
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

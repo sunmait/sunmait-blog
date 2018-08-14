@@ -25,6 +25,7 @@ export class AuthController implements interfaces.Controller {
   }
 
   @httpPost('/')
+  // @ts-ignore
   private async auth(
     @response() res: express.Response,
     @requestBody('Login') Login: string,
@@ -39,6 +40,7 @@ export class AuthController implements interfaces.Controller {
   }
 
   @httpPatch('/refresh/:refreshToken')
+  // @ts-ignore
   private async refreshSession(
     @response() res: express.Response,
     @requestParam('refreshToken') refreshToken: string,
@@ -52,6 +54,7 @@ export class AuthController implements interfaces.Controller {
   }
 
   @httpPatch('/verify-credentials')
+  // @ts-ignore
   private async verifyCredentials(
     @response() res: express.Response,
     @requestBody() body: any,
@@ -65,6 +68,7 @@ export class AuthController implements interfaces.Controller {
   }
 
   @httpDelete('/:refreshToken')
+  // @ts-ignore
   private async logout(
     @response() res: express.Response,
     @requestParam('refreshToken') refreshToken: string,
