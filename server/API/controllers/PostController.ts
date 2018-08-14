@@ -8,8 +8,8 @@ import {
   response,
   requestBody,
   httpDelete,
+  queryParam,
   httpPatch,
-  next as nextFn,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 
@@ -30,13 +30,12 @@ export class PostController implements interfaces.Controller {
    * Get posts
    */
   @httpGet('/')
-  // @ts-ignore
-  private async get(@response() res: express.Response, @nextFn() next: express.NextFunction): Promise<void> {
-    try {
-      res.json(await this._postService.getPosts());
-    } catch (error) {
-      next(error);
-    }
+  private async get(
+    @queryParam('count') count: string,
+    @queryParam('offset') offset: string,
+    @response() res: express.Response
+  ): Promise<void> {
+    res.json(await this._postService.getPosts(count, offset));
   }
 
   /**
@@ -44,16 +43,8 @@ export class PostController implements interfaces.Controller {
    */
   @httpPost('/')
   // @ts-ignore
-  private async add(
-    @requestBody() body: any,
-    @response() res: express.Response,
-    @nextFn() next: express.NextFunction
-  ): Promise<void> {
-    try {
-      res.json(await this._postService.addPost(body));
-    } catch (error) {
-      next(error);
-    }
+  private async add(@requestBody() body: any, @response() res: express.Response): Promise<void> {
+    res.json(await this._postService.addPost(body));
   }
 
   /**
@@ -62,16 +53,8 @@ export class PostController implements interfaces.Controller {
    */
   @httpPatch('/')
   // @ts-ignore
-  private async updatePost(
-    @requestBody() data: any,
-    @response() res: express.Response,
-    @nextFn() next: express.NextFunction
-  ): Promise<void> {
-    try {
-      res.json(await this._postService.updatePost(data));
-    } catch (error) {
-      next(error);
-    }
+  private async updatePost(@requestBody() data: any, @response() res: express.Response): Promise<void> {
+    res.json(await this._postService.updatePost(data));
   }
 
   /**
@@ -79,16 +62,7 @@ export class PostController implements interfaces.Controller {
    * id: post's id
    */
   @httpDelete('/:id')
-  // @ts-ignore
-  private async delete(
-    @requestParam() data: any,
-    @response() res: express.Response,
-    @nextFn() next: express.NextFunction
-  ): Promise<void> {
-    try {
-      res.json(await this._postService.deletePost(data.id));
-    } catch (error) {
-      next(error);
-    }
+  private async delete(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
+    res.json(await this._postService.deletePost(id));
   }
 }

@@ -29,11 +29,11 @@ export class AuthService implements IAuthService {
     this._sessionRepository = sessionRepository;
   }
 
-  public async authWithLoginAndPassword(login: string, password: string) {
+  public async authWithLoginAndPassword({ Login, Password }: { Login: string; Password: string }) {
     const user = await this._userRepository.findOne({
-      where: { Login: login },
+      where: { Login },
     });
-    if (user && this._cryptoService.passwordsVerification(password, user.PasswordHash)) {
+    if (user && this._cryptoService.passwordsVerification(Password, user.PasswordHash)) {
       const session = await this.createSession(user.get({ plain: true }));
       return {
         AccessToken: session.AccessToken,

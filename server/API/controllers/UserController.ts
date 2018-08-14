@@ -7,7 +7,6 @@ import {
   httpGet,
   httpPatch,
   requestBody,
-  next as nextFn,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { IUserService } from '../../Domain/Services';
@@ -28,12 +27,8 @@ export class UserController implements interfaces.Controller {
    */
   @httpGet('/')
   // @ts-ignore
-  private async get(@response() res: express.Response, @nextFn() next: express.NextFunction): Promise<void> {
-    try {
-      res.json(await this._userService.getUsers());
-    } catch (error) {
-      next(error);
-    }
+  private async get(@response() res: express.Response): Promise<void> {
+    res.json(await this._userService.getUsers());
   }
 
   /**
@@ -41,16 +36,8 @@ export class UserController implements interfaces.Controller {
    */
   @httpGet('/:id')
   // @ts-ignore
-  private async getUser(
-    @requestParam('id') id: number,
-    @response() res: express.Response,
-    @nextFn() next: express.NextFunction
-  ): Promise<void> {
-    try {
-      res.json(await this._userService.getUser(id));
-    } catch (error) {
-      next(error);
-    }
+  private async getUser(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
+    res.json(await this._userService.getUser(id));
   }
 
   /**
@@ -61,13 +48,8 @@ export class UserController implements interfaces.Controller {
   private async updateUser(
     @requestParam('id') id: number,
     @requestBody() data: any,
-    @response() res: express.Response,
-    @nextFn() next: express.NextFunction
+    @response() res: express.Response
   ): Promise<void> {
-    try {
-      res.json(await this._userService.updateUser(id, data));
-    } catch (error) {
-      next(error);
-    }
+    res.json(await this._userService.updateUser(id, data));
   }
 }

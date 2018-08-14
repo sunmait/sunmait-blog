@@ -10,8 +10,19 @@ export class PostService implements IPostService {
     this._postRepository = postRepository;
   }
 
-  public async getPosts(): Promise<PostEntity[]> {
-    return this._postRepository.findAll({});
+  public async getPosts(countStr: string, offsetStr: string): Promise<PostEntity[]> {
+    const options: any = {};
+    const count = parseInt(countStr, 10);
+    const offset = parseInt(offsetStr, 10);
+
+    if (!isNaN(count) && count >= 0) {
+      options.limit = count;
+    }
+    if (!isNaN(offset) && offset >= 0) {
+      options.offset = offset;
+    }
+
+    return this._postRepository.findAll(options);
   }
 
   public async addPost(data: any): Promise<PostEntity> {
