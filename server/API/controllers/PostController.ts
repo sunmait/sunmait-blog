@@ -39,6 +39,14 @@ export class PostController implements interfaces.Controller {
   }
 
   /**
+   * Get post by id
+   */
+  @httpGet('/:id')
+  private async getPostById(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
+    res.json(await this._postService.getPostById(id));
+  }
+
+  /**
    * Add posts
    */
   @httpPost('/')

@@ -25,6 +25,15 @@ export class PostService implements IPostService {
     return this._postRepository.findAll(options);
   }
 
+  public async getPostById(id: number): Promise<PostEntity> {
+    const post = await this._postRepository.findById(id);
+    if (post) {
+      return post;
+    } else {
+      throw { status: 404, message: 'Not found' };
+    }
+  }
+
   public async addPost(data: any): Promise<PostEntity> {
     const post = new PostEntity(data);
 
