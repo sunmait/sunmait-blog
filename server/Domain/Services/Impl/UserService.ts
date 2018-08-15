@@ -1,13 +1,19 @@
 import { injectable, inject } from 'inversify';
 import { IUserService } from '../IUserService';
 import UserEntity from '../../../Data/Entities/UserEntity';
-import { IUserRepository } from '../../../Data/Repositories/index';
+import PostEntity from '../../../Data/Entities/PostEntity';
+import { IUserRepository, IPostRepository } from '../../../Data/Repositories/index';
 
 @injectable()
 export class UserService implements IUserService {
   private readonly _userRepository: IUserRepository;
-  constructor(@inject('UserRepository') userRepository: IUserRepository) {
+  private readonly _postRepository: IPostRepository;
+  constructor(
+    @inject('UserRepository') userRepository: IUserRepository,
+    @inject('PostRepository') postRepository: IPostRepository
+  ) {
     this._userRepository = userRepository;
+    this._postRepository = postRepository;
   }
 
   public async getUsers(): Promise<UserEntity[]> {
@@ -24,14 +30,22 @@ export class UserService implements IUserService {
 
   public async getUser(id: number): Promise<UserEntity> {
     const user = await this._userRepository.find({ where: { id } });
-    const information = {
-      FirstName: user.FirstName,
-      LastName: user.LastName,
-      PhotoUrl: user.PhotoUrl,
-      Login: user.Login,
-      id: user.id,
-    };
-    return information as UserEntity;
+    if (user) {
+      const information = {
+        FirstName: user.FirstName,
+        LastName: user.LastName,
+        PhotoUrl: user.PhotoUrl,
+        Login: user.Login,
+        id: user.id,
+      };
+      return information as UserEntity;
+    } else {
+      throw { status: 404, message: 'Not found' };
+    }
+  }
+
+  public async getUserPosts(id: number): Promise<PostEntity[]> {
+    return this._postRepository.findAll({ where: { userId: id } });
   }
 
   public async updateUser(id: number, data: any): Promise<UserEntity> {

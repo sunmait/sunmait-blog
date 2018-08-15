@@ -41,6 +41,15 @@ export class UserController implements interfaces.Controller {
   }
 
   /**
+   * Get all posts of user by id
+   */
+  @httpGet('/:id/posts')
+  // @ts-ignore
+  private async getUserPosts(@requestParam('id') id: number, @response() res: express.Response): Promise<void> {
+    res.json(await this._userService.getUserPosts(id));
+  }
+
+  /**
    * Updating user
    */
   @httpPatch('/:id')
