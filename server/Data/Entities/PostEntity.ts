@@ -11,6 +11,7 @@ import {
   ForeignKey,
   PrimaryKey,
   AutoIncrement,
+  BelongsTo,
 } from 'sequelize-typescript';
 
 import UserEntity from './UserEntity';
@@ -27,6 +28,9 @@ export default class PostEntity extends Model<PostEntity> {
   @ForeignKey(() => UserEntity)
   @Column(DataType.INTEGER)
   public UserId: number;
+
+  @BelongsTo(() => UserEntity)
+  public Author: UserEntity;
 
   @IsDate
   @IsAfter('2018-01-01')

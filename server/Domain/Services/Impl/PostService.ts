@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { IPostService } from '../IPostService';
 import PostEntity from '../../../Data/Entities/PostEntity';
+import UserEntity from '../../../Data/Entities/UserEntity';
 import { IPostRepository } from '../../../Data/Repositories/index';
 
 @injectable()
@@ -11,7 +12,7 @@ export class PostService implements IPostService {
   }
 
   public async getPosts(countStr: string, offsetStr: string): Promise<PostEntity[]> {
-    const options: any = {};
+    const options: any = { include: [{ model: UserEntity, attributes: ['FirstName', 'LastName'] }] };
     const count = parseInt(countStr, 10);
     const offset = parseInt(offsetStr, 10);
 
@@ -26,7 +27,10 @@ export class PostService implements IPostService {
   }
 
   public async getPostById(id: number): Promise<PostEntity> {
-    const post = await this._postRepository.findById(id);
+    const post = await this._postRepository.findOne({
+      where: { id },
+      include: [{ model: UserEntity, attributes: ['FirstName', 'LastName'] }],
+    });
     if (post) {
       return post;
     } else {
