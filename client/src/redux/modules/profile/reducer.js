@@ -3,6 +3,7 @@ import { USER_CONSTANTS } from './constants';
 const defaultState = {
   profile: null,
   usersById: {},
+  postsOfCurrentUser: [],
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -15,6 +16,9 @@ export default function(state = defaultState, { type, payload }) {
 
     case USER_CONSTANTS.CHANGE:
       return handleChange(state, payload);
+
+    case USER_CONSTANTS.GET_CURRENT_USER_POSTS:
+      return handleGetCurrentUserPosts(state, payload);
 
     // case USER_CONSTANTS.CHANGE_PASSWORD::
     //   return handleAccessTokenExpired(state, payload);
@@ -43,4 +47,8 @@ function handleChange(state, updated) {
     usersById: updatedUserById,
     profile: null,
   });
+}
+
+function handleGetCurrentUserPosts(state, postsOfCurrentUser) {
+  return { ...state, postsOfCurrentUser: postsOfCurrentUser };
 }

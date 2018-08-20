@@ -6,6 +6,9 @@ import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
 import '../../../assets/styles/ProfilePage.css';
+import { Route } from 'react-router-dom';
+import PostsList from 'components/common/postsList';
+import NavMenu from 'components/common/navMenu';
 
 const userProfile = 'user-profile';
 const bemClasses = getBEMClasses([userProfile]);
@@ -20,6 +23,7 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.reloadProfile(this.props);
+    this.props.getCurrentUserPosts(this.props.match.params.userId);
   }
 
   componentWillReceiveProps(newProps) {
@@ -99,14 +103,33 @@ class ProfilePage extends React.Component {
         </React.Fragment>
       );
     }
-    return null;
+    return <div>This is an info page</div>;
   };
 
   render = () => {
+    const { match } = this.props;
+    const navTabs = [
+      {
+        text: 'Info',
+        url: `${match.url}`,
+      },
+      {
+        text: 'Posts',
+        url: `${match.url}/posts`,
+      },
+    ];
+
     return (
-      <div className="content">
-        {this.renderProfileInfo()}
-        {this.renderProfileForm()}
+      <div className="content-wrapper">
+        <div className="content">
+          {this.renderProfileInfo()}
+          <NavMenu tabs={navTabs} />
+          <Route exact path={`${match.url}`} render={() => this.renderProfileForm()} />
+          <Route
+            path={`${match.url}/posts`}
+            render={props => <PostsList {...props} posts={this.props.currentUserPosts} />}
+          />
+        </div>
       </div>
     );
   };

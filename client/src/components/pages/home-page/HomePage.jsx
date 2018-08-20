@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PostContainer from 'components/containers/post/PostContainer';
 import { getBEMClasses } from 'helpers//BEMHelper';
-import 'assets/styles/PostsPages.css';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
+import PostsList from 'components/common/postsList';
+import 'assets/styles/PostsPages.css';
 
 const pageClass = 'posts-page';
 const bemClasses = getBEMClasses([pageClass]);
@@ -13,23 +13,15 @@ class HomePage extends React.Component {
     this.props.getPosts();
   }
 
-  renderPostList() {
-    const { posts } = this.props;
-
-    if (posts) {
-      return posts.map(post => <PostContainer key={post.id} post={post} />);
-    }
-
-    return null;
-  }
-
   render() {
     return (
-      <div className="content content--with-grey-background">
-        <div className={bemClasses('searchbar')}>
-          <SearchBar />
+      <div className="content--with-grey-background">
+        <div className="content">
+          <div className={bemClasses('searchbar')}>
+            <SearchBar />
+          </div>
+          <PostsList posts={this.props.posts} />
         </div>
-        <div className={bemClasses('list-of-articles')}>{this.renderPostList()}</div>
       </div>
     );
   }

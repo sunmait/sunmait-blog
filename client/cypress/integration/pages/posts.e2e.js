@@ -4,7 +4,7 @@ import { getUserById } from '../../testHelpers/userHelper';
 describe('Posts', () => {
   const testAmountOfPosts = (amount) => {
     cy
-      .get('.posts-page__list-of-articles')
+      .get('.posts-list__container')
       .find('.article__container').should('have.length', amount);
   };
 

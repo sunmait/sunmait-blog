@@ -1,0 +1,24 @@
+.nav__container {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.nav__tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 50px;
+  border-bottom: 2px solid rgb(197, 197, 197);
+  color: rgb(197, 197, 197);
+  font-size: 1.6rem;
+}
+
+.nav__tab.active {
+  color: #2f80ed;
+  border-bottom: 2px solid #2f80ed;
+}

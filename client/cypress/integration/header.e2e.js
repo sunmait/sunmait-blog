@@ -99,7 +99,8 @@ describe('Header', () => {
         cy.get('[data-cy=user-menu] li').contains('My posts').click();
   
         cy.location().should(a => {
-          expect(a.pathname).to.eq('/myposts');
+          const userData = getAuthorizedUser();
+          expect(a.pathname).to.eq(`/profile/${userData.id}/posts`);
         });
       });
   
