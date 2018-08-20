@@ -30,9 +30,9 @@ jobs:
       - run: cd client && yarn
 
       - save_cache:
-        key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
-        paths:
-            - ~/.npm
-            - ~/.cache
+          key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+              - ~/.npm
+              - ~/.cache
 
       - run: cd client && yarn e2e-ci
