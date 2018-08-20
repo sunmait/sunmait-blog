@@ -15,6 +15,6 @@ jobs:
       # - image: circleci/mongo:3.4.4
 
     steps:
-      - checkout ./client
-      - run: yarn
-      - run: yarn e2e-no-watch
+      - checkout
+      - run: cd client && yarn
+      - run: cd client && yarn e2e-no-watch
