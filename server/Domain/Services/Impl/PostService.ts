@@ -2,17 +2,28 @@ import { injectable, inject } from 'inversify';
 import { IPostService } from '../IPostService';
 import PostEntity from '../../../Data/Entities/PostEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
-import { IPostRepository } from '../../../Data/Repositories/index';
+import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
+import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositories/index';
 
 @injectable()
 export class PostService implements IPostService {
   private readonly _postRepository: IPostRepository;
-  constructor(@inject('PostRepository') postRepository: IPostRepository) {
+  private readonly _postLikesRepository: IPostLikesRepository;
+  constructor(
+    @inject('PostRepository') postRepository: IPostRepository,
+    @inject('PostLikesRepository') postLikesRepository: IPostLikesRepository
+  ) {
     this._postRepository = postRepository;
+    this._postLikesRepository = postLikesRepository;
   }
 
   public async getPosts(countStr: string, offsetStr: string): Promise<PostEntity[]> {
-    const options: any = { include: [{ model: UserEntity, attributes: ['FirstName', 'LastName'] }] };
+    const options: any = {
+      include: [
+        { model: UserEntity, attributes: ['FirstName', 'LastName'] },
+        { model: PostLikesEntity, attributes: ['UserId'] },
+      ],
+    };
     const count = parseInt(countStr, 10);
     const offset = parseInt(offsetStr, 10);
 
@@ -29,12 +40,25 @@ export class PostService implements IPostService {
   public async getPostById(id: number): Promise<PostEntity> {
     const post = await this._postRepository.findOne({
       where: { id },
-      include: [{ model: UserEntity, attributes: ['FirstName', 'LastName'] }],
+      include: [
+        { model: UserEntity, attributes: ['FirstName', 'LastName'] },
+        { model: PostLikesEntity, attributes: ['UserId'] },
+      ],
     });
     if (post) {
       return post;
     } else {
       throw { status: 404, message: 'Not found' };
+    }
+  }
+
+  public async likeOrDislike(PostId: number, UserId: number): Promise<any> {
+    const like = await this._postLikesRepository.findOne({ where: { PostId, UserId } });
+    if (like) {
+      await this._postLikesRepository.remove({ where: { PostId, UserId } });
+    } else {
+      const postLike = new PostLikesEntity({ PostId, UserId });
+      await this._postLikesRepository.create(postLike);
     }
   }
 

@@ -12,9 +12,11 @@ import {
   PrimaryKey,
   AutoIncrement,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
 
 import UserEntity from './UserEntity';
+import PostLikesEntity from './PostLikesEntity';
 
 @Table({ tableName: 'Posts' })
 export default class PostEntity extends Model<PostEntity> {
@@ -57,4 +59,7 @@ export default class PostEntity extends Model<PostEntity> {
   @AllowNull(false)
   @Column(DataType.STRING)
   public ImageUrl: string;
+
+  @HasMany(() => PostLikesEntity)
+  public Likes: PostLikesEntity[];
 }

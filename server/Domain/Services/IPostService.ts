@@ -6,4 +6,5 @@ export interface IPostService {
   addPost(data: any): Promise<PostEntity>;
   updatePost(data: any): Promise<PostEntity>;
   deletePost(id: number): Promise<PostEntity[]>;
+  likeOrDislike(postId: number, userId: number): Promise<any>;
 }

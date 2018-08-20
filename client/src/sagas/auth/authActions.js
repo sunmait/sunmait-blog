@@ -41,7 +41,7 @@ function* logout(payload) {
   const refToken = payload.payload.refreshToken;
   yield axios.delete(`/api/auth/${refToken}`, {
     headers: {
-    'Authorization': `Bearer ${localStorage.AccessToken}`
+    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
     }
   });
   localStorage.clear();

@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { IPostService, ICommentService } from '../../Domain/Services';
+import IRequest from '../helper/IRequest';
 import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();
@@ -70,6 +71,20 @@ router.patch('/', CheckAuth, async (req: express.Request, res: express.Response,
 
   try {
     res.json(await postService.updatePost(data));
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Like/dislike post
+ * postId: post's id
+ */
+router.post('/:postId/like', CheckAuth, async (req: IRequest, res: express.Response, next: express.NextFunction) => {
+  const { postId } = req.params;
+  const userId = req.user.id;
+  try {
+    res.json(await postService.likeOrDislike(postId, userId));
   } catch (error) {
     next(error);
   }

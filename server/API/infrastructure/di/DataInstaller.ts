@@ -1,25 +1,28 @@
 import { InstallerBase } from './InstallerBase';
 import {
+  UserRepository,
   PostRepository,
+  TagRepository,
   CommentRepository,
   PostsTagRepository,
-  TagRepository,
-  UserRepository,
+  PostLikesRepository,
   SessionRepository,
 } from '../../../Data/Repositories/Impl/index';
 
 import {
+  IUserRepository,
   IPostRepository,
+  ITagRepository,
   ICommentRepository,
   IPostsTagRepository,
-  ITagRepository,
-  IUserRepository,
+  IPostLikesRepository,
   ISessionRepository,
 } from '../../../Data/Repositories/index';
 
 import PostEntity from '../../../Data/Entities/PostEntity';
 import CommentEntity from '../../../Data/Entities/CommentEntity';
 import PostsTagEntity from '../../../Data/Entities/PostsTagEntity';
+import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
 import TagEntity from '../../../Data/Entities/TagEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
 
@@ -28,7 +31,11 @@ import SessionEntity from '../../../Data/Entities/SessionEntity';
 export class DataInstaller extends InstallerBase {
   public install(): void {
     // @ts-ignore
+    this.container.bind<IUserRepository>('UserRepository').toConstantValue(new UserRepository(UserEntity));
+    // @ts-ignore
     this.container.bind<IPostRepository>('PostRepository').toConstantValue(new PostRepository(PostEntity));
+    // @ts-ignore
+    this.container.bind<ITagRepository>('TagRepository').toConstantValue(new TagRepository(TagEntity));
     // @ts-ignore
     this.container.bind<ICommentRepository>('CommentRepository').toConstantValue(new CommentRepository(CommentEntity));
 
@@ -36,14 +43,11 @@ export class DataInstaller extends InstallerBase {
       .bind<IPostsTagRepository>('PostsTagRepository')
       // @ts-ignore
       .toConstantValue(new PostsTagRepository(PostsTagEntity));
+
     this.container
-      .bind<IPostsTagRepository>('PostsTagRepository')
+      .bind<IPostLikesRepository>('PostLikesRepository')
       // @ts-ignore
-      .toConstantValue(new PostsTagRepository(PostsTagEntity));
-    // @ts-ignore
-    this.container.bind<ITagRepository>('TagRepository').toConstantValue(new TagRepository(TagEntity));
-    // @ts-ignore
-    this.container.bind<IUserRepository>('UserRepository').toConstantValue(new UserRepository(UserEntity));
+      .toConstantValue(new PostLikesRepository(PostLikesEntity));
     // @ts-ignore
     this.container.bind<ISessionRepository>('SessionRepository').toConstantValue(new SessionRepository(SessionEntity));
     this.container

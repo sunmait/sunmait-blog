@@ -20,7 +20,7 @@ function* addPost(payload) {
     UserId,
   }, {
     headers: {
-    'Authorization': `Bearer ${localStorage.AccessToken}`
+    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
     }
   });
   yield put({ type: POSTS_CONSTANTS.ADD_POST, payload: res.data });
@@ -79,7 +79,7 @@ function* updatePost(payload) {
     idPost: payload.payload.idPost,
   }, {
     headers: {
-    'Authorization': `Bearer ${localStorage.AccessToken}`
+    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
     }
   });
 
@@ -102,7 +102,7 @@ function* deletePost(payload) {
   const idPost = payload.payload.postId;
   const res = yield axios.delete(`/api/posts/${idPost}`, {
     headers: {
-    'Authorization': `Bearer ${localStorage.AccessToken}`
+    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
     }
   }, idPost);
   yield put({ type: POSTS_CONSTANTS.DELETE_POST, payload: res.data });
