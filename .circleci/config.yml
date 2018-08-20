@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
 
-      - run: cd docker_scripts && ./run-dev-database.sh
+      - run: cd docker-scripts && ./run-dev-database.sh
 
       - restore_cache:
           keys:
