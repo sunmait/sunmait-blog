@@ -22,10 +22,10 @@ jobs:
       - checkout
 
       - restore_cache:
-        keys: 
-          - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          - v1-sunmait-blog-cache-{{ .Branch }}-
-          - v1-sunmait-blog-cache-
+          keys:
+            - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-sunmait-blog-cache-{{ .Branch }}-
+            - v1-sunmait-blog-cache-
 
       - run: cd client && yarn
 
