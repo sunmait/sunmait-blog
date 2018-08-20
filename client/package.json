@@ -31,6 +31,7 @@
     "test": "react-scripts test --env=jsdom",
     "e2e": "cypress open",
     "e2e-no-watch": "cypress open --config watchForFileChanges=false",
+    "e2e-ci": "cypress run",
     "eject": "react-scripts eject",
     "precommit": "lint-staged"
   },

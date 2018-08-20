@@ -8,6 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
+      - image: cypress/base:8
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -16,5 +17,19 @@ jobs:
 
     steps:
       - checkout
+
+      - restore_cache:
+        keys: 
+          - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          - v1-sunmait-blog-cache-{{ .Branch }}-
+          - v1-sunmait-blog-cache-
+
       - run: cd client && yarn
-      - run: cd client && yarn e2e-no-watch
+
+      - save_cache:
+        key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+        paths:
+            - ~/.npm
+            - ~/.cache
+
+      - run: cd client && yarn e2e-ci
