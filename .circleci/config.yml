@@ -17,7 +17,5 @@ jobs:
     steps:
       - checkout
         
-      # run tests!
-      - run: cd client
-      - run: yarn
-      - run: yarn e2e-no-watch
+      - run: cd client & yarn
+      - run: cd client & yarn e2e-no-watch
