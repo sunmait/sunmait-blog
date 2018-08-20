@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { IAuthService } from '../../Domain/Services';
+import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();
 const authService = container.get<IAuthService>('AuthService');
@@ -41,14 +42,18 @@ router.patch('/verify-credentials', async (req: express.Request, res: express.Re
   }
 });
 
-router.delete('/:refreshToken', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const refreshToken = req.params.refreshToken;
+router.delete(
+  '/:refreshToken',
+  CheckAuth,
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const refreshToken = req.params.refreshToken;
 
-  try {
-    res.json(await authService.logout(refreshToken));
-  } catch (error) {
-    next(error);
+    try {
+      res.json(await authService.logout(refreshToken));
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

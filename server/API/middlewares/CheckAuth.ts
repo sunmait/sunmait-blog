@@ -19,9 +19,9 @@ export function CheckAuth(req: IRequest, _res: express.Response, next: express.N
         next({ status: 401, message: 'jwt expired' });
       }
     } else {
-      next({ status: 401, message: 'jwt expired' });
+      next({ status: 401 });
     }
   } else {
-    next({ status: 401, message: 'jwt expired' });
+    next({ status: 401 });
   }
 }

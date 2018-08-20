@@ -1,9 +1,11 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
-import { IPostService } from '../../Domain/Services';
+import { IPostService, ICommentService } from '../../Domain/Services';
+import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();
 const postService = container.get<IPostService>('PostService');
+const commentService = container.get<ICommentService>('CommentService');
 
 /**
  * Operations about Posts.
@@ -34,9 +36,22 @@ router.get('/:id', async (req: express.Request, res: express.Response, next: exp
 });
 
 /**
+ * Get comments of post by id
+ */
+router.get('/:id/comments', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const { id } = req.params;
+
+  try {
+    res.json(await commentService.getCommentById(id));
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
  * Add posts
  */
-router.post('/', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+router.post('/', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const data = req.body;
 
   try {
@@ -50,7 +65,7 @@ router.post('/', async (req: express.Request, res: express.Response, next: expre
  * Update posts
  * id: post's id
  */
-router.patch('/', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+router.patch('/', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const data = req.body;
 
   try {
@@ -64,7 +79,7 @@ router.patch('/', async (req: express.Request, res: express.Response, next: expr
  * Delete post
  * id: post's id
  */
-router.delete('/:id', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+router.delete('/:id', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const { id } = req.params;
 
   try {
