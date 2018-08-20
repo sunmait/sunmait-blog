@@ -19,3 +19,10 @@ export const updateUser = payload => {
     payload: payload,
   };
 };
+
+export const getCurrentUserPosts = userId => {
+  return {
+    type: SAGAS_PROFILE_CONSTANTS.GET_CURRENT_USER_POSTS,
+    userId,
+  };
+};

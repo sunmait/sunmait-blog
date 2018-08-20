@@ -6,7 +6,6 @@ import history from './history';
 import App from '../common/app/index.jsx';
 import HomePage from '../pages/home-page/index.jsx';
 import ProfilePage from '../pages/profile-page/index.jsx';
-import MyPostsPage from '../pages/myposts-page/index.jsx';
 import AddPostPage from '../pages/add-post-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
@@ -26,8 +25,7 @@ class AppComponent extends React.Component {
           <App>
             <Switch>
               <Route exact path="/home" component={HomePage} />
-              <Route exact path="/profile/:userId" component={ProfilePage} />
-              <Route exact path="/myposts" component={MyPostsPage} />
+              <Route path="/profile/:userId" component={ProfilePage} />
               <PrivateRoute exact path="/addpost" auth={this.props.auth} component={AddPostPage} />
               <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={AddPostPage} />
               <Route exact path="/post/:postId" component={PostPage} />

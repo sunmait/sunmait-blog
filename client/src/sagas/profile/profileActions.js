@@ -14,6 +14,11 @@ function* getUser(payload) {
   yield put({ type: USER_CONSTANTS.GET_USER, payload: res.data });
 }
 
+function* getCurrentUserPosts({ userId }) {
+  const res = yield axios.get(`/api/users/${userId}/posts`);
+  yield put({ type: USER_CONSTANTS.GET_CURRENT_USER_POSTS, payload: res.data });
+}
+
 function* changeUser(payload) {
   //TODO: why this need login and logout requests? check this method!!
 
@@ -51,5 +56,6 @@ export function* profileSagas() {
     takeLatest(SAGAS_PROFILE_CONSTANTS.CHANGE_USER, changeUser),
     takeLatest(SAGAS_PROFILE_CONSTANTS.GET_USERS, getUsers1),
     takeLatest(SAGAS_PROFILE_CONSTANTS.GET_USER, getUser),
+    takeLatest(SAGAS_PROFILE_CONSTANTS.GET_CURRENT_USER_POSTS, getCurrentUserPosts),
   ]);
 }

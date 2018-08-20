@@ -28,6 +28,8 @@ a {
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 85rem;
+  margin: auto;
   padding: 3.5rem 0 5rem;
   flex: 1 0 auto;
 }
@@ -48,5 +50,29 @@ li {
 @media (max-width: 550px) {
   .content {
     margin-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .content {
+    width: 75%;
+  }
+}
+
+@media (max-width: 500px) {
+  .content {
+    width: 95%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .content {
+    width: 130rem;
   }
 }

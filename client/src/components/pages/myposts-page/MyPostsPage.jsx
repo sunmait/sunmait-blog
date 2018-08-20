@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import Button from 'components/common/button/Button.js';
 import { Link } from 'react-router-dom';
-import PostContainer from 'components/containers/post/PostContainer';
 import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
 import 'assets/styles/PostsPages.css';
+import PostsList from 'components/common/postsList';
 
 const pageClass = 'posts-page';
 const bemClasses = getBEMClasses([pageClass]);
@@ -14,16 +14,6 @@ class MyPostsPage extends React.Component {
   componentDidMount() {
     this.props.getPosts();
   }
-
-  renderPostList = () => {
-    const { posts } = this.props;
-
-    if (posts) {
-      return posts.map(post => <PostContainer key={post.id} post={post} />);
-    }
-
-    return null;
-  };
 
   render() {
     return (
@@ -36,7 +26,7 @@ class MyPostsPage extends React.Component {
         <div className={bemClasses('searchbar')}>
           <SearchBar />
         </div>
-        <div className={bemClasses('list-of-articles')}>{this.renderPostList()}</div>
+        <PostsList posts={this.props.posts} />
       </div>
     );
   }

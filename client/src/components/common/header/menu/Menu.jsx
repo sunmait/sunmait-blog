@@ -19,7 +19,7 @@ class Menu extends React.Component {
           <Link to={`/profile/${user.id}`}>
             <MenuItem onClick={handleClose}>Profile</MenuItem>
           </Link>
-          <Link to="/myposts">
+          <Link to={`/profile/${user.id}/posts`}>
             <MenuItem onClick={handleClose}>My posts</MenuItem>
           </Link>
           <MenuItem onClick={logout}>
