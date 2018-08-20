@@ -23,14 +23,14 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
             - v1-sunmait-blog-cache-{{ .Branch }}-
             - v1-sunmait-blog-cache-
 
       - run: cd client && yarn
 
       - save_cache:
-          key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
           paths:
               - ~/.npm
               - ~/.cache
