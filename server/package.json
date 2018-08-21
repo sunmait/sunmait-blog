@@ -35,8 +35,7 @@
   "dependencies": {
     "mysql2": "^1.5.3",
     "sequelize": "^4.38.0",
-    "sequelize-cli": "^3.2.0",
-    "sequelize-typescript": "^0.6.5"
+    "sequelize-cli": "^3.2.0"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",

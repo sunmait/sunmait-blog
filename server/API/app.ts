@@ -1,19 +1,10 @@
-﻿import bodyParser = require('body-parser');
+﻿import * as bodyParser from 'body-parser';
+import * as express from 'express';
 
-import 'reflect-metadata';
-import { Container } from 'inversify';
-import { InversifyExpressServer } from 'inversify-express-utils';
-
-import './controllers/index';
-import { AllInstaller } from './infrastructure/di/AllInstaller';
+import { container } from './infrastructure/di/Container';
 import { DbContext } from '../Data/DbContext';
 import ErrorHandler from './middlewares/ErrorHandler';
-
-// set up container
-const container = new Container();
-
-const allInstaller = new AllInstaller(container);
-allInstaller.install();
+import api from './routers';
 
 const dbContext = container.get<DbContext>('DbContext');
 
@@ -21,15 +12,13 @@ const dbContext = container.get<DbContext>('DbContext');
   try {
     await dbContext.connect();
 
-    // create server
-    const server = new InversifyExpressServer(container);
+    const app = express();
 
-    server.setConfig(application => {
-      application.use(bodyParser.urlencoded({ extended: false }));
-      application.use(bodyParser.json());
-    });
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
-    const app = server.build();
+    app.use('/api', api);
+
     app.use(ErrorHandler);
 
     app.listen(3000);

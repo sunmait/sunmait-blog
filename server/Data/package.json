@@ -10,11 +10,11 @@
     "inversify": "^4.13.0",
     "mysql2": "^1.5.3",
     "sequelize": "^4.38.0",
+    "sequelize-typescript": "^0.6.5",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
     "@types/node": "^10.3.2",
-    "@types/sequelize": "^4.27.23",
-    "sequelize-typescript": "^0.6.5"
+    "@types/sequelize": "^4.27.23"
   }
 }
