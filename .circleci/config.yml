@@ -37,17 +37,10 @@ jobs:
 
   build_client:
     docker:
-      # specify the version you desire here
-      # - image: circleci/node:7.10
       - image: cypress/base:8
         environment:
             ## this enables colors in the output
             TERM: xterm
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     steps:
       - checkout
@@ -68,6 +61,18 @@ jobs:
               - ~/.cache
 
       - run: cd client && yarn e2e-ci
+  run_e2e:
+    docker:
+      - image: cypress/base:8
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
+
+    steps:
+      - checkout
+
+      - run: cd client && yarn e2eci
+
 workflows:
   version: 2
   run_server_and_test:
@@ -75,6 +80,5 @@ workflows:
       - run_database
       - seed_database
       - build_client
-      - run_server:
-          requires:
-            - build_client
+      - run_server
+      - run_e2e
