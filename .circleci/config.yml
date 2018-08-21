@@ -9,7 +9,18 @@ jobs:
     steps:
       - checkout
 
-      - run: cd docker-scripts && ./run-dev-database.sh
+      - run:
+          name: 'run database'
+          command: cd docker-scripts && ./run-dev-database.sh
+
+  seed_database:
+    machine: true
+    steps:
+      - checkout
+
+      - run:
+          name: 'seed database'
+          command: cd docker-scripts && ./seed-dev-server.sh
 
   build:
     docker:
