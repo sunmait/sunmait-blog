@@ -75,6 +75,6 @@ workflows:
       - run_database
       - seed_database
       - build_client
-      - run_server
+      - run_server:
           requires:
             - build_client
