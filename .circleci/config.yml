@@ -5,9 +5,10 @@
 version: 2
 jobs:
   run_database:
-    docker:
     steps:
       - checkout
+
+      - setup_remote_docker
 
       - run: cd docker-scripts && ./run-dev-database.sh
 
