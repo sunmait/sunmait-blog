@@ -70,7 +70,7 @@ export class AuthService implements IAuthService {
         },
       };
     } else {
-      throw { status: 401, message: 'jwt expired' };
+      throw { status: 401, message: 'Unauthorized' };
     }
   }
 
@@ -92,12 +92,11 @@ export class AuthService implements IAuthService {
       } catch (err) {
         if (err.message === 'jwt expired') {
           return this.refreshSession(refreshToken);
-        } else {
-          throw { status: 401 };
         }
+        throw { status: 401, message: 'Unauthorized' };
       }
     } else {
-      throw { status: 401 };
+      throw { status: 401, message: 'Unauthorized' };
     }
   }
 

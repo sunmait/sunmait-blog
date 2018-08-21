@@ -9,14 +9,17 @@ function* verifyCredentials() {
   const accessToken = localStorage.getItem('AccessToken');
   const refreshToken = localStorage.getItem('RefreshToken');
   if (accessToken && refreshToken) {
-    const res = yield axios.patch('/api/auth/verify-credentials', {
-      accessToken,
-      refreshToken,
-    });
-    const { AccessToken, RefreshToken, Data } = res.data;
-    authHelper.setAuthDataToLocalStorage(AccessToken, RefreshToken, JSON.stringify(Data));
-
-    yield put({ type: AUTH_CONSTANTS.LOGIN, payload: res.data });
+      try {
+        const res = yield axios.patch('/api/auth/verify-credentials', {
+          accessToken,
+          refreshToken,
+        });
+        const { AccessToken, RefreshToken, Data } = res.data;
+        authHelper.setAuthDataToLocalStorage(AccessToken, RefreshToken, JSON.stringify(Data));
+        yield put({ type: AUTH_CONSTANTS.LOGIN, payload: res.data });
+      } catch (err) {
+        localStorage.clear();
+      }
   }
   yield put({ type: AUTH_CONSTANTS.CREDENTIALS_CHECKED });
 }
