@@ -61,9 +61,4 @@ workflows:
     jobs:
       - run_database
       - seed_database:
-          requires:
-            - run_database
-          filters:
-            branches:
-              only: master
       - build
