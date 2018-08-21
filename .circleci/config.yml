@@ -60,5 +60,5 @@ workflows:
   run_server_and_test:
     jobs:
       - run_database
-      - seed_database:
+      - seed_database
       - build
