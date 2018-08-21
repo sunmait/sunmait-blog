@@ -69,12 +69,12 @@ jobs:
 
       - run: cd client && yarn e2e-ci
 workflows:
-  version: 1
+  version: 2
   run_server_and_test:
     jobs:
       - run_database
       - seed_database
+      - build_client
       - run_server
           requires:
             - build_client
-      - build_client
