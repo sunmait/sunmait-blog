@@ -5,6 +5,7 @@
 version: 2
 jobs:
   run_database:
+    machine: true
     steps:
       - checkout
 
