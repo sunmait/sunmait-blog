@@ -5,10 +5,6 @@ const searchBarSelector = formValueSelector('searchBar');
 
 const reversedPostsSelector = posts => posts.reverse();
 
-const userPostsSelector = (posts, user) => {
-  return posts.filter(post => post.UserId === user.id);
-};
-
 const searchQuerySelector = state => searchBarSelector(state, 'searchQuery') || '';
 
 const filteredBySearchQuery = (searchQuery, posts, users) => {
@@ -36,8 +32,7 @@ const filteredForUserBySearchQuery = (searchQuery, posts) => {
 };
 
 const reversedPosts = createSelector(state => state.posts.posts, reversedPostsSelector);
-
-const filteredPostsForAuthUser = createSelector(reversedPosts, state => state.user.user, userPostsSelector);
+const reversedSelectedUserPosts = createSelector(state => state.profile.postsOfCurrentUser, reversedPostsSelector);
 
 /* search posts for 'home' page */
 export const searchPostsSelector = createSelector(
@@ -47,9 +42,9 @@ export const searchPostsSelector = createSelector(
   filteredBySearchQuery
 );
 
-/* search posts for 'my posts' page */
-export const searchAuthUserPostsSelector = createSelector(
+/* search posts for 'profile/user.id/posts' page */
+export const searchSelectedUserPostsSelector = createSelector(
   searchQuerySelector,
-  filteredPostsForAuthUser,
+  reversedSelectedUserPosts,
   filteredForUserBySearchQuery
 );

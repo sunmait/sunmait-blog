@@ -4,3 +4,21 @@
   justify-content: space-between;
   align-items: stretch;
 }
+
+.posts-list__searchbar {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.search-bar__form {
+  width: 100%;
+}
+
+.search-bar__input {
+  width: calc(100% - 4rem);
+  border-radius: var(--small-border-radius);
+  border: none;
+  padding: 1rem 2rem;
+  outline: none;
+  box-shadow: 0 0 1.5rem -0.5rem rgba(0, 0, 0, 0.25);
+}

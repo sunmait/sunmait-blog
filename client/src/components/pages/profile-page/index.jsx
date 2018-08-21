@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getUser, updateUser, getCurrentUserPosts } from 'redux/modules/profile/actions';
 import { formValueSelector } from 'redux-form';
+import { searchSelectedUserPostsSelector } from 'redux/selectors/filteredPosts';
 import ProfilePage from './ProfilePage.jsx';
 
 const userFormSelector = formValueSelector('userProfile');
@@ -13,7 +14,7 @@ const mapStateToProps = state => ({
   users: state.profile.usersById,
   userFormValues: userFormSelector(state, 'FirstName', 'LastName', 'Login'),
   confirmFormValues: confirmFormSelector(state, 'password'),
-  currentUserPosts: state.profile.postsOfCurrentUser,
+  currentUserPosts: searchSelectedUserPostsSelector(state),
 });
 
 const mapDispatchToProps = {
