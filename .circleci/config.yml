@@ -32,8 +32,8 @@ jobs:
           command: cd docker-scripts && ./build-dev-server.sh
 
       - run:
-        name: 'run server'
-        command: cd docker-scripts && ./run-dev-server.sh
+          name: 'run server'
+          command: cd docker-scripts && ./run-dev-server.sh
 
   build_client:
     docker:
