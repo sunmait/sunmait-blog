@@ -4,6 +4,13 @@
 #
 version: 2
 jobs:
+  run_database:
+    docker:
+    steps:
+      - checkout
+
+      - run: cd docker-scripts && ./run-dev-database.sh
+
   build:
     docker:
       # specify the version you desire here
@@ -20,8 +27,6 @@ jobs:
 
     steps:
       - checkout
-
-      - run: cd docker-scripts && ./run-dev-database.sh
 
       - restore_cache:
           keys:
