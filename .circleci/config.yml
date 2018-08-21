@@ -8,7 +8,6 @@ jobs:
     machine: true
     steps:
       - checkout
-
       - run:
           name: 'run database'
           command: cd docker-scripts && ./run-dev-database.sh
@@ -17,7 +16,6 @@ jobs:
     machine: true
     steps:
       - checkout
-
       - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
@@ -26,11 +24,9 @@ jobs:
     machine: true
     steps:
       - checkout
-
       - run:
           name: 'build server'
           command: cd docker-scripts && ./build-dev-server.sh
-
       - run:
           name: 'run server'
           command: cd docker-scripts && ./run-dev-server.sh
@@ -41,25 +37,20 @@ jobs:
         environment:
             ## this enables colors in the output
             TERM: xterm
-
     steps:
       - checkout
-
       - restore_cache:
           keys:
             - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
             - v1-sunmait-blog-cache-{{ .Branch }}-
             - v1-sunmait-blog-cache-
-
       - run: cd client && yarn
       - run: cd client && yarn start
-
       - save_cache:
           key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
           paths:
               - ~/.npm
               - ~/.cache
-
       - run: cd client && yarn e2e-ci
   run_e2e:
     docker:
@@ -77,8 +68,8 @@ workflows:
   version: 2
   run_server_and_test:
     jobs:
-      - run_database
-      - seed_database
-      - build_client
+      # - run_database
+      # - seed_database
+      # - build_client
       - run_server
-      - run_e2e
+      # - run_e2e
