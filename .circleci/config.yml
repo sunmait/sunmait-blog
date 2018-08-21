@@ -71,7 +71,7 @@ jobs:
     steps:
       - checkout
 
-      - run: cd client && yarn e2eci
+      - run: cd client && yarn e2e-ci
 
 workflows:
   version: 2
