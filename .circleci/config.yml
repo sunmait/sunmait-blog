@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: 8.11.4-alpine
+      - image: circleci/node:8.0.11
     steps:
       - checkout
       - run: apt-get install -y sudo
