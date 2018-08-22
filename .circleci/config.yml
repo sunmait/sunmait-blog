@@ -81,10 +81,11 @@ workflows:
   version: 1
   run_server_and_test:
     jobs:
+      - install_dockerise
       - run_database
       - seed_database
-        requires:
-          - install_dockerise
+          requires:
+            - install_dockerise
       # - build_client
-      - run_server
+      # - run_server
       # - run_e2e
