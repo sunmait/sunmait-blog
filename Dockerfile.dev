@@ -7,6 +7,7 @@ COPY server/API/package*.json ./API/
 COPY server/Data/package*.json ./Data/
 COPY server/Domain/package*.json ./Domain/
 
+RUN npm i -g tslint
 RUN npm run install-all
 RUN npm install -g pm2
 COPY server/. .
