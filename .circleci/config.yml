@@ -24,6 +24,7 @@ jobs:
       - run:
           name: 'run database'
           command: cd docker-scripts && ./run-dev-database.sh
+          background: true
       - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
