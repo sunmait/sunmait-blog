@@ -31,14 +31,20 @@ jobs:
       - run:
           name: 'run server'
           command: cd docker-scripts && ./run-dev-server.sh
+          background: true
 
       - restore_cache:
           keys:
             - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
             - v1-sunmait-blog-cache-{{ .Branch }}-
             - v1-sunmait-blog-cache-
-      - run: cd client && yarn
-      - run: cd client && yarn start
+      - run:
+          name: 'install client dependencies'
+          command: cd client && yarn
+      - run:
+          name: 'install client dependencies'
+          command: cd client && yarn start
+          background: true
       - save_cache:
           key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
           paths:
