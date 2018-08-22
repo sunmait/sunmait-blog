@@ -32,47 +32,6 @@ jobs:
           name: 'run server'
           command: cd docker-scripts && ./run-dev-server.sh
 
-  seed_database:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: 'seed database'
-          command: cd docker-scripts && ./seed-dev-server.sh
-
-  run_server:
-    docker:
-      - image: kstasevich/sunmait_blog:firsttry
-        environment:
-            ## this enables colors in the output
-            TERM: xterm
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - run:
-          name: 'build server'
-          command: cd docker-scripts && ./build-dev-server.sh && ./
-      - run:
-          name: 'azaza'
-          command: 'docker ps --all'
-      - run:
-          name: 'run server'
-          command: cd docker-scripts && ./run-dev-server.sh
-
-  build_client:
-    docker:
-      - image: cypress/base:8
-        environment:
-            ## this enables colors in the output
-            TERM: xterm
-    steps:
-      - checkout
       - restore_cache:
           keys:
             - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
@@ -86,6 +45,15 @@ jobs:
               - ~/.npm
               - ~/.cache
       - run: cd client && yarn e2e-ci
+  build_client:
+    docker:
+      - image: cypress/base:8
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
+    steps:
+      - checkout
+      
   run_e2e:
     docker:
       - image: cypress/base:8
@@ -103,7 +71,3 @@ workflows:
   run_server_and_test:
     jobs:
       - build
-      # - seed_database
-      # - build_client
-      # - run_server
-      # - run_e2e
