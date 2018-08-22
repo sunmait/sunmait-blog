@@ -31,6 +31,9 @@ jobs:
       - run:
           name: 'build server'
           command: cd docker-scripts && ./build-dev-server.sh
+      - run:
+          name: 'run server'
+          command: cd docker-scripts && ./run-dev-server.sh
 
   seed_database:
     machine: true
