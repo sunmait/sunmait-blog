@@ -83,7 +83,7 @@ workflows:
     jobs:
       - install_dockerise
       - run_database
-      - seed_database
+      - seed_database:
           requires:
             - install_dockerise
       # - build_client
