@@ -33,7 +33,7 @@ jobs:
             DOCKERIZE_VERSION: v0.3.0
       - run:
           name: 'wait db'
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+          command: dockerize -wait tcp://localhost:3307 -timeout 1m
       - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
