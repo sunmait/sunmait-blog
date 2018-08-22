@@ -10,7 +10,6 @@ services:
       - ./server/logs/:/logs/
     networks:
       - mynetwork
-    command: ls
   adminer:
     image: adminer
     restart: always
