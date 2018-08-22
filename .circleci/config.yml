@@ -42,7 +42,7 @@ jobs:
           command: cd docker-scripts && ./build-dev-server.sh
       - run:
           name: 'azaza'
-          command: 'docker ps'
+          command: 'docker ps --all'
       - run:
           name: 'run server'
           command: cd docker-scripts && ./run-dev-server.sh
