@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: mhart/alpine-node:8.11.4
+      - image: circleci/node:latest
     steps:
       - checkout
       - run: apt-get install -y sudo
