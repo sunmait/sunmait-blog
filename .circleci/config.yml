@@ -28,28 +28,28 @@ jobs:
       - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
-      # - run:
-      #     name: 'run server'
-      #     command: cd docker-scripts && ./run-dev-server.sh
-      #     background: true
+      - run:
+          name: 'run server'
+          command: cd docker-scripts && ./run-dev-server.sh
+          background: true
       # - restore_cache:
       #     keys:
       #       - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
       #       - v1-sunmait-blog-cache-{{ .Branch }}-
       #       - v1-sunmait-blog-cache-
-      # - run:
-      #     name: 'install client dependencies'
-      #     command: cd client && yarn
-      # - run:
-      #     name: 'run build client code'
-      #     command: cd client && yarn start
-      #     background: true
-      # - save_cache:
-      #     key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
-      #     paths:
-      #         - ~/.npm
-      #         - ~/.cache
-      # - run: cd client && yarn e2e-ci
+      - run:
+          name: 'install client dependencies'
+          command: cd client && yarn
+      - run:
+          name: 'run build client code'
+          command: cd client && yarn start
+          background: true
+      - save_cache:
+          key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
+          paths:
+              - ~/.npm
+              - ~/.cache
+      - run: cd client && yarn e2e-ci
 workflows:
   version: 2
   run_server_and_test:
