@@ -8,6 +8,9 @@ jobs:
     machine: true
     steps:
       - checkout
+      # - run:
+      #     name: 'wait db'
+      #     command: dockerize -wait tcp://localhost:3307 -timeout 1m
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
@@ -26,14 +29,6 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run:
-          name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-          environment:
-            DOCKERIZE_VERSION: v0.3.0
-      - run:
-          name: 'wait db'
-          command: dockerize -wait tcp://localhost:3307 -timeout 1m
       - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
