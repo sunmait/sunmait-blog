@@ -27,6 +27,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
           name: 'wait db'
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
@@ -81,11 +86,11 @@ workflows:
   version: 2
   run_server_and_test:
     jobs:
-      - install_dockerise
+      # - install_dockerise
       - run_database
-      - seed_database:
-          requires:
-            - install_dockerise
+      - seed_database
+          # requires:
+            # - install_dockerise
       # - build_client
       # - run_server
       # - run_e2e
