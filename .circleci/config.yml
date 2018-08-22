@@ -4,6 +4,16 @@
 #
 version: 2
 jobs:
+  install_dockerise:
+   machine: true
+    steps:
+      - checkout
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+
   run_database:
     machine: true
     steps:
@@ -73,6 +83,8 @@ workflows:
     jobs:
       - run_database
       - seed_database
+        requires:
+          - install_dockerise
       # - build_client
       - run_server
       # - run_e2e
