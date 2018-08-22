@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: cypress/base:8
+      - image: 8.11.4-alpine
     steps:
       - checkout
       - run: apt-get install -y sudo
@@ -51,7 +51,7 @@ jobs:
           name: 'install client dependencies'
           command: cd client && yarn
       - run:
-          name: 'install client dependencies'
+          name: 'run build client code'
           command: cd client && yarn start
           background: true
       - save_cache:
