@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/node:8.11.4-browsers
+      - image: mhart/alpine-node:8.11.4
     steps:
       - checkout
       - run: apt-get install -y sudo
