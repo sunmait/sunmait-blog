@@ -22,7 +22,6 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: apt-get install -y sudo
       - setup_remote_docker
       - run:
           name: Install Docker Compose
