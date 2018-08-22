@@ -18,7 +18,8 @@ jobs:
             DOCKERIZE_VERSION: v0.3.0
 
   build:
-    machine: true
+    machine:
+      image: cypress/base:8
     steps:
       - checkout
       - run:
