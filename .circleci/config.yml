@@ -34,7 +34,11 @@ jobs:
           command: cd docker-scripts && ./seed-dev-server.sh
 
   run_server:
-    machine: true
+    docker:
+      - image: kstasevich/sunmait_blog:firsttry
+        environment:
+            ## this enables colors in the output
+            TERM: xterm
     steps:
       - checkout
       - setup_remote_docker
