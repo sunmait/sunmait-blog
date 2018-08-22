@@ -13,8 +13,10 @@ export const getUsers = () => {
 };
 
 export const getUserById = userId => {
-  return getUsers()
-    .then(response => {
-      return response.body.find(i => i.id === userId);
-    });
+  return (
+    cy.request(`/api/users/${userId}`)
+      .then((response) => {
+        return response.body;
+      })
+  );
 };

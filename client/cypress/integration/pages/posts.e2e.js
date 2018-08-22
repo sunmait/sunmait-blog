@@ -1,5 +1,6 @@
 import { getPosts } from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
+import { searchPostsWithLongestName } from '../../testHelpers/postsSearchHelper';
 
 describe('Posts', () => {
   const testAmountOfPosts = (amount) => {
@@ -21,15 +22,7 @@ describe('Posts', () => {
       getPosts()
         .then(response => {
           const posts = response.body;
-          const longestName = posts.sort((a, b) => {
-            return b.Title.length - a.Title.length;
-          })[0].Title;
-
-          cy.get('form input[name=searchQuery]').type(longestName);
-
-          cy.get('.article__container .article__title').contains(longestName).should('be.visible');
-
-          testAmountOfPosts(1);
+          searchPostsWithLongestName(posts);
         });
     });
   });

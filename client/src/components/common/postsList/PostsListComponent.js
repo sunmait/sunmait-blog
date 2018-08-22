@@ -13,7 +13,7 @@ const PostsList = props => {
   if (posts && posts.length) {
     return (
       <React.Fragment>
-        <div className={bemClasses('searchbar')}>
+        <div className={bemClasses('searchbar')} data-cy={bemClasses('searchbar')}>
           <SearchBar />
         </div>
         <div className={bemClasses('container')}>

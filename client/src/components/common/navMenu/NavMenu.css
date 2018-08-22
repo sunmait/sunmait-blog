@@ -1,4 +1,4 @@
-.nav__container {
+.nav-container {
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -7,7 +7,7 @@
   text-align: center;
 }
 
-.nav__tab {
+.nav-container__tab {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@
   font-size: 1.6rem;
 }
 
-.nav__tab.active {
+.nav-container__tab.active {
   color: #2f80ed;
   border-bottom: 2px solid #2f80ed;
 }

@@ -5,10 +5,10 @@ import { getBEMClasses } from 'helpers//BEMHelper';
 import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
-import '../../../assets/styles/ProfilePage.css';
 import { Route } from 'react-router-dom';
 import PostsList from 'components/common/postsList';
 import NavMenu from 'components/common/navMenu';
+import '../../../assets/styles/ProfilePage.css';
 
 const userProfile = 'user-profile';
 const bemClasses = getBEMClasses([userProfile]);
@@ -16,9 +16,22 @@ const bemClasses = getBEMClasses([userProfile]);
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       openDialog: false,
     };
+
+    const { match } = props;
+    this.navTabs = [
+      {
+        text: 'Info',
+        url: match.url,
+      },
+      {
+        text: 'Posts',
+        url: `${match.url}/posts`,
+      },
+    ];
   }
 
   componentDidMount() {
@@ -59,28 +72,28 @@ class ProfilePage extends React.Component {
     this.props.history.push('/home');
   };
 
-  logout = () => {
-    const refToken = localStorage.getItem('RefreshToken');
-    this.props.logout(refToken);
-  };
-
   handleClose = event => {
     this.setState({
       openDialog: false,
     });
   };
 
-  renderProfileInfo() {
+  renderProfileHeader() {
     const { profile } = this.props;
 
     if (profile) {
       const fullName = `${profile.FirstName} ${profile.LastName}`;
 
       return (
-        <div className={bemClasses('profile-info-block')}>
+        <div className={bemClasses('header')} data-cy="header">
           <Helmet title={fullName} />
-          <Avatar alt="Username" src={this.props.profile.PhotoUrl} className={bemClasses('avatar')} />
-          <div>{fullName}</div>
+          <Avatar
+            alt="Username"
+            src={this.props.profile.PhotoUrl}
+            className={bemClasses('avatar')}
+            data-cy="header__avatar"
+          />
+          <div data-cy="header__name-surname">{fullName}</div>
         </div>
       );
     }
@@ -108,23 +121,13 @@ class ProfilePage extends React.Component {
 
   render = () => {
     const { match } = this.props;
-    const navTabs = [
-      {
-        text: 'Info',
-        url: `${match.url}`,
-      },
-      {
-        text: 'Posts',
-        url: `${match.url}/posts`,
-      },
-    ];
 
     return (
       <div className="content-wrapper">
         <div className="content">
-          {this.renderProfileInfo()}
-          <NavMenu tabs={navTabs} />
-          <Route exact path={`${match.url}`} render={() => this.renderProfileForm()} />
+          {this.renderProfileHeader()}
+          <NavMenu tabs={this.navTabs} />
+          <Route exact path={match.url} render={() => this.renderProfileForm()} />
           <Route
             path={`${match.url}/posts`}
             render={props => <PostsList {...props} posts={this.props.currentUserPosts} />}
