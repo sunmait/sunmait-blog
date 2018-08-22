@@ -22,6 +22,7 @@ jobs:
       - image: cypress/base:8
     steps:
       - checkout
+      - run: apt-get install -y sudo
       - run:
           name: Install Docker Compose
           command: |
