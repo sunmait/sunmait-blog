@@ -41,6 +41,9 @@ jobs:
           name: 'build server'
           command: cd docker-scripts && ./build-dev-server.sh
       - run:
+          name: 'azaza'
+          command: 'docker ps'
+      - run:
           name: 'run server'
           command: cd docker-scripts && ./run-dev-server.sh
 
