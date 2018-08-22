@@ -2,14 +2,8 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY server/package*.json ./
-COPY server/API/package*.json ./API/
-COPY server/Data/package*.json ./Data/
-COPY server/Domain/package*.json ./Domain/
-
-RUN npm run install-all
-
 COPY server/. .
+RUN npm run install-all
 
 COPY ./wait-for-db.sh .
 RUN ["chmod", "+x", "/app/wait-for-db.sh"]

@@ -8,7 +8,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: ls
     volumes:
       - ./server/:/server/
       - ./server/logs/:/logs/
