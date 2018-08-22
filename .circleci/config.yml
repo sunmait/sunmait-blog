@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/node:8.11-jessie-browsers
+      - image: circleci/node:8.11.4-browsers
     steps:
       - checkout
       - run: apt-get install -y sudo
