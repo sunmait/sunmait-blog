@@ -5,7 +5,7 @@
 version: 2
 jobs:
   install_dockerise:
-   machine: true
+    machine: true
     steps:
       - checkout
       - run:
