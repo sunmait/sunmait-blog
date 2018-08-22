@@ -24,6 +24,9 @@ jobs:
       - run:
           name: 'run database'
           command: cd docker-scripts && ./run-dev-database.sh
+      - run:
+          name: 'seed database'
+          command: cd docker-scripts && ./seed-dev-server.sh
 
   seed_database:
     machine: true
@@ -96,7 +99,7 @@ workflows:
   run_server_and_test:
     jobs:
       - run_database
-      - seed_database
-      - build_client
-      - run_server
+      # - seed_database
+      # - build_client
+      # - run_server
       # - run_e2e
