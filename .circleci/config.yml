@@ -17,6 +17,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: 'wait db'
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
           name: 'seed database'
           command: cd docker-scripts && ./seed-dev-server.sh
 
@@ -68,8 +71,8 @@ workflows:
   version: 2
   run_server_and_test:
     jobs:
-      # - run_database
-      # - seed_database
+      - run_database
+      - seed_database
       # - build_client
       - run_server
       # - run_e2e
