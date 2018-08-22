@@ -6,7 +6,7 @@ services:
       - 5000:3000
       - 49153:49153
     volumes:
-      - ./server/:/server/
+      # - ./server/:/server/
       - ./server/logs/:/logs/
     networks:
       - mynetwork
