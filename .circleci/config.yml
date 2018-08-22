@@ -37,9 +37,16 @@ jobs:
     machine: true
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: 'build server'
-          command: cd docker-scripts && ./build-dev-server.sh && ./run-dev-server.sh
+          command: cd docker-scripts && ./build-dev-server.sh && ./
+      - run:
+          name: 'azaza'
+          command: 'docker ps --all'
+      - run:
+          name: 'run server'
+          command: cd docker-scripts && ./run-dev-server.sh
 
   build_client:
     docker:
