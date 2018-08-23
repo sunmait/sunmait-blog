@@ -10,8 +10,6 @@ services:
       volumes:
         - "./dev.cnf:/etc/mysql/conf.d/my.cnf"
       container_name: devdb
-      networks:
-        - mynetwork
 
 networks:
   mynetwork:
