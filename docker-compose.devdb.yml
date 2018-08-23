@@ -5,7 +5,6 @@ services:
       environment:
           MYSQL_DATABASE: sunmait_blog_development
           MYSQL_ROOT_PASSWORD: password
-      command: rm -rf var/lib/mysql/tc.log
       ports:
         - 3307:3307
       volumes:
