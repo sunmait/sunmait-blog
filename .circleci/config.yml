@@ -11,6 +11,10 @@ jobs:
       - run:
           name: 'install yarn'
           command: npm i -g yarn
+      - run:
+          name: 'update nodejs'
+          command: sudo apt-get install -y nodejs
+      - run: node -v
       # - run:
       #     name: 'run database'
       #     command: cd docker-scripts && ./run-dev-database.sh
@@ -27,9 +31,9 @@ jobs:
       #       - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
       #       - v1-sunmait-blog-cache-{{ .Branch }}-
       #       - v1-sunmait-blog-cache-
-      - run:
-          name: 'install client dependencies'
-          command: cd client && yarn
+      # - run:
+      #     name: 'install client dependencies'
+      #     command: cd client && yarn
       # - run:
       #     name: 'run build client code'
       #     command: cd client && yarn start
