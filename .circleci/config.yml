@@ -16,17 +16,17 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      # - run:
-      #     name: 'run database'
-      #     command: cd docker-scripts && ./run-dev-database.sh
-      #     background: true
-      # - run:
-      #     name: 'seed database'
-      #     command: cd docker-scripts && ./seed-dev-server.sh
-      # - run:
-      #     name: 'run server'
-      #     command: cd docker-scripts && ./run-dev-server.sh
-      #     background: true
+      - run:
+          name: 'run database'
+          command: cd docker-scripts && ./run-dev-database.sh
+          background: true
+      - run:
+          name: 'seed database'
+          command: cd docker-scripts && ./seed-dev-server.sh
+      - run:
+          name: 'run server'
+          command: cd docker-scripts && ./run-dev-server.sh
+          background: true
       # - restore_cache:
       #     keys:
       #       - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
@@ -37,14 +37,14 @@ jobs:
           command: cd client && yarn
       - run:
           name: 'run build client code'
-          command: cd client && yarn start
+          command: cd client && npm start
           background: true
       # - save_cache:
       #     key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
       #     paths:
       #         - ~/.npm
       #         - ~/.cache
-      # - run: cd client && yarn e2e-ci
+      - run: cd client && yarn e2e-ci
 workflows:
   version: 2
   run_server_and_test:
