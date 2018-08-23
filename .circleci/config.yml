@@ -5,16 +5,17 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/node:latest
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: 'install yarn'
-          command: npm i -g yarn
-      - run:
-          name: 'update nodejs'
-          command: sudo apt-get install -y nodejs
-      - run: node -v
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       # - run:
       #     name: 'run database'
       #     command: cd docker-scripts && ./run-dev-database.sh
@@ -31,13 +32,13 @@ jobs:
       #       - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
       #       - v1-sunmait-blog-cache-{{ .Branch }}-
       #       - v1-sunmait-blog-cache-
-      # - run:
-      #     name: 'install client dependencies'
-      #     command: cd client && yarn
-      # - run:
-      #     name: 'run build client code'
-      #     command: cd client && yarn start
-      #     background: true
+      - run:
+          name: 'install client dependencies'
+          command: cd client && yarn
+      - run:
+          name: 'run build client code'
+          command: cd client && yarn start
+          background: true
       # - save_cache:
       #     key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
       #     paths:
