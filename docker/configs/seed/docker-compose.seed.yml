@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  dbseed:
+    build: 
+      context: .
+      dockerfile: docker/configs/seed/Dockerfile.seed
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.11.4
+      - image: circleci/node:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -17,34 +17,39 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
+          name: 'set executable permission to bash scripts'
+          command: chmod -R +x ./docker/scripts
+      - run:
+          name: 'build server container'
+          command: cd docker/scripts && ./build-ci-server.sh
+      - run:
           name: 'run database'
-          command: cd docker-scripts && ./run-dev-database.sh
+          command: cd docker/scripts && ./run-ci-database.sh
           background: true
       - run:
           name: 'seed database'
-          command: cd docker-scripts && ./seed-dev-server.sh
+          command: cd docker/scripts && ./seed-dev-server.sh
       - run:
           name: 'run server'
-          command: cd docker-scripts && ./run-dev-server.sh
+          command: cd docker/scripts && ./run-ci-server.sh
           background: true
-      # - restore_cache:
-      #     keys:
-      #       - v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
-      #       - v1-sunmait-blog-cache-{{ .Branch }}-
-      #       - v1-sunmait-blog-cache-
       - run:
-          name: 'install client dependencies'
-          command: cd client && yarn
+          name: 'wait running server'
+          command: sleep 30
       - run:
-          name: 'run build client code'
-          command: cd client && npm start
+          name: 'build client container'
+          command: cd docker/scripts && ./build-ci-client.sh
+      - run:
+          name: 'run client container'
+          command: cd docker/scripts && ./run-ci-client.sh
           background: true
-      # - save_cache:
-      #     key: v1-sunmait-blog-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
-      #     paths:
-      #         - ~/.npm
-      #         - ~/.cache
-      - run: cd client && yarn e2e-ci
+      - run:
+          name: 'wait running client'
+          command: sleep 30
+      - run:
+          name: 'run e2e tests'
+          command: docker exec -i -t ci-client yarn e2e-ci
+
 workflows:
   version: 2
   run_server_and_test:

@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  ci-client:
+    image: cypress/base:latest
+    build:
+      context: .
+      dockerfile: docker/configs/ci/Dockerfile.client
+    container_name: ci-client
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

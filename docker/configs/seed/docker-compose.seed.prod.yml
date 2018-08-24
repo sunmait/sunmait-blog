@@ -1,0 +1,12 @@
+version: '3.1'  
+services:
+  dbseed:
+    environment:
+      - NODE_ENV=production
+    command: ./wait-for-db.sh proddb:3306 -- npm run dbinit
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

@@ -1,0 +1,3 @@
+FROM mariadb:latest
+COPY docker/configs/dev.cnf /etc/mysql/conf.d/my.cnf
+CMD ["mysqld"]

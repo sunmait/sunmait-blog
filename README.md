@@ -4,7 +4,7 @@ Prerequisites:
   - Docker CE
   - docker-compose
 
-All necessary scripts are in docker-scripts folder. Here is example of usage for development configuration:
+All necessary scripts are in docker/scripts folder. Here is example of usage for development configuration:
   1. For the first time run **build-dev-server.sh** to build server.
   2. Run MySQL container with **run-dev-database.sh** script.
   3. In another terminal run **seed-dev-server.sh** script to apply migrations and seed database.

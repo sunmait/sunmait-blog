@@ -1,0 +1,9 @@
+FROM cypress/base:latest
+WORKDIR /client
+
+COPY client/. .
+RUN sed -i 's/\"proxy\": \"http:\/\/localhost:5000\/\"/\"proxy\": \"http:\/\/ci-server:3000\/\"/g' package.json
+
+RUN yarn
+
+CMD npm run start
