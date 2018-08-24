@@ -8,7 +8,6 @@ Also you need to have MySQL running on your local machine. MySQL server config f
 ```sh
 /API/config/default.example
 ```
-create your own 'default.json' with your data.
 Also you need to create a database with name "sunmait_blog_development".
 
 Installation all dependencies:

@@ -13,7 +13,7 @@ export class SettingsProvider implements ISettingsProvider {
     return config.get('secretKey');
   }
 
-  public getHostname(): string {
-    return config.get('hostname');
+  public getPort(): number {
+    return config.get('port');
   }
 }
