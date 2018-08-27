@@ -4,6 +4,7 @@ const defaultState = {
   profile: null,
   usersById: {},
   postsOfCurrentUser: [],
+  currentUserPostsFetchingStatus: true,
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -19,6 +20,9 @@ export default function(state = defaultState, { type, payload }) {
 
     case USER_CONSTANTS.GET_CURRENT_USER_POSTS:
       return handleGetCurrentUserPosts(state, payload);
+
+    case USER_CONSTANTS.SET_CURRENT_USER_POSTS_FETCHING_STATUS:
+      return setCurrentUserPostsFetchingStatus(state, payload);
 
     // case USER_CONSTANTS.CHANGE_PASSWORD::
     //   return handleAccessTokenExpired(state, payload);
@@ -50,5 +54,9 @@ function handleChange(state, updated) {
 }
 
 function handleGetCurrentUserPosts(state, postsOfCurrentUser) {
-  return { ...state, postsOfCurrentUser: postsOfCurrentUser };
+  return { ...state, postsOfCurrentUser, currentUserPostsFetchingStatus: false };
+}
+
+function setCurrentUserPostsFetchingStatus(state, isFetching) {
+  return { ...state, currentUserPostsFetchingStatus: isFetching };
 }

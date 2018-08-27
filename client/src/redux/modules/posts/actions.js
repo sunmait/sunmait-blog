@@ -1,4 +1,5 @@
 import { SAGAS_POSTS_CONSTANTS } from 'sagas/posts/constants';
+import { POSTS_CONSTANTS } from './constants';
 
 export const getPosts = () => {
   return {
@@ -77,5 +78,12 @@ export const deletePost = id => {
   return {
     type: SAGAS_POSTS_CONSTANTS.DELETE_POST,
     payload: { postId: id },
+  };
+};
+
+export const setPostsFetchingStatus = isFetching => {
+  return {
+    type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS,
+    payload: isFetching,
   };
 };

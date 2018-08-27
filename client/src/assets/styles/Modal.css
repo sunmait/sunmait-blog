@@ -1,6 +1,7 @@
 @import './theme/variables.css';
 
 .modal > div {
+  overflow: hidden;
   min-width: 32rem;
 }
 

@@ -1,1 +1,1 @@
-export { default } from './PostsListComponent';
+export { default } from './PostsListContainer';

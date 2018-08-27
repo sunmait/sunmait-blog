@@ -2,6 +2,7 @@ import { POSTS_CONSTANTS } from './constants';
 
 const defaultState = {
   posts: [],
+  postsFetchingStatus: true,
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -18,6 +19,9 @@ export default function(state = defaultState, { type, payload }) {
     case POSTS_CONSTANTS.DELETE_POST:
       return handleDeletePost(state, payload);
 
+    case POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS:
+      return handleSetPostsFetchingStatus(state, payload);
+
     default:
       return state;
   }
@@ -32,5 +36,9 @@ function handleUpdatedPosts(state, updatedPosts) {
 }
 
 function handlePosts(state, posts) {
-  return { ...state, posts };
+  return { ...state, posts, postsFetchingStatus: false };
+}
+
+function handleSetPostsFetchingStatus(state, isFetching) {
+  return { ...state, postsFetchingStatus: isFetching };
 }

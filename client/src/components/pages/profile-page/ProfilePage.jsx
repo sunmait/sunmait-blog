@@ -8,6 +8,7 @@ import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
 import { Route } from 'react-router-dom';
 import PostsList from 'components/common/postsList';
 import NavMenu from 'components/common/navMenu';
+import Loader from 'components/common/loader';
 import '../../../assets/styles/ProfilePage.css';
 
 const userProfile = 'user-profile';
@@ -37,6 +38,10 @@ class ProfilePage extends React.Component {
   componentDidMount() {
     this.reloadProfile(this.props);
     this.props.getCurrentUserPosts(this.props.match.params.userId);
+  }
+
+  componentWillUnmount() {
+    this.props.setCurrentUserPostsFetchingStatus(true);
   }
 
   componentWillReceiveProps(newProps) {
@@ -123,15 +128,21 @@ class ProfilePage extends React.Component {
     const { match } = this.props;
 
     return (
-      <div className="content-wrapper">
+      <div className="content-wrapper content-wrapper--with-grey-background">
         <div className="content">
-          {this.renderProfileHeader()}
-          <NavMenu tabs={this.navTabs} />
-          <Route exact path={match.url} render={() => this.renderProfileForm()} />
-          <Route
-            path={`${match.url}/posts`}
-            render={props => <PostsList {...props} posts={this.props.currentUserPosts} />}
-          />
+          {this.props.currentUserPostsFetchingStatus ? (
+            <Loader />
+          ) : (
+            <React.Fragment>
+              {this.renderProfileHeader()}
+              <NavMenu tabs={this.navTabs} />
+              <Route exact path={match.url} render={() => this.renderProfileForm()} />
+              <Route
+                path={`${match.url}/posts`}
+                render={props => <PostsList {...props} posts={this.props.currentUserPosts} />}
+              />
+            </React.Fragment>
+          )}
         </div>
       </div>
     );
@@ -141,6 +152,7 @@ class ProfilePage extends React.Component {
 ProfilePage.propTypes = {
   updateUser: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
+  setCurrentUserPostsFetchingStatus: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;
