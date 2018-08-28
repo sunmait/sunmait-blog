@@ -1,7 +1,6 @@
 ﻿import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-
 import { container } from './infrastructure/di/Container';
 import { DbContext } from '../Data/DbContext';
 import ErrorHandler from './middlewares/ErrorHandler';
@@ -16,12 +15,17 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
     await dbContext.connect();
 
     const app = express();
+    const STATIC_PATH = path.join(__dirname, '../../client/build');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    app.use('/', express.static(path.join(__dirname, '../../client/build')));
+    app.use(express.static(STATIC_PATH));
 
     app.use('/api', api);
+
+    app.get('*', (_req: express.Request, res: express.Response) => {
+      res.sendFile(`${STATIC_PATH}/index.html`);
+    });
 
     app.use(ErrorHandler);
 
