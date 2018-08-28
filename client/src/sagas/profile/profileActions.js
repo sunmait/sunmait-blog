@@ -25,7 +25,11 @@ function* changeUser(payload) {
   const Login = payload.payload.Login;
   const Password = payload.payload.Password;
   try {
-    const res = yield axios.post('/api/auth', { Login, Password });
+    const res = yield axios.post('/api/auth', {
+      headers: {
+      'Authorization': `Bearer ${localStorage.AccessToken}`
+      }
+    }, { Login, Password });
     yield put({ type: AUTH_CONSTANTS.LOGIN, payload: res.data });
     const FirstName = payload.payload.changedUser.name;
     const userId = payload.payload.changedUser.id;

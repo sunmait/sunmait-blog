@@ -18,6 +18,10 @@ function* addPost(payload) {
     Description: payload.payload.description,
     ImageUrl: payload.payload.imageUrl,
     UserId,
+  }, {
+    headers: {
+    'Authorization': `Bearer ${localStorage.AccessToken}`
+    }
   });
   yield put({ type: POSTS_CONSTANTS.ADD_POST, payload: res.data });
 }
@@ -73,6 +77,10 @@ function* updatePost(payload) {
     Description: payload.payload.description,
     ImageUrl: payload.payload.imageUrl,
     idPost: payload.payload.idPost,
+  }, {
+    headers: {
+    'Authorization': `Bearer ${localStorage.AccessToken}`
+    }
   });
 
   const posts = [...(yield select(state => state.posts.posts))];
@@ -92,7 +100,11 @@ function* updatePost(payload) {
 
 function* deletePost(payload) {
   const idPost = payload.payload.postId;
-  const res = yield axios.delete(`/api/posts/${idPost}`, idPost);
+  const res = yield axios.delete(`/api/posts/${idPost}`, {
+    headers: {
+    'Authorization': `Bearer ${localStorage.AccessToken}`
+    }
+  }, idPost);
   yield put({ type: POSTS_CONSTANTS.DELETE_POST, payload: res.data });
 }
 
