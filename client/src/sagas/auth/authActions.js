@@ -39,7 +39,11 @@ function* login(payload) {
 
 function* logout(payload) {
   const refToken = payload.payload.refreshToken;
-  yield axios.delete(`/api/auth/${refToken}`);
+  yield axios.delete(`/api/auth/${refToken}`, {
+    headers: {
+    'Authorization': `Bearer ${localStorage.AccessToken}`
+    }
+  });
   localStorage.clear();
   yield put({ type: AUTH_CONSTANTS.LOGOUT });
 }
