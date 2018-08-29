@@ -3,6 +3,8 @@ import { IPostService } from '../IPostService';
 import PostEntity from '../../../Data/Entities/PostEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
 import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
+import PostsTagEntity from '../../../Data/Entities/PostsTagEntity';
+import TagEntity from '../../../Data/Entities/TagEntity';
 import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositories/index';
 
 @injectable()
@@ -21,7 +23,23 @@ export class PostService implements IPostService {
     const options: any = {
       include: [
         { model: UserEntity, attributes: ['FirstName', 'LastName'] },
-        { model: PostLikesEntity, attributes: ['UserId'] },
+        {
+          model: PostLikesEntity,
+          include: [
+            {
+              model: UserEntity,
+              attributes: ['id', 'FirstName', 'LastName', 'PhotoUrl'],
+            },
+          ],
+        },
+        {
+          model: PostsTagEntity,
+          include: [
+            {
+              model: TagEntity,
+            },
+          ],
+        },
       ],
     };
     const count = parseInt(countStr, 10);
@@ -34,18 +52,42 @@ export class PostService implements IPostService {
       options.offset = offset;
     }
 
-    return this._postRepository.findAll(options);
+    const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
+    return posts.map(post => {
+      post.Tags = post.Tags.map(tag => tag.Tag);
+      post.Likes = post.Likes.map(like => like.UserInfo);
+      return post;
+    });
   }
 
   public async getPostById(id: number): Promise<PostEntity> {
-    const post = await this._postRepository.findOne({
+    const options: any = {
       where: { id },
       include: [
         { model: UserEntity, attributes: ['FirstName', 'LastName'] },
-        { model: PostLikesEntity, attributes: ['UserId'] },
+        {
+          model: PostLikesEntity,
+          include: [
+            {
+              model: UserEntity,
+              attributes: ['id', 'FirstName', 'LastName', 'PhotoUrl'],
+            },
+          ],
+        },
+        {
+          model: PostsTagEntity,
+          include: [
+            {
+              model: TagEntity,
+            },
+          ],
+        },
       ],
-    });
+    };
+    const post = (await this._postRepository.findOne(options)).get({ plain: true });
     if (post) {
+      post.Tags = post.Tags.map(tag => tag.Tag);
+      post.Likes = post.Likes.map(like => like.UserInfo);
       return post;
     } else {
       throw { status: 404, message: 'Not found' };

@@ -1,4 +1,14 @@
-import { Table, Column, Model, DataType, AllowNull, ForeignKey, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  AllowNull,
+  ForeignKey,
+  PrimaryKey,
+  AutoIncrement,
+  BelongsTo,
+} from 'sequelize-typescript';
 
 import PostEntity from './PostEntity';
 import UserEntity from './UserEntity';
@@ -20,4 +30,7 @@ export default class PostLikesEntity extends Model<PostLikesEntity> {
   @AllowNull(false)
   @Column(DataType.INTEGER)
   public UserId: number;
+
+  @BelongsTo(() => UserEntity)
+  public UserInfo: UserEntity;
 }

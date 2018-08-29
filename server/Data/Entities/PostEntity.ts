@@ -17,6 +17,7 @@ import {
 
 import UserEntity from './UserEntity';
 import PostLikesEntity from './PostLikesEntity';
+import PostsTagEntity from './PostsTagEntity';
 
 @Table({ tableName: 'Posts' })
 export default class PostEntity extends Model<PostEntity> {
@@ -62,4 +63,7 @@ export default class PostEntity extends Model<PostEntity> {
 
   @HasMany(() => PostLikesEntity)
   public Likes: PostLikesEntity[];
+
+  @HasMany(() => PostsTagEntity)
+  public Tags: PostsTagEntity[];
 }

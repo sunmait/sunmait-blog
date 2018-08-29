@@ -25,6 +25,16 @@ module.exports = {
           PostId: 4,
           TagId: 4,
         },
+        {
+          id: 5,
+          PostId: 1,
+          TagId: 2,
+        },
+        {
+          id: 6,
+          PostId: 1,
+          TagId: 3,
+        },
       ],
       {}
     );

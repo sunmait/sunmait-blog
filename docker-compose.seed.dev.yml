@@ -6,7 +6,7 @@ services:
     command: ./wait-for-db.sh devdb:3307 -- npm run dbinit
     networks:
       - mynetwork
-
+ 
 networks:
   mynetwork:
     driver: bridge
