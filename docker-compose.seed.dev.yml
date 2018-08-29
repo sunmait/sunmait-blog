@@ -4,7 +4,9 @@ services:
     environment:
       - NODE_ENV=development
     command: ./wait-for-db.sh devdb:3307 -- npm run dbinit
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:
-     driver: bridge
+    driver: bridge
