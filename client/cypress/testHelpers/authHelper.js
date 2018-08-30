@@ -29,3 +29,9 @@ export const testUserIsLoggedIn = () => {
   expect(user).to.not.eq(null);
 };
 
+export const userAuthorization = () => {
+  cy.get('[data-cy=login-btn]').click();
+  cy.get('[data-cy=login-modal] input[name=login]').type(user.Login);
+  cy.get('[data-cy=login-modal] input[name=password]').type(user.Password);
+  cy.get('[data-cy=login-modal] button[type=submit]').click();
+};

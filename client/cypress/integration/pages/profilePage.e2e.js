@@ -1,6 +1,6 @@
-import { getPostsByUserId } from '../../testHelpers/postHelper';
+import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
-import { searchPostsWithLongestName } from '../../testHelpers/postsSearchHelper';
+import { userAuthorization } from '../../testHelpers/authHelper';
 
 describe('Profile page', () => {
   describe('Profile that does not belong to current user', () => {
@@ -69,7 +69,29 @@ describe('Profile page', () => {
   });
 
   describe('Profile that belongs to current user', () => {
+    it('Profile posts list should be updated on switching to posts of logged-in user', () => {
+      // Motivation: https://trello.com/c/nEKpgMVq/79-user-posts-loading-issue
 
+      cy.visit('/');
+      userAuthorization();
+
+      cy.visit('/profile/1/posts');
+
+      cy.get('header [data-cy=avatar]').click();
+      cy.get('[data-cy=user-menu] li').contains('My posts').click();
+
+      getUserById(3)
+        .then((user) => {
+          getPostsByUserId(3)
+            .then((postsOfSelectedUser) => {
+              cy.get('.article__container [data-cy=post-author]').should('have.length', postsOfSelectedUser.length)
+                .each(span => {
+                  cy.wrap(span).contains(user.FirstName);
+                });
+            })
+        });
+      checkingCorrectTabIsActive('Posts');
+    });
   });
 });
 

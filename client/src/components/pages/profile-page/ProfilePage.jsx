@@ -21,23 +21,10 @@ class ProfilePage extends React.Component {
     this.state = {
       openDialog: false,
     };
-
-    const { match } = props;
-    this.navTabs = [
-      {
-        text: 'Info',
-        url: match.url,
-      },
-      {
-        text: 'Posts',
-        url: `${match.url}/posts`,
-      },
-    ];
   }
 
   componentDidMount() {
     this.reloadProfile(this.props);
-    this.props.getCurrentUserPosts(this.props.match.params.userId);
   }
 
   componentWillUnmount() {
@@ -51,7 +38,8 @@ class ProfilePage extends React.Component {
   }
 
   reloadProfile = props => {
-    this.props.getUser(props.match.params.userId);
+    props.getUser(props.match.params.userId);
+    props.getCurrentUserPosts(props.match.params.userId);
   };
 
   handleSubmitChanges = () => {
@@ -126,6 +114,16 @@ class ProfilePage extends React.Component {
 
   render = () => {
     const { match } = this.props;
+    const navTabs = [
+      {
+        text: 'Info',
+        url: match.url,
+      },
+      {
+        text: 'Posts',
+        url: `${match.url}/posts`,
+      },
+    ];
 
     return (
       <div className="content-wrapper content-wrapper--with-grey-background">
@@ -135,7 +133,7 @@ class ProfilePage extends React.Component {
           ) : (
             <React.Fragment>
               {this.renderProfileHeader()}
-              <NavMenu tabs={this.navTabs} />
+              <NavMenu tabs={navTabs} />
               <Route exact path={match.url} render={() => this.renderProfileForm()} />
               <Route
                 path={`${match.url}/posts`}

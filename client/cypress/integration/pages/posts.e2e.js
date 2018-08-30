@@ -1,6 +1,5 @@
-import { getPosts } from '../../testHelpers/postHelper';
+import { getPosts, searchPostsWithLongestName } from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
-import { searchPostsWithLongestName } from '../../testHelpers/postsSearchHelper';
 
 describe('Posts', () => {
   const testAmountOfPosts = (amount) => {
