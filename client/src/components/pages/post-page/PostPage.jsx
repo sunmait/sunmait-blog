@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
+import PostDeleteModal from 'components/containers/post-delete-modal/index.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
 import { getBEMClasses } from 'helpers//BEMHelper';
@@ -16,14 +17,28 @@ const article = 'article';
 const bemClasses = getBEMClasses([article]);
 
 class PostPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getPosts();
   }
 
-  handleDeletePost() {
-    this.props.deletePost(this.props.selectedPost.id);
-    this.props.history.push('/home');
-  }
+  handleOpenModal = event => {
+    this.setState({
+      isModalOpen: true,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
 
   renderEditButtons() {
     const {
@@ -39,9 +54,14 @@ class PostPage extends React.Component {
               <Edit />
             </IconButton>
           </Link>
-          <IconButton aria-label="delete" data-cy="delete-post-button" onClick={() => this.handleDeletePost()}>
+          <IconButton aria-label="delete" data-cy="delete-post-button" onClick={this.handleOpenModal}>
             <DeleteIcon />
           </IconButton>
+          <PostDeleteModal
+            isOpen={this.state.isModalOpen}
+            handleClose={this.handleCloseModal}
+            selectedPost={this.props.selectedPost}
+          />
         </div>
       );
     }
@@ -139,7 +159,6 @@ class PostPage extends React.Component {
 }
 PostPage.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
   selectedPost: PropTypes.object,
   user: PropTypes.object.isRequired,
   users: PropTypes.object.isRequired,
