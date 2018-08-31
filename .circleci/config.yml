@@ -16,39 +16,89 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
       - run:
-          name: 'set executable permission to bash scripts'
+          name: 'Set executable permission to bash scripts'
           command: chmod -R +x ./docker/scripts
       - run:
-          name: 'build server container'
-          command: cd docker/scripts && ./build-ci-server.sh
+          name: 'Creating cache directories'
+          command: |
+            mkdir -p ./.npm-server
+            mkdir -p ./.cache-client/npm
+            mkdir -p ./.cache-client/modules
+
+      - restore_cache:
+          name: 'Restoring server cache'
+          keys:
+            - vt1-sunmait-blog-server-cache-{{ .Branch }}-{{ checksum "server/package-lock.json" }}
+            - vt1-sunmait-blog-server-cache-{{ .Branch }}-
+            - vt1-sunmait-blog-server-cache-
       - run:
-          name: 'run database'
+          name: 'Build server container'
+          command: cd docker/scripts && ./build-ci-server.sh
+
+      - restore_cache:
+          name: 'Restoring client cache'
+          keys:
+            - vt1-sunmait-blog-client-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}
+            - vt1-sunmait-blog-client-cache-{{ .Branch }}-
+            - vt1-sunmait-blog-client-cache-
+      - run:
+          name: 'Build client container'
+          command: cd docker/scripts && ./build-ci-client.sh
+
+      - run:
+          name: 'Run database'
           command: cd docker/scripts && ./run-ci-database.sh
           background: true
       - run:
-          name: 'seed database'
+          name: 'Seed database'
           command: cd docker/scripts && ./seed-dev-server.sh
       - run:
-          name: 'run server'
+          name: 'Run server'
           command: cd docker/scripts && ./run-ci-server.sh
           background: true
       - run:
-          name: 'wait running server'
-          command: sleep 30
-      - run:
-          name: 'build client container'
-          command: cd docker/scripts && ./build-ci-client.sh
-      - run:
-          name: 'run client container'
+          name: 'Run client container'
           command: cd docker/scripts && ./run-ci-client.sh
           background: true
       - run:
-          name: 'wait running client'
+          name: 'Wait running client and server'
           command: sleep 30
       - run:
-          name: 'run e2e tests'
+          name: 'Run e2e tests'
           command: docker exec -i -t ci-client yarn e2e-ci
+      - run:
+          name: 'Copy cypress info'
+          command: docker cp ci-client:/client/cypress ./cypress
+          when: always
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: 'Copy client cache'
+          command: |
+            rm -rf ./.cache-client/npm
+            rm -rf ./.cache-client/modules
+            docker cp ci-client:/root/.npm ./.cache-client/npm
+            docker cp ci-client:/client/node_modules ./.cache-client/modules
+      - save_cache:
+          name: 'Saving client cache'
+          key: vt1-sunmait-blog-client-cache-{{ .Branch }}-{{ checksum "client/package-lock.json" }}-{{ .BuildNum }}
+          paths:
+            - ./.cache-client
+      - run:
+          name: 'Copy server cache'
+          command: |
+            rm -rf ./.npm-server
+            docker cp ci-server:/root/.npm ./.npm-server
+      - save_cache:
+          name: 'Saving server cache'
+          key: vt1-sunmait-blog-server-cache-{{ .Branch }}-{{ checksum "server/package-lock.json" }}-{{ .BuildNum }}
+          paths:
+            - ./.npm-server
 
 workflows:
   version: 2

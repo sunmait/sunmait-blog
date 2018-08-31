@@ -2,8 +2,11 @@ FROM cypress/base:latest
 WORKDIR /client
 
 COPY client/. .
+ADD ./.cache-client/npm/. /root/.npm/
+ADD ./.cache-client/modules/. /client/node_modules/
+RUN npm cache verify
 RUN sed -i 's/\"proxy\": \"http:\/\/localhost:5000\/\"/\"proxy\": \"http:\/\/ci-server:3000\/\"/g' package.json
 
-RUN yarn
+RUN npm ci
 
 CMD npm run start

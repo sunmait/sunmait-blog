@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   devdb:
-    image: mariadb
+    image: ci-db
     environment:
       MYSQL_DATABASE: sunmait_blog_development
       MYSQL_ROOT_PASSWORD: password
