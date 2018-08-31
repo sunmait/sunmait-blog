@@ -34,3 +34,7 @@
   margin-top: 2.4rem;
   align-self: flex-end;
 }
+
+.modal-form button:first-child {
+  margin-right: 10px;
+}
