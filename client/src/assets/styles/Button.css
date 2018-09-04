@@ -1,6 +1,7 @@
 @import './theme/variables.css';
 
 .custom-button {
+  cursor: pointer;
   border: var(--secondary-border);
   border-color: var(--primary-border-color);
   border-radius: var(--default-border-radius);
@@ -12,6 +13,7 @@
   cursor: pointer;
 }
 .custom-button:disabled {
+  cursor: default;
   opacity: 0.6;
   cursor: not-allowed;
 }

@@ -17,29 +17,17 @@ class EditPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      widgetPositionStart: 0,
       widgetPadding: 0,
       isRowEmpty: this.props.initialValues.Description.length === 0,
     };
-    this.widgetRef = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setState({ widgetPositionStart: this.widgetRef.current.offsetTop + 16 });
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.initialValues !== this.props.initialValues) {
-      this.setState({ isRowEmpty: newProps.initialValues.Description.length === 0 });
-    }
   }
 
   getCaretParams = (caretPosition, isRowEmpty) => {
-    const { widgetPositionStart } = this.state;
-    if (widgetPositionStart !== 0) {
-      const widgetPadding = caretPosition - widgetPositionStart;
-      this.setState({ widgetPadding: widgetPadding, isRowEmpty: isRowEmpty });
-    }
+    const widgetPadding = caretPosition;
+    this.setState({
+      widgetPadding,
+      isRowEmpty,
+    });
   };
 
   render() {
@@ -50,7 +38,7 @@ class EditPost extends React.Component {
     return (
       <form onSubmit={handleSubmit} className={bemClasses()}>
         <Helmet title={pageTitle} />
-        <div className={bemClasses('title-container')}>
+        <div className={bemClasses('title-container')} data-cy="title-container">
           <InputWithPlaceholder
             customClass={bemClasses('title')}
             name="Title"
@@ -61,11 +49,9 @@ class EditPost extends React.Component {
             <LoadPostImage />
           </div>
         </div>
-        <div className={bemClasses('divider')} />
-        <div className={bemClasses('description-container')} id="description-container">
-          <div className={bemClasses('add-button')} ref={this.widgetRef}>
-            {isRowEmpty && <MediaWidget paddingTop={widgetPadding} />}
-          </div>
+        <div className={bemClasses('divider')} data-cy="divider" />
+        <div className={bemClasses('description-container')} id="description-container" data-cy="description-container">
+          <div className={bemClasses('add-button')}>{isRowEmpty && <MediaWidget paddingTop={widgetPadding} />}</div>
           <Textarea
             customClass={bemClasses('textarea')}
             name="Description"
@@ -76,7 +62,7 @@ class EditPost extends React.Component {
           />
         </div>
         <div className={bemClasses('publish-post-button')}>
-          <Button as="button" buttonColor="primary" type="submit" disabled={!valid}>
+          <Button as="button" buttonColor="primary" type="submit" disabled={!valid} data-cy="publish-post-button">
             {label}
           </Button>
         </div>

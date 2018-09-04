@@ -115,7 +115,7 @@ class MediaWidget extends React.Component {
 
   render() {
     return (
-      <div className={bemClasses()} style={{ top: this.props.paddingTop }}>
+      <div className={bemClasses()} style={{ top: this.props.paddingTop }} data-cy={bemClasses()}>
         {this.renderMenu()}
         <IconButton aria-label="open-widgets" onClick={this.handleOpenWidgets}>
           <AddCircleOutline />

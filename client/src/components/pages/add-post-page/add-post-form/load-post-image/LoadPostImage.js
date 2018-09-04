@@ -46,7 +46,7 @@ class LoadPostImage extends React.Component {
           {this.state.isLoading && <CircularProgress size={20} thickness={4} />}
         </div>
         <input type="file" id="fileElem" accept="image/*" style={{ display: 'none' }} onChange={this.handleFiles} />
-        <Button as="button" onClick={this.handleFileLoad}>
+        <Button as="button" onClick={this.handleFileLoad} data-cy="load-image-button">
           Load image
         </Button>
       </div>

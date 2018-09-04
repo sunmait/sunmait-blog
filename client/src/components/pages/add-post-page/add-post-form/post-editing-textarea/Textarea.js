@@ -2,47 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
-import findCaretYPosition from 'helpers//findCaretYPosition';
-import checkIfRowIsEmpty from 'helpers//checkIfRowIsEmpty';
+import { checkIfRowIsEmpty, findCaretYPosition } from 'helpers//addPostHelper';
 
 const baseClass = 'textarea-component';
 
 class TextareaComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.textareaRef = React.createRef();
   }
 
   customOnBlur = e => {
     this.props.input.onBlur(e);
-    this.setParams(e, this.textareaRef);
+    this.setParams(e);
   };
 
-  customOnKeyUp = e => {
+  onArrowsKeysUp = e => {
     if (e.keyCode >= 37 && e.keyCode <= 40) {
-      this.setParams(e, this.textareaRef);
+      this.setParams(e);
     }
   };
 
   customOnClick = e => {
-    this.setParams(e, this.textareaRef);
+    this.setParams(e);
   };
 
   customOnChange = e => {
     this.props.input.onChange(e);
-    this.setParams(e, this.textareaRef);
+    this.setParams(e);
   };
 
   customOnScroll = e => {
-    this.setParams(e, this.textareaRef);
+    this.setParams(e);
   };
 
-  setParams = (event, textareaRef) => {
+  setParams = event => {
     const start = event.target.selectionStart;
     const end = event.target.selectionEnd;
 
     this.props.setSelectionValues(start, end);
-    this.props.getCaretParams(findCaretYPosition(textareaRef, event.target), checkIfRowIsEmpty(event.target, start));
+    this.props.getCaretParams(findCaretYPosition(event.target), checkIfRowIsEmpty(event.target, start));
   };
 
   render() {
@@ -57,9 +55,8 @@ class TextareaComponent extends React.Component {
         onBlur={this.customOnBlur}
         onClick={this.customOnClick}
         onChange={this.customOnChange}
-        onKeyUp={this.customOnKeyUp}
+        onKeyUp={this.onArrowsKeysUp}
         onScroll={this.customOnScroll}
-        ref={this.textareaRef}
       />
     );
   }

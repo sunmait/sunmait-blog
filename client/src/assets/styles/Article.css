@@ -63,7 +63,7 @@
   margin-bottom: 3rem;
 }
 .article__description {
-  word-break: break-all;
+  text-align: justify;
 }
 .article__container--full p {
   margin: 1.5rem 0;

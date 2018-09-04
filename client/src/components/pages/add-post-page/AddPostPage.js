@@ -8,13 +8,33 @@ const editPost = 'add-post';
 const bemClasses = getBEMClasses([editPost]);
 
 class AddPostPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      postId: null,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { postId } = props.match.params;
+
+    if (postId !== state.postId) {
+      return {
+        postId: postId === undefined ? null : Number(postId),
+      };
+    }
+
+    return null;
+  }
+
   componentDidMount() {
     this.props.getPosts();
   }
 
   updatePost() {
     const { Title, Description, ImageUrl } = this.props.editPostValues;
-    const postId = this.props.match.params.postId;
+    const postId = this.state.postId;
 
     this.props.updatePost(Title, Description, ImageUrl, postId);
     this.props.history.push(`/post/${postId}`);
@@ -34,15 +54,18 @@ class AddPostPage extends React.Component {
     return this.addPost();
   };
 
-  render() {
-    const postId = Number(this.props.match.params.postId);
+  defineEditingOrCreationOfPost(postId) {
+    if (postId) return 'Update post';
+    return 'Publish post';
+  }
 
+  render() {
     return (
       <div className="content">
         <div className={bemClasses()}>
           <AddPostFormContainer
-            label={postId ? ' Update post' : 'Publish post'}
-            postId={postId}
+            label={this.defineEditingOrCreationOfPost(this.state.postId)}
+            postId={this.state.postId}
             onSubmit={this.handleSubmit}
           />
         </div>
