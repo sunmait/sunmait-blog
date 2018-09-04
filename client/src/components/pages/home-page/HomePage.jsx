@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PostsList from 'components/common/postsList';
-import Loader from 'components/common/loader';
+import PostsList from '../../containers/postsList';
+import Loader from '../../common/loader';
 
 class HomePage extends React.Component {
   componentDidMount() {

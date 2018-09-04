@@ -9,6 +9,7 @@
   font-size: var(--font-size--sm);
   outline: none;
   transition: all 0.2s;
+  cursor: pointer;
 }
 .custom-button:disabled {
   opacity: 0.6;
@@ -24,4 +25,8 @@
 .custom-button.primary {
   background: var(--secondary-background);
   color: var(--color-for-secondary-background);
+}
+.custom-button.primary:hover {
+  background: var(--color-for-secondary-background);
+  color: var(--secondary-background);
 }

@@ -10,6 +10,10 @@ const Button = props => {
 
 Button.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  buttonColor: PropTypes.oneOf([
+    'primary',
+    'default',
+  ]),
 };
 
 Button.defaultProps = {

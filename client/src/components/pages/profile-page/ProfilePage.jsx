@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
 import { Route } from 'react-router-dom';
-import PostsList from 'components/common/postsList';
+import PostsList from '../../containers/postsList';
 import NavMenu from 'components/common/navMenu';
 import Loader from 'components/common/loader';
 import '../../../assets/styles/ProfilePage.css';
