@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Footer from 'components/common/footer/index.jsx';
-import HeaderContainer from 'components/common/header/HeaderContainer';
+import HeaderContainer from '../header/HeaderContainer';
 
 const App = props => {
   return (

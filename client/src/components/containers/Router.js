@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from './history';
-import App from '../app/index.jsx';
+import App from './app/index.jsx';
 import HomePage from '../pages/home-page/index.jsx';
 import ProfilePage from '../pages/profile-page/index.jsx';
 import AddPostPage from '../pages/add-post-page/index.jsx';
