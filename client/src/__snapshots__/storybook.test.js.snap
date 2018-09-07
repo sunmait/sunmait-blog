@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Button as link 1`] = `
+<a
+  href="#"
+>
+  link
+</a>
+`;
+
+exports[`Storyshots Button default button 1`] = `
+<button
+  className="custom-button default"
+  onClick={[Function]}
+>
+  Hello Text
+</button>
+`;
+
+exports[`Storyshots Button disabled 1`] = `
+<button
+  className="custom-button default"
+  disabled={true}
+  onClick={[Function]}
+>
+  Hello Text
+</button>
+`;
+
+exports[`Storyshots Button primary button 1`] = `
+<button
+  className="custom-button primary"
+  onClick={[Function]}
+>
+  Hello Text
+</button>
+`;
+
+exports[`Storyshots Button with custom content 1`] = `
+<button
+  className="custom-button default"
+  onClick={[Function]}
+>
+  <span
+    aria-label="so cool"
+    role="img"
+  >
+    😀 😎 👍 💯
+  </span>
+</button>
+`;
