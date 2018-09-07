@@ -4,14 +4,14 @@ import { action } from '@storybook/addon-actions';
 import Button from '../../src/components/common/button/Button';
 
 storiesOf('Button', module)
-  .add('with custom content', () => (
+  .add('With custom content', () => (
     <Button
       onClick={action('clicked')}
     >
       <span role="img" aria-label="so cool">😀 😎 👍 💯</span>
     </Button>
   ))
-  .add('default button', () => (
+  .add('Default button', () => (
     <Button
       onClick={action('clicked')}
       buttonColor="default"
@@ -19,7 +19,7 @@ storiesOf('Button', module)
       Hello Text
     </Button>
   ))
-  .add('primary button', () => (
+  .add('Primary button', () => (
     <Button
       onClick={action('clicked')}
       buttonColor="primary"
@@ -27,7 +27,7 @@ storiesOf('Button', module)
       Hello Text
     </Button>
   ))
-  .add('disabled', () => (
+  .add('Disabled', () => (
     <Button
       onClick={action('clicked')}
       disabled
@@ -35,7 +35,7 @@ storiesOf('Button', module)
       Hello Text
     </Button>
   ))
-  .add('as link', () => (
+  .add('As link', () => (
     <Button
       onClick={action('clicked')}
       as={props => <a href="#">link</a>}
