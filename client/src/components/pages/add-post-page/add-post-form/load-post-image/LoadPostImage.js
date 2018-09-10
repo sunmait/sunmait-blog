@@ -32,6 +32,7 @@ class LoadPostImage extends React.Component {
   };
 
   handleFiles = e => {
+    if (!e.target.files[0]) return;
     const file = e.target.files[0];
 
     this.setState({ isLoading: true });
