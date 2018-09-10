@@ -14,9 +14,23 @@ describe('Post page', () => {
           cy.get('[data-cy=post-image]')
             .then((elemWithImg) => {
               expect(
-                elemWithImg[0].style.backgroundImage.includes(firstPost.ImageUrl)
+                elemWithImg[0].src.includes(firstPost.ImageUrl)
               ).to.eq(true);
-            }).should('be.visible');
+            }).should('be.visible'); 
+
+          cy.log('main post image width should be the full width of the screen on different screen resolutions');
+          const viewPortWidthValues = [449, 501, 551, 761, 851, 1301];
+
+          viewPortWidthValues.forEach(width => {
+            cy.viewport(width, 900);
+
+            cy.document().then(doc => {
+              const imgWidth = parseInt(Cypress.$('.article__main-post-page-image').css("width"));
+
+              expect(doc.documentElement.clientWidth)
+                .to.eq(imgWidth);
+            });
+          });
 
           cy.log('post should have title');
           cy.get('[data-cy=post-title]')

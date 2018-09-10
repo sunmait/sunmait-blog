@@ -93,10 +93,14 @@ class MediaWidget extends React.Component {
         }}
       >
         <ul className={bemClasses('menu-items')}>
-          <MenuItem onClick={this.handleClickInsertImage}>
+          <MenuItem onClick={this.handleClickInsertImage} data-cy="img-url-hidden-input-open-btn">
             <Image color={imageButtonColor} />
           </MenuItem>
-          <div className={bemClasses('menu-item-hidden-input')} style={{ width: imageInputWidth }}>
+          <div
+            className={bemClasses('menu-item-hidden-input')}
+            style={{ width: imageInputWidth }}
+            data-cy="menu-item-hidden-input"
+          >
             <InputWithPlaceholder name="insertImageUrl" placeholder="Enter image url" autoComplete="off" />
           </div>
           <MenuItem onClick={this.handleClickInsertVideo}>

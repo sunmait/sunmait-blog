@@ -52,7 +52,7 @@ class Post extends React.Component {
     return (
       <React.Fragment>
         <Link to={`/post/${id}`}>
-          <div className={bemClasses('main-post-image')} style={{ backgroundImage: `url(${ImageUrl})` }} />
+          <div className={bemClasses('main-post-preview-image')} style={{ backgroundImage: `url(${ImageUrl})` }} />
         </Link>
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>

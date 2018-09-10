@@ -102,11 +102,6 @@ class PostPage extends React.Component {
     return (
       <React.Fragment>
         {this.renderPageMeta()}
-        <div
-          className={bemClasses('main-post-image')}
-          data-cy="post-image"
-          style={{ backgroundImage: `url(${ImageUrl})` }}
-        />
         <div className={bemClasses('post-content')}>
           <div className={bemClasses('header')}>
             <div className={bemClasses('title')} data-cy="post-title">
@@ -126,10 +121,15 @@ class PostPage extends React.Component {
 
   render() {
     if (this.props.selectedPost) {
+      const { ImageUrl } = this.props.selectedPost;
+
       return (
-        <div className="content">
-          <div className={bemClasses('container', 'full')} data-cy="article-container">
-            {this.renderArticleBody()}
+        <div className="content-wrapper">
+          <img className={bemClasses('main-post-page-image')} src={`${ImageUrl}`} data-cy="post-image" />
+          <div className="content">
+            <div className={bemClasses('container', 'full')} data-cy="article-container">
+              {this.renderArticleBody()}
+            </div>
           </div>
         </div>
       );

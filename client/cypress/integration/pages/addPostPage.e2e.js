@@ -20,6 +20,23 @@ describe('Add post page', () => {
       cy.log(`Add media widget button should be on the same level as the carriage`);
       checkAddMediaWidgetButtonYPosition();
     });
+
+    it('Position of media inserted by add media widget button', () => {
+      cy.log('Media should be inserted on line where carriage was at the time of insertion, without adding empty lines');
+      // This test was motivated by earlier insert behaviour, when media was inserted with two empty lines above and below media itself
+
+      cy.get('[data-cy=description-container]').find('textarea').type('fewletters\n');
+      cy.get('[data-cy=add-post-media-widget]').click();
+      cy.get('[data-cy=img-url-hidden-input-open-btn]').click();
+      cy.get('[data-cy=menu-item-hidden-input]').find('input').type('https://nonExistentFakeUrl.com/nonExistent.jpg');
+      cy.get('[data-cy=img-url-hidden-input-open-btn]').click();
+
+      cy.get('[data-cy=description-container]').find('textarea')
+        .then(txtArea => {
+          const text = txtArea[0].value;
+          expect(text.match(/\n/g).length).to.equal(1);
+        })
+    });
   });
 
   describe('Edit existing post', () => {

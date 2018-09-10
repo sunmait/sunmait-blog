@@ -54,7 +54,7 @@ describe('Posts', () => {
           /* ----------------------------------------- */
           cy.log('post should have image');
           getPostByTitle(firstPost.Title)
-            .find('.article__main-post-image')
+            .find('.article__main-post-preview-image')
             .then((a) => {
               expect(
                 a[0].style.backgroundImage.includes(firstPost.ImageUrl)
