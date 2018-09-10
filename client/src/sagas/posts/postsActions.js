@@ -13,16 +13,20 @@ function* getPosts() {
 
 function* addPost(payload) {
   const UserId = JSON.parse(localStorage.getItem('User')).id;
-  const res = yield axios.post('/api/posts', {
-    Title: payload.payload.title,
-    Description: payload.payload.description,
-    ImageUrl: payload.payload.imageUrl,
-    UserId,
-  }, {
-    headers: {
-    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
+  const res = yield axios.post(
+    '/api/posts',
+    {
+      Title: payload.payload.title,
+      Description: payload.payload.description,
+      ImageUrl: payload.payload.imageUrl,
+      UserId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+      },
     }
-  });
+  );
   yield put({ type: POSTS_CONSTANTS.ADD_POST, payload: res.data });
 }
 
@@ -40,7 +44,7 @@ function* setTextareaSelectionValues(payload) {
 function* insertDivider(payload) {
   const postFormValues = { ...(yield select(state => state.form.post.values)) };
   const { textareaSelectionStart, textareaSelectionEnd, Description } = postFormValues;
-  const insertedMedia = `\n\n<hr />\n\n`;
+  const insertedMedia = `<hr />`;
   const newDecsription =
     Description.slice(0, textareaSelectionStart) + insertedMedia + Description.slice(textareaSelectionEnd + 1);
 
@@ -50,7 +54,7 @@ function* insertDivider(payload) {
 function* insertImage(payload) {
   const postFormValues = { ...(yield select(state => state.form.post.values)) };
   const { textareaSelectionStart, textareaSelectionEnd, Description } = postFormValues;
-  const insertedMedia = `\n\n<image src="${payload.payload.url}" />\n\n`;
+  const insertedMedia = `<image src="${payload.payload.url}" />`;
   const newDecsription =
     Description.slice(0, textareaSelectionStart) + insertedMedia + Description.slice(textareaSelectionEnd + 1);
 
@@ -61,9 +65,9 @@ function* insertImage(payload) {
 function* insertVideo(payload) {
   const postFormValues = { ...(yield select(state => state.form.post.values)) };
   const { textareaSelectionStart, textareaSelectionEnd, Description } = postFormValues;
-  const insertedMedia = `\n\n<iframe width="560" height="315" src="https://www.youtube.com/embed/${getYoutubeId(
+  const insertedMedia = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${getYoutubeId(
     payload.payload.url
-  )}" frameborder="0" allowfullscreen></iframe>\n\n`;
+  )}" frameborder="0" allowfullscreen></iframe>`;
   const newDecsription =
     Description.slice(0, textareaSelectionStart) + insertedMedia + Description.slice(textareaSelectionEnd + 1);
 
@@ -72,16 +76,20 @@ function* insertVideo(payload) {
 }
 
 function* updatePost(payload) {
-  const res = yield axios.patch('/api/posts', {
-    Title: payload.payload.title,
-    Description: payload.payload.description,
-    ImageUrl: payload.payload.imageUrl,
-    idPost: payload.payload.idPost,
-  }, {
-    headers: {
-    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
+  const res = yield axios.patch(
+    '/api/posts',
+    {
+      Title: payload.payload.title,
+      Description: payload.payload.description,
+      ImageUrl: payload.payload.imageUrl,
+      idPost: payload.payload.idPost,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+      },
     }
-  });
+  );
 
   const posts = [...(yield select(state => state.posts.posts))];
   const post = res.data;
@@ -100,11 +108,15 @@ function* updatePost(payload) {
 
 function* deletePost(payload) {
   const idPost = payload.payload.postId;
-  const res = yield axios.delete(`/api/posts/${idPost}`, {
-    headers: {
-    'Authorization': `Bearer ${localStorage.getItem('AccessToken')}`
-    }
-  }, idPost);
+  const res = yield axios.delete(
+    `/api/posts/${idPost}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+      },
+    },
+    idPost
+  );
   yield put({ type: POSTS_CONSTANTS.DELETE_POST, payload: res.data });
 }
 
