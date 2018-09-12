@@ -61,10 +61,12 @@ class Header extends React.Component {
               Create new post
             </Button>
           </div>
-          <div className={bemClasses('user-info')} onClick={this.handleOpenMenu}>
-            {`${this.props.user.FirstName} ${this.props.user.LastName}`}
+          <div className={bemClasses('user-info-wrapper')} onClick={this.handleOpenMenu}>
+            <div className={bemClasses('user-info-name')}>
+              {`${this.props.user.FirstName} ${this.props.user.LastName}`}
+            </div>
+            <Avatar alt="Username" src={this.props.user.PhotoUrl} data-cy="avatar" />
           </div>
-          <Avatar alt="Username" src={this.props.user.PhotoUrl} onClick={this.handleOpenMenu} data-cy="avatar" />
         </div>
         <Menu
           isOpen={this.state.isMenuOpen}
