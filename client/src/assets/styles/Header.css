@@ -11,10 +11,14 @@ header {
   z-index: 2;
 }
 .header--for-authorised {
-  cursor: pointer;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.header__user-info-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 .header__logo {
   height: 4rem;
@@ -25,7 +29,7 @@ header {
 .header__create-button {
   padding-right: 4rem;
 }
-.header__user-info {
+.header__user-info-name {
   padding-right: 1.6rem;
 }
 
@@ -48,7 +52,7 @@ header {
   header {
     padding: 0 1rem;
   }
-  .header__user-info {
+  .header__user-info-name {
     padding-right: 0.5rem;
   }
 }

@@ -69,46 +69,66 @@ describe('Header', () => {
       const openMenu = () => {
         cy.get(avatarSelector).click();
       };
-  
+
       it('should open user popover menu by click on avatar', () => {
         cy.get(avatarSelector).click();
         cy.get('[data-cy=user-menu]').should('be.visible');
       });
-  
+
       it('should open user popover menu by click on full name', () => {
         const fullName = getUserFullName();
-  
+
         cy.get('header').contains(fullName).click();
         cy.get('[data-cy=user-menu]').should('be.visible');
       });
-  
+
+      it('popover menu X position should be the same on avatar and full name clicks', () => {
+        const fullName = getUserFullName();
+
+        cy.get(avatarSelector).click();
+        cy.get('[data-cy=user-menu]')
+          .then(menu => {
+            const popMenuXCoordinateOnAvatarClick = menu[0].getBoundingClientRect().x;
+
+            cy.get('[data-cy=user-menu]').parent().parent().click();
+            cy.get('header').contains(fullName).click();
+
+            cy.get('[data-cy=user-menu]')
+              .then(menu => {
+                const popMenuXCoordinateOnFullNameClick = menu[0].getBoundingClientRect().x;
+
+                expect(popMenuXCoordinateOnAvatarClick).to.eq(popMenuXCoordinateOnFullNameClick);
+              });
+          });
+      });
+
       it('user menu should have `Profile` item that lead to Profile page', () => {
         openMenu();
-  
+
         cy.get('[data-cy=user-menu] li').contains('Profile').click();
-  
+
         cy.location().should(a => {
           const userData = getAuthorizedUser();
           expect(a.pathname).to.eq(`/profile/${userData.id}`);
         });
       });
-  
+
       it('user menu should have `My Posts` item that lead to user`s posts page', () => {
         openMenu();
-  
+
         cy.get('[data-cy=user-menu] li').contains('My posts').click();
-  
+
         cy.location().should(a => {
           const userData = getAuthorizedUser();
           expect(a.pathname).to.eq(`/profile/${userData.id}/posts`);
         });
       });
-  
+
       it('user menu should have `Log Out` item that does log out', () => {
         openMenu();
-  
+
         cy.get('[data-cy=user-menu] li').contains('Log Out').click();
-  
+
         cy.get('[data-cy=login-btn]').should('be.visible');
         cy.get('.header--for-authorised').should('not.be.visible')
           .then(testUserIsLoggedOut);
