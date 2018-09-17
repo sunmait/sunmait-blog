@@ -1,6 +1,6 @@
 import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
-import { userAuthorization } from '../../testHelpers/authHelper';
+import { setLoginState } from '../../testHelpers/authHelper';
 
 describe('Profile page', () => {
   describe('Profile that does not belong to current user', () => {
@@ -69,11 +69,14 @@ describe('Profile page', () => {
   });
 
   describe('Profile that belongs to current user', () => {
+    beforeEach(() => {
+      setLoginState();
+      cy.visit('/profile/3');
+    });
+
+
     it('Profile posts list should be updated on switching to posts of logged-in user', () => {
       // Motivation: https://trello.com/c/nEKpgMVq/79-user-posts-loading-issue
-
-      cy.visit('/');
-      userAuthorization();
 
       cy.visit('/profile/1/posts');
 
@@ -91,6 +94,35 @@ describe('Profile page', () => {
             })
         });
       checkingCorrectTabIsActive('Posts');
+    });
+
+    describe('Info tab', () => {
+      it(`Profile info 'Save' and 'Reset' buttons behaviour`, () => {
+
+        cy.log(`'Save' and 'Reset' buttons should be disabled while no fields are edited`);
+        cy.get('[data-cy=user-profile-form__save-btn]').should('be.disabled');
+        cy.get('[data-cy=user-profile-form__reset-btn]').should('be.disabled');
+
+        cy.get('[data-cy=user-profile-form]').find('input').each(input => {
+          const initialInputVal = input[0].value;
+
+          cy.log(`'Save' and 'Reset' buttons should not be disabled when at least one field is changed`);
+          cy.wrap(input).type('abc');
+          cy.get('[data-cy=user-profile-form__save-btn]').should('not.be.disabled');
+          cy.get('[data-cy=user-profile-form__reset-btn]').should('not.be.disabled');
+
+          cy.log(`'Reset' button should return fields input values to the initial`);
+          cy.get('[data-cy=user-profile-form__reset-btn]').click();
+          cy.wrap(input).should('have.value', initialInputVal);
+          
+          cy.log(`'Save' button should be disabled when fileds input values are invalid`);
+          cy.wrap(input).clear().type('A');
+          cy.get('[data-cy=user-profile-form__save-btn]').should('be.disabled');
+          cy.get('[data-cy=user-profile-form__reset-btn]').should('not.be.disabled');
+          
+          cy.get('[data-cy=user-profile-form__reset-btn]').click();
+        });
+      });
     });
   });
 });
