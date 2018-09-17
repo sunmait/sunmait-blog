@@ -8,16 +8,27 @@ const userProfile = 'user-profile-form';
 const bemClasses = getBEMClasses([userProfile]);
 
 const UserInfoForm = props => {
-  const { valid, handleSubmit } = props;
+  const { invalid, pristine, handleSubmit, reset } = props;
+  const isDisabled = pristine || invalid;
 
   return (
-    <form className={bemClasses()} onSubmit={handleSubmit}>
+    <form className={bemClasses()} onSubmit={handleSubmit} data-cy={bemClasses()}>
       <InputWithLabel name="FirstName" placeholder="Name" />
       <InputWithLabel name="LastName" placeholder="Second name" />
       <InputWithLabel name="Login" placeholder="Login" />
-      <div className={bemClasses('save-button')}>
-        <Button as="button" buttonColor="primary" type="submit" disabled={!valid}>
-          Save changes
+      <div className={bemClasses('buttons-wrapper')} disabled={isDisabled}>
+        <Button as="button" buttonColor="primary" type="submit" disabled={isDisabled} data-cy={bemClasses('save-btn')}>
+          Save
+        </Button>
+        <Button
+          as="button"
+          buttonColor="primary"
+          type="button"
+          onClick={reset}
+          disabled={pristine}
+          data-cy={bemClasses('reset-btn')}
+        >
+          Reset
         </Button>
       </div>
     </form>
