@@ -50,11 +50,8 @@ export class UserService implements IUserService {
 
   public async updateUser(id: number, data: any): Promise<UserEntity> {
     const user = await this._userRepository.findById(id);
-    user.PhotoUrl = data.PhotoUrl;
     user.FirstName = data.FirstName;
     user.LastName = data.LastName;
-    user.Login = data.Login;
-    user.id = data.id;
 
     return this._userRepository.update(user);
   }

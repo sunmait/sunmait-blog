@@ -1,6 +1,7 @@
 import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/postHelper';
-import { getUserById } from '../../testHelpers/userHelper';
+import { getUserById, getUserFullName } from '../../testHelpers/userHelper';
 import { setLoginState } from '../../testHelpers/authHelper';
+import user from '../../fixtures/userToLogin.json';
 
 describe('Profile page', () => {
   describe('Profile that does not belong to current user', () => {
@@ -107,7 +108,7 @@ describe('Profile page', () => {
           const initialInputVal = input[0].value;
 
           cy.log(`'Save' and 'Reset' buttons should not be disabled when at least one field is changed`);
-          cy.wrap(input).type('abc');
+          cy.wrap(input).type('str');
           cy.get('[data-cy=user-profile-form__save-btn]').should('not.be.disabled');
           cy.get('[data-cy=user-profile-form__reset-btn]').should('not.be.disabled');
 
@@ -123,6 +124,25 @@ describe('Profile page', () => {
           cy.get('[data-cy=user-profile-form__reset-btn]').click();
         });
       });
+
+      it(`User info should be editable`, () => {
+        const userFullName = getUserFullName();
+        const [userFirstName, userLastName] = userFullName.split(' '); 
+        const str = 'str';
+
+        cy.get('[data-cy=user-profile-form]').find('input').each(input => {
+          cy.wrap(input).type(str);
+        });
+
+        cy.get('[data-cy=user-profile-form__save-btn]').click();
+        cy.get('[data-cy=modal-form]').find('input').type(user.Password);
+        cy.get('[data-cy=modal-form]').find('[data-cy=confirm-btn]').click();
+
+        cy.get('[data-cy=user-profile-form]').find('input').eq(0).should('have.value', userFirstName+str);
+        cy.get('[data-cy=user-profile-form]').find('input').eq(1).should('have.value', userLastName+str);
+        cy.get('[data-cy=user-profile__header-name-surname]').should('have.text', `${userFirstName}str ${userLastName}str`)
+        cy.get('[data-cy=header__user-info-name]').should('have.text', `${userFirstName}str ${userLastName}str`);
+      });
     });
   });
 });
@@ -132,7 +152,7 @@ function checkingProfileHeader(user) {
   cy.get('[data-cy=header__avatar]').should('be.visible').find('img').should('have.attr', 'src', `${user.PhotoUrl}`);
 
   cy.log('profile header should have user name and surname');
-  cy.get('[data-cy=header__name-surname]').should('be.visible').contains(`${user.FirstName} ${user.LastName}`);
+  cy.get('[data-cy=user-profile__header-name-surname]').should('be.visible').should('have.text', `${user.FirstName} ${user.LastName}`);
 }
 
 function checkingProfileNavigationMenu() {

@@ -1,0 +1,13 @@
+.input {
+  width: 50%;
+  border-radius: 20px;
+  border-width: 3px;
+  min-height: 25px;
+  padding: 5px;
+}
+
+.textarea {
+  resize: none;
+  width: 40%;
+  height: 20rem;
+}

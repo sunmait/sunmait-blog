@@ -15,7 +15,6 @@
 .custom-button:disabled {
   cursor: default;
   opacity: 0.6;
-  cursor: not-allowed;
 }
 .custom-button.default {
   background: var(--primary-background);
@@ -25,7 +24,8 @@
   background: var(--secondary-background);
   color: var(--color-for-secondary-background);
 }
-.custom-button.primary {
+.custom-button.primary,
+.custom-button.primary:disabled:hover {
   background: var(--secondary-background);
   color: var(--color-for-secondary-background);
 }

@@ -14,10 +14,10 @@ export const getUsers = () => {
   };
 };
 
-export const updateUser = payload => {
+export const updateUser = updatedUserData => {
   return {
     type: SAGAS_PROFILE_CONSTANTS.CHANGE_USER,
-    payload: payload,
+    updatedUserData,
   };
 };
 

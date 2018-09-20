@@ -49,20 +49,17 @@ class ProfilePage extends React.Component {
   };
 
   change = () => {
-    const { userFormValues, confirmFormValues, user } = this.props;
+    const { userFormValues, user } = this.props;
     const updatedUserData = {
-      Login: user.Login,
-      Password: confirmFormValues,
+      id: user.id,
       changedUser: {
-        id: user.id,
         name: userFormValues.FirstName,
         secondName: userFormValues.LastName,
-        login: userFormValues.Login,
       },
     };
 
     this.props.updateUser(updatedUserData);
-    this.props.history.push('/home');
+    this.handleClose();
   };
 
   handleClose = event => {
@@ -86,7 +83,7 @@ class ProfilePage extends React.Component {
             className={bemClasses('avatar')}
             data-cy="header__avatar"
           />
-          <div data-cy="header__name-surname">{fullName}</div>
+          <div data-cy={bemClasses('header-name-surname')}>{fullName}</div>
         </div>
       );
     }

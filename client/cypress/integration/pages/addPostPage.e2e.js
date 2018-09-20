@@ -1,10 +1,10 @@
-import { userAuthorization } from '../../testHelpers/authHelper';
+import { setLoginState } from '../../testHelpers/authHelper';
 
 describe('Add post page', () => {
   describe('Create new post', () => {
     beforeEach(() => {
+      setLoginState();
       cy.visit('/');
-      userAuthorization();
       cy.get('header [data-cy=create-post]').click();
     });
 

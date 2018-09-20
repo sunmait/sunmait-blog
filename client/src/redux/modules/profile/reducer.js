@@ -46,11 +46,15 @@ function handleGetUser(state, selectedUser) {
 }
 
 function handleChange(state, updated) {
-  const updatedUserById = { ...state.usersById, [updated.id]: updated.FirstName };
-  return Object.assign({}, state, {
+  const { FirstName, LastName } = updated;
+  const updatedUserById = { ...state.usersById, [updated.id]: FirstName };
+  const updatedProfile = { ...state.profile, FirstName, LastName };
+
+  return {
+    ...state,
     usersById: updatedUserById,
-    profile: null,
-  });
+    profile: updatedProfile,
+  };
 }
 
 function handleGetCurrentUserPosts(state, postsOfCurrentUser) {

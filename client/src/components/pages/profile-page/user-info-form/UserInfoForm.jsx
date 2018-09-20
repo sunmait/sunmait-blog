@@ -15,7 +15,6 @@ const UserInfoForm = props => {
     <form className={bemClasses()} onSubmit={handleSubmit} data-cy={bemClasses()}>
       <InputWithLabel name="FirstName" placeholder="Name" />
       <InputWithLabel name="LastName" placeholder="Second name" />
-      <InputWithLabel name="Login" placeholder="Login" />
       <div className={bemClasses('buttons-wrapper')} disabled={isDisabled}>
         <Button as="button" buttonColor="primary" type="submit" disabled={isDisabled} data-cy={bemClasses('save-btn')}>
           Save

@@ -78,15 +78,16 @@ export class AuthService implements IAuthService {
     if (accessToken && refreshToken) {
       try {
         const payload = jwt.verify(accessToken, this._secretKey) as IUserDecodedFromToken;
+        const user = await this._userRepository.findById(payload.id);
         return {
           AccessToken: accessToken,
           RefreshToken: refreshToken,
           Data: {
-            id: payload.id,
-            FirstName: payload.FirstName,
-            LastName: payload.LastName,
-            PhotoUrl: payload.PhotoUrl,
-            Login: payload.Login,
+            id: user.id,
+            FirstName: user.FirstName,
+            LastName: user.LastName,
+            PhotoUrl: user.PhotoUrl,
+            Login: user.Login,
           },
         };
       } catch (err) {

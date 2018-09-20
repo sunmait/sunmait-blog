@@ -24,6 +24,9 @@ export default function(state = defaultState, action) {
     case AUTH_CONSTANTS.CREDENTIALS_CHECKED:
       return handleCredentialsChecked(state);
 
+    case AUTH_CONSTANTS.CHANGE:
+      return handleChange(state, action.payload);
+
     default:
       return state;
   }
@@ -59,5 +62,15 @@ function handleCredentialsChecked(state) {
   return {
     ...state,
     isCredentialsChecked: true,
+  };
+}
+
+function handleChange(state, updated) {
+  const { FirstName, LastName } = updated;
+  const updatedUser = { ...state.user, FirstName, LastName };
+
+  return {
+    ...state,
+    user: updatedUser,
   };
 }

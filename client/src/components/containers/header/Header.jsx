@@ -62,7 +62,7 @@ class Header extends React.Component {
             </Button>
           </div>
           <div className={bemClasses('user-info-wrapper')} onClick={this.handleOpenMenu}>
-            <div className={bemClasses('user-info-name')}>
+            <div className={bemClasses('user-info-name')} data-cy={bemClasses('user-info-name')}>
               {`${this.props.user.FirstName} ${this.props.user.LastName}`}
             </div>
             <Avatar alt="Username" src={this.props.user.PhotoUrl} data-cy="avatar" />

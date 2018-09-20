@@ -117,7 +117,7 @@ class PostPage extends React.Component {
   }
 
   renderArticleBody() {
-    const { Title, Description, ImageUrl } = this.props.selectedPost;
+    const { Title, Description } = this.props.selectedPost;
 
     return (
       <React.Fragment>
@@ -145,7 +145,12 @@ class PostPage extends React.Component {
 
       return (
         <div className="content-wrapper">
-          <img className={bemClasses('main-post-page-image')} src={`${ImageUrl}`} data-cy="post-image" />
+          <img
+            className={bemClasses('main-post-page-image')}
+            src={`${ImageUrl}`}
+            alt="main post illustration"
+            data-cy="post-image"
+          />
           <div className="content">
             <div className={bemClasses('container', 'full')} data-cy="article-container">
               {this.renderArticleBody()}

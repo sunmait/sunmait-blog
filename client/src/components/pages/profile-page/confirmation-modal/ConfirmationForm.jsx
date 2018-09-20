@@ -12,10 +12,10 @@ const ConfirmationForm = props => {
   const { valid, handleSubmit } = props;
 
   return (
-    <form className={bemClasses()} onSubmit={handleSubmit}>
+    <form className={bemClasses()} onSubmit={handleSubmit} data-cy={bemClasses()}>
       <InputWithLabel type="password" name="password" placeholder="Enter password" />
       <div className={bemClasses('action-button')}>
-        <Button as="button" buttonColor="primary" type="submit" disabled={!valid}>
+        <Button as="button" buttonColor="primary" type="submit" disabled={!valid} data-cy="confirm-btn">
           Change
         </Button>
       </div>

@@ -7,10 +7,6 @@ import { checkIfRowIsEmpty, findCaretYPosition } from 'helpers//addPostHelper';
 const baseClass = 'textarea-component';
 
 class TextareaComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   customOnBlur = e => {
     this.props.input.onBlur(e);
     this.setParams(e);
