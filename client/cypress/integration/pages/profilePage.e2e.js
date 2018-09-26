@@ -1,7 +1,6 @@
 import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/postHelper';
 import { getUserById, getUserFullName } from '../../testHelpers/userHelper';
 import { setLoginState } from '../../testHelpers/authHelper';
-import user from '../../fixtures/userToLogin.json';
 
 describe('Profile page', () => {
   describe('Profile that does not belong to current user', () => {
@@ -135,8 +134,7 @@ describe('Profile page', () => {
         });
 
         cy.get('[data-cy=user-profile-form__save-btn]').click();
-        cy.get('[data-cy=modal-form]').find('input').type(user.Password);
-        cy.get('[data-cy=modal-form]').find('[data-cy=confirm-btn]').click();
+        cy.get('[data-cy=confirm-btn]').click();
 
         cy.get('[data-cy=user-profile-form]').find('input').eq(0).should('have.value', userFirstName+str);
         cy.get('[data-cy=user-profile-form]').find('input').eq(1).should('have.value', userLastName+str);

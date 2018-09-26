@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { getPosts } from 'redux/modules/posts/actions';
+import { getPosts, deletePost } from 'redux/modules/posts/actions';
 import PostPage from './PostPage.jsx';
 
 const mapStateToProps = (state, props) => {
@@ -15,6 +15,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
   getPosts,
+  deletePost,
 };
 
 export default withRouter(

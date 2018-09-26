@@ -4,7 +4,7 @@ import Avatar from 'material-ui/Avatar';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { Helmet } from 'react-helmet';
 import UserInfoForm from './user-info-form/index.jsx';
-import ConfirmationModal from './confirmation-modal/ConfirmationModal.jsx';
+import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import { Route } from 'react-router-dom';
 import PostsList from '../../containers/postsList';
 import NavMenu from 'components/common/navMenu';
@@ -99,9 +99,10 @@ class ProfilePage extends React.Component {
         <React.Fragment>
           <UserInfoForm onSubmit={this.handleSubmitChanges} />
           <ConfirmationModal
-            openDialog={this.state.openDialog}
+            isOpen={this.state.openDialog}
             handleClose={this.handleClose}
             handleSubmit={this.change}
+            modalTitle="Confirm changes"
           />
         </React.Fragment>
       );

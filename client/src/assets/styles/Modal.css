@@ -30,11 +30,12 @@
   font-size: 1rem !important;
 }
 
-.modal-form__action-button {
+.modal-form__action-button,
+.modal__action-buttons {
   margin-top: 2.4rem;
   align-self: flex-end;
 }
 
-.modal-form button:first-child {
+.modal__action-buttons button:first-child {
   margin-right: 10px;
 }

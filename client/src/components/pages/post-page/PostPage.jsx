@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
-import PostDeleteModal from 'components/containers/post-delete-modal/index.jsx';
+import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
 import { getBEMClasses } from 'helpers//BEMHelper';
@@ -40,6 +40,12 @@ class PostPage extends React.Component {
     });
   };
 
+  handleSubmitModal = () => {
+    this.props.deletePost(this.props.selectedPost.id);
+    this.props.history.push('/home');
+    this.handleCloseModal();
+  };
+
   renderEditButtons() {
     const {
       user,
@@ -57,10 +63,11 @@ class PostPage extends React.Component {
           <IconButton aria-label="delete" data-cy="delete-post-button" onClick={this.handleOpenModal}>
             <DeleteIcon />
           </IconButton>
-          <PostDeleteModal
+          <ConfirmationModal
             isOpen={this.state.isModalOpen}
             handleClose={this.handleCloseModal}
-            selectedPost={this.props.selectedPost}
+            handleSubmit={this.handleSubmitModal}
+            modalTitle="You want to delete this post, are you sure?"
           />
         </div>
       );
