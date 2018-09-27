@@ -30,6 +30,18 @@ class EditPost extends React.Component {
     });
   };
 
+  changeDescription = e => {
+    const { undoPost, redoPost } = this.props;
+
+    if ((e.ctrlKey && e.keyCode === 89) || (e.ctrlKey && e.shiftKey && e.keyCode === 90)) {
+      redoPost();
+    }
+
+    if (e.ctrlKey && e.keyCode === 90 && !e.shiftKey) {
+      undoPost();
+    }
+  }
+
   render() {
     const { valid, handleSubmit, label, setTextareaSelectionValues, initialValues } = this.props;
     const { isRowEmpty, widgetPadding } = this.state;
@@ -59,6 +71,7 @@ class EditPost extends React.Component {
             setSelectionValues={setTextareaSelectionValues}
             setCurrentRowValues={this.setCurrentRowValues}
             getCaretParams={this.getCaretParams}
+            changeDescription={this.changeDescription}
           />
         </div>
         <div className={bemClasses('publish-post-button')}>
@@ -93,6 +106,8 @@ const validate = values => {
 EditPost.propTypes = {
   label: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  undoPost: PropTypes.func.isRequired,
+  redoPost: PropTypes.func.isRequired,
 };
 
 export default reduxForm({ form: 'post', validate, enableReinitialize: true })(EditPost);

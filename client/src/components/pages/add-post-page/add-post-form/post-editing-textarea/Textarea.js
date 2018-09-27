@@ -23,6 +23,10 @@ class TextareaComponent extends React.Component {
   };
 
   customOnChange = e => {
+    if (e.nativeEvent.inputType === 'historyRedo') {
+      return;
+    }
+
     this.props.input.onChange(e);
     this.setParams(e);
   };
@@ -41,7 +45,7 @@ class TextareaComponent extends React.Component {
 
   render() {
     const classes = getBEMClasses([baseClass, this.props.customClass]);
-    const { input, placeholder } = this.props;
+    const { input, placeholder, changeDescription } = this.props;
 
     return (
       <textarea
@@ -53,6 +57,7 @@ class TextareaComponent extends React.Component {
         onChange={this.customOnChange}
         onKeyUp={this.onArrowsKeysUp}
         onScroll={this.customOnScroll}
+        onKeyDown={changeDescription}
       />
     );
   }
@@ -68,6 +73,7 @@ Textarea.propTypes = {
   customClass: PropTypes.string,
   classModifiers: PropTypes.arrayOf(PropTypes.string),
   setSelectionValues: PropTypes.func.isRequired,
+  changeDescription: PropTypes.func.isRequired,
 };
 
 Textarea.defaultProps = {
