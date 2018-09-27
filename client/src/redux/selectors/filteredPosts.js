@@ -10,7 +10,7 @@ const searchQuerySelector = state => searchBarSelector(state, 'searchQuery') || 
 const filteredBySearchQuery = (searchQuery, posts, users) => {
   let filteredPosts = [...posts];
   if (searchQuery.trim().length > 0) {
-    const queryRegexp = new RegExp(searchQuery, 'i');
+    const queryRegexp = new RegExp(searchQuery.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), 'i');
 
     filteredPosts = filteredPosts.filter(
       post => post.Title.match(queryRegexp) || users[post.UserId].match(queryRegexp)
@@ -22,8 +22,8 @@ const filteredBySearchQuery = (searchQuery, posts, users) => {
 
 const filteredForUserBySearchQuery = (searchQuery, posts) => {
   let filteredPosts = [...posts];
-  if (searchQuery.trim().length > 0) {
-    const queryRegexp = new RegExp(searchQuery, 'i');
+  if (searchQuery.trim().length > 0) {    
+    const queryRegexp = new RegExp(searchQuery.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), 'i');
 
     filteredPosts = filteredPosts.filter(post => post.Title.match(queryRegexp));
   }
