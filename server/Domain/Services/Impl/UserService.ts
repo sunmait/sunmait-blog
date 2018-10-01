@@ -45,7 +45,7 @@ export class UserService implements IUserService {
   }
 
   public async getUserPosts(id: number): Promise<PostEntity[]> {
-    return this._postRepository.findAll({ where: { userId: id } });
+    return this._postRepository.findAll({ where: { userId: id }, order: [['CreatedAt', 'DESC']] });
   }
 
   public async updateUser(id: number, data: any): Promise<UserEntity> {

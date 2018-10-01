@@ -52,6 +52,8 @@ export class PostService implements IPostService {
       options.offset = offset;
     }
 
+    options.order = [['CreatedAt', 'DESC']];
+
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
     return posts.map(post => {
       post.Tags = post.Tags.map(tag => tag.Tag);
@@ -123,6 +125,6 @@ export class PostService implements IPostService {
 
   public async deletePost(id: number): Promise<PostEntity[]> {
     await this._postRepository.remove({ where: { id } });
-    return this._postRepository.findAll({});
+    return this._postRepository.findAll({ order: [['CreatedAt', 'DESC']] });
   }
 }

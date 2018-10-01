@@ -21,10 +21,7 @@
 .article__container--preview:nth-child(3n) {
   margin: 2rem 0 2rem 1.5rem;
 }
-.article__container--preview:nth-child(4n) {
-  margin: 2rem 1.5rem 2rem 0;
-}
-.article__container--preview:first-child {
+.article__container--preview:nth-child(3n + 1) {
   margin: 2rem 1.5rem 2rem 0;
 }
 .article__container--preview:hover {
@@ -112,9 +109,6 @@
   }
   .article__container--preview:nth-child(2n) {
     margin: 2rem 0 2rem 2.25rem;
-  }
-  .article__container--preview:first-child {
-    margin: 2rem 2.25rem 2rem 0;
   }
 }
 

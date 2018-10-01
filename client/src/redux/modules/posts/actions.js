@@ -1,9 +1,13 @@
 import { SAGAS_POSTS_CONSTANTS } from 'sagas/posts/constants';
 import { POSTS_CONSTANTS } from './constants';
 
-export const getPosts = () => {
+export const getPosts = (count, offset) => {
   return {
     type: SAGAS_POSTS_CONSTANTS.GET_POSTS,
+    payload: {
+      count,
+      offset,
+    },
   };
 };
 
@@ -85,5 +89,11 @@ export const setPostsFetchingStatus = isFetching => {
   return {
     type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS,
     payload: isFetching,
+  };
+};
+
+export const clearPostsList = () => {
+  return {
+    type: POSTS_CONSTANTS.CLEAR_POSTS_LIST,
   };
 };

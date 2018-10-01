@@ -26,15 +26,12 @@ describe('Posts', () => {
     });
   });
 
-  describe('Post list', () => {
-    it('There are all posts shown', () => {
+  describe('Lazy load of posts', () => {
+    it('Should load 12 posts at first and 3 more after scroll to bottom of the page', () => {
       cy.visit('/');
-
-      getPosts()
-        .then(response => {
-          const posts = response.body;
-          testAmountOfPosts(posts.length);
-        });
+      testAmountOfPosts(12);
+      cy.scrollTo('bottom');
+      testAmountOfPosts(15);
     });
   });
 
@@ -92,14 +89,14 @@ describe('Posts', () => {
         });
     });
 
-    it('Post is a link to post page', () => {
+    it('Post title is a link to post page', () => {
       cy.visit('/');
 
       getPosts()
         .then(response => {
           const firstPost = response.body[0];
 
-          getPostByTitle(firstPost.Title).click();
+          getPostByTitle(firstPost.Title).find('.article__title').click();
 
           cy.location().then(({ pathname }) => {
             expect(pathname).to.eq(`/post/${firstPost.id}`);

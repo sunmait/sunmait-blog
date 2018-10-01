@@ -3,8 +3,6 @@ import { formValueSelector } from 'redux-form';
 
 const searchBarSelector = formValueSelector('searchBar');
 
-const reversedPostsSelector = posts => posts.reverse();
-
 const searchQuerySelector = state => searchBarSelector(state, 'searchQuery') || '';
 
 const filteredBySearchQuery = (searchQuery, posts, users) => {
@@ -31,13 +29,10 @@ const filteredForUserBySearchQuery = (searchQuery, posts) => {
   return filteredPosts;
 };
 
-const reversedPosts = createSelector(state => state.posts.posts, reversedPostsSelector);
-const reversedSelectedUserPosts = createSelector(state => state.profile.postsOfCurrentUser, reversedPostsSelector);
-
 /* search posts for 'home' page */
 export const searchPostsSelector = createSelector(
   searchQuerySelector,
-  reversedPosts,
+  state => state.posts.posts,
   state => state.profile.usersById,
   filteredBySearchQuery
 );
@@ -45,6 +40,6 @@ export const searchPostsSelector = createSelector(
 /* search posts for 'profile/user.id/posts' page */
 export const searchSelectedUserPostsSelector = createSelector(
   searchQuerySelector,
-  reversedSelectedUserPosts,
+  state => state.profile.postsOfCurrentUser,
   filteredForUserBySearchQuery
 );

@@ -1,19 +1,25 @@
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import { put, takeLatest, all, select } from 'redux-saga/effects';
+import * as axios from 'axios';
 import { change } from 'redux-form';
 import getYoutubeId from 'helpers//getYoutubeId.js';
-import * as axios from 'axios';
 import { POSTS_CONSTANTS } from 'redux/modules/posts/constants';
 import { SAGAS_POSTS_CONSTANTS } from './constants';
 
-function* getPosts() {
-  const res = yield axios.get(`/api/posts`);
+function* getPosts({ payload }) {
+  const { count, offset } = payload;
+
+  yield put({ type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: true });
+
+  const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}`);
   yield put({ type: POSTS_CONSTANTS.GET_POSTS, payload: res.data });
+
+  yield put({ type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: false });
 }
 
 function* addPost(payload) {
   const UserId = JSON.parse(localStorage.getItem('User')).id;
-  const res = yield axios.post(
+  yield axios.post(
     '/api/posts',
     {
       Title: payload.payload.title,
@@ -27,7 +33,6 @@ function* addPost(payload) {
       },
     }
   );
-  yield put({ type: POSTS_CONSTANTS.ADD_POST, payload: res.data });
 }
 
 function* loadPostImage(payload) {
@@ -108,16 +113,11 @@ function* updatePost(payload) {
 
 function* deletePost(payload) {
   const idPost = payload.payload.postId;
-  const res = yield axios.delete(
-    `/api/posts/${idPost}`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
-      },
+  yield axios.delete(`/api/posts/${idPost}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
     },
-    idPost
-  );
-  yield put({ type: POSTS_CONSTANTS.DELETE_POST, payload: res.data });
+  });
 }
 
 export function* postsSagas() {

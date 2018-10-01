@@ -7,7 +7,6 @@ import AddPostPage from './AddPostPage';
 const editPostSelector = formValueSelector('post');
 
 const mapStateToProps = state => ({
-  posts: state.posts,
   editPostValues: editPostSelector(state, 'Title', 'Description', 'ImageUrl'),
 });
 
