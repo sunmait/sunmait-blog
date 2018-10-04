@@ -1,0 +1,3 @@
+export const SAGAS_POST_CONSTANTS = {
+  GET_POST: 'GET_POST_SAGA',
+};

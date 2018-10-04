@@ -8,7 +8,7 @@ describe('Post page', () => {
 
       getPosts()
         .then(response => {
-          const firstPost = response.body[0];
+          const firstPost = response.body[response.body.length-1];
 
           cy.log('post should have image');
           cy.get('[data-cy=post-image]')

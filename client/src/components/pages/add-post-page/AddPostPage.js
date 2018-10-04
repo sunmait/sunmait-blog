@@ -21,7 +21,7 @@ class AddPostPage extends React.Component {
 
     if (postId !== state.postId) {
       return {
-        postId: postId === undefined ? null : Number(postId),
+        postId: postId === undefined || isNaN(postId) ? null : Number(postId),
       };
     }
 
@@ -29,7 +29,9 @@ class AddPostPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    if (this.state.postId && !this.props.post) {
+      this.props.getPost(this.state.postId);
+    }
   }
 
   updatePost() {
@@ -44,7 +46,6 @@ class AddPostPage extends React.Component {
     const { Title, Description, ImageUrl } = this.props.editPostValues;
 
     this.props.addPost(Title, Description, ImageUrl);
-    this.props.history.push('/home');
   }
 
   handleSubmit = values => {
@@ -60,22 +61,26 @@ class AddPostPage extends React.Component {
   }
 
   render() {
-    return (
-      <div className="content">
-        <div className={bemClasses()}>
-          <AddPostFormContainer
-            label={this.defineEditingOrCreationOfPost(this.state.postId)}
-            postId={this.state.postId}
-            onSubmit={this.handleSubmit}
-          />
+    if (!(this.state.postId && !this.props.post)) {
+      return (
+        <div className="content">
+          <div className={bemClasses()}>
+            <AddPostFormContainer
+              label={this.defineEditingOrCreationOfPost(this.state.postId)}
+              postId={this.state.postId}
+              onSubmit={this.handleSubmit}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 
 AddPostPage.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+  getPost: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired,
 };

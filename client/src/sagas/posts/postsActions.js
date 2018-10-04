@@ -4,7 +4,9 @@ import * as axios from 'axios';
 import { change } from 'redux-form';
 import getYoutubeId from 'helpers//getYoutubeId.js';
 import { POSTS_CONSTANTS } from 'redux/modules/posts/constants';
+import { POST_CONSTANTS } from 'redux/modules/post/constants';
 import { SAGAS_POSTS_CONSTANTS } from './constants';
+import history from 'components/containers/history';
 
 function* getPosts({ payload }) {
   const { count, offset } = payload;
@@ -33,6 +35,8 @@ function* addPost(payload) {
       },
     }
   );
+
+  history.push('/home');
 }
 
 function* loadPostImage(payload) {
@@ -96,19 +100,7 @@ function* updatePost(payload) {
     }
   );
 
-  const posts = [...(yield select(state => state.posts.posts))];
-  const post = res.data;
-
-  posts.map((item, index) => {
-    if (item.id === post.id) {
-      posts[index] = post;
-
-      return true;
-    }
-    return false;
-  });
-
-  yield put({ type: POSTS_CONSTANTS.UPDATE_POST, payload: posts });
+  yield put({ type: POST_CONSTANTS.UPDATE_POST, payload: res.data });
 }
 
 function* deletePost(payload) {
@@ -118,6 +110,10 @@ function* deletePost(payload) {
       Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
     },
   });
+
+  yield put({ type: POST_CONSTANTS.DELETE_POST });
+
+  history.push('/home');
 }
 
 export function* postsSagas() {

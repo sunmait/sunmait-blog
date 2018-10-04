@@ -25,7 +25,9 @@ class PostPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    if (!this.props.selectedPost) {
+      this.props.getPost(this.props.match.params.postId);
+    }
   }
 
   handleOpenModal = event => {
@@ -42,7 +44,6 @@ class PostPage extends React.Component {
 
   handleSubmitModal = () => {
     this.props.deletePost(this.props.selectedPost.id);
-    this.props.history.push('/home');
     this.handleCloseModal();
   };
 
@@ -170,7 +171,7 @@ class PostPage extends React.Component {
   }
 }
 PostPage.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+  getPost: PropTypes.func.isRequired,
   selectedPost: PropTypes.object,
   user: PropTypes.object.isRequired,
   users: PropTypes.object.isRequired,

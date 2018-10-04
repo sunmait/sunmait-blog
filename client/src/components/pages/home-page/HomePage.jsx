@@ -12,15 +12,12 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.numberOfPosts) {
-      this.props.clearPostsList();
-    }
-
     this.props.getPosts(12, 0);
     window.addEventListener('scroll', this.handlerScrollToBottom);
   }
 
   componentWillUnmount() {
+    this.props.clearPostsList();
     window.removeEventListener('scroll', this.handlerScrollToBottom);
     this.props.setPostsFetchingStatus(true);
   }
