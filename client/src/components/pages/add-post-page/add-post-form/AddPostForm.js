@@ -6,6 +6,7 @@ import Button from 'components/common/button/Button.js';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
 import Textarea from './post-editing-textarea/Textarea';
 import { getBEMClasses } from 'helpers//BEMHelper';
+import editTextHelper from '../../../../helpers/editTextHelper';
 import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
 import 'assets/styles/AddPostPage.css';
@@ -40,7 +41,11 @@ class EditPost extends React.Component {
     if (e.ctrlKey && e.keyCode === 90 && !e.shiftKey) {
       undoPost();
     }
-  }
+
+    if (e.ctrlKey && e.keyCode === 66) {
+      editTextHelper(e.target.className);
+    }
+  };
 
   render() {
     const { valid, handleSubmit, label, setTextareaSelectionValues, initialValues } = this.props;

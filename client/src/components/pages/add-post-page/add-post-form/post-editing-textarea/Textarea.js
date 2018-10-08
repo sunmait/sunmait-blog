@@ -20,20 +20,6 @@ class TextareaComponent extends React.Component {
   };
 
   customOnClick = e => {
-    const selection = window.getSelection();
-    if (selection.rangeCount) {
-      const selectionText = selection.toString();
-
-      const range = selection.getRangeAt(0);
-      console.log(range);
-
-      const textSelectionClass = e.target.className;
-
-      console.log(range.startContainer.parentNode);
-
-      editTextHelper(selectionText, textSelectionClass);
-    }
-
     this.setParams(e);
   };
 

@@ -68,6 +68,10 @@ div.add-post-form__title::before {
   border: none;
 }
 
+.add-post-form__textarea--bold {
+  font-weight: 700;
+}
+
 .add-post-form__publish-post-button {
   display: flex;
   justify-content: center;

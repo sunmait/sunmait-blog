@@ -1,10 +1,15 @@
-const editTextWithHotkey = props => {
-  const { selectionText, className } = props;
+const editTextWithHotkey = className => {
+  const selection = window.getSelection();
 
-  console.log(className);
+  if (selection.rangeCount) {
+    const selectionText = selection.toString();
 
-  console.log(document.getElementsByClassName(className));
-  // console.log(selectionText);
+    const text = document.querySelector(`.${className.replace(/ /g, '.')}`);
+
+    console.log(text);
+
+    // text.classList.add('add-post-form__textarea--bold');
+  }
 };
 
 export default editTextWithHotkey;
