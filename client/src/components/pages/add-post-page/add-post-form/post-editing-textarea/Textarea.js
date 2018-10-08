@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { checkIfRowIsEmpty, findCaretYPosition } from 'helpers//addPostHelper';
+import editTextHelper from '../../../../../helpers/editTextHelper';
 
 const baseClass = 'textarea-component';
 
@@ -19,6 +20,20 @@ class TextareaComponent extends React.Component {
   };
 
   customOnClick = e => {
+    const selection = window.getSelection();
+    if (selection.rangeCount) {
+      const selectionText = selection.toString();
+
+      const range = selection.getRangeAt(0);
+      console.log(range);
+
+      const textSelectionClass = e.target.className;
+
+      console.log(range.startContainer.parentNode);
+
+      editTextHelper(selectionText, textSelectionClass);
+    }
+
     this.setParams(e);
   };
 

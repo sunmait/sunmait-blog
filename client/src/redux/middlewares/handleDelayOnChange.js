@@ -22,12 +22,7 @@ function* handleDelayOnChange() {
       yield call(setUpdatedDescription);
     }
 
-    if (
-      type === actionTypes.CHANGE &&
-      meta &&
-      meta.form === 'post' &&
-      meta.field === 'textareaSelectionStart'
-    ) {
+    if (type === actionTypes.CHANGE && meta && meta.form === 'post' && meta.field === 'textareaSelectionStart') {
       const description = yield select(postDescription);
       const pastDescriptionValues = yield select(pastDescription);
 
@@ -39,7 +34,7 @@ function* handleDelayOnChange() {
       }
     }
   }
-};
+}
 
 function* setUpdatedDescription() {
   const description = yield select(postDescription);
@@ -48,6 +43,6 @@ function* setUpdatedDescription() {
   pastDescriptionValues.push(description);
 
   yield put({ type: UNDO_REDO_POST_CONSTANTS.SET_DELAY_POSTS, payload: pastDescriptionValues });
-};
+}
 
-export default handleDelayOnChange; 
+export default handleDelayOnChange;
