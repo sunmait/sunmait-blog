@@ -40,14 +40,40 @@ class Post extends React.Component {
     );
   }
 
+  trimDisplayingArtical(description) {
+    let text = description;
+
+    const startImageIndex = text.indexOf('<img');
+    const endImageIndex = text.substr(0, startImageIndex).length + text.substr(startImageIndex).indexOf('>') + 1;
+
+    if (text.length > 350 || startImageIndex !== -1) {
+      if (startImageIndex !== -1) {
+        if (startImageIndex < 350) {
+          text = text.slice(0, endImageIndex);
+        } else {
+          text = text.slice(0, 350);
+        }
+      } else {
+        text = text.slice(0, 350);
+      }
+
+      const closeDivTag = '</div>';
+      const endTagOfString = text.substr(text.length - closeDivTag.length);
+      const hasStartOfString = text.indexOf('<div');
+
+      if (endTagOfString !== closeDivTag && hasStartOfString !== -1) {
+        text += '</div><div>...</div>';
+      } else {
+        text += '...';
+      }
+    }
+
+    return text;
+  }
+
   renderArticleBody() {
     const { Title, Description, id, ImageUrl } = this.props.post;
-    let text = Description;
-
-    if (text.length > 350) {
-      text = text.slice(0, 350);
-      text += '...';
-    }
+    const text = this.trimDisplayingArtical(Description);
 
     return (
       <React.Fragment>
@@ -62,7 +88,7 @@ class Post extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <ReactMarkdown skipHtml={true} source={text} />
+            <ReactMarkdown rawSourcePos escapeHtml={false} source={`<div>${text}</div>`} />
           </div>
         </div>
       </React.Fragment>

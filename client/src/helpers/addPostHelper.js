@@ -1,44 +1,44 @@
-export const checkIfRowIsEmpty = (textarea, selection) => {
-  const position = selection > 0 ? selection - 1 : 0;
-  const symbolsNearTheCaret = textarea.value.substr(position, 2);
-  let rowIsEmpty = false;
+export const checkIfRowIsEmpty = () => {
+  const tagNames = ['IMG', 'IFRAME', 'HR'];
 
-  if (symbolsNearTheCaret.length === 0) rowIsEmpty = true;
-  if (symbolsNearTheCaret.length === 2 && symbolsNearTheCaret === '\n\n') {
-    rowIsEmpty = true;
-  }
-  if (symbolsNearTheCaret.length === 1 && symbolsNearTheCaret === '\n') {
-    rowIsEmpty = true;
-  }
+  if (window.getSelection) {
+    const userSelection = window.getSelection();
 
-  return rowIsEmpty;
+    if (userSelection.rangeCount) {
+      const range = userSelection.getRangeAt(0);
+
+      const childNodes = range.commonAncestorContainer.firstChild;
+
+      if (!range.collapsed) {
+        return false;
+      }
+
+      return !!childNodes && !tagNames.includes(childNodes.tagName);
+    }
+    return false;
+  }
 };
 
-export const findCaretYPosition = textarea => {
-  const { scrollTop, selectionStart, value } = textarea;
-  const div = document.createElement('div');
-  const copyStyle = getComputedStyle(textarea);
+export const findCaretYPosition = () => {
+  let userSelection;
+  let range;
+  let caretYPosition = 0;
 
-  for (const prop of copyStyle) {
-    div.style[prop] = copyStyle[prop];
+  if (window.getSelection) {
+    userSelection = window.getSelection();
+
+    if (userSelection.rangeCount) {
+      range = userSelection.getRangeAt(0);
+      const commonContainer = range.commonAncestorContainer;
+
+      if (commonContainer.length) {
+        caretYPosition = commonContainer.parentNode.offsetTop - commonContainer.parentNode.parentNode.scrollTop;
+
+        return caretYPosition - 3;
+      }
+      caretYPosition = commonContainer.offsetTop - commonContainer.parentNode.scrollTop;
+
+      return caretYPosition - 3;
+    }
   }
-
-  const textContent = value.substr(0, selectionStart);
-
-  div.textContent = textContent;
-  div.style.height = 'auto';
-  div.style.position = 'relative';
-
-  const span = document.createElement('span');
-
-  span.textContent = value.substr(selectionStart) || value.substr(selectionStart - 1);
-  div.appendChild(span);
-  document.body.appendChild(div);
-
-  let { offsetTop: spanY } = span;
-
-  document.body.removeChild(div);
-  if (spanY !== 0) spanY -= 3;
-
-  return spanY - scrollTop;
 };

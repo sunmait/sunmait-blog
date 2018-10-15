@@ -65,6 +65,9 @@
 .article__description {
   text-align: justify;
 }
+.article__description div[id*='text-']:focus {
+  outline: none;
+}
 .article__container--full p {
   margin: 1.5rem 0;
 }
@@ -82,7 +85,7 @@
 }
 .article__description iframe {
   margin: 4rem auto;
-  max-width: 100%;
+  width: 100%;
 }
 .article__more-button {
   height: 3.5rem;

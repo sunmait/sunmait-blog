@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
-import { checkIfRowIsEmpty, findCaretYPosition } from 'helpers//addPostHelper';
+import { checkIfRowIsEmpty, findCaretYPosition } from 'helpers/addPostHelper';
 
 const baseClass = 'textarea-component';
 

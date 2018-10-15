@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { Helmet } from 'react-helmet';
 import Button from 'components/common/button/Button.js';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
-import Textarea from './post-editing-textarea/Textarea';
+import EditableArea from './post-editing-textarea/EditableArea';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
@@ -18,7 +18,7 @@ class EditPost extends React.Component {
     super(props);
     this.state = {
       widgetPadding: 0,
-      isRowEmpty: this.props.initialValues.Description.length === 0,
+      isRowEmpty: false,
     };
   }
 
@@ -31,7 +31,15 @@ class EditPost extends React.Component {
   };
 
   render() {
-    const { valid, handleSubmit, label, setTextareaSelectionValues, initialValues } = this.props;
+    const {
+      valid,
+      handleSubmit,
+      label,
+      setTextareaSelectionValues,
+      initialValues,
+      changePost,
+      description,
+    } = this.props;
     const { isRowEmpty, widgetPadding } = this.state;
     const pageTitle = initialValues.Title.length > 0 ? initialValues.Title : 'Create new post';
 
@@ -52,13 +60,15 @@ class EditPost extends React.Component {
         <div className={bemClasses('divider')} data-cy="divider" />
         <div className={bemClasses('description-container')} id="description-container" data-cy="description-container">
           <div className={bemClasses('add-button')}>{isRowEmpty && <MediaWidget paddingTop={widgetPadding} />}</div>
-          <Textarea
+          <EditableArea
             customClass={bemClasses('textarea')}
             name="Description"
             placeholder="Enter description of your post"
             setSelectionValues={setTextareaSelectionValues}
             setCurrentRowValues={this.setCurrentRowValues}
             getCaretParams={this.getCaretParams}
+            changePost={changePost}
+            description={description}
           />
         </div>
         <div className={bemClasses('publish-post-button')}>
@@ -93,6 +103,7 @@ const validate = values => {
 EditPost.propTypes = {
   label: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  changePost: PropTypes.func.isRequired,
 };
 
 export default reduxForm({ form: 'post', validate, enableReinitialize: true })(EditPost);

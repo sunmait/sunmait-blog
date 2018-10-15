@@ -40,7 +40,9 @@ class MediaWidget extends React.Component {
     const { insertImageUrl } = this.props;
 
     if (isImageInputOpen) {
-      this.props.insertImageIntoText(insertImageUrl);
+      if (insertImageUrl) {
+        this.props.insertImageIntoText(insertImageUrl);
+      }
       this.handleCloseMenu();
     } else {
       this.setState({ isImageInputOpen: true, isVideoInputOpen: false });
@@ -52,7 +54,9 @@ class MediaWidget extends React.Component {
     const { insertVideoUrl } = this.props;
 
     if (isVideoInputOpen) {
-      this.props.insertVideoIntoText(insertVideoUrl);
+      if (insertVideoUrl) {
+        this.props.insertVideoIntoText(insertVideoUrl);
+      }
       this.handleCloseMenu();
     } else {
       this.setState({ isImageInputOpen: false, isVideoInputOpen: true });

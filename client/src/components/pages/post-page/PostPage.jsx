@@ -139,7 +139,7 @@ class PostPage extends React.Component {
           </div>
           {this.renderArticleInformation()}
           <div className={bemClasses('description')}>
-            <ReactMarkdown escapeHtml={false} source={Description} />
+            <ReactMarkdown rawSourcePos escapeHtml={false} source={`<div>${Description}</div>`} />
           </div>
           {this.renderShareButtons()}
         </div>

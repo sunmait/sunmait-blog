@@ -22,6 +22,16 @@ export const addPost = (title, description, imageUrl) => {
   };
 };
 
+export const changePost = (description, selectedItemId) => {
+  return {
+    type: SAGAS_POSTS_CONSTANTS.CHANGE_POST,
+    payload: {
+      description,
+      selectedItemId,
+    },
+  };
+};
+
 export const loadPostImage = file => {
   return {
     type: SAGAS_POSTS_CONSTANTS.LOAD_POST_IMAGE,
@@ -62,7 +72,6 @@ export const insertVideoIntoText = url => {
 export const insertDividerIntoText = () => {
   return {
     type: SAGAS_POSTS_CONSTANTS.INSERT_DIVIDER,
-    payload: {},
   };
 };
 
