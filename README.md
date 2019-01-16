@@ -1,5 +1,11 @@
 # Sunmait blog project
 
+## Installation
+
+To run project locally, you need to start client and server. The following instructions for this described in [client/README.md](https://github.com/sunmait/sunmait-blog/blob/master/client/README.md) and [server/README.md](https://github.com/sunmait/sunmait-blog/blob/master/server/README.md).
+
+## Run project in the Docker
+
 Prerequisites:
   - Docker CE
   - docker-compose
