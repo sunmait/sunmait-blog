@@ -1,15 +1,19 @@
 version: '3.1'
 services:
   dev-server:
-    image: kstasevich/sunmait_blog:firsttry
+    image: dev-server
     ports:
       - 5000:3000
       - 49153:49153
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - ./server/:/server/
       - ./server/logs/:/logs/
     networks:
       - mynetwork
+
   adminer:
     image: adminer
     restart: always
