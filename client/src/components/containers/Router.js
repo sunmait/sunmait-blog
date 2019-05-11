@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toasts';
+
 import history from './history';
 import App from './app/index.jsx';
 import HomePage from '../pages/home-page/index.jsx';
@@ -11,6 +13,8 @@ import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
 import { getUsers } from 'redux/modules/profile/actions';
 import { verifyCredentials } from 'redux/modules/auth/actions';
+
+import '../common/toast/toast.css';
 
 class AppComponent extends React.Component {
   componentDidMount() {
@@ -31,6 +35,8 @@ class AppComponent extends React.Component {
               <Route exact path="/post/:postId" component={PostPage} />
               <Redirect from="/" exact to="/home" />
             </Switch>
+
+            <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
           </App>
         </Router>
       );
