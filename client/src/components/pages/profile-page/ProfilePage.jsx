@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from 'material-ui/Avatar';
-import { getBEMClasses } from 'helpers//BEMHelper';
+import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Avatar from '@material-ui/core/Avatar';
+
+import { getBEMClasses } from 'helpers//BEMHelper';
 import UserInfoForm from './user-info-form/index.jsx';
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
-import { Route } from 'react-router-dom';
-import PostsList from '../../containers/postsList';
+import { UserPostListContainer } from '../../containers/postsList';
 import NavMenu from 'components/common/navMenu';
 import Loader from 'components/common/loader';
+
 import '../../../assets/styles/ProfilePage.css';
 
 const userProfile = 'user-profile';
@@ -133,10 +135,7 @@ class ProfilePage extends React.Component {
               {this.renderProfileHeader()}
               <NavMenu tabs={navTabs} />
               <Route exact path={match.url} render={() => this.renderProfileForm()} />
-              <Route
-                path={`${match.url}/posts`}
-                render={props => <PostsList {...props} posts={this.props.currentUserPosts} />}
-              />
+              <Route path={`${match.url}/posts`} render={props => <UserPostListContainer {...props} />} />
             </React.Fragment>
           )}
         </div>

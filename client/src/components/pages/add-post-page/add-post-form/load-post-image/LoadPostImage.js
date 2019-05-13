@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'components/common/button/Button.js';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import ImagePreviewField from './image-preview/ImagePreview.js';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const addLoadImage = 'add-post-load-image';
 const bemClasses = getBEMClasses([addLoadImage]);

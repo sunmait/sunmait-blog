@@ -1,22 +1,54 @@
 import * as axios from 'axios';
-import { change } from 'redux-form';
-import { put, takeLatest, all, select } from 'redux-saga/effects';
+import { change, actionTypes } from 'redux-form';
+import { call, put, takeLatest, all, select, delay } from 'redux-saga/effects';
 
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
-import getYoutubeId from 'helpers//getYoutubeId.js';
-import { POSTS_ACTION_CONSTANTS } from './postsConstants';
+import getYoutubeId from 'helpers/getYoutubeId.js';
+import { POSTS_ACTION_CONSTANTS, INITIAL_NUMBER_OF_POSTS } from './postsConstants';
 import history from 'components/containers/history';
-import { getPostsSuccess } from 'redux/modules/posts/postsActions';
+import {
+  getPostsSuccess,
+  setPostsFetchingStatus,
+  getMorePostsSuccess,
+  getPosts,
+  setMorePostsFetchingStatus,
+} from 'redux/modules/posts/postsActions';
 
-function* getPosts({ payload }) {
-  const { count, offset } = payload;
+function* getPostsBaseSaga({ payload }) {
+  try {
+    const { count, offset, search } = payload;
+    const searchSrc = search || '';
 
-  yield put({ type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: true });
+    const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}&search=${searchSrc}`);
+    return res.data;
+  } catch (err) {
+    console.error('getPostsBaseSaga error', err);
+    return [];
+  }
+}
 
-  const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}`);
-  yield put(getPostsSuccess(res.data));
+function* getPostsSaga(action) {
+  try {
+    yield put(setPostsFetchingStatus(true));
 
-  yield put({ type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: false });
+    const posts = yield call(getPostsBaseSaga, action);
+
+    yield put(getPostsSuccess(posts));
+  } catch (err) {
+    console.error('getPostsSaga error', err);
+  }
+}
+
+function* getMorePostsSaga(action) {
+  try {
+    yield put(setMorePostsFetchingStatus(true));
+
+    const posts = yield call(getPostsBaseSaga, action);
+
+    yield put(getMorePostsSuccess(posts));
+  } catch (err) {
+    console.error('getMorePostsSaga error', err);
+  }
 }
 
 function* addPost(payload) {
@@ -118,7 +150,9 @@ function* deletePost(payload) {
 
 export function* postsSagas() {
   yield all([
-    takeLatest(POSTS_ACTION_CONSTANTS.GET_POSTS, getPosts),
+    takeLatest(POSTS_ACTION_CONSTANTS.GET_POSTS, getPostsSaga),
+    takeLatest(POSTS_ACTION_CONSTANTS.GET_MORE_POSTS, getMorePostsSaga),
+
     takeLatest(POSTS_ACTION_CONSTANTS.ADD_POST, addPost),
     takeLatest(POSTS_ACTION_CONSTANTS.DELETE_POST, deletePost),
     takeLatest(POSTS_ACTION_CONSTANTS.LOAD_POST_IMAGE, loadPostImage),
@@ -127,5 +161,23 @@ export function* postsSagas() {
     takeLatest(POSTS_ACTION_CONSTANTS.INSERT_IMAGE, insertImage),
     takeLatest(POSTS_ACTION_CONSTANTS.INSERT_VIDEO, insertVideo),
     takeLatest(POSTS_ACTION_CONSTANTS.UPDATE_POST, updatePost),
+
+    // hook to load posts from server when search input changed
+    takeLatest(({ type, meta }) => {
+      const isSearchFormChanged = type === actionTypes.CHANGE && meta.form === 'posts';
+      return isSearchFormChanged;
+    }, searchPostsSaga),
   ]);
+}
+
+function* searchPostsSaga({ payload: search }) {
+  try {
+    const count = INITIAL_NUMBER_OF_POSTS;
+    const offset = 0;
+
+    yield delay(700);
+    yield call(getPostsSaga, getPosts(count, offset, search));
+  } catch (err) {
+    console.error('searchPostsSaga error', err);
+  }
 }

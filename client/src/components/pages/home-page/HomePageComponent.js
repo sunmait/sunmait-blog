@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PostsList from '../../containers/postsList';
-import Loader from '../../common/loader';
 
-class HomePage extends React.Component {
+import { PostsListContainer } from '../../containers/postsList';
+import Loader from '../../common/loader';
+import { INITIAL_NUMBER_OF_POSTS, LAZY_LOAD_POST_NUMBER } from 'redux/modules/posts/postsConstants';
+import { LOADER_SIZES } from 'components/common/loader/LoaderComponent';
+
+export class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isPostsFirstLoad: true,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    this.props.getPosts(12, 0);
+    this.props.getPosts(INITIAL_NUMBER_OF_POSTS, 0);
     window.addEventListener('scroll', this.handlerScrollToBottom);
   }
 
@@ -25,28 +26,22 @@ class HomePage extends React.Component {
   handlerScrollToBottom = () => {
     if (
       this.props.numberOfPosts &&
-      !this.props.isNoMorePosts &&
+      !this.props.noMorePosts &&
       document.documentElement.clientHeight + window.scrollY === document.body.scrollHeight
     ) {
-      if (this.state.isPostsFirstLoad) {
-        this.setState({
-          isPostsFirstLoad: false,
-        });
-      }
-      this.props.getPosts(3, this.props.numberOfPosts);
+      this.props.getMorePosts(LAZY_LOAD_POST_NUMBER, this.props.numberOfPosts);
     }
   };
 
   render() {
+    const { morePostsFetchingStatus } = this.props;
+
     return (
       <div className="content-wrapper content-wrapper--with-grey-background">
         <div className="content">
-          {this.props.postsFetchingStatus && this.state.isPostsFirstLoad ? (
-            <Loader />
-          ) : (
-            <PostsList posts={this.props.posts} />
-          )}
-          {!this.state.isPostsFirstLoad && this.props.postsFetchingStatus && <Loader classModifiers={['small']} />}
+          <PostsListContainer />
+
+          {morePostsFetchingStatus && <Loader size={LOADER_SIZES.SMALL} />}
         </div>
       </div>
     );
@@ -54,9 +49,9 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
+  morePostsFetchingStatus: PropTypes.bool.isRequired,
+
   getPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array,
+  getMorePosts: PropTypes.func.isRequired,
   setPostsFetchingStatus: PropTypes.func.isRequired,
 };
-
-export default HomePage;

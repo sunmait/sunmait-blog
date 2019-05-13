@@ -14,7 +14,7 @@ function* getUser(payload) {
   yield put({ type: USER_CONSTANTS.GET_USER, payload: res.data });
 }
 
-function* getCurrentUserPosts({ userId }) {
+function* getCurrentUserPostsSaga({ userId }) {
   const res = yield axios.get(`/api/users/${userId}/posts`);
   yield put({ type: USER_CONSTANTS.GET_CURRENT_USER_POSTS, payload: res.data });
 }
@@ -51,6 +51,6 @@ export function* profileSagas() {
     takeLatest(SAGAS_PROFILE_CONSTANTS.CHANGE_USER, changeUser),
     takeLatest(SAGAS_PROFILE_CONSTANTS.GET_USERS, getUsers1),
     takeLatest(SAGAS_PROFILE_CONSTANTS.GET_USER, getUser),
-    takeLatest(SAGAS_PROFILE_CONSTANTS.GET_CURRENT_USER_POSTS, getCurrentUserPosts),
+    takeLatest(SAGAS_PROFILE_CONSTANTS.GET_CURRENT_USER_POSTS, getCurrentUserPostsSaga),
   ]);
 }

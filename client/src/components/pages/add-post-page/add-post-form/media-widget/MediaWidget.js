@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Popover from 'material-ui/Popover';
-import { MenuItem } from 'material-ui/Menu';
-import IconButton from 'material-ui/IconButton';
+import Popover from '@material-ui/core/Popover';
+import { MenuItem } from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import InputWithPlaceholder from 'components/common/input/InputWithPlaceholder.jsx';
-import AddCircleOutline from 'material-ui-icons/AddCircleOutline';
-import Movie from 'material-ui-icons/Movie';
-import Image from 'material-ui-icons/Image';
-import Remove from 'material-ui-icons/Remove';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import Movie from '@material-ui/icons/Movie';
+import Image from '@material-ui/icons/Image';
+import Remove from '@material-ui/icons/Remove';
 
 const mediaWidget = 'add-post-media-widget';
 const bemClasses = getBEMClasses([mediaWidget]);

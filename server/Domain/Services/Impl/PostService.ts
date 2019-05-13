@@ -19,7 +19,7 @@ export class PostService implements IPostService {
     this._postLikesRepository = postLikesRepository;
   }
 
-  public async getPosts(countStr: string, offsetStr: string): Promise<PostEntity[]> {
+  public async getPosts(countStr: string, offsetStr: string, search: [string]): Promise<PostEntity[]> {
     const options: any = {
       include: [
         { model: UserEntity, attributes: ['FirstName', 'LastName'] },
@@ -51,10 +51,18 @@ export class PostService implements IPostService {
     if (!isNaN(offset) && offset >= 0) {
       options.offset = offset;
     }
+    if (search) {
+      options.where = {
+        Title: {
+          $like: `%${search}%`,
+        },
+      };
+    }
 
     options.order = [['CreatedAt', 'DESC']];
 
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
+
     return posts.map(post => {
       post.Tags = post.Tags.map(tag => tag.Tag);
       post.Likes = post.Likes.map(like => like.UserInfo);

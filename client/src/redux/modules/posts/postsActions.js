@@ -1,15 +1,26 @@
 import { POSTS_ACTION_CONSTANTS } from './postsConstants';
 
-export const getPosts = (count, offset) => ({
-  type: POSTS_ACTION_CONSTANTS.GET_POSTS,
+const getPostsActionCreator = type => (count, offset, search) => ({
+  type,
   payload: {
     count,
     offset,
+    search,
   },
 });
+export const getPosts = getPostsActionCreator(POSTS_ACTION_CONSTANTS.GET_POSTS);
 export const getPostsSuccess = posts => ({
   type: POSTS_ACTION_CONSTANTS.GET_POSTS_SUCCESS,
   payload: posts,
+});
+export const getMorePosts = getPostsActionCreator(POSTS_ACTION_CONSTANTS.GET_MORE_POSTS);
+export const getMorePostsSuccess = posts => ({
+  type: POSTS_ACTION_CONSTANTS.GET_MORE_POSTS_SUCCESS,
+  payload: posts,
+});
+export const searchPosts = search => ({
+  type: POSTS_ACTION_CONSTANTS.SEARCH_POSTS,
+  payload: search,
 });
 
 export const addPost = (title, description, imageUrl) => ({
@@ -72,6 +83,10 @@ export const deletePost = id => ({
 
 export const setPostsFetchingStatus = isFetching => ({
   type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS,
+  payload: isFetching,
+});
+export const setMorePostsFetchingStatus = isFetching => ({
+  type: POSTS_ACTION_CONSTANTS.SET_MORE_POSTS_FETCHING_STATUS,
   payload: isFetching,
 });
 

@@ -1,42 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { getBEMClasses } from 'helpers//BEMHelper';
 import Post from 'components/containers/post/PostContainer';
-import { PostSearchBarContainer } from 'components/containers/post-search-bar';
+import { PostSearchBar } from 'components/containers/post-search-bar';
+import Loader from 'components/common/loader';
+
 import './PostsList.css';
 
 const pageClass = 'posts-list';
 const bemClasses = getBEMClasses([pageClass]);
 
-const PostsList = props => {
-  const posts = props.posts;
+export const PostsList = ({ posts, fetching }) => {
+  return (
+    <React.Fragment>
+      <div className={bemClasses('searchbar')} data-cy={bemClasses('searchbar')}>
+        <PostSearchBar />
+      </div>
 
-  if (posts.length || props.searchQuery) {
-    return (
-      <React.Fragment>
-        <div className={bemClasses('searchbar')} data-cy={bemClasses('searchbar')}>
-          <PostSearchBarContainer />
+      {fetching && <Loader />}
+
+      {!fetching && posts.length ? (
+        <div className={bemClasses('container')}>
+          {posts.map(post => (
+            <Post key={post.id} post={post} />
+          ))}
         </div>
-
-        {posts.length ? (
-          <div className={bemClasses('container')}>
-            {posts.map(post => (
-              <Post key={post.id} post={post} />
-            ))}
-          </div>
-        ) : (
-          <div>No posts found for your request</div>
-        )}
-      </React.Fragment>
-    );
-  } else {
-    return <div>This user doesn't have any posts yet</div>;
-  }
+      ) : (
+        <div>No posts</div>
+      )}
+    </React.Fragment>
+  );
 };
 
 PostsList.propTypes = {
-  posts: PropTypes.array,
-  searchQuery: PropTypes.string,
+  posts: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired,
 };
-
-export default PostsList;

@@ -6,6 +6,11 @@ import rootSaga from '../sagas/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+
+store.runSaga = saga => {
+  return sagaMiddleware.run(saga);
+};
+
 export default store;
 
 sagaMiddleware.run(rootSaga);

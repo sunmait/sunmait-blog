@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from 'material-ui/Input';
+import Input from '@material-ui/core/Input';
 import { Field } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
 

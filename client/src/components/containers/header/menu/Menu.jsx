@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem } from 'material-ui/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from 'react-router-dom';
-import Popover from 'material-ui/Popover';
+import Popover from '@material-ui/core/Popover';
 
 class Menu extends React.Component {
   render = () => {

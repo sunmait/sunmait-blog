@@ -6,7 +6,7 @@ import {
   setCurrentUserPostsFetchingStatus,
 } from 'redux/modules/profile/actions';
 import { formValueSelector } from 'redux-form';
-import { searchSelectedUserPostsSelector } from 'redux/selectors/filteredPosts';
+import { getUserPostsSelector } from 'redux/modules/posts/postsSelectors';
 import ProfilePage from './ProfilePage.jsx';
 
 const userFormSelector = formValueSelector('userProfile');
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
   profile: state.profile.profile,
   users: state.profile.usersById,
   userFormValues: userFormSelector(state, 'FirstName', 'LastName'),
-  currentUserPosts: searchSelectedUserPostsSelector(state),
+  currentUserPosts: getUserPostsSelector(state),
   currentUserPostsFetchingStatus: state.profile.currentUserPostsFetchingStatus,
 });
 

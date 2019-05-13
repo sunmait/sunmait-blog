@@ -6,7 +6,7 @@ import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toa
 
 import history from './history';
 import App from './app/index.jsx';
-import HomePage from '../pages/home-page/index.jsx';
+import { HomePageContainer } from 'components/pages/home-page';
 import ProfilePage from '../pages/profile-page/index.jsx';
 import AddPostPage from '../pages/add-post-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
@@ -28,7 +28,7 @@ class AppComponent extends React.Component {
         <Router history={history}>
           <App>
             <Switch>
-              <Route exact path="/home" component={HomePage} />
+              <Route exact path="/home" component={HomePageContainer} />
               <Route path="/profile/:userId" component={ProfilePage} />
               <PrivateRoute exact path="/addpost" auth={this.props.auth} component={AddPostPage} />
               <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={AddPostPage} />

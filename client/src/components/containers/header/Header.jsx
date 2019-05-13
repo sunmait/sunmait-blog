@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/common/button/Button.js';
 import { Link } from 'react-router-dom';
-import Avatar from 'material-ui/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import LoginModal from 'components/containers/login-modal/index.jsx';
 import Menu from './menu/Menu.jsx';
 import { getBEMClasses } from 'helpers//BEMHelper';

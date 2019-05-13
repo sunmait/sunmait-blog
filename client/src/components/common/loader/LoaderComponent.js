@@ -5,20 +5,25 @@ import './Loader.css';
 
 const baseClass = 'loader';
 
-const Loader = props => {
-  const classes = getBEMClasses([baseClass, props.customClass]);
+export const LOADER_SIZES = {
+  SMALL: 'small',
+  BIG: 'big',
+};
 
-  return <div className={classes(null, props.classModifiers)} />;
+const Loader = ({ size, customClass }) => {
+  const classes = getBEMClasses([baseClass, customClass]);
+
+  return <div className={classes(null, size)} />;
 };
 
 Loader.propTypes = {
   customClass: PropTypes.string,
-  classModifiers: PropTypes.arrayOf(PropTypes.string),
+  size: PropTypes.oneOf(Object.values(LOADER_SIZES)),
 };
 
 Loader.defaultProps = {
   customClass: 'custom-loader-component',
-  classModifiers: [],
+  size: LOADER_SIZES.BIG,
 };
 
 export default Loader;

@@ -1,1 +1,2 @@
-export { default } from './PostsListContainer';
+export * from './PostsListContainer';
+export * from './UserPostListContainer';

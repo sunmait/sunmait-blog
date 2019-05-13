@@ -1,1 +1,1 @@
-export * from './PostSearchBarContainer';
+export * from './PostSearchBar';

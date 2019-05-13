@@ -14,10 +14,10 @@ const commentService = container.get<ICommentService>('CommentService');
  * Get posts
  */
 router.get('/', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const { count, offset } = req.query;
+  const { count, offset, search } = req.query;
 
   try {
-    res.json(await postService.getPosts(count, offset));
+    res.json(await postService.getPosts(count, offset, search));
   } catch (error) {
     next(error);
   }

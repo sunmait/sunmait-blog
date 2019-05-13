@@ -6,9 +6,12 @@ import { render } from 'react-dom';
 import Router from 'components/containers/Router';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
       light: '#2f80ed',

@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from './LoginForm.jsx';
-import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+
 import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Modal.css';
 
