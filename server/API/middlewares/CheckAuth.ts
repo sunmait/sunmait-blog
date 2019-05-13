@@ -1,4 +1,4 @@
-import express = require('express');
+import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { SettingsProvider } from '../infrastructure/SettingsProvider';
 import * as jwt from 'jsonwebtoken';
