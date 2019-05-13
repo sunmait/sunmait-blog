@@ -1,22 +1,22 @@
-import * as cloudinaryApi from 'api/cloudinaryApi.js';
-import { put, takeLatest, all, select } from 'redux-saga/effects';
 import * as axios from 'axios';
 import { change } from 'redux-form';
+import { put, takeLatest, all, select } from 'redux-saga/effects';
+
+import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import getYoutubeId from 'helpers//getYoutubeId.js';
-import { POSTS_CONSTANTS } from 'redux/modules/posts/constants';
-import { POST_CONSTANTS } from 'redux/modules/post/constants';
-import { SAGAS_POSTS_CONSTANTS } from './constants';
+import { POSTS_ACTION_CONSTANTS } from './postsConstants';
 import history from 'components/containers/history';
+import { getPostsSuccess } from 'redux/modules/posts/postsActions';
 
 function* getPosts({ payload }) {
   const { count, offset } = payload;
 
-  yield put({ type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: true });
+  yield put({ type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: true });
 
   const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}`);
-  yield put({ type: POSTS_CONSTANTS.GET_POSTS, payload: res.data });
+  yield put(getPostsSuccess(res.data));
 
-  yield put({ type: POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: false });
+  yield put({ type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS, payload: false });
 }
 
 function* addPost(payload) {
@@ -100,32 +100,32 @@ function* updatePost(payload) {
     }
   );
 
-  yield put({ type: POST_CONSTANTS.UPDATE_POST, payload: res.data });
+  yield put({ type: POSTS_ACTION_CONSTANTS.UPDATE_POST_SUCCESS, payload: res.data });
 }
 
 function* deletePost(payload) {
   const idPost = payload.payload.postId;
+
   yield axios.delete(`/api/posts/${idPost}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
     },
   });
-
-  yield put({ type: POST_CONSTANTS.DELETE_POST });
+  yield put({ type: POSTS_ACTION_CONSTANTS.DELETE_POST_SUCCESS });
 
   history.push('/home');
 }
 
 export function* postsSagas() {
   yield all([
-    takeLatest(SAGAS_POSTS_CONSTANTS.GET_POSTS, getPosts),
-    takeLatest(SAGAS_POSTS_CONSTANTS.ADD_POST, addPost),
-    takeLatest(SAGAS_POSTS_CONSTANTS.LOAD_POST_IMAGE, loadPostImage),
-    takeLatest(SAGAS_POSTS_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES, setTextareaSelectionValues),
-    takeLatest(SAGAS_POSTS_CONSTANTS.INSERT_DIVIDER, insertDivider),
-    takeLatest(SAGAS_POSTS_CONSTANTS.INSERT_IMAGE, insertImage),
-    takeLatest(SAGAS_POSTS_CONSTANTS.INSERT_VIDEO, insertVideo),
-    takeLatest(SAGAS_POSTS_CONSTANTS.UPDATE_POST, updatePost),
-    takeLatest(SAGAS_POSTS_CONSTANTS.DELETE_POST, deletePost),
+    takeLatest(POSTS_ACTION_CONSTANTS.GET_POSTS, getPosts),
+    takeLatest(POSTS_ACTION_CONSTANTS.ADD_POST, addPost),
+    takeLatest(POSTS_ACTION_CONSTANTS.DELETE_POST, deletePost),
+    takeLatest(POSTS_ACTION_CONSTANTS.LOAD_POST_IMAGE, loadPostImage),
+    takeLatest(POSTS_ACTION_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES, setTextareaSelectionValues),
+    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_DIVIDER, insertDivider),
+    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_IMAGE, insertImage),
+    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_VIDEO, insertVideo),
+    takeLatest(POSTS_ACTION_CONSTANTS.UPDATE_POST, updatePost),
   ]);
 }

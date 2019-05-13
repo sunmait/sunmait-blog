@@ -1,7 +1,7 @@
 import { fork, all } from 'redux-saga/effects';
 import { authSagas } from 'sagas/auth/authActions';
 import { profileSagas } from 'sagas/profile/profileActions';
-import { postsSagas } from 'sagas/posts/postsActions';
+import { postsSagas } from 'redux/modules/posts/postsSagas';
 import { postSagas } from 'sagas/post/postActions';
 
 function* rootSaga() {

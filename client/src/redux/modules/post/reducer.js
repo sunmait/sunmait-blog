@@ -1,4 +1,5 @@
 import { POST_CONSTANTS } from './constants';
+import { POSTS_ACTION_CONSTANTS } from 'redux/modules/posts/postsConstants';
 
 const defaultState = {
   post: null,
@@ -9,10 +10,10 @@ export default function(state = defaultState, { type, payload }) {
     case POST_CONSTANTS.GET_POST:
       return handleGetPost(state, payload);
 
-    case POST_CONSTANTS.UPDATE_POST:
+    case POSTS_ACTION_CONSTANTS.UPDATE_POST_SUCCESS:
       return handleUpdatePost(state, payload);
 
-    case POST_CONSTANTS.DELETE_POST:
+    case POSTS_ACTION_CONSTANTS.DELETE_POST_SUCCESS:
       return handleDeletePost(state);
 
     default:

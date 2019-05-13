@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import Post from 'components/containers/post/PostContainer';
-import SearchBar from 'components/containers/search-bar/SearchBar.jsx';
+import { PostSearchBarContainer } from 'components/containers/post-search-bar';
 import './PostsList.css';
 
 const pageClass = 'posts-list';
@@ -15,8 +15,9 @@ const PostsList = props => {
     return (
       <React.Fragment>
         <div className={bemClasses('searchbar')} data-cy={bemClasses('searchbar')}>
-          <SearchBar />
+          <PostSearchBarContainer />
         </div>
+
         {posts.length ? (
           <div className={bemClasses('container')}>
             {posts.map(post => (

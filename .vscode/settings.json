@@ -12,5 +12,7 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "editor.fontSize": 14
+  "editor.fontSize": 14,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
 }

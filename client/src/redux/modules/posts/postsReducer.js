@@ -1,4 +1,4 @@
-import { POSTS_CONSTANTS } from './constants';
+import { POSTS_ACTION_CONSTANTS } from './postsConstants';
 
 const defaultState = {
   posts: [],
@@ -8,16 +8,16 @@ const defaultState = {
 
 export default function(state = defaultState, { type, payload }) {
   switch (type) {
-    case POSTS_CONSTANTS.GET_POSTS:
+    case POSTS_ACTION_CONSTANTS.GET_POSTS_SUCCESS:
       return handlePosts(state, payload);
 
-    case POSTS_CONSTANTS.UPDATE_POST:
+    case POSTS_ACTION_CONSTANTS.UPDATE_POST_SUCCESS:
       return handleUpdatedPosts(state, payload);
 
-    case POSTS_CONSTANTS.SET_POSTS_FETCHING_STATUS:
+    case POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS:
       return handleSetPostsFetchingStatus(state, payload);
 
-    case POSTS_CONSTANTS.CLEAR_POSTS_LIST:
+    case POSTS_ACTION_CONSTANTS.CLEAR_POSTS_LIST:
       return handleClearPostsList(state);
 
     default:

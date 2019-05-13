@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formValueSelector } from 'redux-form';
-import { addPost, updatePost } from 'redux/modules/posts/actions';
+import { addPost, updatePost } from 'redux/modules/posts/postsActions';
 import { getPost } from 'redux/modules/post/actions';
 import AddPostPage from './AddPostPage';
 

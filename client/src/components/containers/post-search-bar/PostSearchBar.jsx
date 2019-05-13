@@ -6,7 +6,7 @@ import Input from 'components/common/input/Input.js';
 const searchBar = 'search-bar';
 const bemClasses = getBEMClasses([searchBar]);
 
-const SearchBar = props => {
+const PostSearchBar = props => {
   return (
     <form className={bemClasses('form')}>
       <Input name="searchQuery" placeholder="Search" customClass={bemClasses('input')} />
@@ -14,4 +14,4 @@ const SearchBar = props => {
   );
 };
 
-export default reduxForm({ form: 'searchBar' })(SearchBar);
+export default reduxForm({ form: 'searchBar' })(PostSearchBar);

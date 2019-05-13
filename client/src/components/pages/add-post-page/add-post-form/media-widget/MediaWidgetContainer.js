@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { insertDividerIntoText, insertImageIntoText, insertVideoIntoText } from 'redux/modules/posts/actions';
+import { insertDividerIntoText, insertImageIntoText, insertVideoIntoText } from 'redux/modules/posts/postsActions';
 import { formValueSelector } from 'redux-form';
 import MediaWidget from './MediaWidget';
 

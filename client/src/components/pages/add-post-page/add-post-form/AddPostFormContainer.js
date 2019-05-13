@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { setTextareaSelectionValues } from 'redux/modules/posts/actions';
+import { setTextareaSelectionValues } from 'redux/modules/posts/postsActions';
 import EditPost from './AddPostForm';
 
 const mapStateToProps = (state, props) => {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { getPosts, setPostsFetchingStatus, clearPostsList } from 'redux/modules/posts/actions';
+import { getPosts, setPostsFetchingStatus, clearPostsList } from 'redux/modules/posts/postsActions';
 import { searchPostsSelector } from 'redux/selectors/filteredPosts';
 import HomePage from 'components/pages/home-page/HomePage.jsx';
 

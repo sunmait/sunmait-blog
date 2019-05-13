@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { deletePost } from 'redux/modules/posts/actions';
+import { deletePost } from 'redux/modules/posts/postsActions';
 import { getPost } from 'redux/modules/post/actions';
 import PostPage from './PostPage.jsx';
 

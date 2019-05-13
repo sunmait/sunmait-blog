@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formValueSelector } from 'redux-form';
-import { loadPostImage } from 'redux/modules/posts/actions';
+import { loadPostImage } from 'redux/modules/posts/postsActions';
 import LoadPostImage from './LoadPostImage';
 
 const editPostSelector = formValueSelector('post');
