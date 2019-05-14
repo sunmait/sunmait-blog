@@ -1,11 +1,10 @@
 import { POSTS_ACTIONS } from './postsConstants';
 
-const getPostsActionCreator = type => (count, offset, search) => ({
+const getPostsActionCreator = type => (count, offset) => ({
   type,
   payload: {
     count,
     offset,
-    search,
   },
 });
 export const getPosts = getPostsActionCreator(POSTS_ACTIONS.GET_POSTS);
@@ -17,10 +16,6 @@ export const getMorePosts = getPostsActionCreator(POSTS_ACTIONS.GET_MORE_POSTS);
 export const getMorePostsSuccess = posts => ({
   type: POSTS_ACTIONS.GET_MORE_POSTS_SUCCESS,
   payload: posts,
-});
-export const searchPosts = search => ({
-  type: POSTS_ACTIONS.SEARCH_POSTS,
-  payload: search,
 });
 
 export const addPost = (title, description, imageUrl) => ({

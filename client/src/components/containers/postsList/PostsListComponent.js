@@ -27,7 +27,7 @@ export const PostsList = ({ posts, fetching }) => {
           ))}
         </div>
       ) : (
-        <div>No posts</div>
+        <div data-cy="no-posts-message">No posts</div>
       )}
     </React.Fragment>
   );

@@ -13,11 +13,12 @@ import {
   getPosts,
   setMorePostsFetchingStatus,
 } from 'redux/modules/posts/postsActions';
+import { searchQuerySelector } from 'redux/modules/posts/postsSelectors';
 
 function* getPostsBaseSaga({ payload }) {
   try {
-    const { count, offset, search } = payload;
-    const searchSrc = search || '';
+    const { count, offset } = payload;
+    const searchSrc = yield select(searchQuerySelector) || '';
 
     const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}&search=${searchSrc}`);
     return res.data;
@@ -170,13 +171,13 @@ export function* postsSagas() {
   ]);
 }
 
-function* searchPostsSaga({ payload: search }) {
+function* searchPostsSaga(action) {
   try {
     const count = INITIAL_NUMBER_OF_POSTS;
     const offset = 0;
 
     yield delay(700);
-    yield call(getPostsSaga, getPosts(count, offset, search));
+    yield call(getPostsSaga, getPosts(count, offset));
   } catch (err) {
     console.error('searchPostsSaga error', err);
   }
