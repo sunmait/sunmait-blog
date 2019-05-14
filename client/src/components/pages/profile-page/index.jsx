@@ -4,7 +4,7 @@ import {
   updateUser,
   getCurrentUserPosts,
   setCurrentUserPostsFetchingStatus,
-} from 'redux/modules/profile/actions';
+} from 'redux/modules/profile/profileActions';
 import { formValueSelector } from 'redux-form';
 import { getUserPostsSelector } from 'redux/modules/posts/postsSelectors';
 import ProfilePage from './ProfilePage.jsx';

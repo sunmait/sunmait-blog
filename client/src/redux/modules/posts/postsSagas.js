@@ -4,7 +4,7 @@ import { call, put, takeLatest, all, select, delay } from 'redux-saga/effects';
 
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import getYoutubeId from 'helpers/getYoutubeId.js';
-import { POSTS_ACTION_CONSTANTS, INITIAL_NUMBER_OF_POSTS } from './postsConstants';
+import { POSTS_ACTIONS, INITIAL_NUMBER_OF_POSTS } from './postsConstants';
 import history from 'components/containers/history';
 import {
   getPostsSuccess,
@@ -132,7 +132,7 @@ function* updatePost(payload) {
     }
   );
 
-  yield put({ type: POSTS_ACTION_CONSTANTS.UPDATE_POST_SUCCESS, payload: res.data });
+  yield put({ type: POSTS_ACTIONS.UPDATE_POST_SUCCESS, payload: res.data });
 }
 
 function* deletePost(payload) {
@@ -143,24 +143,24 @@ function* deletePost(payload) {
       Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
     },
   });
-  yield put({ type: POSTS_ACTION_CONSTANTS.DELETE_POST_SUCCESS });
+  yield put({ type: POSTS_ACTIONS.DELETE_POST_SUCCESS });
 
   history.push('/home');
 }
 
 export function* postsSagas() {
   yield all([
-    takeLatest(POSTS_ACTION_CONSTANTS.GET_POSTS, getPostsSaga),
-    takeLatest(POSTS_ACTION_CONSTANTS.GET_MORE_POSTS, getMorePostsSaga),
+    takeLatest(POSTS_ACTIONS.GET_POSTS, getPostsSaga),
+    takeLatest(POSTS_ACTIONS.GET_MORE_POSTS, getMorePostsSaga),
 
-    takeLatest(POSTS_ACTION_CONSTANTS.ADD_POST, addPost),
-    takeLatest(POSTS_ACTION_CONSTANTS.DELETE_POST, deletePost),
-    takeLatest(POSTS_ACTION_CONSTANTS.LOAD_POST_IMAGE, loadPostImage),
-    takeLatest(POSTS_ACTION_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES, setTextareaSelectionValues),
-    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_DIVIDER, insertDivider),
-    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_IMAGE, insertImage),
-    takeLatest(POSTS_ACTION_CONSTANTS.INSERT_VIDEO, insertVideo),
-    takeLatest(POSTS_ACTION_CONSTANTS.UPDATE_POST, updatePost),
+    takeLatest(POSTS_ACTIONS.ADD_POST, addPost),
+    takeLatest(POSTS_ACTIONS.DELETE_POST, deletePost),
+    takeLatest(POSTS_ACTIONS.LOAD_POST_IMAGE, loadPostImage),
+    takeLatest(POSTS_ACTIONS.SET_TEXTAREA_SELECTION_VALUES, setTextareaSelectionValues),
+    takeLatest(POSTS_ACTIONS.INSERT_DIVIDER, insertDivider),
+    takeLatest(POSTS_ACTIONS.INSERT_IMAGE, insertImage),
+    takeLatest(POSTS_ACTIONS.INSERT_VIDEO, insertVideo),
+    takeLatest(POSTS_ACTIONS.UPDATE_POST, updatePost),
 
     // hook to load posts from server when search input changed
     takeLatest(({ type, meta }) => {

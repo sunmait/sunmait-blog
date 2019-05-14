@@ -135,7 +135,7 @@ class ProfilePage extends React.Component {
               {this.renderProfileHeader()}
               <NavMenu tabs={navTabs} />
               <Route exact path={match.url} render={() => this.renderProfileForm()} />
-              <Route path={`${match.url}/posts`} render={props => <UserPostListContainer {...props} />} />
+              <Route path={`${match.url}/posts`} render={UserPostListContainer} />
             </React.Fragment>
           )}
         </div>

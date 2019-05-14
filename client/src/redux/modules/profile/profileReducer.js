@@ -1,4 +1,4 @@
-import { USER_CONSTANTS } from './constants';
+import { PROFILE_ACTION_TYPES } from './profileConstants';
 
 const defaultState = {
   profile: null,
@@ -7,25 +7,22 @@ const defaultState = {
   currentUserPostsFetchingStatus: true,
 };
 
-export default function(state = defaultState, { type, payload }) {
+export function profileReducer(state = defaultState, { type, payload }) {
   switch (type) {
-    case USER_CONSTANTS.GET_USERS:
+    case PROFILE_ACTION_TYPES.GET_USERS_SUCCESS:
       return handleGetUsers(state, payload);
 
-    case USER_CONSTANTS.GET_USER:
+    case PROFILE_ACTION_TYPES.GET_USER_SUCCESS:
       return handleGetUser(state, payload);
 
-    case USER_CONSTANTS.CHANGE:
+    case PROFILE_ACTION_TYPES.UPDATE_USER_SUCCESS:
       return handleChange(state, payload);
 
-    case USER_CONSTANTS.GET_CURRENT_USER_POSTS:
+    case PROFILE_ACTION_TYPES.GET_CURRENT_USER_POSTS_SUCCESS:
       return handleGetCurrentUserPosts(state, payload);
 
-    case USER_CONSTANTS.SET_CURRENT_USER_POSTS_FETCHING_STATUS:
+    case PROFILE_ACTION_TYPES.SET_CURRENT_USER_POSTS_FETCHING_STATUS:
       return setCurrentUserPostsFetchingStatus(state, payload);
-
-    // case USER_CONSTANTS.CHANGE_PASSWORD::
-    //   return handleAccessTokenExpired(state, payload);
 
     default:
       return state;

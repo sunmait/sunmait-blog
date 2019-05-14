@@ -1,4 +1,4 @@
-import { POSTS_ACTION_CONSTANTS } from './postsConstants';
+import { POSTS_ACTIONS } from './postsConstants';
 
 const getPostsActionCreator = type => (count, offset, search) => ({
   type,
@@ -8,23 +8,23 @@ const getPostsActionCreator = type => (count, offset, search) => ({
     search,
   },
 });
-export const getPosts = getPostsActionCreator(POSTS_ACTION_CONSTANTS.GET_POSTS);
+export const getPosts = getPostsActionCreator(POSTS_ACTIONS.GET_POSTS);
 export const getPostsSuccess = posts => ({
-  type: POSTS_ACTION_CONSTANTS.GET_POSTS_SUCCESS,
+  type: POSTS_ACTIONS.GET_POSTS_SUCCESS,
   payload: posts,
 });
-export const getMorePosts = getPostsActionCreator(POSTS_ACTION_CONSTANTS.GET_MORE_POSTS);
+export const getMorePosts = getPostsActionCreator(POSTS_ACTIONS.GET_MORE_POSTS);
 export const getMorePostsSuccess = posts => ({
-  type: POSTS_ACTION_CONSTANTS.GET_MORE_POSTS_SUCCESS,
+  type: POSTS_ACTIONS.GET_MORE_POSTS_SUCCESS,
   payload: posts,
 });
 export const searchPosts = search => ({
-  type: POSTS_ACTION_CONSTANTS.SEARCH_POSTS,
+  type: POSTS_ACTIONS.SEARCH_POSTS,
   payload: search,
 });
 
 export const addPost = (title, description, imageUrl) => ({
-  type: POSTS_ACTION_CONSTANTS.ADD_POST,
+  type: POSTS_ACTIONS.ADD_POST,
   payload: {
     title,
     description,
@@ -33,14 +33,14 @@ export const addPost = (title, description, imageUrl) => ({
 });
 
 export const loadPostImage = file => ({
-  type: POSTS_ACTION_CONSTANTS.LOAD_POST_IMAGE,
+  type: POSTS_ACTIONS.LOAD_POST_IMAGE,
   payload: {
     file,
   },
 });
 
 export const setTextareaSelectionValues = (start, end) => ({
-  type: POSTS_ACTION_CONSTANTS.SET_TEXTAREA_SELECTION_VALUES,
+  type: POSTS_ACTIONS.SET_TEXTAREA_SELECTION_VALUES,
   payload: {
     start,
     end,
@@ -48,26 +48,26 @@ export const setTextareaSelectionValues = (start, end) => ({
 });
 
 export const insertImageIntoText = url => ({
-  type: POSTS_ACTION_CONSTANTS.INSERT_IMAGE,
+  type: POSTS_ACTIONS.INSERT_IMAGE,
   payload: {
     url,
   },
 });
 
 export const insertVideoIntoText = url => ({
-  type: POSTS_ACTION_CONSTANTS.INSERT_VIDEO,
+  type: POSTS_ACTIONS.INSERT_VIDEO,
   payload: {
     url,
   },
 });
 
 export const insertDividerIntoText = () => ({
-  type: POSTS_ACTION_CONSTANTS.INSERT_DIVIDER,
+  type: POSTS_ACTIONS.INSERT_DIVIDER,
   payload: {},
 });
 
 export const updatePost = (title, description, imageUrl, idPost) => ({
-  type: POSTS_ACTION_CONSTANTS.UPDATE_POST,
+  type: POSTS_ACTIONS.UPDATE_POST,
   payload: {
     title,
     description,
@@ -77,19 +77,19 @@ export const updatePost = (title, description, imageUrl, idPost) => ({
 });
 
 export const deletePost = id => ({
-  type: POSTS_ACTION_CONSTANTS.DELETE_POST,
+  type: POSTS_ACTIONS.DELETE_POST,
   payload: { postId: id },
 });
 
 export const setPostsFetchingStatus = isFetching => ({
-  type: POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS,
+  type: POSTS_ACTIONS.SET_POSTS_FETCHING_STATUS,
   payload: isFetching,
 });
 export const setMorePostsFetchingStatus = isFetching => ({
-  type: POSTS_ACTION_CONSTANTS.SET_MORE_POSTS_FETCHING_STATUS,
+  type: POSTS_ACTIONS.SET_MORE_POSTS_FETCHING_STATUS,
   payload: isFetching,
 });
 
 export const clearPostsList = () => ({
-  type: POSTS_ACTION_CONSTANTS.CLEAR_POSTS_LIST,
+  type: POSTS_ACTIONS.CLEAR_POSTS_LIST,
 });

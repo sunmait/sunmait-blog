@@ -11,7 +11,7 @@ import ProfilePage from '../pages/profile-page/index.jsx';
 import AddPostPage from '../pages/add-post-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
-import { getUsers } from 'redux/modules/profile/actions';
+import { getUsers } from 'redux/modules/profile/profileActions';
 import { verifyCredentials } from 'redux/modules/auth/actions';
 
 import '../common/toast/toast.css';

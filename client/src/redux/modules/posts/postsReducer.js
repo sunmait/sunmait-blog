@@ -1,4 +1,4 @@
-import { POSTS_ACTION_CONSTANTS } from './postsConstants';
+import { POSTS_ACTIONS } from './postsConstants';
 
 const defaultState = {
   posts: [],
@@ -9,22 +9,22 @@ const defaultState = {
 
 export default function(state = defaultState, { type, payload }) {
   switch (type) {
-    case POSTS_ACTION_CONSTANTS.GET_POSTS_SUCCESS:
+    case POSTS_ACTIONS.GET_POSTS_SUCCESS:
       return { ...state, posts: payload, postsFetchingStatus: false };
 
-    case POSTS_ACTION_CONSTANTS.GET_MORE_POSTS_SUCCESS:
+    case POSTS_ACTIONS.GET_MORE_POSTS_SUCCESS:
       return handleUploadMorePosts(state, payload);
 
-    case POSTS_ACTION_CONSTANTS.UPDATE_POST_SUCCESS:
+    case POSTS_ACTIONS.UPDATE_POST_SUCCESS:
       return handleUpdatedPosts(state, payload);
 
-    case POSTS_ACTION_CONSTANTS.SET_POSTS_FETCHING_STATUS:
+    case POSTS_ACTIONS.SET_POSTS_FETCHING_STATUS:
       return handleSetPostsFetchingStatus(state, payload);
 
-    case POSTS_ACTION_CONSTANTS.SET_MORE_POSTS_FETCHING_STATUS:
+    case POSTS_ACTIONS.SET_MORE_POSTS_FETCHING_STATUS:
       return { ...state, morePostsFetchingStatus: payload };
 
-    case POSTS_ACTION_CONSTANTS.CLEAR_POSTS_LIST:
+    case POSTS_ACTIONS.CLEAR_POSTS_LIST:
       return handleClearPostsList(state);
 
     default:
