@@ -1,52 +1,75 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { PostsListContainer } from '../../containers/postsList';
 import Loader from '../../common/loader';
-import { INITIAL_NUMBER_OF_POSTS, LAZY_LOAD_POST_NUMBER } from 'redux/modules/posts/postsConstants';
+import { INITIAL_NUMBER_OF_POSTS } from 'redux/modules/posts/postsConstants';
+import { useWindowWidth } from 'components/hooks/useWindowWidthHook';
+import { getPostLazyLoadNumber } from 'redux/modules/posts/postsHelper';
 import { LOADER_SIZES } from 'components/common/loader/LoaderComponent';
 
-export class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export const HomePage = ({
+  getPosts,
+  getMorePosts,
+  morePostsFetchingStatus,
+  numberOfPosts,
+  noMorePosts,
+  clearPostsList,
+  setPostsFetchingStatus,
+}) => {
+  const width = useWindowWidth();
 
-  componentDidMount() {
-    this.props.getPosts(INITIAL_NUMBER_OF_POSTS, 0);
-    window.addEventListener('scroll', this.handlerScrollToBottom);
-  }
+  useInitialLoadOfPosts(getPosts, clearPostsList, setPostsFetchingStatus);
+  useLoadOfPostsOnScroll(numberOfPosts, noMorePosts, getMorePosts, width);
 
-  componentWillUnmount() {
-    this.props.clearPostsList();
-    window.removeEventListener('scroll', this.handlerScrollToBottom);
-    this.props.setPostsFetchingStatus(true);
-  }
+  return (
+    <div className="content-wrapper content-wrapper--with-grey-background">
+      <div className="content">
+        <PostsListContainer />
 
-  handlerScrollToBottom = () => {
-    if (
-      this.props.numberOfPosts &&
-      !this.props.noMorePosts &&
-      document.documentElement.clientHeight + window.scrollY === document.body.scrollHeight
-    ) {
-      this.props.getMorePosts(LAZY_LOAD_POST_NUMBER, this.props.numberOfPosts);
-    }
-  };
-
-  render() {
-    const { morePostsFetchingStatus } = this.props;
-
-    return (
-      <div className="content-wrapper content-wrapper--with-grey-background">
-        <div className="content">
-          <PostsListContainer />
-
-          {morePostsFetchingStatus && <Loader size={LOADER_SIZES.SMALL} />}
-        </div>
+        {morePostsFetchingStatus && <Loader size={LOADER_SIZES.SMALL} />}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+const useInitialLoadOfPosts = (getPosts, clearPostsList, setPostsFetchingStatus) => {
+  return useEffect(
+    () => {
+      getPosts(INITIAL_NUMBER_OF_POSTS, 0);
+
+      return () => {
+        clearPostsList();
+        setPostsFetchingStatus(true);
+      };
+    },
+    [getPosts, clearPostsList, setPostsFetchingStatus],
+  );
+};
+
+const useLoadOfPostsOnScroll = (numberOfPosts, noMorePosts, getMorePosts, width) => {
+
+  return useEffect(
+    () => {
+      const handlerScrollToBottom = () => {
+        if (
+          numberOfPosts &&
+          !noMorePosts &&
+          document.documentElement.clientHeight + window.scrollY === document.body.scrollHeight
+        ) {
+          getMorePosts(getPostLazyLoadNumber(width), numberOfPosts);
+        }
+      };
+
+      window.addEventListener('scroll', handlerScrollToBottom);
+
+      return () => {
+        window.removeEventListener('scroll', handlerScrollToBottom);
+      }
+    },
+    [numberOfPosts, noMorePosts, getMorePosts],
+  );
+};
 
 HomePage.propTypes = {
   morePostsFetchingStatus: PropTypes.bool.isRequired,
