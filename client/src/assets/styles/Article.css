@@ -1,7 +1,7 @@
 @import './theme/variables.css';
 
 .article__container--full {
-  width: 70rem;
+  max-width: 700px;
 }
 .article__container--preview {
   max-width: 31%;
@@ -80,9 +80,10 @@
   max-height: 70rem;
   margin: 4rem auto;
 }
-.article__description iframe {
+.article__description .youtube-widget {
   margin: 4rem auto;
   max-width: 100%;
+  display: flex;
 }
 .article__more-button {
   height: 3.5rem;

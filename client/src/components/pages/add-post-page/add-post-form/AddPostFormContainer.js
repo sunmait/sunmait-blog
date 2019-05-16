@@ -6,7 +6,11 @@ import EditPost from './AddPostForm';
 const mapStateToProps = (state, props) => {
   const initialValues =
     state.post.post && state.post.post.id === props.postId
-      ? { ...state.post.post, textareaSelectionStart: 0, textareaSelectionEnd: 0 }
+      ? {
+          ...state.post.post,
+          textareaSelectionStart: 0,
+          textareaSelectionEnd: 0,
+        }
       : {
           Title: '',
           Description: '',

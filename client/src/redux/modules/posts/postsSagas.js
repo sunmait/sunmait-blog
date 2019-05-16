@@ -107,7 +107,7 @@ function* insertImage(payload) {
 function* insertVideo(payload) {
   const postFormValues = { ...(yield select(state => state.form.post.values)) };
   const { textareaSelectionStart, textareaSelectionEnd, Description } = postFormValues;
-  const insertedMedia = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${getYoutubeId(
+  const insertedMedia = `<iframe class="youtube-widget" width="560" height="315" src="https://www.youtube.com/embed/${getYoutubeId(
     payload.payload.url
   )}" frameborder="0" allowfullscreen></iframe>`;
   const newDecsription =
