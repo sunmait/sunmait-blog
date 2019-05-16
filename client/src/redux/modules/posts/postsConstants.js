@@ -30,4 +30,7 @@ export const POSTS_ACTIONS = {
 };
 
 export const INITIAL_NUMBER_OF_POSTS = 12;
-export const LAZY_LOAD_POST_NUMBER = 3;
+
+export const DESKTOP_LAZY_LOAD_POST_NUMBER = 3;
+export const TABLET_LAZY_LOAD_POST_NUMBER = 4;
+export const MOBILE_LAZY_LOAD_POST_NUMBER = 2;
