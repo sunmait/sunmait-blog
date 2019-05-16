@@ -34,9 +34,36 @@ describe('Home page. Posts', () => {
   });
 
   describe('Lazy load of posts', () => {
-    it('Should load 12 posts at first and 3 more after scroll to bottom of the page', () => {
+    it('Should load 12 posts at first and 3 more after scroll to bottom of the page(desktop view)', () => {
       cy.visit('/');
+      // When we visit '/' we are on the bottom of the page(according to previous test scenario),
+      // so we use scrollTo(0) and wait(100) to scroll to the top of the page, for lazy load of posts
+      cy.scrollTo(0);
+      cy.wait(100);
       testAmountOfPosts(12);
+      cy.scrollTo('bottom');
+      testAmountOfPosts(15);
+    });
+
+    it('Should load 12 posts at first and 4 more after scroll to bottom of the page(tablet view)', () => {
+      cy.visit('/');
+      cy.viewport(900, 900);
+      testAmountOfPosts(12);
+      cy.scrollTo(0);
+      cy.wait(100);
+      cy.scrollTo('bottom');
+      testAmountOfPosts(15);
+    });
+
+    it('Should load 12 posts at first and 2 more after scroll to bottom of the page(mobile view)', () => {
+      cy.visit('/');
+      cy.viewport(700, 900);
+      testAmountOfPosts(12);
+      cy.scrollTo(0);
+      cy.wait(100);
+      cy.scrollTo('bottom');
+      testAmountOfPosts(14);
+      cy.wait(100);
       cy.scrollTo('bottom');
       testAmountOfPosts(15);
     });
