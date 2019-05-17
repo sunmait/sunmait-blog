@@ -43,12 +43,11 @@ const useInitialLoadOfPosts = (getPosts, clearPostsList, setPostsFetchingStatus)
         setPostsFetchingStatus(true);
       };
     },
-    [getPosts, clearPostsList, setPostsFetchingStatus],
+    [getPosts, clearPostsList, setPostsFetchingStatus]
   );
 };
 
 const useLoadOfPostsOnScroll = (numberOfPosts, noMorePosts, getMorePosts, width) => {
-
   return useEffect(
     () => {
       const handlerScrollToBottom = () => {
@@ -65,9 +64,9 @@ const useLoadOfPostsOnScroll = (numberOfPosts, noMorePosts, getMorePosts, width)
 
       return () => {
         window.removeEventListener('scroll', handlerScrollToBottom);
-      }
+      };
     },
-    [numberOfPosts, noMorePosts, getMorePosts],
+    [numberOfPosts, noMorePosts, getMorePosts, width]
   );
 };
 

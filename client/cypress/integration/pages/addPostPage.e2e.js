@@ -56,6 +56,7 @@ function checkAddMediaWidgetButtonYPosition() {
       const distanceFromSvgWrapperToSvg = 14;
       const lineHeight = 19;
 
+      /* eslint no-loop-func: 0 */
       for (var i = 0; i < 5; i++) {
         cy.get('[data-cy=add-post-media-widget]')
           .then(elem => {

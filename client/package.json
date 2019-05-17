@@ -14,7 +14,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^3.0.1",
     "react-test-renderer": "^16.5.0",
     "react-toasts": "^3.0.3",
     "redux": "^3.7.2",
@@ -38,7 +38,8 @@
     "e2e-ci": "cypress run",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "eslint": "eslint --ext .jsx --ext .js cypress/ src/"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
@@ -52,10 +53,24 @@
     "@storybook/addon-storyshots": "^3.4.10",
     "babel-core": "^6.26.3",
     "cypress": "^3.1.0",
+    "eslint-plugin-cypress": "^2.2.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "prettier": "1.14.0",
     "redux-form-storybook": "^1.0.2"
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

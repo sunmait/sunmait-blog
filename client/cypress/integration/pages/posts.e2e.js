@@ -3,7 +3,6 @@ import {
   searchPostsWithLongestName,
   testAmountOfPosts,
   searchPostInputPath,
-  searchFormClass,
 } from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
 
