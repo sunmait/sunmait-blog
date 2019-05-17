@@ -17,7 +17,7 @@ router.get('/', async (req: express.Request, res: express.Response, next: expres
   const { count, offset, search } = req.query;
 
   try {
-    res.json(await postService.getPosts(count, offset, search));
+    res.json(await postService.getPosts({ count, offset, search }));
   } catch (error) {
     next(error);
   }

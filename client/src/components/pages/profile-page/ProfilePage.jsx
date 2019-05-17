@@ -26,6 +26,8 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
+    const { setUserId, match } = this.props;
+    setUserId(match.params.userId);
     this.reloadProfile(this.props);
   }
 
@@ -148,6 +150,7 @@ ProfilePage.propTypes = {
   updateUser: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   setCurrentUserPostsFetchingStatus: PropTypes.func.isRequired,
+  setUserId: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;

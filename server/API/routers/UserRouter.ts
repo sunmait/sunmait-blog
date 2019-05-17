@@ -1,10 +1,11 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
-import { IUserService } from '../../Domain/Services';
+import { IUserService, IPostService } from '../../Domain/Services';
 import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();
 const userService = container.get<IUserService>('UserService');
+const postService = container.get<IPostService>('PostService');
 
 /**
  * Operations about users.
@@ -35,12 +36,19 @@ router.get('/:id', async (req: express.Request, res: express.Response, next: exp
 /**
  * Get all posts of user by id
  */
-
 router.get('/:id/posts', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const { id } = req.params;
+  const { id: userId } = req.params;
+  const { count, offset, search } = req.query;
 
   try {
-    res.json(await userService.getUserPosts(id));
+    res.json(
+      await postService.getPosts({
+        userId,
+        count,
+        offset,
+        search,
+      })
+    );
   } catch (error) {
     next(error);
   }

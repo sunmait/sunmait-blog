@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 };
 
 const withConnect = connect(mapStateToProps);
-const withForm = reduxForm({ form: 'userPostsSearchBar' });
+const withForm = reduxForm({ form: 'userPosts' });
 
 export const UserPostListContainer = compose(
   withRouter,
