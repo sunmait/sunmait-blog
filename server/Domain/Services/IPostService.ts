@@ -1,7 +1,14 @@
 import PostEntity from '../../Data/Entities/PostEntity';
 
+export interface IGetPostsOptions {
+  count: string;
+  offset: string;
+  search?: string;
+  userId?: number;
+}
+
 export interface IPostService {
-  getPosts(countStr: string, offsetStr: string, search: [string]): Promise<PostEntity[]>;
+  getPosts(params: IGetPostsOptions): Promise<PostEntity[]>;
   getPostById(id: number): Promise<PostEntity>;
   addPost(data: any): Promise<PostEntity>;
   updatePost(data: any): Promise<PostEntity>;

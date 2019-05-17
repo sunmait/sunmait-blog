@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
+import { formValueSelector, change } from 'redux-form';
+
 import {
   getUser,
   updateUser,
   getCurrentUserPosts,
   setCurrentUserPostsFetchingStatus,
 } from 'redux/modules/profile/profileActions';
-import { formValueSelector } from 'redux-form';
 import { getUserPostsSelector } from 'redux/modules/posts/postsSelectors';
 import ProfilePage from './ProfilePage.jsx';
 
@@ -25,6 +26,7 @@ const mapDispatchToProps = {
   updateUser,
   getCurrentUserPosts,
   setCurrentUserPostsFetchingStatus,
+  setUserId: userId => change('userPosts', 'userId', userId),
 };
 
 export default connect(

@@ -1,19 +1,13 @@
 import { injectable, inject } from 'inversify';
 import { IUserService } from '../IUserService';
 import UserEntity from '../../../Data/Entities/UserEntity';
-import PostEntity from '../../../Data/Entities/PostEntity';
-import { IUserRepository, IPostRepository } from '../../../Data/Repositories/index';
+import { IUserRepository } from '../../../Data/Repositories/index';
 
 @injectable()
 export class UserService implements IUserService {
   private readonly _userRepository: IUserRepository;
-  private readonly _postRepository: IPostRepository;
-  constructor(
-    @inject('UserRepository') userRepository: IUserRepository,
-    @inject('PostRepository') postRepository: IPostRepository
-  ) {
+  constructor(@inject('UserRepository') userRepository: IUserRepository) {
     this._userRepository = userRepository;
-    this._postRepository = postRepository;
   }
 
   public async getUsers(): Promise<UserEntity[]> {
@@ -42,10 +36,6 @@ export class UserService implements IUserService {
     } else {
       throw { status: 404, message: 'Not found' };
     }
-  }
-
-  public async getUserPosts(id: number): Promise<PostEntity[]> {
-    return this._postRepository.findAll({ where: { userId: id }, order: [['CreatedAt', 'DESC']] });
   }
 
   public async updateUser(id: number, data: any): Promise<UserEntity> {

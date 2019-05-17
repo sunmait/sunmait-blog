@@ -1,5 +1,5 @@
+import { IPostService, IGetPostsOptions } from './../IPostService';
 import { injectable, inject } from 'inversify';
-import { IPostService } from '../IPostService';
 import PostEntity from '../../../Data/Entities/PostEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
 import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
@@ -19,8 +19,10 @@ export class PostService implements IPostService {
     this._postLikesRepository = postLikesRepository;
   }
 
-  public async getPosts(countStr: string, offsetStr: string, search: [string]): Promise<PostEntity[]> {
+  public async getPosts(params: IGetPostsOptions): Promise<PostEntity[]> {
+    const { count: countStr, offset: offsetStr, search, userId } = params;
     const options: any = {
+      where: {},
       include: [
         { model: UserEntity, attributes: ['FirstName', 'LastName'] },
         {
@@ -53,9 +55,16 @@ export class PostService implements IPostService {
     }
     if (search) {
       options.where = {
+        ...options.where,
         Title: {
           $like: `%${search}%`,
         },
+      };
+    }
+    if (userId !== undefined) {
+      options.where = {
+        ...options.where,
+        userId,
       };
     }
 
