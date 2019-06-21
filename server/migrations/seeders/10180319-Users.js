@@ -42,7 +42,7 @@ module.exports = {
           LastName: 'Admin',
           PhotoUrl: 'https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-5.png',
           Login: 'admin',
-          PasswordHash: 'sha1$cf8d3dea$1$4a42e619fafe036cc629a3cf1942c7ef81fda64a',
+          PasswordHash: 'sha1$342f9c61$1$f8bfc72285015f93da1dcccc85276ec23e35d090',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
         },

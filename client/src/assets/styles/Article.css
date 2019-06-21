@@ -90,11 +90,10 @@
   margin: 3.5rem 0 1.5rem;
 }
 .article__share-buttons {
-  position: fixed;
+  position: relative;
   display: flex;
-  flex-direction: column;
-  transform: translate(-8.5rem, 0);
-  top: 33rem;
+  justify-content: flex-end;
+  top: 2rem;
 }
 .article__share-button-wrapper {
   margin: 0.5rem 0;
@@ -115,9 +114,8 @@
 
 @media (max-width: 850px) {
   .article__share-buttons {
-    position: static;
     transform: none;
-    flex-direction: row;
+    display: flex;
     justify-content: center;
   }
   .article__share-button-wrapper {
