@@ -56,7 +56,7 @@ class LoadPostImage extends React.Component {
 }
 
 LoadPostImage.propTypes = {
-  loadPostImage: PropTypes.func.isRequired,
+  loadPostImage: PropTypes.func,
 };
 
 export default LoadPostImage;

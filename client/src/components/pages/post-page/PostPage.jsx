@@ -1,17 +1,19 @@
+import 'assets/styles/Article.css';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import ReactMarkdown from 'react-markdown';
 import { Helmet } from 'react-helmet';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
+
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
 import { getBEMClasses } from 'helpers//BEMHelper';
-import 'assets/styles/Article.css';
+import { PostPreview } from 'components/common/PostPreview/PostPreview';
 
 const article = 'article';
 const bemClasses = getBEMClasses([article]);
@@ -25,7 +27,7 @@ class PostPage extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.selectedPost) {
+    if (!this.props.selectedPost && this.props.getPost) {
       this.props.getPost(this.props.match.params.postId);
     }
   }
@@ -138,9 +140,9 @@ class PostPage extends React.Component {
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
-          <div className={bemClasses('description')}>
-            <ReactMarkdown escapeHtml={false} source={Description} />
-          </div>
+
+          <PostPreview postData={Description} />
+
           {this.renderShareButtons()}
         </div>
       </React.Fragment>
@@ -171,10 +173,10 @@ class PostPage extends React.Component {
   }
 }
 PostPage.propTypes = {
-  getPost: PropTypes.func.isRequired,
+  getPost: PropTypes.func,
   selectedPost: PropTypes.object,
-  user: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  users: PropTypes.object,
 };
 
 export default PostPage;

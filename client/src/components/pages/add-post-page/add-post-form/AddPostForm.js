@@ -1,3 +1,5 @@
+import 'assets/styles/AddPostPage.css';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
@@ -8,7 +10,7 @@ import Textarea from './post-editing-textarea/Textarea';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
-import 'assets/styles/AddPostPage.css';
+import AddPostPreview from 'components/pages/add-post-page/add-post-form/post-preview/AddPostPreview';
 
 const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
@@ -19,6 +21,7 @@ class EditPost extends React.Component {
     this.state = {
       widgetPadding: 0,
       isRowEmpty: this.props.initialValues.Description.length === 0,
+      isPreviewModalOpen: false,
     };
   }
 
@@ -27,6 +30,12 @@ class EditPost extends React.Component {
     this.setState({
       widgetPadding,
       isRowEmpty,
+    });
+  };
+
+  handleOpenPreviewModal = () => {
+    this.setState({
+      isPreviewModalOpen: !this.state.isPreviewModalOpen,
     });
   };
 
@@ -61,6 +70,30 @@ class EditPost extends React.Component {
             getCaretParams={this.getCaretParams}
           />
         </div>
+
+        <div>
+          <AddPostPreview
+            isOpen={this.state.isPreviewModalOpen}
+            close={() => {
+              this.setState({ isPreviewModalOpen: false });
+            }}
+            postData={this.props.postData}
+          />
+        </div>
+
+        <div className={bemClasses('publish-post-button')}>
+          <Button
+            as="button"
+            buttonColor="primary"
+            type="button"
+            disabled={!valid}
+            data-cy="preview-button"
+            onClick={this.handleOpenPreviewModal}
+          >
+            Preview
+          </Button>
+        </div>
+
         <div className={bemClasses('publish-post-button')}>
           <Button as="button" buttonColor="primary" type="submit" disabled={!valid} data-cy="publish-post-button">
             {label}
@@ -92,6 +125,7 @@ const validate = values => {
 
 EditPost.propTypes = {
   label: PropTypes.string.isRequired,
+  postData: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
 };
 
