@@ -5,6 +5,7 @@ import {
   IAuthService,
   ICryptoService,
   IUserService,
+  ITagService,
 } from './../../../Domain/Services/index';
 import {
   PostService,
@@ -12,6 +13,7 @@ import {
   AuthService,
   CryptoService,
   UserService,
+  TagService,
 } from './../../../Domain/Services/Impl/index';
 
 export class DomainInstaller extends InstallerBase {
@@ -21,5 +23,6 @@ export class DomainInstaller extends InstallerBase {
     this.container.bind<ICryptoService>('CryptoService').to(CryptoService);
     this.container.bind<IAuthService>('AuthService').to(AuthService);
     this.container.bind<IUserService>('UserService').to(UserService);
+    this.container.bind<ITagService>('TagService').to(TagService);
   }
 }

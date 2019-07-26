@@ -146,7 +146,7 @@ module.exports = {
         },
         {
           id: 14,
-          UserId: 2,
+          UserId: 4,
           CreatedAt: new Date('June 22, 2018 16:41:56'),
           UpdatedAt: new Date('June 22, 2018 19:41:33'),
           Description:
@@ -157,7 +157,7 @@ module.exports = {
         },
         {
           id: 15,
-          UserId: 3,
+          UserId: 4,
           CreatedAt: new Date('July 1, 2018 16:41:56'),
           UpdatedAt: new Date('July 1, 2018 19:41:33'),
           Description:

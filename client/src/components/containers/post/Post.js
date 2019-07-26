@@ -40,6 +40,16 @@ class Post extends React.Component {
     );
   }
 
+  renderTag() {
+    const { Tags } = this.props.post;
+
+    return (
+      <div>
+        <span>{Tags[0].Text}</span>
+      </div>
+    );
+  }
+
   renderArticleBody() {
     const { Title, Description, id, ImageUrl } = this.props.post;
     let text = Description;
@@ -73,15 +83,18 @@ class Post extends React.Component {
     return (
       <div className={bemClasses('container', 'preview')}>
         <div>{this.renderArticleBody()}</div>
-        <div className={bemClasses('post-content')}>{this.renderReadMoreButton()}</div>
+        <div className={bemClasses('post-content')}>
+          {this.renderReadMoreButton()}
+          {this.renderTag()}
+        </div>
       </div>
     );
   }
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
+  post: PropTypes.object,
+  users: PropTypes.object,
 };
 
 export default Post;
