@@ -141,3 +141,11 @@
     align-items: flex-start;
   }
 }
+
+.MuiChip-label-36 {
+  font-size: 15px;
+}
+
+.article__chip{
+  margin-bottom: 15px;
+}

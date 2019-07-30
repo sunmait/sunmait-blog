@@ -8,10 +8,14 @@ import { Helmet } from 'react-helmet';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
+import Post from '../../containers/post/Post.js';
+
 
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
+import DoneIcon from '@material-ui/icons/Done';
+import Chip from '@material-ui/core/Chip';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { PostPreview } from 'components/common/PostPreview/PostPreview';
 
@@ -125,6 +129,22 @@ class PostPage extends React.Component {
       </Helmet>
     );
   }
+  
+  renderTag() {
+    const { Tags } = this.props.selectedPost;
+
+    return (
+      <div className={bemClasses('chip')}>
+      <Chip 
+      variant="outlined" 
+      color="primary" 
+      size="medium" 
+      deleteIcon={<DoneIcon />} 
+      label={Tags[0].Text}>
+      </Chip>
+      </div>
+    );
+  }
 
   renderArticleBody() {
     const { Title, Description } = this.props.selectedPost;
@@ -140,6 +160,8 @@ class PostPage extends React.Component {
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
+          {this.renderTag()}
+
 
           <PostPreview postData={Description} />
 

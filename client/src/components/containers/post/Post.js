@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
+import Taginput from '../post-tags/Taginput.jsx';
 import Button from 'components/common/button/Button.js';
+
+// import Paper from '@material-ui/core/Paper';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import OutlinedInput from '@material-ui/core/OutlinedInput';
+// import TextField from '@material-ui/core/TextField';
+// import Chip from '@material-ui/core/Chip';
+// import FormControl from '@material-ui/core/FormControl';
+
 import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Article.css';
 
@@ -14,6 +23,9 @@ class Post extends React.Component {
   renderArticleInformation() {
     const { CreatedAt, UserId } = this.props.post;
     const { users } = this.props;
+
+    console.table(users);
+    console.table(this.props.post);
 
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
 
@@ -40,15 +52,20 @@ class Post extends React.Component {
     );
   }
 
-  renderTag() {
-    const { Tags } = this.props.post;
+  // renderTag() {
+  //   const { Tags } = this.props.post;
 
-    return (
-      <div>
-        <span>{Tags[0].Text}</span>
-      </div>
-    );
-  }
+  //   return (
+  //     <div className={bemClasses('chip')}>
+  //       <Chip 
+  //         variant="outlined" 
+  //         color="primary" 
+  //         size="medium" 
+  //         label={Tags[0].Text}>
+  //       </Chip>
+  //     </div>
+  //   );
+  // }
 
   renderArticleBody() {
     const { Title, Description, id, ImageUrl } = this.props.post;
@@ -85,7 +102,10 @@ class Post extends React.Component {
         <div>{this.renderArticleBody()}</div>
         <div className={bemClasses('post-content')}>
           {this.renderReadMoreButton()}
-          {this.renderTag()}
+          {/* {this.renderTag()} */}
+        <div>
+          <Taginput />
+        </div>
         </div>
       </div>
     );
