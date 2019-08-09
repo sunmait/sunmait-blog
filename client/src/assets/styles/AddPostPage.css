@@ -46,7 +46,6 @@ div.add-post-form__title::before {
 }
 
 .add-post-form__description-container {
-  display: flex;
   height: 61rem;
 }
 
@@ -62,10 +61,25 @@ div.add-post-form__title::before {
   resize: none;
   outline: none;
   width: 100%;
-  height: 61rem;
+  height: 55rem;
   font-family: var(--default-font-family);
   font-size: var(--font-size--sm);
   border: none;
+}
+
+.add-post-form__input {
+  border: none;
+  outline: none;
+  margin-left: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add-post-form__chip {
+  display: inline-block;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .add-post-form__publish-post-button {

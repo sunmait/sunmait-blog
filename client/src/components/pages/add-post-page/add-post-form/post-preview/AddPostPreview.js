@@ -7,7 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { PostPreview } from 'components/common/PostPreview';
-import { style } from 'glamor';
 
 const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
@@ -30,10 +29,8 @@ class AddPostPreview extends React.Component {
       >
         <div data-cy="login-modal">
           <DialogTitle id="form-dialog-title">
-            <div className={bemClasses('title-prewiew_window')}>
-            Preview Window
-            </div>
-            </DialogTitle>
+            <div className={bemClasses('title-prewiew_window')}>Preview Window</div>
+          </DialogTitle>
           <DialogContent>
             <React.Fragment>
               <PostPreview postData={this.props.postData} />

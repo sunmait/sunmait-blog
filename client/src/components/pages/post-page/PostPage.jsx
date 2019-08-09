@@ -8,14 +8,11 @@ import { Helmet } from 'react-helmet';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
-import Post from '../../containers/post/Post.js';
-
+import Tag from '../../containers/post-tags/Tag';
 
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
-import DoneIcon from '@material-ui/icons/Done';
-import Chip from '@material-ui/core/Chip';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { PostPreview } from 'components/common/PostPreview/PostPreview';
 
@@ -129,26 +126,20 @@ class PostPage extends React.Component {
       </Helmet>
     );
   }
-  
-  renderTag() {
-    const { Tags } = this.props.selectedPost;
-
+  renderTagsList() {
+    const Tags = this.props.selectedPost.Tags;
+    console.log(this.props.selectedPost);
     return (
-      <div className={bemClasses('chip')}>
-      <Chip 
-      variant="outlined" 
-      color="primary" 
-      size="medium" 
-      deleteIcon={<DoneIcon />} 
-      label={Tags[0].Text}>
-      </Chip>
-      </div>
+      <React.Fragment>
+        {Tags.map(tag => (
+          <Tag tag={tag.Text} key={tag.id} />
+        ))}
+      </React.Fragment>
     );
   }
 
   renderArticleBody() {
     const { Title, Description } = this.props.selectedPost;
-
     return (
       <React.Fragment>
         {this.renderPageMeta()}
@@ -160,11 +151,8 @@ class PostPage extends React.Component {
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
-          {this.renderTag()}
-
-
+          {/* {this.renderTagsList()} */}
           <PostPreview postData={Description} />
-
           {this.renderShareButtons()}
         </div>
       </React.Fragment>
@@ -174,7 +162,6 @@ class PostPage extends React.Component {
   render() {
     if (this.props.selectedPost) {
       const { ImageUrl } = this.props.selectedPost;
-
       return (
         <div className="content-wrapper">
           <img

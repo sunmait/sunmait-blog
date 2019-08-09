@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 import { deletePost } from 'redux/modules/posts/postsActions';
 import { getPost } from 'redux/modules/post/actions';
 import PostPage from './PostPage.jsx';
-import Post from '../../containers/post/Post';
 
 const mapStateToProps = (state, props) => {
   const postId = Number(props.match.params.postId);

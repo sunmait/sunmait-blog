@@ -12,7 +12,7 @@ module.exports = {
         },
         {
           id: 2,
-          PostId: 14,
+          PostId: 15,
           TagId: 2,
         },
         {
@@ -64,6 +64,11 @@ module.exports = {
           id: 12,
           PostId: 4,
           TagId: 1,
+        },
+        { 
+          id: 13,
+          PostId: 14,
+          TagId: 2,
         },
       ],
       {}
