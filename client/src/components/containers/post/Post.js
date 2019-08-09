@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
+import Tag from '../post-tags/Tag';
 import Button from 'components/common/button/Button.js';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import 'assets/styles/Article.css';
@@ -30,7 +31,6 @@ class Post extends React.Component {
 
   renderReadMoreButton() {
     const { id } = this.props.post;
-
     return (
       <div className={bemClasses('more-button')}>
         <Button as={Link} to={`/post/${id}`}>
@@ -69,19 +69,33 @@ class Post extends React.Component {
     );
   }
 
+  renderTagsList() {
+    const Tags = this.props.post.Tags;
+    return (
+      <React.Fragment>
+        {Tags.map(tag => (
+          <Tag tag={tag.Text} key={tag.id} />
+        ))}
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
       <div className={bemClasses('container', 'preview')}>
         <div>{this.renderArticleBody()}</div>
-        <div className={bemClasses('post-content')}>{this.renderReadMoreButton()}</div>
+        <div className={bemClasses('post-content')}>
+          {this.renderReadMoreButton()}
+          {this.renderTagsList()}
+        </div>
       </div>
     );
   }
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
+  post: PropTypes.object,
+  users: PropTypes.object,
 };
 
 export default Post;

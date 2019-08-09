@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, AllowNull, IsDate, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, AllowNull, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 
 @Table({ tableName: 'Tags' })
 export default class TagEntity extends Model<TagEntity> {
@@ -8,7 +8,7 @@ export default class TagEntity extends Model<TagEntity> {
   @Column(DataType.INTEGER)
   public id: number;
 
-  @IsDate
+  // @IsDate
   @AllowNull(false)
   @Column(DataType.STRING)
   public Text: string;

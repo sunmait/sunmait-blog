@@ -6,17 +6,25 @@ import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
 import PostsTagEntity from '../../../Data/Entities/PostsTagEntity';
 import TagEntity from '../../../Data/Entities/TagEntity';
 import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositories/index';
+import { IPostsTagRepository, ITagRepository } from '../../../Data/Repositories/index';
+import { Op } from '../../../Data/DbContext';
 
 @injectable()
 export class PostService implements IPostService {
   private readonly _postRepository: IPostRepository;
   private readonly _postLikesRepository: IPostLikesRepository;
+  private readonly _postsTagRepository: IPostsTagRepository;
+  private readonly _tagRepository: ITagRepository;
   constructor(
     @inject('PostRepository') postRepository: IPostRepository,
-    @inject('PostLikesRepository') postLikesRepository: IPostLikesRepository
+    @inject('PostLikesRepository') postLikesRepository: IPostLikesRepository,
+    @inject('PostsTagRepository') postsTagRepository: IPostsTagRepository,
+    @inject('TagRepository') tagRepository: ITagRepository
   ) {
     this._postRepository = postRepository;
     this._postLikesRepository = postLikesRepository;
+    this._postsTagRepository = postsTagRepository;
+    this._tagRepository = tagRepository;
   }
 
   public async getPosts(params: IGetPostsOptions): Promise<PostEntity[]> {
@@ -39,6 +47,7 @@ export class PostService implements IPostService {
           include: [
             {
               model: TagEntity,
+              attributes: ['id', 'Text'],
             },
           ],
         },
@@ -57,7 +66,7 @@ export class PostService implements IPostService {
       options.where = {
         ...options.where,
         Title: {
-          $like: `%${search}%`,
+          [Op.like]: `%${search}%`,
         },
       };
     }
@@ -98,6 +107,7 @@ export class PostService implements IPostService {
           include: [
             {
               model: TagEntity,
+              attributes: ['id', 'Text'],
             },
           ],
         },

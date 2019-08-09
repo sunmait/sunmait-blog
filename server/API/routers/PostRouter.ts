@@ -1,12 +1,13 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
-import { IPostService, ICommentService } from '../../Domain/Services';
+import { IPostService, ICommentService, ITagService } from '../../Domain/Services';
 import IRequest from '../helper/IRequest';
 import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();
 const postService = container.get<IPostService>('PostService');
 const commentService = container.get<ICommentService>('CommentService');
+const tagService = container.get<ITagService>('TagService');
 
 /**
  * Operations about Posts.
@@ -44,6 +45,19 @@ router.get('/:id/comments', async (req: express.Request, res: express.Response, 
 
   try {
     res.json(await commentService.getCommentById(id));
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Get tag of post by id
+ */
+router.get('/:id/tag', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const { id } = req.params;
+
+  try {
+    res.json(await tagService.getTag(id));
   } catch (error) {
     next(error);
   }

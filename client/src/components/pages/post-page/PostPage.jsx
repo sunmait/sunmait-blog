@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
+import Tag from '../../containers/post-tags/Tag';
 
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
@@ -125,10 +126,20 @@ class PostPage extends React.Component {
       </Helmet>
     );
   }
+  renderTagsList() {
+    const Tags = this.props.selectedPost.Tags;
+    console.log(this.props.selectedPost);
+    return (
+      <React.Fragment>
+        {Tags.map(tag => (
+          <Tag tag={tag.Text} key={tag.id} />
+        ))}
+      </React.Fragment>
+    );
+  }
 
   renderArticleBody() {
     const { Title, Description } = this.props.selectedPost;
-
     return (
       <React.Fragment>
         {this.renderPageMeta()}
@@ -140,9 +151,8 @@ class PostPage extends React.Component {
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
-
+          {/* {this.renderTagsList()} */}
           <PostPreview postData={Description} />
-
           {this.renderShareButtons()}
         </div>
       </React.Fragment>
@@ -152,7 +162,6 @@ class PostPage extends React.Component {
   render() {
     if (this.props.selectedPost) {
       const { ImageUrl } = this.props.selectedPost;
-
       return (
         <div className="content-wrapper">
           <img
