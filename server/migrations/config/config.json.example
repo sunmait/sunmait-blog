@@ -1,0 +1,24 @@
+{
+  "development": {
+    "dialect": "mysql",
+    "database": "sunmait_blog_development",
+    "username": "root",
+    "password": "Password1234",
+    "host": "localhost",
+    "port": 3306
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "sunmait_blog__test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "password",
+    "database": "sunmait_blog",
+    "host": "proddb",
+    "dialect": "mysql"
+  }
+}

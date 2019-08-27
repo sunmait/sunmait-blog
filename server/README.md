@@ -18,12 +18,14 @@ npm run install-all
 
 #### Creating tables and filling them with test data (Migrations)
 
+There are 2 configuration files with `.json.example` extension.
+rename file to `.json` and fill your db user and password (this files are in .gitignore)  
+
 Configuration file located in:
 
 ```sh
 /migrations/config.example
 ```
-create your own 'config.json' with your data.
 
 Next, to create tables you need run:
 

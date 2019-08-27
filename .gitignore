@@ -1,3 +1,5 @@
+server/migrations/config/config.json
+server/API/config/development.json
 node_modules
 .idea/
 dist/
