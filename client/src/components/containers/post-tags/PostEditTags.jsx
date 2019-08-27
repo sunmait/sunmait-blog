@@ -1,60 +1,53 @@
 import 'assets/styles/Article.css';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { Paper } from '@material-ui/core';
 import Tag from 'components/containers/post-tags/Tag';
 import InputTagComponent from './EditTagInput';
 import PropTypes from 'prop-types';
 
+import { FieldArray } from 'redux-form';
+import { useSelector } from 'react-redux';
+import { getPostEditTagsSelector } from '../../../redux/modules/posts/postsSelectors';
+
 const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
 
 const PostEditTags = props => {
-  const [tags, setTags] = useState([]);
-
-  useEffect(
-    () => {
-      setTags(props.tags);
-    },
-    [props.tags]
-  );
-
-  const handleDeleteTag = id => {
-    const updateTags = tags.filter(tag => tag.id !== id);
-    setTags(updateTags);
+  const Tags = useSelector(getPostEditTagsSelector);
+  const handleDeleteTag = index => {
+    props.fields.remove(index);
   };
 
   const handleAddTag = tag => {
-    let id = 0;
-    tags.map(tag => (id = tag.id));
-    const newTags = {
-      id: id + 1,
-      Text: tag,
-    };
-    setTags([...tags, newTags]);
+    props.fields.push({ Text: tag });
   };
 
-  const renderTagsList = () => {
+  const renderTagsList = Tags => {
     return (
-      <React.Fragment>
-        {tags.map(tag => (
-          <Tag tag={tag.Text} id={tag.id} deleteTag={handleDeleteTag} key={tag.id} />
-        ))}
-      </React.Fragment>
+      <div className={bemClasses('container')}>
+        {Tags
+          ? Tags.map((tag, index) => <Tag tag={tag.Text} index={index} deleteTag={handleDeleteTag} key={tag.id} />)
+          : ''}
+      </div>
     );
   };
 
   return (
     <Paper className={bemClasses('paper')}>
-      {renderTagsList()}
+      {renderTagsList(Tags)}
       <InputTagComponent addTag={handleAddTag} />
     </Paper>
   );
 };
 
 PostEditTags.propTypes = {
-  tags: PropTypes.array,
+  Tags: PropTypes.array,
+  name: PropTypes.string,
 };
-
+export const PostEditTagsConnected = props => {
+  return <FieldArray component={PostEditTags} name={props.name} {...props} />;
+};
+// default PostEditTagsConnected as PostEditTags;
 export default PostEditTags;

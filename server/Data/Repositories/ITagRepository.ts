@@ -3,4 +3,5 @@ import TagEntity from '../Entities/TagEntity';
 
 export interface ITagRepository extends IRepository<TagEntity> {
   // specific methods
+    getOrCreate(text: string): Promise<TagEntity>;
 }

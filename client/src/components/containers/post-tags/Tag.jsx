@@ -9,10 +9,9 @@ const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
 
 const Tag = props => {
-  const { tag, id, deleteTag } = props;
-
+  const { tag, index, deleteTag } = props;
   const handleDelete = () => {
-    deleteTag(id);
+    deleteTag(index);
   };
 
   return (

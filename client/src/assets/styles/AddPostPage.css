@@ -45,10 +45,6 @@ div.add-post-form__title::before {
   margin: 1rem 0;
 }
 
-.add-post-form__description-container {
-  height: 61rem;
-}
-
 .add-post-form__add-button {
   position: absolute;
   height: 63rem;
@@ -70,16 +66,17 @@ div.add-post-form__title::before {
 .add-post-form__input {
   border: none;
   outline: none;
-  margin-left: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-left: 5px;
+  font-size: 20px !important;
+  width: 30%;
+  box-shadow: 0px 0px 0px 1px #fff inset;
 }
 
 .add-post-form__chip {
   display: inline-block;
-  margin-left: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-right: 5px;
 }
 
 .add-post-form__publish-post-button {
@@ -96,6 +93,17 @@ div.add-post-form__title::before {
 
 .add-post-load-image__progress-wrapper {
   min-width: 2rem;
+}
+.add-post-form__paper {
+  display: flex;
+  justify-content: flex-start;
+}
+.add-post-form__container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 5px;
+  max-width: 400px;
 }
 
 .add-post-image-preview {

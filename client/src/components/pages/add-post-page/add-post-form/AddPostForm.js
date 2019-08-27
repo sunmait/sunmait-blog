@@ -11,7 +11,7 @@ import { getBEMClasses } from 'helpers//BEMHelper';
 import LoadPostImage from './load-post-image/LoadPostImageContainer.js';
 import MediaWidget from './media-widget/MediaWidgetContainer';
 import AddPostPreview from 'components/pages/add-post-page/add-post-form/post-preview/AddPostPreview';
-import PostEditTags from 'components/containers/post-tags/PostEditTags';
+import { PostEditTagsConnected } from 'components/containers/post-tags/PostEditTags';
 
 const editPost = 'add-post-form';
 const bemClasses = getBEMClasses([editPost]);
@@ -44,7 +44,6 @@ class EditPost extends React.Component {
     const { valid, handleSubmit, label, setTextareaSelectionValues, initialValues } = this.props;
     const { isRowEmpty, widgetPadding } = this.state;
     const pageTitle = initialValues.Title.length > 0 ? initialValues.Title : 'Create new post';
-
     return (
       <form onSubmit={handleSubmit} className={bemClasses()}>
         <Helmet title={pageTitle} />
@@ -70,7 +69,7 @@ class EditPost extends React.Component {
             setCurrentRowValues={this.setCurrentRowValues}
             getCaretParams={this.getCaretParams}
           />
-          <PostEditTags tags={initialValues.Tags} />
+          <PostEditTagsConnected name="Tags" />
         </div>
 
         <div>

@@ -36,6 +36,7 @@
   "main": "./API/app.js",
   "dependencies": {
     "mysql2": "^1.5.3",
+    "pm2": "^3.5.1",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^5.4.0"
   },

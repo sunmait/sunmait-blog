@@ -1,9 +1,11 @@
 import { createSelector } from 'reselect';
 import { formValueSelector } from 'redux-form';
 
-const searchBarSelector = formValueSelector('posts');
+const searchBarForm = formValueSelector('posts');
+const postEditFormSelector = formValueSelector('post');
 
-export const searchQuerySelector = state => searchBarSelector(state, 'searchQuery') || '';
+export const searchQuerySelector = state => searchBarForm(state, 'searchQuery') || '';
+export const getPostEditTagsSelector = state => postEditFormSelector(state, 'Tags');
 
 export const getPostsSelector = createSelector([state => state.posts.posts], posts => posts);
 export const getUserPostsSelector = createSelector([state => state.profile.postsOfCurrentUser], posts => posts);

@@ -9,7 +9,7 @@ const editPostSelector = formValueSelector('post');
 
 const mapStateToProps = state => ({
   post: state.post.post,
-  editPostValues: editPostSelector(state, 'Title', 'Description', 'ImageUrl'),
+  editPostValues: editPostSelector(state, 'Title', 'Description', 'ImageUrl', 'Tags'),
 });
 
 const mapDispatchToProps = {

@@ -125,6 +125,7 @@ function* updatePost(payload) {
       Description: payload.payload.description,
       ImageUrl: payload.payload.imageUrl,
       idPost: payload.payload.idPost,
+      Tags: payload.payload.Tags,
     },
     {
       headers: {

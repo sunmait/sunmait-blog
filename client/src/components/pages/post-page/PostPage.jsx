@@ -128,7 +128,6 @@ class PostPage extends React.Component {
   }
   renderTagsList() {
     const Tags = this.props.selectedPost.Tags;
-    console.log(this.props.selectedPost);
     return (
       <React.Fragment>
         {Tags.map(tag => (

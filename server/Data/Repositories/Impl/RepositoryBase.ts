@@ -4,7 +4,7 @@ import { Model } from 'sequelize-typescript';
 
 @injectable()
 export class RepositoryBase<TEntity extends Model<any>> implements IRepository<TEntity> {
-  private _entityType: any;
+  protected _entityType: any;
 
   constructor(entityType: any) {
     this._entityType = entityType;

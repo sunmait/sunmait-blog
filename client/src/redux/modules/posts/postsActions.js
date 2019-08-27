@@ -61,13 +61,14 @@ export const insertDividerIntoText = () => ({
   payload: {},
 });
 
-export const updatePost = (title, description, imageUrl, idPost) => ({
+export const updatePost = (title, description, imageUrl, idPost, Tags) => ({
   type: POSTS_ACTIONS.UPDATE_POST,
   payload: {
     title,
     description,
     imageUrl,
     idPost,
+    Tags,
   },
 });
 

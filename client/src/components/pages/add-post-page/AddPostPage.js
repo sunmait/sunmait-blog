@@ -35,16 +35,15 @@ class AddPostPage extends React.Component {
   }
 
   updatePost() {
-    const { Title, Description, ImageUrl } = this.props.editPostValues;
+    const { Title, Description, ImageUrl, Tags } = this.props.editPostValues;
     const postId = this.state.postId;
 
-    this.props.updatePost(Title, Description, ImageUrl, postId);
+    this.props.updatePost(Title, Description, ImageUrl, postId, Tags);
     this.props.history.push(`/post/${postId}`);
   }
 
   addPost() {
     const { Title, Description, ImageUrl } = this.props.editPostValues;
-
     this.props.addPost(Title, Description, ImageUrl);
   }
 
