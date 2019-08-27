@@ -23,6 +23,7 @@ const mapStateToProps = (state, props) => {
           ImageUrl: '',
           textareaSelectionStart: 0,
           textareaSelectionEnd: 0,
+          Tags: [],
         };
 
   return {

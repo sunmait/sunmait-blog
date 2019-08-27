@@ -16,8 +16,8 @@ const bemClasses = getBEMClasses([editPost]);
 
 const PostEditTags = props => {
   const Tags = useSelector(getPostEditTagsSelector);
-  const handleDeleteTag = index => {
-    props.fields.remove(index);
+  const handleDeleteTag = id => {
+    props.fields.remove(id);
   };
 
   const handleAddTag = tag => {
@@ -27,9 +27,9 @@ const PostEditTags = props => {
   const renderTagsList = Tags => {
     return (
       <div className={bemClasses('container')}>
-        {Tags
-          ? Tags.map((tag, index) => <Tag tag={tag.Text} index={index} deleteTag={handleDeleteTag} key={tag.id} />)
-          : ''}
+        {Tags.map((tag, id) => (
+          <Tag tag={tag.Text} id={id} deleteTag={handleDeleteTag} key={tag.id} />
+        ))}
       </div>
     );
   };

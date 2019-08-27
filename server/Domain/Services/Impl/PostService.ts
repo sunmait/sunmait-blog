@@ -9,6 +9,19 @@ import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositorie
 import { IPostsTagRepository,  ITagRepository } from '../../../Data/Repositories/index';
 import { Op } from '../../../Data/DbContext';
 
+export interface ITag {
+    id: number;
+    Text: string;
+  }
+
+export interface IChangePostBody {
+    Title: string;
+    Description: string;
+    ImageUrl: string;
+    idPost: number;
+    Tags: ITag[];
+  }
+
 @injectable()
 export class PostService implements IPostService {
   private readonly _postRepository: IPostRepository;
@@ -139,7 +152,8 @@ export class PostService implements IPostService {
     return this._postRepository.create(post);
   }
 
-  public async updatePost(data: any): Promise<PostEntity> {
+  public async updatePost(data: IChangePostBody): Promise<PostEntity> {
+
     const post = await this._postRepository.find({ where: { id: data.idPost } });
     const Tags = await this._postsTagRepository.findAll({where: {PostId: data.idPost}});
     const apiTags = data.Tags;
@@ -161,7 +175,7 @@ export class PostService implements IPostService {
     }
     if (newTags) {
       asyncForEach(apiTags, async el => {
-        tag = await this._tagRepository.getOrCreate(el.Text);
+        tag = await this._tagRepository.getOrCreate({where: {Text: el.Text}});
         await this._postsTagRepository.create(new PostsTagEntity({TagId: tag[0].id, PostId: post.id }));
       });
     }

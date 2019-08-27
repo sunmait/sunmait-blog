@@ -9,8 +9,4 @@ export class TagRepository extends RepositoryBase<TagEntity> implements ITagRepo
     super(tagEntity);
   }
 
-  public async getOrCreate(text: string): Promise<TagEntity>  {
-    return this._entityType.findOrCreate({where: {Text: text}});
-  }
-
 }

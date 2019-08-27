@@ -103,6 +103,7 @@ div.add-post-form__title::before {
   justify-content: flex-start;
   flex-wrap: wrap;
   padding: 5px;
+  height: 48px;
   max-width: 400px;
 }
 

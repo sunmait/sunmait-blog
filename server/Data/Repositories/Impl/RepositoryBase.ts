@@ -1,10 +1,9 @@
 import { injectable } from 'inversify';
 import { IRepository } from '../index';
-import { Model } from 'sequelize-typescript';
-
+import {IFindOptions, Model} from 'sequelize-typescript';
 @injectable()
 export class RepositoryBase<TEntity extends Model<any>> implements IRepository<TEntity> {
-  protected _entityType: any;
+  private _entityType: any;
 
   constructor(entityType: any) {
     this._entityType = entityType;
@@ -13,7 +12,7 @@ export class RepositoryBase<TEntity extends Model<any>> implements IRepository<T
   public async findById(id: number): Promise<TEntity> {
     return this._entityType.findById(id);
   }
-  public async findAll(filter: any): Promise<TEntity[]> {
+  public async findAll(filter: IFindOptions<any>): Promise<TEntity[]> {
     return this._entityType.findAll(filter);
   }
   public async find(filter: any): Promise<TEntity> {
@@ -30,5 +29,8 @@ export class RepositoryBase<TEntity extends Model<any>> implements IRepository<T
   }
   public async remove(filter: any): Promise<boolean> {
     return this._entityType.destroy(filter);
+  }
+  public async getOrCreate(filter: IFindOptions<any>): Promise<TEntity>  {
+    return this._entityType.findOrCreate(filter);
   }
 }

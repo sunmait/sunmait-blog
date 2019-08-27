@@ -1,3 +1,5 @@
+import {IFindOptions} from 'sequelize-typescript';
+
 export interface IRepository<T> {
   findById(id: number): Promise<T>;
 
@@ -12,4 +14,6 @@ export interface IRepository<T> {
   update(entity: T): Promise<T>;
 
   remove(filter: any): Promise<boolean>;
+
+  getOrCreate(filter: IFindOptions<any>): Promise<T>;
 }
