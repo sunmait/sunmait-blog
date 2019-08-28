@@ -3,7 +3,6 @@ import '../../../assets/styles/ProfilePage.css';
 
 import { getBEMClasses } from '../../../helpers/BEMHelper';
 import { Route } from 'react-router-dom';
-import { navTabs } from './navTabs';
 import { Helmet } from 'react-helmet';
 import { Avatar } from '@material-ui/core';
 import UserInfoForm from './user-info-form/index.jsx';
