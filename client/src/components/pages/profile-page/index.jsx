@@ -8,7 +8,7 @@ import {
   setCurrentUserPostsFetchingStatus,
 } from 'redux/modules/profile/profileActions';
 import { getUserPostsSelector } from 'redux/modules/posts/postsSelectors';
-import ProfilePage from './ProfilePage.jsx';
+import { ProfilePage } from './ProfilePage.jsx';
 
 const userFormSelector = formValueSelector('userProfile');
 
