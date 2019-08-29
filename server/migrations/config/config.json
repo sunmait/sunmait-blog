@@ -3,7 +3,7 @@
     "dialect": "mysql",
     "database": "sunmait_blog_development",
     "username": "root",
-    "password": "Password1234",
+    "password": "root",
     "host": "localhost",
     "port": 3306
   },

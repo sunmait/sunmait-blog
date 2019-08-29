@@ -8,6 +8,7 @@ import TagEntity from '../../../Data/Entities/TagEntity';
 import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositories/index';
 import { IPostsTagRepository,  ITagRepository } from '../../../Data/Repositories/index';
 import { Op } from '../../../Data/DbContext';
+import {asyncForEach} from '../../helpers/TagsHelper';
 
 export interface ITag {
     id: number;
@@ -148,7 +149,12 @@ export class PostService implements IPostService {
 
   public async addPost(data: any): Promise<PostEntity> {
     const post = new PostEntity(data);
-
+    const tags = data.Tags;
+    let tag;
+    asyncForEach(tags, async el =>{
+      tag = await this._tagRepository.getOrCreate({where: {Text: el.Text}});
+      await this._postsTagRepository.create(new PostsTagEntity({TagId: tag[0].id, PostId: post.id }));
+    });
     return this._postRepository.create(post);
   }
 
@@ -157,11 +163,6 @@ export class PostService implements IPostService {
     const post = await this._postRepository.find({ where: { id: data.idPost } });
     const Tags = await this._postsTagRepository.findAll({where: {PostId: data.idPost}});
     const apiTags = data.Tags;
-    async function asyncForEach(array, callback) {
-      for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array);
-      }
-    }
     asyncForEach(Tags, async el => {
           if (!apiTags.find(newel => newel.id === el.id)) {
             await this._postsTagRepository.remove({where: {id: el.id}});
