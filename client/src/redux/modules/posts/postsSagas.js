@@ -60,6 +60,7 @@ function* addPost(payload) {
       Title: payload.payload.title,
       Description: payload.payload.description,
       ImageUrl: payload.payload.imageUrl,
+      Tags: payload.payload.Tags,
       UserId,
     },
     {

@@ -18,12 +18,13 @@ export const getMorePostsSuccess = posts => ({
   payload: posts,
 });
 
-export const addPost = (title, description, imageUrl) => ({
+export const addPost = (title, description, imageUrl, Tags) => ({
   type: POSTS_ACTIONS.ADD_POST,
   payload: {
     title,
     description,
     imageUrl,
+    Tags,
   },
 });
 
