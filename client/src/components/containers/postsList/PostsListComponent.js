@@ -21,7 +21,7 @@ export const PostsList = ({ posts, fetching }) => {
       {fetching && <Loader />}
 
       {!fetching && posts.length ? (
-        <div className={bemClasses('container')}>
+        <div className={bemClasses('container')} data-cy="main-page-post">
           {posts.map(post => (
             <Post key={post.id} post={post} />
           ))}

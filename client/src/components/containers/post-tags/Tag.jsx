@@ -17,6 +17,7 @@ const Tag = props => {
   return (
     <div className={bemClasses('chip')}>
       <Chip
+        data-cy={'tag-item' + id}
         style={{ fontSize: '15px' }}
         variant="outlined"
         color="primary"

@@ -23,6 +23,7 @@ const InputTagComponent = props => {
 
   return (
     <input
+      data-cy="tags-input"
       type="text"
       placeholder="enter new tag"
       onChange={handleChange}

@@ -43,8 +43,8 @@ class AddPostPage extends React.Component {
   }
 
   addPost() {
-    const { Title, Description, ImageUrl } = this.props.editPostValues;
-    this.props.addPost(Title, Description, ImageUrl);
+    const { Title, Description, ImageUrl, Tags } = this.props.editPostValues;
+    this.props.addPost(Title, Description, ImageUrl, Tags);
   }
 
   handleSubmit = values => {
