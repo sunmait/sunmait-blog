@@ -32,3 +32,6 @@ export const testAmountOfPosts = amount => {
     .find('.article__container')
     .should('have.length', amount);
 };
+export const addTag = text =>{
+  cy.get('[data-cy=tags-input]').type(text + '{enter}');
+}
