@@ -151,14 +151,15 @@ export class PostService implements IPostService {
   }
 
   public async addPost(data: any): Promise<PostEntity> {
-    const post = new PostEntity(data);
+    const postEntity = new PostEntity(data);
+    const post = await this._postRepository.create(postEntity);
     const tags = data.Tags;
     let tag;
     asyncForEach(tags, async el => {
       tag = await this._tagRepository.getOrCreate({where: {Text: el.Text}});
       await this._postsTagRepository.create(new PostsTagEntity({TagId: tag[0].id, PostId: post.id }));
     });
-    return this._postRepository.create(post);
+    return post;
   }
 
   public async updatePost(data: IChangePostBody): Promise<PostEntity> {

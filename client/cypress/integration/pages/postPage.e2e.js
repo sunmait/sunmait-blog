@@ -58,7 +58,7 @@ describe('Post page', () => {
             .contains(updatingDate);
 
           cy.log('post should have description');
-          cy.get('.article__description')
+          cy.get('.post-preview__description')
             .should('be.visible');
 
           cy.log('post should not have edit button');
