@@ -42,7 +42,7 @@ describe('Home page. Posts', () => {
       cy.wait(100);
       testAmountOfPosts(12);
       cy.scrollTo('bottom');
-      testAmountOfPosts(15);
+      testAmountOfPosts(16);
     });
 
     it('Should load 12 posts at first and 4 more after scroll to bottom of the page(tablet view)', () => {
@@ -52,7 +52,7 @@ describe('Home page. Posts', () => {
       cy.scrollTo(0);
       cy.wait(100);
       cy.scrollTo('bottom');
-      testAmountOfPosts(15);
+      testAmountOfPosts(16);
     });
 
     it('Should load 12 posts at first and 2 more after scroll to bottom of the page(mobile view)', () => {
@@ -65,7 +65,7 @@ describe('Home page. Posts', () => {
       testAmountOfPosts(14);
       cy.wait(100);
       cy.scrollTo('bottom');
-      testAmountOfPosts(15);
+      testAmountOfPosts(16);
     });
   });
 
@@ -127,7 +127,7 @@ describe('Home page. Posts', () => {
         const firstPost = response.body[0];
 
         getPostByTitle(firstPost.Title)
-          .find('.article__title')
+          .find('.article__title').first().children()
           .click();
 
         cy.location().then(({ pathname }) => {

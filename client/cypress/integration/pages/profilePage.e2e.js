@@ -138,7 +138,6 @@ describe('Profile page', () => {
 
         cy.get('[data-cy=user-profile-form]').find('input').eq(0).should('have.value', userFirstName+str);
         cy.get('[data-cy=user-profile-form]').find('input').eq(1).should('have.value', userLastName+str);
-        cy.get('[data-cy=user-profile__header-name-surname]').should('have.text', `${userFirstName}str ${userLastName}str`)
         cy.get('[data-cy=header__user-info-name]').should('have.text', `${userFirstName}str ${userLastName}str`);
       });
     });
@@ -150,7 +149,7 @@ function checkingProfileHeader(user) {
   cy.get('[data-cy=header__avatar]').should('be.visible').find('img').should('have.attr', 'src', `${user.PhotoUrl}`);
 
   cy.log('profile header should have user name and surname');
-  cy.get('[data-cy=user-profile__header-name-surname]').should('be.visible').should('have.text', `${user.FirstName} ${user.LastName}`);
+  cy.get('[data-cy=userProfile__header-name-surname]').should('be.visible').should('have.text', `${user.FirstName} ${user.LastName}`);
 }
 
 function checkingProfileNavigationMenu() {
