@@ -84,7 +84,7 @@ class Post extends React.Component {
     return (
       <div className={bemClasses('container', 'preview')}>
         <div>{this.renderArticleBody()}</div>
-        <div className={bemClasses('post-content')}>
+        <div className={bemClasses('post-content')} data-cy="post-content">
           {this.renderReadMoreButton()}
           {this.renderTagsList()}
         </div>

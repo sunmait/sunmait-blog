@@ -1,5 +1,6 @@
 import {setLoginState} from '../../testHelpers/authHelper';
 import 'cypress-file-upload';
+import {addTag} from '../../testHelpers/postHelper'
 describe('Add post page', () => {
     describe('Create new post', () => {
         beforeEach(() => {
@@ -30,28 +31,27 @@ describe('Add post page', () => {
             cy.log(`Add media widget button should be on the same level as the carriage`);
             checkAddMediaButtonPosition();
         });
-        it('Add post and check if it displayed on Main page', () => {
-            const Capture ='Test-post, don\'t touch it';
-            cy.get('[data-cy=title-container]').find('input.MuiInputBase-input-55').type(Capture);
-            cy.get('[data-cy=description-container]').find('textarea').type('Hi, please don\'t touch or modify this post!\n' + '\n' + '@mineralsfree' + '\n');
-            cy.get('[data-cy=add-post-media-widget]').click();
-            cy.get('[data-cy=img-url-hidden-input-open-btn]').click();
-            cy.get('[data-cy=menu-item-hidden-input]').find('input').type('https://nonExistentFakeUrl.com/nonExistent.jpg');
-            cy.get('[data-cy=img-url-hidden-input-open-btn]').click();
-            let text = 'Test';
-            cy.get('[data-cy=tags-input]').type(text + '{enter}');
-            cy.get('[data-cy=tags-input]').type('TAG' + '{enter}');
+        it('Add post and check if it is displayed on Main page', () => {
             const fileName ='images/Test_image.png';
+            cy.log('Uploading post cover image');
             cy.fixture(fileName).then(fileContent => {
                 cy.get('input[type=file]').upload({ fileContent, fileName, mimeType: 'image/png' });
             });
-            cy.wait(3000);
+            cy.log('adding heading');
+            const heading ='THIS IS A TEST ';
+            cy.get('[data-cy=title-container]').find('input.MuiInputBase-input-55').type(heading);
+            cy.log('adding Description');
+            cy.get('[data-cy=description-container]').find('textarea').type('Hi, please don\'t touch or modify this post!  @mineralsfree qwertyuiqwertyui' );
+            addTag('Test');
+            addTag('TAG');
+            cy.wait(1500);
+            cy.log('submitting form');
             cy.get('[data-cy=publish-post-button]').click();
-            cy.get('[data-cy=posts-list__searchbar]').find('input').type(Capture);
-            cy.wait(1000);
-            cy.get('[data-cy=main-page-post]').should('have.length.of.at.least',1)
-
-
+            cy.log('finding post on the home page');
+            cy.wait(500);
+            cy.get('[data-cy=posts-list__searchbar]').find('input').type(heading);
+            cy.get('[data-cy=main-page-post]').should('have.length.of.at.least',1);
+            cy.get('[data-cy=post-content]').first().get('.add-post-form__chip').should('have.length', 2);
         })
 
         it('Position of media inserted by add media widget button', () => {
@@ -69,8 +69,8 @@ describe('Add post page', () => {
                 })
         });
     });
-})
-
+});
+// making sure that addMedia button is on the same height with cursor
 function checkAddMediaButtonPosition() {
     cy.window()
         .then(win => win.pageYOffset)
