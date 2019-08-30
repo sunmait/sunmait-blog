@@ -31,6 +31,17 @@ describe('Home page. Posts', () => {
       cy.get(searchPostInputPath).type(nonExistingPostTitle);
       cy.get(`[data-cy=no-posts-message]`).should('be.visible');
     });
+    it('should show posts with tags if there is a hashTag', () => {
+      cy.visit('/');
+
+      const HashTag = '#Mine';
+
+      cy.get(searchPostInputPath).type(HashTag);
+      cy.get(`[data-cy=post-content]`).should('have.length', 5);
+        cy.get(`[data-cy=post-content]`).find('.add-post-form__chip span').first().should('have.text', 'Mine');
+
+
+    });
   });
 
   describe('Lazy load of posts', () => {
