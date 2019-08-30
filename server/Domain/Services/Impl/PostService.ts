@@ -56,21 +56,22 @@ export class PostService implements IPostService {
             },
           ],
         },
-        {
-          model: PostsTagEntity,
+      ],
+    };
+    const PostTagEnt: any = {
+      model: PostsTagEntity,
           include: [
-            {
-              model: TagEntity,
-              attributes: ['id', 'Text'],
-            },
-          ],
+        {
+          model: TagEntity,
+          attributes: ['id', 'Text'],
         },
       ],
     };
     if (tag) {
       const tagEnt = await this._tagRepository.find({where: {Text: tag}});
-      options.include[2].where = {TagId: tagEnt.id};
+      PostTagEnt.where = {TagId: tagEnt.id};
     }
+    options.include.push(PostTagEnt);
     const count = parseInt(countStr, 10);
     const offset = parseInt(offsetStr, 10);
 
@@ -99,7 +100,7 @@ export class PostService implements IPostService {
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
 
     return posts.map(post => {
-      post.Tags = post.Tags.map(Tag => Tag.Tag);
+      post.Tags = post.Tags.map(i => i.Tag);
       post.Likes = post.Likes.map(like => like.UserInfo);
       return post;
     });
