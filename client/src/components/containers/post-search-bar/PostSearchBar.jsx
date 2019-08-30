@@ -8,8 +8,13 @@ const bemClasses = getBEMClasses([searchBar]);
 
 const PostSearchBarComponent = props => {
   return (
-    <form className={bemClasses('form')}>
-      <Input name="searchQuery" placeholder="Search" customClass={bemClasses('input')} />
+    <form
+      className={bemClasses('form')}
+      onSubmit={e => {
+        e.preventDefault();
+      }}
+    >
+      <Input name="searchQuery" placeholder="Search" customClass={bemClasses('input')} id="search-bar" />
     </form>
   );
 };

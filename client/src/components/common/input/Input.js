@@ -9,7 +9,7 @@ export const InputComponent = props => {
   const classes = getBEMClasses([baseClass, props.customClass]);
   const { input } = props;
 
-  return <input {...input} placeholder={props.placeholder} className={classes()} autoComplete="off" />;
+  return <input {...input} placeholder={props.placeholder} className={classes()} autoComplete="off" id={props.id} />;
 };
 
 const Input = props => {

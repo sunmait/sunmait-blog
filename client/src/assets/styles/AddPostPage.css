@@ -78,7 +78,11 @@ div.add-post-form__title::before {
   margin-bottom: 3px;
   margin-right: 5px;
 }
-
+.MuiChip-outlinedPrimary-81:hover {
+  cursor: pointer;
+  background-color: #2f80ed;
+  color: #fff;
+}
 .add-post-form__publish-post-button {
   display: flex;
   justify-content: center;

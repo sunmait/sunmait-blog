@@ -1,10 +1,10 @@
 import PostEntity from '../../Data/Entities/PostEntity';
-
 export interface IGetPostsOptions {
   count: string;
   offset: string;
   search?: string;
   userId?: number;
+  tag?: number;
 }
 
 export interface IPostService {

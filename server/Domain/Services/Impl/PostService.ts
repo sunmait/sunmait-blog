@@ -9,7 +9,6 @@ import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositorie
 import { IPostsTagRepository,  ITagRepository } from '../../../Data/Repositories/index';
 import { Op } from '../../../Data/DbContext';
 import {asyncForEach} from '../../helpers/TagsHelper';
-
 export interface ITag {
     id: number;
     Text: string;
@@ -42,7 +41,8 @@ export class PostService implements IPostService {
   }
 
   public async getPosts(params: IGetPostsOptions): Promise<PostEntity[]> {
-    const { count: countStr, offset: offsetStr, search, userId } = params;
+    const { count: countStr, offset: offsetStr, search, userId, tag } = params;
+
     const options: any = {
       where: {},
       include: [
@@ -67,6 +67,10 @@ export class PostService implements IPostService {
         },
       ],
     };
+    if (tag) {
+      const tagEnt = await this._tagRepository.find({where: {Text: tag}});
+      options.include[2].where = {TagId: tagEnt.id};
+    }
     const count = parseInt(countStr, 10);
     const offset = parseInt(offsetStr, 10);
 
@@ -90,13 +94,12 @@ export class PostService implements IPostService {
         userId,
       };
     }
-
     options.order = [['CreatedAt', 'DESC']];
 
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
 
     return posts.map(post => {
-      post.Tags = post.Tags.map(tag => tag.Tag);
+      post.Tags = post.Tags.map(Tag => Tag.Tag);
       post.Likes = post.Likes.map(like => like.UserInfo);
       return post;
     });
@@ -151,7 +154,7 @@ export class PostService implements IPostService {
     const post = new PostEntity(data);
     const tags = data.Tags;
     let tag;
-    asyncForEach(tags, async el =>{
+    asyncForEach(tags, async el => {
       tag = await this._tagRepository.getOrCreate({where: {Text: el.Text}});
       await this._postsTagRepository.create(new PostsTagEntity({TagId: tag[0].id, PostId: post.id }));
     });
