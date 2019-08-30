@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 import { change, actionTypes } from 'redux-form';
 import { call, put, takeLatest, all, select, delay } from 'redux-saga/effects';
-import { getTags } from './tagHelper';
+import { parseTags } from './tagHelper';
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import getYoutubeId from 'helpers/getYoutubeId.js';
 import { POSTS_ACTIONS, INITIAL_NUMBER_OF_POSTS } from './postsConstants';
@@ -19,7 +19,7 @@ function* getPostsBaseSaga({ payload }) {
   try {
     const { count, offset } = payload;
     let searchSrc = yield select(searchQuerySelector) || '';
-    const { tags, str } = getTags(searchSrc);
+    const { tags, str } = parseTags(searchSrc);
     let baseStr = `/api/posts?count=${count}&offset=${offset}`;
     if (tags) {
       baseStr += `&tag=${tags}`;
