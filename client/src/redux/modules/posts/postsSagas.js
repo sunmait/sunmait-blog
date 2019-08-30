@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 import { change, actionTypes } from 'redux-form';
 import { call, put, takeLatest, all, select, delay } from 'redux-saga/effects';
-
+import { getTags } from './tagHelper';
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import getYoutubeId from 'helpers/getYoutubeId.js';
 import { POSTS_ACTIONS, INITIAL_NUMBER_OF_POSTS } from './postsConstants';
@@ -18,9 +18,17 @@ import { searchQuerySelector } from 'redux/modules/posts/postsSelectors';
 function* getPostsBaseSaga({ payload }) {
   try {
     const { count, offset } = payload;
-    const searchSrc = yield select(searchQuerySelector) || '';
+    let searchSrc = yield select(searchQuerySelector) || '';
+    const { tags, str } = getTags(searchSrc);
+    let baseStr = `/api/posts?count=${count}&offset=${offset}`;
+    if (tags) {
+      baseStr += `&tag=${tags}`;
+    }
+    if (str) {
+      baseStr += `&search=${str}`;
+    }
+    let res = yield axios.get(baseStr);
 
-    const res = yield axios.get(`/api/posts?count=${count}&offset=${offset}&search=${searchSrc}`);
     return res.data;
   } catch (err) {
     console.error('getPostsBaseSaga error', err);

@@ -15,10 +15,10 @@ const tagService = container.get<ITagService>('TagService');
  * Get posts
  */
 router.get('/', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const { count, offset, search } = req.query;
+  const { count, offset, search, tag } = req.query;
 
   try {
-    res.json(await postService.getPosts({ count, offset, search }));
+    res.json(await postService.getPosts({ count, offset, search, tag }));
   } catch (error) {
     next(error);
   }
