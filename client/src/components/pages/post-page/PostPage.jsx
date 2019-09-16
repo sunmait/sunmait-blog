@@ -102,7 +102,6 @@ class PostPage extends React.Component {
 
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
     const updatingDate = format(UpdatedAt, 'MMM D, YYYY');
-
     return (
       <div className={bemClasses('info')} data-cy="post-author">
         {'By '}

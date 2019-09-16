@@ -10,12 +10,14 @@ import ConfirmationModal from '../../common/confirmation-modal/ConfirmationModal
 import Loader from '../../common/loader';
 import NavMenu from '../../common/navMenu';
 import { UserPostListContainer } from '../../containers/postsList';
-const userProfile = 'userProfile';
+
+const userProfile = 'user-profile';
 const profilePageCn = getBEMClasses([userProfile]);
 
 export const ProfilePage = ({
   getUser,
   updateUser,
+  loadUserAvatar,
   getCurrentUserPosts,
   setCurrentUserPostsFetchingStatus,
   setUserId,
@@ -25,6 +27,10 @@ export const ProfilePage = ({
   currentUserPostsFetchingStatus,
   match,
 }) => {
+  if (user) {
+    //2001-04-21T00:00:00.000Z -> 2001-04-21
+    user.BornDate = user.BornDate.slice(0, 10);
+  }
   const reloadProfile = userId => {
     getUser(userId);
     getCurrentUserPosts(userId);
@@ -50,10 +56,26 @@ export const ProfilePage = ({
       changedUser: {
         name: userFormValues.FirstName,
         secondName: userFormValues.LastName,
+        bornDate: userFormValues.BornDate,
       },
     };
     updateUser(updatedUserData);
     handleClose();
+  };
+
+  const isItUserPage = user && profile && user.FirstName === profile.FirstName;
+
+  const habdleClick = () => {
+    if (isItUserPage) {
+      document.querySelector('#avatarFileinput').click();
+    }
+  };
+  const pointerType = isItUserPage ? 'pointer' : 'auto';
+
+  const handleLoad = e => {
+    if (!e.target.files[0]) return;
+    const file = e.target.files[0];
+    loadUserAvatar({ file, userFormValues, id: user.id });
   };
   const renderProfileHeader = () => {
     if (profile) {
@@ -66,6 +88,17 @@ export const ProfilePage = ({
             src={profile.PhotoUrl}
             className={profilePageCn('avatar')}
             data-cy="header__avatar"
+            onClick={() => habdleClick()}
+            style={{ cursor: pointerType }}
+          />
+          <input
+            type="file"
+            id="avatarFileinput"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={fileAvatar => {
+              handleLoad(fileAvatar);
+            }}
           />
           <div data-cy={profilePageCn('header-name-surname')}>{fullName}</div>
         </div>

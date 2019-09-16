@@ -43,9 +43,9 @@ function handleGetUser(state, selectedUser) {
 }
 
 function handleChange(state, updated) {
-  const { FirstName, LastName } = updated;
+  const { FirstName, LastName, BornDate, PhotoUrl } = updated;
   const updatedUserById = { ...state.usersById, [updated.id]: FirstName };
-  const updatedProfile = { ...state.profile, FirstName, LastName };
+  const updatedProfile = { ...state.profile, FirstName, LastName, BornDate, PhotoUrl };
 
   return {
     ...state,

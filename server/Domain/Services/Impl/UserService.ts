@@ -3,6 +3,12 @@ import { IUserService } from '../IUserService';
 import UserEntity from '../../../Data/Entities/UserEntity';
 import { IUserRepository } from '../../../Data/Repositories/index';
 
+interface IUser {
+  FirstName?: string;
+  LastName?: string;
+  BornDate?: Date;
+  PhotoUrl?: string;
+}
 @injectable()
 export class UserService implements IUserService {
   private readonly _userRepository: IUserRepository;
@@ -29,6 +35,7 @@ export class UserService implements IUserService {
         FirstName: user.FirstName,
         LastName: user.LastName,
         PhotoUrl: user.PhotoUrl,
+        BornDate: user.BornDate,
         Login: user.Login,
         id: user.id,
       };
@@ -38,11 +45,24 @@ export class UserService implements IUserService {
     }
   }
 
-  public async updateUser(id: number, data: any): Promise<UserEntity> {
-    const user = await this._userRepository.findById(id);
-    user.FirstName = data.FirstName;
-    user.LastName = data.LastName;
-
-    return this._userRepository.update(user);
+  public async updateUser(id: number, data: IUser): Promise<UserEntity> {
+    if (!isNaN(id)) {
+      const user: UserEntity = await this._userRepository.findById(id);
+      if (typeof data.FirstName === 'string') {
+        user.FirstName = data.FirstName;
+      }
+      if (data.LastName !== undefined) {
+        user.LastName = data.LastName;
+      }
+      if (data.BornDate !== undefined) {
+        user.BornDate = data.BornDate;
+      }
+      if (data.PhotoUrl !== undefined) {
+        user.PhotoUrl = data.PhotoUrl;
+      }
+      return this._userRepository.update(user);
+    } else {
+      // ??????????????????????? TO DO
+    }
   }
 }

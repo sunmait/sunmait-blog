@@ -44,6 +44,7 @@ export class AuthService implements IAuthService {
           LastName: user.LastName,
           PhotoUrl: user.PhotoUrl,
           Login: user.Login,
+          BornDate: user.BornDate,
         },
       };
     } else {
@@ -67,6 +68,7 @@ export class AuthService implements IAuthService {
           LastName: updatedSession.User.LastName,
           PhotoUrl: updatedSession.User.PhotoUrl,
           Login: updatedSession.User.Login,
+          BornDate: updatedSession.User.BornDate,
         },
       };
     } else {
@@ -88,6 +90,7 @@ export class AuthService implements IAuthService {
             LastName: user.LastName,
             PhotoUrl: user.PhotoUrl,
             Login: user.Login,
+            BornDate: user.BornDate,
           },
         };
       } catch (err) {

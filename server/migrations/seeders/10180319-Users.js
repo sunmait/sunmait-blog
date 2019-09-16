@@ -14,6 +14,7 @@ module.exports = {
           PasswordHash: 'sha1$2b6cc855$1$b5d388c99fcdb546494bcdc12df02ebd6ca03936',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
+          BornDate: new Date('December 21, 2002 11:41:33'),
         },
         {
           id: 2,
@@ -24,6 +25,7 @@ module.exports = {
           PasswordHash: 'sha1$b0c74340$1$9a2dba718cffc8992e419d833e2965da126c8e81',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
+          BornDate: new Date('December 21, 2002 11:41:33'),
         },
         {
           id: 3,
@@ -35,6 +37,7 @@ module.exports = {
           PasswordHash: 'sha1$cf8d3dea$1$4a42e619fafe036cc629a3cf1942c7ef81fda64a',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
+          BornDate: new Date('December 21, 2001 11:41:33'),
         },
         {
           id: 4,
@@ -45,6 +48,7 @@ module.exports = {
           PasswordHash: 'sha1$342f9c61$1$f8bfc72285015f93da1dcccc85276ec23e35d090',
           CreatedAt: new Date('December 18, 2017 16:41:56'),
           UpdatedAt: new Date('December 21, 2017 11:41:33'),
+          BornDate: new Date('December 21, 2001 11:41:33'),
         },
       ],
       {}

@@ -8,6 +8,8 @@ import { getUserPosts } from 'api/postsApi';
 import { INITIAL_NUMBER_OF_POSTS } from 'redux/modules/posts/postsConstants';
 import { userPostsSearchSelector, getProfileUserIdSelector } from 'redux/modules/profile/profileSelectors';
 import { getCurrentUserPosts } from 'redux/modules/profile/profileActions';
+import * as cloudinaryApi from 'api/cloudinaryApi.js';
+import { ToastsStore } from 'react-toasts';
 
 function* getUsersSaga() {
   const res = yield axios.get(`/api/users`);
@@ -29,15 +31,39 @@ function* getCurrentUserPostsSaga({ userId }) {
   yield put({ type: PROFILE_ACTION_TYPES.GET_CURRENT_USER_POSTS_SUCCESS, payload: res.data });
 }
 
-function* changeUserSaga({ updatedUserData }) {
-  const userId = updatedUserData.id;
-  const FirstName = updatedUserData.changedUser.name;
-  const LastName = updatedUserData.changedUser.secondName;
+function* loadUserAvatarSaga(payload) {
+  const user = payload.payload.userFormValues;
+  const id = payload.payload.id;
+  try {
+    const res = yield cloudinaryApi.postImage(payload.payload.file);
+    const { FirstName, LastName, BornDate } = user;
+    // throw new Error();
+    yield put({
+      type: PROFILE_ACTION_TYPES.UPDATE_USER,
+      updatedUserData: {
+        id: id,
+        changedUser: { firstName: FirstName, lastName: LastName, bornDate: BornDate, photoUrl: res.data },
+      },
+    });
+  } catch (err) {
+    ToastsStore.error('Server cannot upload your photo now');
+  }
+}
 
+function* changeUserSaga(props) {
+  const { updatedUserData } = props;
+
+  let user = JSON.parse(localStorage.getItem('User'));
+
+  const userId = updatedUserData.id;
+  const FirstName = updatedUserData.changedUser.name || user.FirstName;
+  const LastName = updatedUserData.changedUser.secondName || user.LastName;
+  const BornDate = updatedUserData.changedUser.bornDate || user.BornDate;
+  const PhotoUrl = updatedUserData.changedUser.photoUrl || user.PhotoUrl;
   try {
     const result = yield axios.patch(
       `/api/users/${userId}`,
-      { FirstName, LastName },
+      { FirstName, LastName, BornDate, PhotoUrl },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
@@ -46,9 +72,7 @@ function* changeUserSaga({ updatedUserData }) {
     );
     yield put({ type: PROFILE_ACTION_TYPES.UPDATE_USER_SUCCESS, payload: result.data });
     yield put({ type: AUTH_CONSTANTS.CHANGE, payload: result.data });
-
-    let user = JSON.parse(localStorage.getItem('User'));
-    user = { ...user, FirstName, LastName };
+    user = { ...user, FirstName, LastName, BornDate, PhotoUrl };
 
     localStorage.setItem('User', JSON.stringify(user));
   } catch (err) {
@@ -74,6 +98,7 @@ export function* profileSagas() {
     takeLatest(PROFILE_ACTION_TYPES.GET_USER, getUserSaga),
     takeLatest(PROFILE_ACTION_TYPES.GET_CURRENT_USER_POSTS, getCurrentUserPostsSaga),
 
+    takeLatest(PROFILE_ACTION_TYPES.LOAD_USER_AVATAR, loadUserAvatarSaga),
     // hook to load posts from server when search input changed
     takeLatest(({ type, meta }) => {
       const isSearchFormChanged = type === actionTypes.CHANGE && meta.form === 'userPosts';

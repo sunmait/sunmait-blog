@@ -28,6 +28,9 @@ export default class UserEntity extends Model<UserEntity> {
   @Column(DataType.STRING)
   public LastName: string;
 
+  @Column(DataType.DATE)
+  public BornDate: Date;
+
   @IsUrl
   @Default('https://vk.com/images/camera_200.png')
   @Column(DataType.STRING)

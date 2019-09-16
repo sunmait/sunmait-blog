@@ -4,6 +4,8 @@ import Button from 'components/common/button/Button.js';
 import InputWithLabel from 'components/common/input/InputWithLabel.jsx';
 import { getBEMClasses } from 'helpers//BEMHelper';
 
+import { parse, differenceInYears } from 'date-fns';
+
 const userProfile = 'user-profile-form';
 const bemClasses = getBEMClasses([userProfile]);
 
@@ -15,6 +17,7 @@ const UserInfoForm = props => {
     <form className={bemClasses()} onSubmit={handleSubmit} data-cy={bemClasses()}>
       <InputWithLabel name="FirstName" placeholder="Name" />
       <InputWithLabel name="LastName" placeholder="Second name" />
+      <InputWithLabel type="date" name="BornDate" placeholder="Born date" />
       <div className={bemClasses('buttons-wrapper')} disabled={isDisabled}>
         <Button as="button" buttonColor="primary" type="submit" disabled={isDisabled} data-cy={bemClasses('save-btn')}>
           Save
@@ -50,6 +53,18 @@ const validate = values => {
     errors.Login = 'Required';
   } else if (values.Login.length < 6) {
     errors.Login = 'Must be at least 6 characters';
+  }
+  if (!values.BornDate) {
+    errors.BornDate = 'Required';
+  } else {
+    const today = new Date();
+    const userDate = parse(values.BornDate, 'yyyy-MM-dd', new Date());
+    if (differenceInYears(today, userDate) < 12) {
+      errors.BornDate = 'You must be over 12';
+    }
+    if (differenceInYears(today, userDate) > 60) {
+      errors.BornDate = 'Enter a real age';
+    }
   }
 
   return errors;

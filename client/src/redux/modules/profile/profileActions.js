@@ -8,7 +8,10 @@ export const getUser = userId => ({
 export const getUsers = () => ({
   type: PROFILE_ACTION_TYPES.GET_USERS,
 });
-
+export const loadUserAvatar = avatar => ({
+  type: PROFILE_ACTION_TYPES.LOAD_USER_AVATAR,
+  payload: avatar,
+});
 export const updateUser = updatedUserData => ({
   type: PROFILE_ACTION_TYPES.UPDATE_USER,
   updatedUserData,

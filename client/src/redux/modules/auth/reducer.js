@@ -66,9 +66,8 @@ function handleCredentialsChecked(state) {
 }
 
 function handleChange(state, updated) {
-  const { FirstName, LastName } = updated;
-  const updatedUser = { ...state.user, FirstName, LastName };
-
+  const { FirstName, LastName, BornDate, PhotoUrl } = updated;
+  const updatedUser = { ...state.user, FirstName, LastName, BornDate, PhotoUrl };
   return {
     ...state,
     user: updatedUser,
