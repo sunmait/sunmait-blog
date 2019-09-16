@@ -127,7 +127,9 @@ describe('Home page. Posts', () => {
         const firstPost = response.body[0];
 
         getPostByTitle(firstPost.Title)
-          .find('.article__title').first().children()
+          .find('.article__title')
+          .first()
+          .children()
           .click();
 
         cy.location().then(({ pathname }) => {
