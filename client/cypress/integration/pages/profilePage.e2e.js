@@ -2,6 +2,7 @@ import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/
 import { getUserById, getUserFullName } from '../../testHelpers/userHelper';
 import { setLoginState } from '../../testHelpers/authHelper';
 import 'cypress-file-upload';
+import { format } from 'date-fns';
 
 describe('Profile page', () => {
   describe('Profile that does not belong to current user', () => {
@@ -23,12 +24,19 @@ describe('Profile page', () => {
 
     describe('`Info` tab', () => {
       beforeEach(() => {
-        cy.visit('/profile/1');
+        cy.visit('/profile/2');
       });
 
       it('Profile content on "Info" tab', () => {
         cy.log('"Info" profile page section should have navigation menu with active "Info" tab and muted other tabs');
         checkingCorrectTabIsActive('Info');
+
+        cy.log('Info tab should contain profile info');
+        getUserById(2).then(user => {
+          checkingProfileInfo(user);
+        });
+        cy.log('Info tab should not be editable');
+        checkingProfileNotEditable();
       });
     });
 
@@ -77,16 +85,18 @@ describe('Profile page', () => {
     });
 
     it(`User can change avatar`, () => {
-      cy.get('.MuiAvatar-img').then(img => {
-        const previousSrc = img[0].src;
-        const fileName = 'images/Test_image.png';
-        cy.fixture(fileName).then(fileContent => {
-          cy.get('input[type=file]').upload({ fileContent, fileName, mimeType: 'image/png' });
+      cy.get('[data-cy=header__avatar]')
+        .find('img')
+        .then(img => {
+          const previousSrc = img[0].src;
+          const fileName = 'images/Test_image.png';
+          cy.fixture(fileName).then(fileContent => {
+            cy.get('input[type=file]').upload({ fileContent, fileName, mimeType: 'image/png' });
+          });
+          cy.get('[data-cy=header__avatar]')
+            .find('img')
+            .should('not.have.attr', 'src', `${previousSrc}`);
         });
-        cy.get('[data-cy=header__avatar]')
-          .find('img')
-          .should('not.have.attr', 'src', `${previousSrc}`);
-      });
     });
 
     it('Profile posts list should be updated on switching to posts of logged-in user', () => {
@@ -119,20 +129,20 @@ describe('Profile page', () => {
 
         cy.get('[data-cy=user-profile-form]')
           .find('input[type="text"]')
-          .each(input => {
-            const initialInputVal = input[0].value;
+          .each(inputs => {
+            const initialInputVal = inputs[0].value;
 
             cy.log(`'Save' and 'Reset' buttons should not be disabled when at least one field is changed`);
-            cy.wrap(input).type('str');
+            cy.wrap(inputs).type('str');
             cy.get('[data-cy=user-profile-form__save-btn]').should('not.be.disabled');
             cy.get('[data-cy=user-profile-form__reset-btn]').should('not.be.disabled');
 
             cy.log(`'Reset' button should return fields input values to the initial`);
             cy.get('[data-cy=user-profile-form__reset-btn]').click();
-            cy.wrap(input).should('have.value', initialInputVal);
+            cy.wrap(inputs).should('have.value', initialInputVal);
 
             cy.log(`'Save' button should be disabled when fileds input values are invalid`);
-            cy.wrap(input)
+            cy.wrap(inputs)
               .clear()
               .type('A');
             cy.get('[data-cy=user-profile-form__save-btn]').should('be.disabled');
@@ -141,7 +151,6 @@ describe('Profile page', () => {
             cy.get('[data-cy=user-profile-form__reset-btn]').click();
           });
       });
-
       it(`User info should be editable`, () => {
         const userFullName = getUserFullName();
         const [userFirstName, userLastName] = userFullName.split(' ');
@@ -195,7 +204,6 @@ function checkingProfileHeader(user) {
     .should('be.visible')
     .should('have.text', `${user.FirstName} ${user.LastName}`);
 }
-
 function checkingProfileNavigationMenu() {
   cy.log('`Posts` tab');
   cy.get('[data-cy=nav-container]')
@@ -210,6 +218,30 @@ function checkingProfileNavigationMenu() {
     .contains('Info')
     .click();
   cy.location('pathname').should('eq', '/profile/1');
+}
+
+function checkingProfileNotEditable() {
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="FirstName"]')
+    .should('have.attr', 'disabled');
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="LastName"]')
+    .should('have.attr', 'disabled');
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="BornDate"]')
+    .should('have.attr', 'disabled');
+}
+
+function checkingProfileInfo(user) {
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="FirstName"]')
+    .should('have.value', user.FirstName);
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="LastName"]')
+    .should('have.value', user.LastName);
+  cy.get('[data-cy="user-profile-form"]')
+    .find('input[name="BornDate"]')
+    .should('have.value', format(user.BornDate, 'YYYY-MM-DD'));
 }
 
 function checkingCorrectTabIsActive(tabName) {

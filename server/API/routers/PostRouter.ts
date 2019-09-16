@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { IPostService, ICommentService, ITagService } from '../../Domain/Services';
-import IRequest from '../helper/IRequest';
 import { CheckAuth } from '../middlewares/CheckAuth';
+import { IAuthorizedRequest } from '../helper/IAuthorizedRequest';
 
 const router = express.Router();
 const postService = container.get<IPostService>('PostService');
@@ -94,15 +94,19 @@ router.patch('/', CheckAuth, async (req: express.Request, res: express.Response,
  * Like/dislike post
  * postId: post's id
  */
-router.post('/:postId/like', CheckAuth, async (req: IRequest, res: express.Response, next: express.NextFunction) => {
-  const { postId } = req.params;
-  const userId = req.user.id;
-  try {
-    res.json(await postService.likeOrDislike(postId, userId));
-  } catch (error) {
-    next(error);
+router.post(
+  '/:postId/like',
+  CheckAuth,
+  async (req: IAuthorizedRequest, res: express.Response, next: express.NextFunction) => {
+    const { postId } = req.params;
+    const userId = req.user.id;
+    try {
+      res.json(await postService.likeOrDislike(postId, userId));
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 /**
  * Delete post

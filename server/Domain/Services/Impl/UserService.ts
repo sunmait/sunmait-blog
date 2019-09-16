@@ -46,23 +46,20 @@ export class UserService implements IUserService {
   }
 
   public async updateUser(id: number, data: IUser): Promise<UserEntity> {
-    if (!isNaN(id)) {
-      const user: UserEntity = await this._userRepository.findById(id);
-      if (typeof data.FirstName === 'string') {
-        user.FirstName = data.FirstName;
-      }
-      if (data.LastName !== undefined) {
-        user.LastName = data.LastName;
-      }
-      if (data.BornDate !== undefined) {
-        user.BornDate = data.BornDate;
-      }
-      if (data.PhotoUrl !== undefined) {
-        user.PhotoUrl = data.PhotoUrl;
-      }
-      return this._userRepository.update(user);
-    } else {
-      // ??????????????????????? TO DO
+    const user: UserEntity = await this._userRepository.findById(id);
+
+    if (typeof data.FirstName === 'string') {
+      user.FirstName = data.FirstName;
     }
+    if (data.LastName !== undefined) {
+      user.LastName = data.LastName;
+    }
+    if (data.BornDate !== undefined) {
+      user.BornDate = data.BornDate;
+    }
+    if (data.PhotoUrl !== undefined) {
+      user.PhotoUrl = data.PhotoUrl;
+    }
+    return this._userRepository.update(user);
   }
 }

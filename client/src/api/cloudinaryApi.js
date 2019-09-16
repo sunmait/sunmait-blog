@@ -22,7 +22,6 @@ export const postImage = async file => {
     status: response.status,
     data: '',
   };
-
   if (!response.status === 200) {
     return result;
   }

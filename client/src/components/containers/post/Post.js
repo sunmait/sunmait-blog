@@ -16,7 +16,7 @@ class Post extends React.Component {
     const { CreatedAt, UserId } = this.props.post;
     const { users } = this.props;
 
-    const publishingDate = format(CreatedAt, 'MM/dd/yyyy');
+    const publishingDate = format(CreatedAt, 'MM/dd/YYYY');
 
     return (
       <div className={bemClasses('info')}>

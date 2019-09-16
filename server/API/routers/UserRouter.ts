@@ -2,6 +2,7 @@ import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { IUserService, IPostService } from '../../Domain/Services';
 import { CheckAuth } from '../middlewares/CheckAuth';
+import { IAuthorizedRequest } from '../helper/IAuthorizedRequest';
 
 const router = express.Router();
 const userService = container.get<IUserService>('UserService');
@@ -57,8 +58,10 @@ router.get('/:id/posts', async (req: express.Request, res: express.Response, nex
 /**
  * Updating user
  */
-router.patch('/:id', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const { id } = req.params;
+router.patch('/', CheckAuth, async (req: IAuthorizedRequest, res: express.Response, next: express.NextFunction) => {
+  const {
+    user: { id },
+  } = req;
   const data = req.body;
 
   try {

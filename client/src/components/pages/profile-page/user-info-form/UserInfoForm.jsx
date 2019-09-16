@@ -10,15 +10,16 @@ const userProfile = 'user-profile-form';
 const bemClasses = getBEMClasses([userProfile]);
 
 const UserInfoForm = props => {
-  const { invalid, pristine, handleSubmit, reset } = props;
+  const { invalid, pristine, handleSubmit, reset, isUserProfile } = props;
   const isDisabled = pristine || invalid;
-
+  let inputDisabled = isUserProfile ? false : true;
+  let buttonsVisibility = isUserProfile ? 'visible' : 'hidden';
   return (
     <form className={bemClasses()} onSubmit={handleSubmit} data-cy={bemClasses()}>
-      <InputWithLabel name="FirstName" placeholder="Name" />
-      <InputWithLabel name="LastName" placeholder="Second name" />
-      <InputWithLabel type="date" name="BornDate" placeholder="Born date" />
-      <div className={bemClasses('buttons-wrapper')} disabled={isDisabled}>
+      <InputWithLabel name="FirstName" placeholder="Name" disabled={inputDisabled} />
+      <InputWithLabel name="LastName" placeholder="Second name" disabled={inputDisabled} />
+      <InputWithLabel type="date" name="BornDate" placeholder="Born date" disabled={inputDisabled} />
+      <div style={{ visibility: buttonsVisibility }} className={bemClasses('buttons-wrapper')} disabled={isDisabled}>
         <Button as="button" buttonColor="primary" type="submit" disabled={isDisabled} data-cy={bemClasses('save-btn')}>
           Save
         </Button>

@@ -2,12 +2,12 @@ import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { SettingsProvider } from '../infrastructure/SettingsProvider';
 import * as jwt from 'jsonwebtoken';
-import IRequest from '../helper/IRequest';
 import IUserDecodedFromToken from '../helper/IUserDecodedFromToken';
+import { IAuthorizedRequest } from '../helper/IAuthorizedRequest';
 
 const settingsProvider = container.get<SettingsProvider>('SettingsProvider');
 
-export function CheckAuth(req: IRequest, _res: express.Response, next: express.NextFunction) {
+export function CheckAuth(req: IAuthorizedRequest, _res: express.Response, next: express.NextFunction) {
   if (req.get('Authorization')) {
     const header = req.get('Authorization').split(' ');
     if (header[0] === 'Bearer') {

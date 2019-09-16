@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import '../../../assets/styles/ProfilePage.css';
 
 import { getBEMClasses } from '../../../helpers/BEMHelper';
@@ -27,10 +27,8 @@ export const ProfilePage = ({
   currentUserPostsFetchingStatus,
   match,
 }) => {
-  if (user) {
-    //2001-04-21T00:00:00.000Z -> 2001-04-21
-    user.BornDate = user.BornDate.slice(0, 10);
-  }
+  const fileInputRef = useRef(null);
+
   const reloadProfile = userId => {
     getUser(userId);
     getCurrentUserPosts(userId);
@@ -63,14 +61,14 @@ export const ProfilePage = ({
     handleClose();
   };
 
-  const isItUserPage = user && profile && user.FirstName === profile.FirstName;
+  const isUserPage = user && profile && user.FirstName === profile.FirstName;
 
-  const habdleClick = () => {
-    if (isItUserPage) {
-      document.querySelector('#avatarFileinput').click();
+  const handleClick = () => {
+    if (isUserPage) {
+      fileInputRef.current.click();
     }
   };
-  const pointerType = isItUserPage ? 'pointer' : 'auto';
+  const pointerType = isUserPage ? 'pointer' : 'auto';
 
   const handleLoad = e => {
     if (!e.target.files[0]) return;
@@ -88,13 +86,14 @@ export const ProfilePage = ({
             src={profile.PhotoUrl}
             className={profilePageCn('avatar')}
             data-cy="header__avatar"
-            onClick={() => habdleClick()}
+            onClick={() => handleClick()}
             style={{ cursor: pointerType }}
           />
           <input
             type="file"
             id="avatarFileinput"
             accept="image/*"
+            ref={fileInputRef}
             style={{ display: 'none' }}
             onChange={fileAvatar => {
               handleLoad(fileAvatar);
@@ -106,21 +105,24 @@ export const ProfilePage = ({
     }
   };
   const renderProfileForm = (profile, user, handleClose, change, handleSubmitChanges, openDialog) => {
+    let isUserProfile = false;
     if (profile && user && user.id === profile.id) {
-      return (
-        <>
-          <UserInfoForm onSubmit={handleSubmitChanges} />
-          <ConfirmationModal
-            isOpen={openDialog}
-            handleClose={handleClose}
-            change
-            handleSubmit={change}
-            modalTitle="Confirm changes"
-          />
-        </>
-      );
+      isUserProfile = true;
     }
-    return <div>This is an info page</div>;
+    return (
+      <>
+        <UserInfoForm isUserProfile={isUserProfile} onSubmit={handleSubmitChanges} />
+        <ConfirmationModal
+          isOpen={openDialog}
+          handleClose={handleClose}
+          change
+          handleSubmit={change}
+          modalTitle="Confirm changes"
+        />
+      </>
+    );
+
+    // return <div>This is an info page</div>;
   };
 
   const navTabs = useCallback(

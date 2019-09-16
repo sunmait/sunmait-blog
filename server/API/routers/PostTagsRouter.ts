@@ -2,7 +2,6 @@ import * as express from 'express';
 import { container } from '../infrastructure/di/Container';
 import { ITagService } from '../../Domain/Services';
 
-// import IRequest from '../helper/IRequest';
 import { CheckAuth } from '../middlewares/CheckAuth';
 
 const router = express.Router();

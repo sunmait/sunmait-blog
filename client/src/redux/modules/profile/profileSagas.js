@@ -55,14 +55,13 @@ function* changeUserSaga(props) {
 
   let user = JSON.parse(localStorage.getItem('User'));
 
-  const userId = updatedUserData.id;
   const FirstName = updatedUserData.changedUser.name || user.FirstName;
   const LastName = updatedUserData.changedUser.secondName || user.LastName;
   const BornDate = updatedUserData.changedUser.bornDate || user.BornDate;
   const PhotoUrl = updatedUserData.changedUser.photoUrl || user.PhotoUrl;
   try {
     const result = yield axios.patch(
-      `/api/users/${userId}`,
+      `/api/users/`,
       { FirstName, LastName, BornDate, PhotoUrl },
       {
         headers: {
