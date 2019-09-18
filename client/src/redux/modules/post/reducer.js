@@ -3,6 +3,7 @@ import { POSTS_ACTIONS } from 'redux/modules/posts/postsConstants';
 
 const defaultState = {
   post: null,
+  commentsOfCurrentPost: [],
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -16,9 +17,16 @@ export default function(state = defaultState, { type, payload }) {
     case POSTS_ACTIONS.DELETE_POST_SUCCESS:
       return handleDeletePost(state);
 
+    case POST_CONSTANTS.GET_COMMENTS_FROM_CURRENT_POST:
+      return handleGetCommentsFromCurrentPost(state, payload);
+
     default:
       return state;
   }
+}
+
+function handleGetCommentsFromCurrentPost(state, payload) {
+  return { ...state, commentsOfCurrentPost: payload };
 }
 
 function handleGetPost(state, post) {

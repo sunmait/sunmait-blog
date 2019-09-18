@@ -31,6 +31,20 @@ a {
   flex-direction: column;
   flex-grow: 1;
 }
+.textarea {
+  height: 13rem;
+  width: 30rem;
+}
+
+.add-button {
+  margin: 2rem 0;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .content {
   display: flex;

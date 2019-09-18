@@ -13,9 +13,22 @@ const commentService = container.get<ICommentService>('CommentService');
  */
 router.post('/', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const data = req.body;
-
+  console.log('MDA', data);
   try {
     res.json(await commentService.addComment(data));
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Get Comments
+ */
+
+router.get('/:postId', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const data = req.params.postId;
+  try {
+    res.json(await commentService.getCommentsById(data));
   } catch (error) {
     next(error);
   }
