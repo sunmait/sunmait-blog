@@ -9,6 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import Tag from '../../containers/post-tags/Tag';
+import Textarea from '../../common/input/Textarea';
+import { CommentsListContainer } from '../../containers/commentsList';
+import Button from 'components/common/button/Button.js';
+import LoginModal from 'components/containers/login-modal/index.jsx';
 
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
@@ -30,7 +34,54 @@ class PostPage extends React.Component {
   componentDidMount() {
     if (!this.props.selectedPost && this.props.getPost) {
       this.props.getPost(this.props.match.params.postId);
+      this.props.getComments(this.props.match.params.postId);
     }
+  }
+
+  renderTextAreaComment() {
+    return (
+      <div className="area-container">
+        <div className="area-content">
+          <Textarea customClass="textarea" name="commentDescription" placeholder="Enter description of your comment" />
+        </div>
+        <div className="add-button">
+          <Button
+            as="button"
+            onClick={() => {
+              this.handleAddComment();
+            }}
+          >
+            Add
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  renderLogInText() {
+    return (
+      <div className="area-container">
+        <div className="area-content">
+          <span>
+            Please{' '}
+            <Button as="button" buttonColor="primary" onClick={() => this.handleOpenModal()}>
+              Log In
+            </Button>{' '}
+            for add comment
+          </span>
+          <LoginModal isOpen={this.state.isModalOpen} handleClose={this.handleCloseModal} />
+        </div>
+      </div>
+    );
+  }
+
+  handleAddComment() {
+    this.props.addComment(this.props.selectedPost.id, this.props.text);
+    this.props.clearFormField('commentDescription');
+  }
+
+  renderCommentsList() {
+    return <CommentsListContainer />;
   }
 
   handleOpenModal = event => {
@@ -173,6 +224,10 @@ class PostPage extends React.Component {
               {this.renderArticleBody()}
             </div>
           </div>
+          <div className="comment-form">
+            {this.props.user.id ? this.renderTextAreaComment() : this.renderLogInText()}
+          </div>
+          {this.renderCommentsList()}
         </div>
       );
     }
@@ -182,6 +237,7 @@ class PostPage extends React.Component {
 PostPage.propTypes = {
   getPost: PropTypes.func,
   selectedPost: PropTypes.object,
+  comments: PropTypes.array,
   user: PropTypes.object,
   users: PropTypes.object,
 };

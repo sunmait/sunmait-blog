@@ -10,15 +10,18 @@ export class CommentService implements ICommentService {
     this._commentRepository = commentRepository;
   }
 
-  public async getCommentById(id: number): Promise<CommentEntity> {
+  public async getCommentsById(id: number): Promise<CommentEntity> {
+    return this._commentRepository.findAll({ where: { PostId: id } });
+  }
+
+  public async getCommentsByUserId(id: number): Promise<CommentEntity> {
     return this._commentRepository.find({
-      where: { PostId: id },
+      where: { UserId: id },
     });
   }
 
   public async addComment(data: any): Promise<CommentEntity> {
     const comment = new CommentEntity(data);
-
     return this._commentRepository.create(comment);
   }
 
