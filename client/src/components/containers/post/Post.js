@@ -22,7 +22,7 @@ class Post extends React.Component {
       <div className={bemClasses('info')}>
         {'By '}
         <Link to={`/profile/${UserId}`} data-cy="post-author">
-          {users[UserId]}
+          {users[UserId - 1][UserId]}
         </Link>
         <span data-cy="post-publication-date">{` / Published ${publishingDate}`}</span>
       </div>
@@ -95,7 +95,7 @@ class Post extends React.Component {
 
 Post.propTypes = {
   post: PropTypes.object,
-  users: PropTypes.object,
+  users: PropTypes.array,
 };
 
 export default Post;

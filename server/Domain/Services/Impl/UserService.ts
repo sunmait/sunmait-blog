@@ -22,6 +22,7 @@ export class UserService implements IUserService {
       const userEntity = {
         id: user.id,
         FirstName: user.FirstName,
+        PhotoUrl: user.PhotoUrl,
       };
       return userEntity;
     });

@@ -1,65 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import ReactMarkdown from 'react-markdown';
-import { getBEMClasses } from 'helpers//BEMHelper';
+import { Item } from '../../common/listItem/ListItem';
 import 'assets/styles/Comment.css';
 
-const comment = 'comment';
-const bemClasses = getBEMClasses([comment]);
-
 class Comment extends React.Component {
-  renderCommentInformation() {
-    const { CreatedAt, UserId } = this.props.comment;
+  renderComment() {
+    const { Text, UserId, CreatedAt } = this.props.comment;
     const { users } = this.props;
-
+    const styles = {
+      inline: {
+        display: 'inline',
+      },
+    };
     const publishingDate = format(CreatedAt, 'MMM D, YYYY');
 
-    return (
-      <div className={bemClasses('info')}>
-        {'By '}
-        <Link to={`/profile/${UserId}`} data-cy="comment-author">
-          {users[UserId]}
-        </Link>
-        <span data-cy="comment-publication-date">{` / Wrote ${publishingDate}`}</span>
-      </div>
-    );
-  }
-
-  renderCommentBody() {
-    const { Text } = this.props.comment;
     let text = Text;
 
-    if (text.length > 350) {
-      text = text.slice(0, 350);
+    if (text.length > 150) {
+      text = text.slice(0, 150);
       text += '...';
     }
 
     return (
       <React.Fragment>
-        <div className={bemClasses('comment-content')}>
-          {this.renderCommentInformation()}
-          <div className={bemClasses('description')}>
-            <p style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{text}</p>
-          </div>
-        </div>
+        <Item
+          styles={styles}
+          date={publishingDate}
+          user={users[UserId - 1][UserId]}
+          userAvatar={users[UserId - 1].PhotoUrl}
+          text={text}
+          data-cy="comment"
+        />
       </React.Fragment>
     );
   }
 
   render() {
-    return (
-      <div className={bemClasses('container', 'preview')}>
-        <div>{this.renderCommentBody()}</div>
-      </div>
-    );
+    return this.renderComment();
   }
 }
 
 Comment.propTypes = {
   comment: PropTypes.object,
-  users: PropTypes.object,
+  users: PropTypes.array,
 };
 
 export default Comment;

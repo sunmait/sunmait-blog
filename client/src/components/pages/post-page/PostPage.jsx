@@ -47,6 +47,7 @@ class PostPage extends React.Component {
         <div className="add-button">
           <Button
             as="button"
+            data-cy="add-btn-for-add-comment"
             onClick={() => {
               this.handleAddComment();
             }}
@@ -64,7 +65,12 @@ class PostPage extends React.Component {
         <div className="area-content">
           <span>
             Please{' '}
-            <Button as="button" buttonColor="primary" onClick={() => this.handleOpenModal()}>
+            <Button
+              as="button"
+              buttonColor="primary"
+              onClick={() => this.handleOpenModal()}
+              data-cy="login-btn-for-add-comment"
+            >
               Log In
             </Button>{' '}
             for add comment
@@ -156,7 +162,7 @@ class PostPage extends React.Component {
     return (
       <div className={bemClasses('info')} data-cy="post-author">
         {'By '}
-        <Link to={`/profile/${UserId}`}>{users[UserId]}</Link>
+        <Link to={`/profile/${UserId}`}>{users[UserId - 1][UserId]}</Link>
         <span data-cy="post-publication-date">{` / Published ${publishingDate}`}</span>
         <span data-cy="post-updating-date">{` / Updated ${updatingDate}`}</span>
       </div>
@@ -239,7 +245,7 @@ PostPage.propTypes = {
   selectedPost: PropTypes.object,
   comments: PropTypes.array,
   user: PropTypes.object,
-  users: PropTypes.object,
+  users: PropTypes.array,
 };
 
 export default PostPage;

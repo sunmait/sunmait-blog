@@ -11,7 +11,7 @@ export class CommentService implements ICommentService {
   }
 
   public async getCommentsById(id: number): Promise<CommentEntity> {
-    return this._commentRepository.findAll({ where: { PostId: id } });
+    return this._commentRepository.findAll({ where: { PostId: id }, order: [['CreatedAt', 'ASC']] });
   }
 
   public async getCommentsByUserId(id: number): Promise<CommentEntity> {

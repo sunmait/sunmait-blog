@@ -8,6 +8,10 @@ export const getPosts = () => {
   return cy.request('GET', '/api/posts');
 };
 
+export const getComments = PostId => {
+  return cy.request('GET', `/api/comments/${PostId}`);
+};
+
 export const getPostsByUserId = userId => {
   return cy.request('GET', `/api/users/${userId}/posts`).then(response => {
     return response.body;
@@ -32,6 +36,6 @@ export const testAmountOfPosts = amount => {
     .find('.article__container')
     .should('have.length', amount);
 };
-export const addTag = text =>{
+export const addTag = text => {
   cy.get('[data-cy=tags-input]').type(text + '{enter}');
-}
+};
