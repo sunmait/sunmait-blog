@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(styles => ({
-  root: { ...styles.root, maxWidth: '360px' },
+  root: { ...styles.root, maxWidth: '660px' },
 }));
 
 export const ListItems = props => {
