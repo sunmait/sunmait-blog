@@ -2,7 +2,7 @@ import { PROFILE_ACTION_TYPES } from './profileConstants';
 
 const defaultState = {
   profile: null,
-  usersById: {},
+  usersById: [],
   postsOfCurrentUser: [],
   currentUserPostsFetchingStatus: true,
 };
@@ -30,9 +30,9 @@ export function profileReducer(state = defaultState, { type, payload }) {
 }
 
 function handleGetUsers(state, selectedUsers) {
-  let newUsersByIdNames = {};
+  let newUsersByIdNames = [];
   selectedUsers.forEach(item => {
-    newUsersByIdNames = { ...newUsersByIdNames, [item.id]: item.FirstName };
+    newUsersByIdNames = [...newUsersByIdNames, { [item.id]: item.FirstName, PhotoUrl: item.PhotoUrl }];
   });
 
   return { ...state, usersById: newUsersByIdNames };

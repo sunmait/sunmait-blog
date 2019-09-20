@@ -38,7 +38,8 @@ describe('Header', () => {
       cy.get('[data-cy=login-modal] button[type=submit]').click();
 
       cy.log('authorized panel with user data and menu is visible');
-      cy.get('.header--for-authorised').should('be.visible')
+      cy.get('.header--for-authorised')
+        .should('be.visible')
         .then(testUserIsLoggedIn);
     });
   });
@@ -78,7 +79,9 @@ describe('Header', () => {
       it('should open user popover menu by click on full name', () => {
         const fullName = getUserFullName();
 
-        cy.get('header').contains(fullName).click();
+        cy.get('header')
+          .contains(fullName)
+          .click();
         cy.get('[data-cy=user-menu]').should('be.visible');
       });
 
@@ -86,26 +89,31 @@ describe('Header', () => {
         const fullName = getUserFullName();
 
         cy.get(avatarSelector).click();
-        cy.get('[data-cy=user-menu]')
-          .then(menu => {
-            const popMenuXCoordinateOnAvatarClick = menu[0].getBoundingClientRect().x;
+        cy.get('[data-cy=user-menu]').then(menu => {
+          const popMenuXCoordinateOnAvatarClick = menu[0].getBoundingClientRect().x;
 
-            cy.get('[data-cy=user-menu]').parent().parent().click();
-            cy.get('header').contains(fullName).click();
+          cy.get('[data-cy=user-menu]')
+            .parent()
+            .parent()
+            .click();
+          cy.get('header')
+            .contains(fullName)
+            .click();
 
-            cy.get('[data-cy=user-menu]')
-              .then(menu => {
-                const popMenuXCoordinateOnFullNameClick = menu[0].getBoundingClientRect().x;
+          cy.get('[data-cy=user-menu]').then(menu => {
+            const popMenuXCoordinateOnFullNameClick = menu[0].getBoundingClientRect().x;
 
-                expect(popMenuXCoordinateOnAvatarClick).to.eq(popMenuXCoordinateOnFullNameClick);
-              });
+            expect(popMenuXCoordinateOnAvatarClick).to.eq(popMenuXCoordinateOnFullNameClick);
           });
+        });
       });
 
       it('user menu should have `Profile` item that lead to Profile page', () => {
         openMenu();
 
-        cy.get('[data-cy=user-menu] li').contains('Profile').click();
+        cy.get('[data-cy=user-menu] li')
+          .contains('Profile')
+          .click();
 
         cy.location().should(a => {
           const userData = getAuthorizedUser();
@@ -116,7 +124,9 @@ describe('Header', () => {
       it('user menu should have `My Posts` item that lead to user`s posts page', () => {
         openMenu();
 
-        cy.get('[data-cy=user-menu] li').contains('My posts').click();
+        cy.get('[data-cy=user-menu] li')
+          .contains('My posts')
+          .click();
 
         cy.location().should(a => {
           const userData = getAuthorizedUser();
@@ -127,10 +137,13 @@ describe('Header', () => {
       it('user menu should have `Log Out` item that does log out', () => {
         openMenu();
 
-        cy.get('[data-cy=user-menu] li').contains('Log Out').click();
+        cy.get('[data-cy=user-menu] li')
+          .contains('Log Out')
+          .click();
 
         cy.get('[data-cy=login-btn]').should('be.visible');
-        cy.get('.header--for-authorised').should('not.be.visible')
+        cy.get('.header--for-authorised')
+          .should('not.be.visible')
           .then(testUserIsLoggedOut);
       });
     });

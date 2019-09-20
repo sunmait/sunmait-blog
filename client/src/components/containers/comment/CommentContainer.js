@@ -4,6 +4,7 @@ import Comment from './Comment';
 
 const mapStateToProps = state => ({
   users: state.profile.usersById,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = {};

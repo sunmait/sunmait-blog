@@ -1,5 +1,8 @@
-import { getPosts } from '../../testHelpers/postHelper';
+import {} from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
+import { getComments } from '../../testHelpers/postHelper';
+import user from '../../fixtures/userToLogin.json';
+import { format } from 'date-fns';
 
 describe('Post page', () => {
   describe('Post that does not belong to current user', () => {
@@ -106,4 +109,62 @@ describe('Post page', () => {
   });
 
   describe('Post that belongs to current user', () => {});
+  describe('Comments of current post', () => {
+    it('View comments to current post', () => {
+      cy.visit('/post/1', {
+        onBeforeLoad(win) {
+          cy.stub(win, 'open').returns({ focus: false });
+        },
+      });
+      getComments(1).then(comments => {
+        cy.get('.MuiListItem-gutters').should('have.length', comments.body.length);
+      });
+    });
+
+    it('Add comment to current post', () => {
+      cy.visit('/post/1');
+
+      cy.log(`
+        there is no text input to add comment because user is not authorized. 
+        Instead there is a button to login'
+      `);
+
+      cy.get('.textarea').should('not.be.visible');
+
+      cy.log('click on login btn');
+      cy.get('[data-cy=login-btn-for-add-comment]').click();
+
+      cy.log('check modal is shown');
+      cy.get('[data-cy=login-modal]').should('be.visible');
+
+      cy.log('fil form with user`s data');
+      cy.get('[data-cy=login-modal] input[name=login]').type(user.Login);
+      cy.get('[data-cy=login-modal] input[name=password]').type(user.Password);
+
+      cy.log('press submit button');
+      cy.get('[data-cy=login-modal] button[type=submit]').click();
+
+      cy.log('authorized panel with user data and menu is visible');
+
+      getComments(1).then(comments => {
+        const length = comments.body.length;
+        cy.get('.textarea').type('privet, kak dela?');
+        cy.get('[data-cy=add-btn-for-add-comment]').click();
+        cy.get('.MuiListItem-gutters').should('have.length', length + 1);
+        cy.get('[data-cy=comment-auth]')
+          .last()
+          .contains('Hannah');
+        cy.log('Auth of who wrote comment is correct');
+        cy.get('[data-cy=comment-text]')
+          .last()
+          .contains(' - privet, kak dela?');
+        cy.log('Text of comment is correct');
+        let newDate = format(Date.now(), 'MMM D, YYYY');
+        cy.get('[data-cy=comment-date]')
+          .last()
+          .contains(newDate);
+        cy.log('Date of comment is correct');
+      });
+    });
+  });
 });
