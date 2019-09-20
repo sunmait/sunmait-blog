@@ -166,5 +166,45 @@ describe('Post page', () => {
         cy.log('Date of comment is correct');
       });
     });
+
+    it('Check enter correct number of characters of comment', () => {
+      cy.visit('/post/1');
+
+      cy.log(`
+        there is no text input to add comment because user is not authorized. 
+        Instead there is a button to login'
+      `);
+
+      cy.get('.textarea').should('not.be.visible');
+
+      cy.log('click on login btn');
+      cy.get('[data-cy=login-btn-for-add-comment]').click();
+
+      cy.log('check modal is shown');
+      cy.get('[data-cy=login-modal]').should('be.visible');
+
+      cy.log('fil form with user`s data');
+      cy.get('[data-cy=login-modal] input[name=login]').type(user.Login);
+      cy.get('[data-cy=login-modal] input[name=password]').type(user.Password);
+
+      cy.log('press submit button');
+      cy.get('[data-cy=login-modal] button[type=submit]').click();
+
+      cy.log('authorized panel with user data and menu is visible');
+
+      cy.get('.textarea').type(
+        'hdfghdgfh dfgh dfgh dfgh dfg hdfg hdfgh dfgh dfgh dfgh dfgh dfgh dfgh dfgh dfghdfgh dfgh dfgh dfg hdfg hdfghdfg hdfgh dfgh dfgh df'
+      );
+      cy.get('[data-cy=comment-warning-text]').contains('20 characters remaining');
+      cy.log('To the end 20 characters remaining');
+
+      cy.get('.textarea').type(
+        'sdgfdf dsf gsdfg sdgf sdfgsdgf sdf gsdfg sdfg sdfg sdfg sdfg sdfg sdfg sdfg sdfg sdf gsdfg dsf gsdfg sdf gdsfg dsf gsdf gsdfgdsf gdsf gsdfg sdf gsdfg sdfgs'
+      );
+      cy.get('[data-cy=comment-warning-text]').contains(
+        'Number of characters exceeded 150. Enter 150 characters or less'
+      );
+      cy.log('Entered more than 150 characters');
+    });
   });
 });

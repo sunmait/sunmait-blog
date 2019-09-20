@@ -38,11 +38,14 @@ class PostPage extends React.Component {
     }
   }
 
-  renderTextAreaComment() {
+  renderTextAreaComment(warning) {
     return (
       <div className="area-container">
         <div className="area-content">
           <Textarea customClass="textarea" name="commentDescription" placeholder="Enter description of your comment" />
+          <h5 style={{ color: 'red', fontSize: '12px', margin: '0' }} data-cy="comment-warning-text">
+            {warning}
+          </h5>
         </div>
         <div className="add-button">
           <Button
@@ -82,8 +85,11 @@ class PostPage extends React.Component {
   }
 
   handleAddComment() {
-    this.props.addComment(this.props.selectedPost.id, this.props.text);
-    this.props.clearFormField('commentDescription');
+    const { length } = this.props.text;
+    if (length <= 150) {
+      this.props.addComment(this.props.selectedPost.id, this.props.text);
+      this.props.clearFormField('commentDescription');
+    }
   }
 
   renderCommentsList() {
@@ -215,6 +221,13 @@ class PostPage extends React.Component {
   }
 
   render() {
+    let warningText = '';
+    if (this.props.text) {
+      warningText = this.props.text.length === 130 ? '20 characters remaining' : '';
+      if (this.props.text.length > 150) {
+        warningText = 'Number of characters exceeded 150. Enter 150 characters or less';
+      }
+    }
     if (this.props.selectedPost) {
       const { ImageUrl } = this.props.selectedPost;
       return (
@@ -231,7 +244,7 @@ class PostPage extends React.Component {
             </div>
           </div>
           <div className="comment-form">
-            {this.props.user.id ? this.renderTextAreaComment() : this.renderLogInText()}
+            {this.props.user.id ? this.renderTextAreaComment(warningText) : this.renderLogInText()}
           </div>
           {this.renderCommentsList()}
         </div>
