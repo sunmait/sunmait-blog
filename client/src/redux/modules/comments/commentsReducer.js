@@ -3,7 +3,6 @@ import { COMMENTS_ACTIONS } from './commentsConstants';
 const defaultState = {
   comments: [],
   commentsFetchingStatus: true,
-  commentFetchingStatus: true,
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -26,7 +25,7 @@ export default function(state = defaultState, { type, payload }) {
 }
 
 function handleAddCommentSuccess(state, payload) {
-  return { ...state, comments: [...state.comments, payload], commentFetchingStatus: false };
+  return { ...state, comments: [...state.comments, payload], commentsFetchingStatus: false };
 }
 
 function handleGetCommentsSuccess(state, payload) {
@@ -38,5 +37,5 @@ function handleGetComments(state) {
 }
 
 function handleAddComment(state) {
-  return { ...state, commentFetchingStatus: true };
+  return { ...state, commentsFetchingStatus: true };
 }

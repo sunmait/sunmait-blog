@@ -27,7 +27,7 @@ class Comment extends React.Component {
         <Item
           styles={styles}
           date={publishingDate}
-          user={users[UserId - 1][UserId]}
+          user={users.find(user => [UserId] in user)[UserId]}
           userAvatar={users[UserId - 1].PhotoUrl}
           text={text}
           data-cy="comment"

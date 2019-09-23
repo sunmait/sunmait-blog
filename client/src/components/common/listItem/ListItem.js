@@ -53,6 +53,6 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  text: 'KekCheburek',
+  text: '',
   userAvatar: 'https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-5.png',
 };

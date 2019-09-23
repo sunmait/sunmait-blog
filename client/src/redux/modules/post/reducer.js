@@ -1,4 +1,4 @@
-import { POST_CONSTANTS } from './constants';
+import { POST_CONSTANTS, POST_ACTIONS } from './constants';
 import { POSTS_ACTIONS } from 'redux/modules/posts/postsConstants';
 
 const defaultState = {
@@ -17,7 +17,7 @@ export default function(state = defaultState, { type, payload }) {
     case POSTS_ACTIONS.DELETE_POST_SUCCESS:
       return handleDeletePost(state);
 
-    case POST_CONSTANTS.GET_COMMENTS_FROM_CURRENT_POST:
+    case POST_ACTIONS.GET_COMMENTS_FROM_CURRENT_POST:
       return handleGetCommentsFromCurrentPost(state, payload);
 
     default:

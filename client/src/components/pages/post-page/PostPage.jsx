@@ -62,7 +62,7 @@ class PostPage extends React.Component {
     );
   }
 
-  renderLogInText() {
+  renderLogInModal() {
     return (
       <div className="area-container">
         <div className="area-content">
@@ -244,7 +244,7 @@ class PostPage extends React.Component {
             </div>
           </div>
           <div className="comment-form">
-            {this.props.user.id ? this.renderTextAreaComment(warningText) : this.renderLogInText()}
+            {this.props.user.id ? this.renderTextAreaComment(warningText) : this.renderLogInModal()}
           </div>
           {this.renderCommentsList()}
         </div>

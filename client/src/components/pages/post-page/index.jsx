@@ -7,7 +7,7 @@ import PostPage from './PostPage.jsx';
 import { reduxForm, formValueSelector, change } from 'redux-form';
 import { compose } from 'redux';
 
-const commentFormSelector = formValueSelector('comments');
+const commentFormSelector = formValueSelector('postForm');
 
 const mapStateToProps = (state, props) => {
   const text = commentFormSelector(state, 'commentDescription');
@@ -27,10 +27,10 @@ const mapDispatchToProps = dispatch => ({
   deletePost,
   addComment: (id, text) => dispatch(addComment(id, text)),
   getComments: postId => dispatch(getComments(postId)),
-  clearFormField: () => dispatch(change('comments', 'commentDescription', '')),
+  clearFormField: () => dispatch(change('postForm', 'commentDescription', '')),
 });
 
-const withForm = reduxForm({ form: 'comments' });
+const withForm = reduxForm({ form: 'postForm' });
 
 const withConnect = connect(
   mapStateToProps,
