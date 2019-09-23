@@ -1,14 +1,12 @@
 import { COMMENTS_ACTIONS } from './commentsConstants';
 
-const addCommentActionCreaator = type => (PostId, text) => ({
-  type,
+export const addComment = (PostId, text) => ({
+  type: COMMENTS_ACTIONS.ADD_COMMENT,
   payload: {
     PostId,
     text,
   },
 });
-
-export const addComment = addCommentActionCreaator(COMMENTS_ACTIONS.ADD_COMMENT);
 
 export const addCommentSuccess = comment => {
   return {

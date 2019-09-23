@@ -8,8 +8,8 @@ export const getPosts = () => {
   return cy.request('GET', '/api/posts');
 };
 
-export const getComments = PostId => {
-  return cy.request('GET', `/api/comments/${PostId}`);
+export const getComments = postId => {
+  return cy.request('GET', `/api/comments/${postId}`);
 };
 
 export const getPostsByUserId = userId => {

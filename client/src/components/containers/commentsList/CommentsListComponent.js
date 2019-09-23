@@ -4,7 +4,7 @@ import { ListItems } from '../../common/lists/List';
 import Comment from 'components/containers/comment/CommentContainer';
 import Loader from 'components/common/loader';
 
-export const CommentsList = ({ comments, getFetchingStatus, addFetchingStatus }) => {
+export const CommentsList = ({ comments, getFetchingStatus }) => {
   const styles = {
     root: {
       width: '100%',
@@ -13,13 +13,15 @@ export const CommentsList = ({ comments, getFetchingStatus, addFetchingStatus })
 
   return (
     <React.Fragment>
-      {(!getFetchingStatus || !addFetchingStatus) && comments.length ? (
+      {!getFetchingStatus && comments.length ? (
         <ListItems styles={styles}>
           {comments.map(comment => (
             <Comment key={comment.id} comment={comment} />
           ))}
         </ListItems>
-      ) : null}
+      ) : (
+        <h5>No Comments</h5>
+      )}
     </React.Fragment>
   );
 };

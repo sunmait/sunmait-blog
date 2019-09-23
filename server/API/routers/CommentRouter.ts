@@ -13,7 +13,6 @@ const commentService = container.get<ICommentService>('CommentService');
  */
 router.post('/', CheckAuth, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const data = req.body;
-  console.log('MDA', data);
   try {
     res.json(await commentService.addComment(data));
   } catch (error) {
