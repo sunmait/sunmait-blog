@@ -20,9 +20,24 @@ export default function(state = defaultState, { type, payload }) {
     case POST_ACTIONS.GET_COMMENTS_FROM_CURRENT_POST:
       return handleGetCommentsFromCurrentPost(state, payload);
 
+    case POST_ACTIONS.POST_LIKE_OR_DISLIKE_SUCCESS:
+      return handleAddLikeOrDislikeSuccess(state, payload);
+
     default:
       return state;
   }
+}
+
+function handleAddLikeOrDislikeSuccess(state, payload) {
+  let updatedLikes = [...state.post.Likes];
+  const isDislike = updatedLikes.some(like => like.id === payload.id);
+  if (isDislike) {
+    updatedLikes = updatedLikes.filter(like => like.id !== payload.id);
+  } else {
+    updatedLikes.push(payload);
+  }
+
+  return { ...state, post: { ...state.post, Likes: updatedLikes } };
 }
 
 function handleGetCommentsFromCurrentPost(state, payload) {

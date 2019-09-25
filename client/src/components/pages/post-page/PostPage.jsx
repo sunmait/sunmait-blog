@@ -13,6 +13,7 @@ import Textarea from '../../common/input/Textarea';
 import { CommentsListContainer } from '../../containers/commentsList';
 import Button from 'components/common/button/Button.js';
 import LoginModal from 'components/containers/login-modal/index.jsx';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
@@ -141,17 +142,33 @@ class PostPage extends React.Component {
     }
   }
 
-  renderShareButtons() {
-    const { Title } = this.props.selectedPost;
+  handleAddLikeOrDislike = () => {
+    if (this.props.user.id) {
+      this.props.addLikeOrDislike(this.props.selectedPost.id, this.props.user.id, this.props.user);
+    }
+  };
 
+  renderShareButtons() {
+    const { Title, Likes } = this.props.selectedPost;
+    let colorLikeOrDislike = this.props.user.id
+      ? Likes.some(like => like.id === this.props.user.id)
+        ? 'error'
+        : 'disabled'
+      : 'disabled';
     let text = `${Title} (posted on Sunmait Blog). `;
     return (
       <div className={bemClasses('share-buttons')}>
-        <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
-          <TwitterShareButton innerText={text} url={document.URL} />
+        <div className={bemClasses('share-button-icon')} onClick={this.handleAddLikeOrDislike} data-cy="like-button">
+          <FavoriteIcon fontSize="large" color={colorLikeOrDislike} data-cy="like-color" />
+          <span data-cy="like-number">{Likes.length ? Likes.length : null}</span>
         </div>
-        <div className={bemClasses('share-button-wrapper')} data-cy="facebook-share-button">
-          <FacebookShareButton innerText={text} url={document.URL} />
+        <div className={bemClasses('share-wrapper')}>
+          <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
+            <TwitterShareButton innerText={text} url={document.URL} />
+          </div>
+          <div className={bemClasses('share-button-wrapper')} data-cy="facebook-share-button">
+            <FacebookShareButton innerText={text} url={document.URL} />
+          </div>
         </div>
       </div>
     );

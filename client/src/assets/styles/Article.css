@@ -92,9 +92,23 @@
 .article__share-buttons {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   top: 2rem;
 }
+
+.article__share-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.article__share-button-icon {
+  display: flex;
+  flex-direction: row;
+  margin: 1.2rem;
+  padding: 0.7rem;
+}
+
 .article__share-button-wrapper {
   margin: 0.5rem 0;
 }

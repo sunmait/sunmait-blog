@@ -51,6 +51,25 @@ router.get('/:id/comments', async (req: express.Request, res: express.Response, 
 });
 
 /**
+ * Create Like for post
+ */
+
+router.post(
+  '/:id/likes',
+  CheckAuth,
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const UserId = req.body.UserId;
+    const PostId = req.params.id;
+    const UserInfo = req.body.UserInfo;
+    try {
+      res.json(await postService.likeOrDislike(PostId, UserId, UserInfo));
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
  * Get tag of post by id
  */
 router.get('/:id/tag', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -89,24 +108,6 @@ router.patch('/', CheckAuth, async (req: express.Request, res: express.Response,
     next(error);
   }
 });
-
-/**
- * Like/dislike post
- * postId: post's id
- */
-router.post(
-  '/:postId/like',
-  CheckAuth,
-  async (req: IAuthorizedRequest, res: express.Response, next: express.NextFunction) => {
-    const { postId } = req.params;
-    const userId = req.user.id;
-    try {
-      res.json(await postService.likeOrDislike(postId, userId));
-    } catch (error) {
-      next(error);
-    }
-  }
-);
 
 /**
  * Delete post
