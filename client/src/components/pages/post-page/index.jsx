@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { deletePost } from 'redux/modules/posts/postsActions';
-import { getPost } from 'redux/modules/post/actions';
+import { getPost, addLikeOrDislike } from 'redux/modules/post/actions';
 import { addComment, getComments } from 'redux/modules/comments/commentsActions';
 import PostPage from './PostPage.jsx';
 import { reduxForm, formValueSelector, change } from 'redux-form';
@@ -24,6 +24,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
   getPost: postId => dispatch(getPost(postId)),
+  addLikeOrDislike: (postId, userId) => dispatch(addLikeOrDislike(postId, userId)),
   deletePost,
   addComment: (id, text) => dispatch(addComment(id, text)),
   getComments: postId => dispatch(getComments(postId)),

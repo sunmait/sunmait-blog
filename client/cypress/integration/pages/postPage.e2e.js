@@ -1,6 +1,6 @@
 import {} from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
-import { getComments } from '../../testHelpers/postHelper';
+import { getComments, getPost } from '../../testHelpers/postHelper';
 import user from '../../fixtures/userToLogin.json';
 import { format } from 'date-fns';
 
@@ -125,7 +125,7 @@ describe('Post page', () => {
       cy.visit('/post/1');
 
       cy.log(`
-        there is no text input to add comment because user is not authorized. 
+        there is no text input to add comment because user is not authorized.
         Instead there is a button to login'
       `);
 
@@ -171,7 +171,7 @@ describe('Post page', () => {
       cy.visit('/post/1');
 
       cy.log(`
-        there is no text input to add comment because user is not authorized. 
+        there is no text input to add comment because user is not authorized.
         Instead there is a button to login'
       `);
 
@@ -205,6 +205,54 @@ describe('Post page', () => {
         'Number of characters exceeded 150. Enter 150 characters or less'
       );
       cy.log('Entered more than 150 characters');
+    });
+  });
+
+  describe('Likes of current post ', () => {
+    it('Check success add like or dislike', () => {
+      cy.visit('/post/1');
+
+      cy.log('click on login btn');
+      cy.get('[data-cy=login-btn-for-add-comment]').click();
+
+      cy.log('check modal is shown');
+      cy.get('[data-cy=login-modal]').should('be.visible');
+
+      cy.log('fil form with user`s data');
+      cy.get('[data-cy=login-modal] input[name=login]').type(user.Login);
+      cy.get('[data-cy=login-modal] input[name=password]').type(user.Password);
+
+      cy.log('press submit button');
+      cy.get('[data-cy=login-modal] button[type=submit]').click();
+
+      getPost(1).then(post => {
+        const length = post.body.Likes.length;
+        cy.log('Click on like button');
+        cy.get('[data-cy=like-button]').click();
+
+        cy.log('Check that color of like changed when click in like-button');
+        cy.get('[data-cy=like-color]')
+          .wrap({ color: 'error' })
+          .its('color')
+          .should('eq', 'error');
+
+        cy.log('Check that number of likes changed');
+        cy.get('[data-cy=like-number]')
+          .contains(post.body.Likes.length)
+          .should('not.have.length', length);
+      });
+    });
+
+    it('Check not add like if user not authorized', () => {
+      cy.visit('/post/1');
+      getPost(1).then(post => {
+        const length = post.body.Likes.length;
+        cy.log('Click on like button');
+        cy.get('[data-cy=like-button]').click();
+
+        cy.log('Check that number of likes not changed if user not authorized');
+        cy.get('[data-cy=like-number]').contains(length);
+      });
     });
   });
 });
