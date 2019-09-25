@@ -158,12 +158,12 @@ export class PostService implements IPostService {
     } else {
       const postLike = new PostLikesEntity({ PostId, UserId, UserInfo });
       const createdLike = await this._postLikesRepository.create(postLike);
-      const like = {
+      const newLike = {
         id: createdLike.UserId,
         PostId: createdLike.PostId,
         LikeId: createdLike.id,
       };
-      return like;
+      return newLike;
     }
   }
 
