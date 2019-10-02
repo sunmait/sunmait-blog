@@ -1,5 +1,4 @@
 import 'assets/styles/Article.css';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -43,13 +42,18 @@ class PostPage extends React.Component {
     return (
       <div className="area-container">
         <div className="area-content">
-          <Textarea customClass="textarea" name="commentDescription" placeholder="Enter description of your comment" />
-          <h5 style={{ color: 'red', fontSize: '12px', margin: '0' }} data-cy="comment-warning-text">
+          <Textarea
+            customClass={bemClasses('coments-textarea')}
+            name="commentDescription"
+            placeholder="Enter description of your comment"
+          />
+          <h5 customClass={bemClasses('coments-warning-message')} data-cy="comment-warning-text">
             {warning}
           </h5>
         </div>
         <div className="add-button">
           <Button
+            disabled={this.props.text.length ? false : true}
             as="button"
             data-cy="add-btn-for-add-comment"
             onClick={() => {
@@ -255,21 +259,30 @@ class PostPage extends React.Component {
             alt="main post illustration"
             data-cy="post-image"
           />
-          <div className="content">
-            <div className={bemClasses('container', 'full')} data-cy="article-container">
-              {this.renderArticleBody()}
+          <div className={bemClasses('content-text-wrapper')}>
+            <div className={bemClasses('content-text-wrapper__text')}>
+              <div className="content">
+                <div className={bemClasses('container', 'full')} data-cy="article-container">
+                  {this.renderArticleBody()}
+                </div>
+              </div>
+              <div className="comment-form">
+                {this.props.user.id ? this.renderTextAreaComment(warningText) : this.renderLogInModal()}
+              </div>
+              <div className="comments-list-wrapper">{this.renderCommentsList()}</div>
             </div>
           </div>
-          <div className="comment-form">
-            {this.props.user.id ? this.renderTextAreaComment(warningText) : this.renderLogInModal()}
-          </div>
-          {this.renderCommentsList()}
         </div>
       );
     }
     return null;
   }
 }
+
+PostPage.defaultProps = {
+  text: '',
+};
+
 PostPage.propTypes = {
   getPost: PropTypes.func,
   selectedPost: PropTypes.object,

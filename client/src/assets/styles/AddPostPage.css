@@ -136,7 +136,6 @@ div.add-post-form__title::before {
 }
 
 .post-preview__description {
-  text-align: center;
 }
 @media (max-width: 780px) {
   .add-post {
