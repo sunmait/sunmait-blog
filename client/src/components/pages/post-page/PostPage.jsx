@@ -14,11 +14,16 @@ import Button from 'components/common/button/Button.js';
 import LoginModal from 'components/containers/login-modal/index.jsx';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 import ConfirmationModal from 'components/common/confirmation-modal/ConfirmationModal.jsx';
 import TwitterShareButton from 'components/common/share-button/TwitterShareButton';
 import FacebookShareButton from 'components/common/share-button/FacebookShareButton';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { PostPreview } from 'components/common/PostPreview/PostPreview';
+import { style } from '@material-ui/system';
 
 const article = 'article';
 const bemClasses = getBEMClasses([article]);
@@ -28,6 +33,7 @@ class PostPage extends React.Component {
     super(props);
     this.state = {
       isModalOpen: false,
+      value: 0,
     };
   }
 
@@ -127,7 +133,7 @@ class PostPage extends React.Component {
     if (user && user.id === UserId) {
       return (
         <div className={bemClasses('edit-buttons')}>
-          <Link to={`/addpost/${id}`}>
+          <Link to={`/add post/${id}`}>
             <IconButton data-cy="edit-post-button">
               <Edit />
             </IconButton>
@@ -154,18 +160,24 @@ class PostPage extends React.Component {
 
   renderShareButtons() {
     const { Title, Likes } = this.props.selectedPost;
+    const {
+      user,
+      selectedPost: { UserId, id },
+    } = this.props;
     let colorLikeOrDislike = this.props.user.id
       ? Likes.some(like => like.id === this.props.user.id)
         ? 'error'
         : 'disabled'
       : 'disabled';
     let text = `${Title} (posted on Sunmait Blog). `;
+
     return (
       <div className={bemClasses('share-buttons')}>
         <div className={bemClasses('share-button-icon')} onClick={this.handleAddLikeOrDislike} data-cy="like-button">
           <FavoriteIcon fontSize="large" color={colorLikeOrDislike} data-cy="like-color" />
           <span data-cy="like-number">{Likes.length ? Likes.length : null}</span>
         </div>
+        <div className="ratingAuth">{this.renderAutorizedRating()}</div>
         <div className={bemClasses('share-wrapper')}>
           <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
             <TwitterShareButton innerText={text} url={document.URL} />
@@ -177,7 +189,48 @@ class PostPage extends React.Component {
       </div>
     );
   }
+  renderOverallRating() {
+    return (
+      <div className="overallPostRating">
+        <Box component="fieldset" mb={3} borderColor="transparent">
+          <Typography component="legend" />
+          <Rating
+            value={this.props.selectedPost.Rating ? this.props.selectedPost.Rating.Average : 0}
+            readOnly
+            size="large"
+          />
+        </Box>
+      </div>
+    );
+  }
+  renderAutorizedRating() {
+    const {
+      user,
+      selectedPost: { UserId, id },
+    } = this.props;
+    const handleSetRating = newValue => {
+      this.props.fetchRating(this.props.selectedPost, newValue);
+      console.log('asdasdzxcz', this.props.selectedPost.Rating);
+    };
 
+    if (user || user.id === UserId) {
+      return (
+        <div className="ratingStars">
+          <Box component="fieldset" borderColor="transparent">
+            <Typography component="legend" />
+            <Rating
+              size="large"
+              name="simple-controlled"
+              onChange={(event, newValue) => {
+                handleSetRating(newValue);
+              }}
+              value={this.props.selectedPost.Rating ? this.props.selectedPost.Rating.Value : 0}
+            />
+          </Box>
+        </div>
+      );
+    }
+  }
   renderArticleInformation() {
     const {
       users,
@@ -230,6 +283,8 @@ class PostPage extends React.Component {
             <div className={bemClasses('title')} data-cy="post-title">
               {Title}
             </div>
+            <div />
+            {this.renderOverallRating()}
             {this.renderEditButtons()}
           </div>
           {this.renderArticleInformation()}
