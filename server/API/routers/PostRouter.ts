@@ -44,12 +44,11 @@ router.get('/:id/comments', async (req: express.Request, res: express.Response, 
   const { id } = req.params;
 
   try {
-    res.json(await commentService.getCommentById(id));
+    res.json(await commentService.getCommentsById(id));
   } catch (error) {
     next(error);
   }
 });
-
 /**
  * Create Like for post
  */
@@ -63,6 +62,19 @@ router.post(
     const UserInfo = req.body.UserInfo;
     try {
       res.json(await postService.likeOrDislike(PostId, UserId, UserInfo));
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.post(
+  '/:id/rating',
+  CheckAuth,
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log('Its meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', req.body);
+    const { Value, UserId, PostId } = req.body;
+    try {
+      res.json(await postService.setRating(PostId, UserId, Value));
     } catch (error) {
       next(error);
     }

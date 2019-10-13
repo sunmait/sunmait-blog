@@ -6,3 +6,4 @@ export * from './UserRepository';
 export * from './TagRepository';
 export * from './SessionRepository';
 export * from './PostLikesRepository';
+export * from './PostRatingsRepository';

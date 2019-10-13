@@ -18,6 +18,20 @@ export const addLikeOrDislikeSuccess = like => {
     payload: like,
   };
 };
+export const addRatingSuccess = data => {
+  console.log('its from action', data);
+  return {
+    type: SAGAS_POST_CONSTANTS.GET_RATING_SUCCESS,
+    payload: data,
+  };
+};
+
+export const fetchRating = (userInfo, value) => {
+  return {
+    type: POST_ACTIONS.GET_RATING,
+    payload: { userInfo, value },
+  };
+};
 
 export const getPost = postId => {
   return {
