@@ -24,12 +24,18 @@ export default function(state = defaultState, { type, payload }) {
       return handleAddLikeOrDislikeSuccess(state, payload);
     case POST_ACTIONS.GET_RATING_SUCCESS:
       return handleGetRating(state, payload);
-
+    case POST_ACTIONS.GET_AVERAGE_POST_SUCCESS:
+      return handleGetAveragePostSuccess(state, payload);
+    case POST_ACTIONS.GET_USER_POST_RATING_SUCCESS:
+      return handleGetUserPostRatingSuccess(state, payload);
     default:
       return state;
   }
 }
 
+function handleGetUserPostRatingSuccess(state, payload) {
+  return { ...state, post: { ...state.post, CurentRating: payload.rating } };
+}
 function handleAddLikeOrDislikeSuccess(state, payload) {
   let updatedLikes = [...state.post.Likes];
   const isDislike = updatedLikes.some(like => like.id === payload.id);
@@ -41,14 +47,18 @@ function handleAddLikeOrDislikeSuccess(state, payload) {
 
   return { ...state, post: { ...state.post, Likes: updatedLikes } };
 }
+
 function handleGetRating(state, payload) {
-  // let updatedRating = [...state.post.Rating];
-  // updatedRating.push(payload);
-  return { ...state, post: { ...state.post, Rating: payload } };
+  console.log(state.post);
+  console.log(payload);
+  return { ...state, post: { ...state.post, AverageRating: payload.Average } };
 }
 
 function handleGetCommentsFromCurrentPost(state, payload) {
   return { ...state, commentsOfCurrentPost: payload };
+}
+function handleGetAveragePostSuccess(state, payload) {
+  return { ...state, post: { ...state.post, AverageRating: payload.payload } };
 }
 
 function handleGetPost(state, post) {

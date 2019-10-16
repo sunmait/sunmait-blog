@@ -15,4 +15,6 @@ export interface IPostService {
   deletePost(id: number): Promise<PostEntity[]>;
   likeOrDislike(postId: number, userId: number, userinfo: object): Promise<any>;
   setRating(postId: number, userId: number, value: number): Promise<any>;
+  setAveragePostRating(postId: number): Promise<any>;
+  setUserPostRating(payload: any): Promise<any>;
 }
