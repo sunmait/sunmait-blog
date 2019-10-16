@@ -50,11 +50,10 @@ function handleAddLikeOrDislikeSuccess(state, payload) {
 
 function handleGetRating(state, payload) {
   console.log('this is reducer setRating', state.post);
-  console.log('value', payload.Value);
-  console.log('average value', payload.Average);
+  console.log(payload.Value);
   return {
     ...state,
-    post: { ...state.post, AverageRating: payload.Average, CurentRating: payload.Value },
+    post: { ...state.post, AverageRating: payload.Average, ...state.post, CurentRating: payload.Value },
   };
 }
 
