@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { deletePost } from 'redux/modules/posts/postsActions';
-import { getPost, addLikeOrDislike, fetchRating } from 'redux/modules/post/actions';
+import { getPost, addLikeOrDislike, fetchRating, getAveragePost, getUserPostRating } from 'redux/modules/post/actions';
 import { addComment, getComments } from 'redux/modules/comments/commentsActions';
 import PostPage from './PostPage.jsx';
 import { reduxForm, formValueSelector, change } from 'redux-form';
@@ -27,6 +27,8 @@ const mapDispatchToProps = dispatch => ({
   addLikeOrDislike: (postId, userId) => dispatch(addLikeOrDislike(postId, userId)),
   deletePost,
   fetchRating: (userInfo, value) => dispatch(fetchRating(userInfo, value)),
+  getUserPostRating: payload => dispatch(getUserPostRating(payload)),
+  getAveragePost: postId => dispatch(getAveragePost(postId)),
   addComment: (id, text) => dispatch(addComment(id, text)),
   getComments: postId => dispatch(getComments(postId)),
   clearFormField: () => dispatch(change('postForm', 'commentDescription', '')),

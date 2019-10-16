@@ -6,6 +6,8 @@ import {
   getCommentsFromCurrentPost,
   addLikeOrDislikeSuccess,
   addRatingSuccess,
+  getAveragePostSuccess,
+  getUserPostRatingSuccess,
 } from '../../redux/modules/post/actions';
 
 function* getPost({ postId }) {
@@ -33,7 +35,28 @@ function* addLikeOrDislike({ payload }) {
     console.log('addLikeOrDislike error', error);
   }
 }
+function* getAveragePost(action) {
+  const { value: PostId } = action.payload;
+  try {
+    console.log('action playload', action.payload.value);
+    console.log('its from front to back', PostId);
+    const average = yield axios.post(
+      `/api/posts/${PostId}/averagePost`,
+      {
+        PostId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+        },
+      }
+    );
+    console.log('its recieved data', average.data);
+    yield put(getAveragePostSuccess(average.data));
+  } catch (error) {}
+}
 function* fetchRating({ payload }) {
+  console.log('its data for create post', payload);
   try {
     const { value: Value } = payload;
     const { id: PostId, UserId } = payload.userInfo;
@@ -57,6 +80,29 @@ function* fetchRating({ payload }) {
     console.log('fetch rating  error', error);
   }
 }
+function* getUserPostRating(data) {
+  try {
+    console.log('user rating', data.payload.data);
+    const { user, post } = data.payload.data;
+    console.log(user, post);
+    const getUserPostRating = yield axios.post(
+      `/api/posts/${post}/getUserPostRating`,
+      {
+        user: user,
+        post: post,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+        },
+      }
+    );
+    console.log('its recieved data from userpostRating', getUserPostRating.data);
+    yield put(getUserPostRatingSuccess(getUserPostRating.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function* getCommentsFromCurrentPostSagas({ payload }) {
   const { PostId } = payload;
@@ -72,5 +118,7 @@ export function* postSagas() {
     takeLatest(SAGAS_POST_CONSTANTS.GET_COMMENTS_FROM_CURRENT_POST, getCommentsFromCurrentPostSagas),
     takeLatest(POST_ACTIONS.POST_LIKE_OR_DISLIKE, addLikeOrDislike),
     takeLatest(POST_ACTIONS.GET_RATING, fetchRating),
+    takeLatest(POST_ACTIONS.GET_AVERAGE_POST, getAveragePost),
+    takeLatest(POST_ACTIONS.GET_USER_POST_RATING, getUserPostRating),
   ]);
 }
