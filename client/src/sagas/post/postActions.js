@@ -76,7 +76,6 @@ function* fetchRating({ payload }) {
     );
     console.log('its recieved data', rating.data);
     yield put(addRatingSuccess(rating.data));
-    // yield put(getAveragePostSuccess(PostId));
   } catch (error) {
     console.log('fetch rating  error', error);
   }
