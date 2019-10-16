@@ -26,10 +26,10 @@ export const addRatingSuccess = data => {
   };
 };
 
-export const fetchRating = (userInfo, value) => {
+export const fetchRating = (userInfo, value, user) => {
   return {
     type: POST_ACTIONS.GET_RATING,
-    payload: { userInfo, value },
+    payload: { userInfo, value, user },
   };
 };
 

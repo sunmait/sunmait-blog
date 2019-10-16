@@ -49,9 +49,12 @@ function handleAddLikeOrDislikeSuccess(state, payload) {
 }
 
 function handleGetRating(state, payload) {
-  console.log(state.post);
-  console.log(payload);
-  return { ...state, post: { ...state.post, AverageRating: payload.Average } };
+  console.log('this is reducer setRating', state.post);
+  console.log(payload.Value);
+  return {
+    ...state,
+    post: { ...state.post, AverageRating: payload.Average, ...state.post, CurentRating: payload.Value },
+  };
 }
 
 function handleGetCommentsFromCurrentPost(state, payload) {
