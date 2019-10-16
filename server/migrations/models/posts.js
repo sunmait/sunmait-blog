@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       Description: DataTypes.TEXT,
       Title: DataTypes.STRING,
       ImageUrl: DataTypes.STRING,
+      AverageRating: DataTypes.INTEGER,
     },
     {
       classMethods: {

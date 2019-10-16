@@ -34,6 +34,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      AverageRating: {
+        type: Sequelize.INTEGER,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

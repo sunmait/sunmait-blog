@@ -62,6 +62,9 @@ export default class PostEntity extends Model<PostEntity> {
   @Column(DataType.STRING)
   public ImageUrl: string;
 
+  @Column(DataType.INTEGER)
+  public AverageRating: number;
+
   @HasMany(() => PostLikesEntity)
   public Likes: PostLikesEntity[];
 

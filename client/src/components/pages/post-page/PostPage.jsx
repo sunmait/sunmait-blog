@@ -41,6 +41,9 @@ class PostPage extends React.Component {
     if (!this.props.selectedPost && this.props.getPost) {
       this.props.getPost(this.props.match.params.postId);
       this.props.getComments(this.props.match.params.postId);
+      this.props.getAveragePost(this.props.match.params.postId);
+      this.props.getUserPostRating(this.props);
+      // console.log(this.props.selectedPost.Userid);
     }
   }
 
@@ -190,15 +193,12 @@ class PostPage extends React.Component {
     );
   }
   renderOverallRating() {
+    console.log('this is props man', this.props);
     return (
       <div className="overallPostRating">
         <Box component="fieldset" mb={3} borderColor="transparent">
           <Typography component="legend" />
-          <Rating
-            value={this.props.selectedPost.Rating ? this.props.selectedPost.Rating.Average : 0}
-            readOnly
-            size="large"
-          />
+          <Rating value={this.props.selectedPost.AverageRating} readOnly size="large" />
         </Box>
       </div>
     );
@@ -209,10 +209,10 @@ class PostPage extends React.Component {
       selectedPost: { UserId, id },
     } = this.props;
     const handleSetRating = newValue => {
+      console.log('true value', this.props.user.id);
       this.props.fetchRating(this.props.selectedPost, newValue);
-      console.log('asdasdzxcz', this.props.selectedPost.Rating);
+      this.setState({ value: newValue });
     };
-
     if (user || user.id === UserId) {
       return (
         <div className="ratingStars">
@@ -224,7 +224,7 @@ class PostPage extends React.Component {
               onChange={(event, newValue) => {
                 handleSetRating(newValue);
               }}
-              value={this.props.selectedPost.Rating ? this.props.selectedPost.Rating.Value : 0}
+              value={this.props.selectedPost.CurentRating}
             />
           </Box>
         </div>

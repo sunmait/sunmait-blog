@@ -14,6 +14,7 @@ module.exports = {
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
           Title: 'Post N1',
           ImageUrl: 'https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg',
+          AverageRating: 2,
         },
         {
           id: 2,
@@ -24,6 +25,7 @@ module.exports = {
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
           Title: 'Post N2',
           ImageUrl: 'https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg',
+          AverageRating: 2,
         },
         {
           id: 3,
@@ -34,6 +36,7 @@ module.exports = {
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
           Title: 'Post N3',
           ImageUrl: 'https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg',
+          AverageRating: 2,
         },
         {
           id: 4,
@@ -44,6 +47,7 @@ module.exports = {
             'Suspendisse libero magna, luctus quis augue eu, finibus placerat sem. Cras laoreet erat vitae varius placerat. Mauris sodales purus orci, eget imperdiet nunc dictum quis. Phasellus ornare arcu orci, nec luctus tortor faucibus sit amet.',
           Title: 'Post N4',
           ImageUrl: 'https://www.digitalimpact.co.uk/wp-content/uploads/2015/11/TechStockHeader.jpg',
+          AverageRating: 2,
         },
         {
           id: 5,
@@ -55,6 +59,7 @@ module.exports = {
           Title: 'Post N5',
           ImageUrl:
             'https://image.freepik.com/vector-gratis/vista-superior-espacio-de-trabajo-con-portatil-y-papeleria-en-la-mesa_1407-149.jpg',
+          AverageRating: 2,
         },
         {
           id: 6,
@@ -66,6 +71,7 @@ module.exports = {
           Title: 'Post N6',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 7,
@@ -77,6 +83,7 @@ module.exports = {
           Title: 'Post N7',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 8,
@@ -88,6 +95,7 @@ module.exports = {
           Title: 'Post N8',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 9,
@@ -99,6 +107,7 @@ module.exports = {
           Title: 'Post N9',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 10,
@@ -110,6 +119,7 @@ module.exports = {
           Title: 'Post N10',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 11,
@@ -121,6 +131,7 @@ module.exports = {
           Title: 'Post N11',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 12,
@@ -132,6 +143,7 @@ module.exports = {
           Title: 'Post N12',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 13,
@@ -143,6 +155,7 @@ module.exports = {
           Title: 'Post N13',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 14,
@@ -154,6 +167,7 @@ module.exports = {
           Title: 'Post N14',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
         {
           id: 15,
@@ -165,6 +179,7 @@ module.exports = {
           Title: 'Post N15',
           ImageUrl:
             'https://res.cloudinary.com/dn27bg6qw/image/upload/v1538497645/landscape-water-flowers-158063.Kw1iZ_nwq9k1.jpg',
+          AverageRating: 2,
         },
       ],
       {}
