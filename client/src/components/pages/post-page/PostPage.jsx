@@ -213,7 +213,7 @@ class PostPage extends React.Component {
       this.props.fetchRating(this.props.selectedPost, newValue, this.props.user.id);
       this.setState({ value: newValue });
     };
-    if (user || user.id === UserId) {
+    if (user.id) {
       return (
         <div className="ratingStars">
           <Box component="fieldset" borderColor="transparent">
