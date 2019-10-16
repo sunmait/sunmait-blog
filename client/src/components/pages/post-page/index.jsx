@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
   getPost: postId => dispatch(getPost(postId)),
   addLikeOrDislike: (postId, userId) => dispatch(addLikeOrDislike(postId, userId)),
   deletePost,
-  fetchRating: (userInfo, value) => dispatch(fetchRating(userInfo, value)),
+  fetchRating: (userInfo, value, user) => dispatch(fetchRating(userInfo, value, user)),
   getUserPostRating: payload => dispatch(getUserPostRating(payload)),
   getAveragePost: postId => dispatch(getAveragePost(postId)),
   addComment: (id, text) => dispatch(addComment(id, text)),

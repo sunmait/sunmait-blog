@@ -58,13 +58,13 @@ function* getAveragePost(action) {
 function* fetchRating({ payload }) {
   console.log('its data for create post', payload);
   try {
-    const { value: Value } = payload;
-    const { id: PostId, UserId } = payload.userInfo;
+    const { value: Value, user } = payload;
+    const { id: PostId } = payload.userInfo;
     console.log('watafak', payload.userInfo);
     const rating = yield axios.post(
       `/api/posts/${PostId}/rating`,
       {
-        UserId: UserId,
+        UserId: user,
         PostId: PostId,
         Value: Value,
       },
