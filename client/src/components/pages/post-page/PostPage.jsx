@@ -210,7 +210,7 @@ class PostPage extends React.Component {
     } = this.props;
     const handleSetRating = newValue => {
       console.log('true value', this.props.user.id);
-      this.props.fetchRating(this.props.selectedPost, newValue);
+      this.props.fetchRating(this.props.selectedPost, newValue, this.props.user.id);
       this.setState({ value: newValue });
     };
     if (user || user.id === UserId) {
