@@ -53,7 +53,7 @@ function handleGetRating(state, payload) {
   console.log(payload.Value);
   return {
     ...state,
-    post: { ...state.post, AverageRating: payload.Average, ...state.post, CurentRating: payload.Value },
+    post: { ...state.post, AverageRating: payload.Average,  CurentRating: payload.Value },
   };
 }
 
