@@ -195,7 +195,7 @@ class PostPage extends React.Component {
   renderOverallRating() {
     console.log('this is props man', this.props);
     return (
-      <div className="overallPostRating">
+      <div className="overallPostRating" data-cy="overall-post-rating">
         <Box component="fieldset" mb={3} borderColor="transparent">
           <Typography component="legend" />
           <Rating value={this.props.selectedPost.AverageRating} readOnly size="large" />
@@ -215,7 +215,7 @@ class PostPage extends React.Component {
     };
     if (user.id) {
       return (
-        <div className="ratingStars">
+        <div className="userRating" data-cy="user-rating">
           <Box component="fieldset" borderColor="transparent">
             <Typography component="legend" />
             <Rating
