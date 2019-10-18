@@ -14,5 +14,4 @@ export interface IPostService {
   updatePost(data: any): Promise<PostEntity>;
   deletePost(id: number): Promise<PostEntity[]>;
   likeOrDislike(postId: number, userId: number, userinfo: object): Promise<any>;
-  setRating(postId: number, userId: number, value: number): Promise<any>;
 }

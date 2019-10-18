@@ -3,11 +3,10 @@ import { injectable, inject } from 'inversify';
 import PostEntity from '../../../Data/Entities/PostEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
 import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
-import PostRatingsEntity from '../../../Data/Entities/PostRatingsEntity';
 import PostsTagEntity from '../../../Data/Entities/PostsTagEntity';
 import TagEntity from '../../../Data/Entities/TagEntity';
 import { IPostRepository, IPostLikesRepository } from '../../../Data/Repositories/index';
-import { IPostsTagRepository, ITagRepository, IPostRatingsRepository } from '../../../Data/Repositories/index';
+import { IPostsTagRepository, ITagRepository } from '../../../Data/Repositories/index';
 import { Op } from '../../../Data/DbContext';
 import { asyncForEach } from '../../helpers/TagsHelper';
 export interface ITag {
@@ -27,19 +26,16 @@ export interface IChangePostBody {
 export class PostService implements IPostService {
   private readonly _postRepository: IPostRepository;
   private readonly _postLikesRepository: IPostLikesRepository;
-  private readonly _postRatingsRepository: IPostRatingsRepository;
   private readonly _postsTagRepository: IPostsTagRepository;
   private readonly _tagRepository: ITagRepository;
   constructor(
     @inject('PostRepository') postRepository: IPostRepository,
     @inject('PostLikesRepository') postLikesRepository: IPostLikesRepository,
-    @inject('PostRatingsRepository') postRatingsRepository: IPostRatingsRepository,
     @inject('PostsTagRepository') postsTagRepository: IPostsTagRepository,
     @inject('TagRepository') tagRepository: ITagRepository
   ) {
     this._postRepository = postRepository;
     this._postLikesRepository = postLikesRepository;
-    this._postRatingsRepository = postRatingsRepository;
     this._postsTagRepository = postsTagRepository;
     this._tagRepository = tagRepository;
   }
@@ -169,55 +165,6 @@ export class PostService implements IPostService {
       };
       return newLike;
     }
-  }
-
-  public async setRating(PostId: number, UserId: number, Value: number): Promise<any> {
-    const rated = await this._postRatingsRepository.findOne({ where: { PostId, UserId } });
-    let payload = {};
-    if (rated) {
-      console.log('Find Bleat!');
-      await rated.update({
-        Value,
-      });
-      const { PostId: post, UserId: user, Value: value } = rated.dataValues;
-      payload = {
-        PostId: post,
-        UserId: user,
-        Value: value,
-      };
-    } else {
-      console.log('Xui tebe!');
-      const postrate = new PostRatingsEntity({ PostId, UserId, Value });
-      const addnewRait = await this._postRatingsRepository.create(postrate);
-      const { PostId: post, UserId: user, Value: value } = addnewRait.dataValues;
-      payload = {
-        PostId: post,
-        UserId: user,
-        Value: value,
-      };
-    }
-    // add average method
-    const allRatedPost = await this._postRatingsRepository.findAll({ where: { PostId } });
-    const AllPostsValue = [];
-    allRatedPost.forEach(element => {
-      AllPostsValue.push(element.dataValues.Value);
-    });
-    const adder = array => {
-      let sum1 = 0;
-      array.forEach(element => {
-        sum1 += element;
-      });
-      return sum1;
-    };
-    const sum = adder(AllPostsValue);
-    const average = sum / AllPostsValue.length;
-    const trueAverage = Math.round(average);
-    const payloadWithAverage = {
-      ...payload,
-      Average: trueAverage,
-    };
-    console.log('its from post serviece', payloadWithAverage);
-    return payloadWithAverage;
   }
 
   public async addPost(data: any): Promise<PostEntity> {

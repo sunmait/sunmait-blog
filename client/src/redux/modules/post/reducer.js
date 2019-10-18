@@ -22,8 +22,6 @@ export default function(state = defaultState, { type, payload }) {
 
     case POST_ACTIONS.POST_LIKE_OR_DISLIKE_SUCCESS:
       return handleAddLikeOrDislikeSuccess(state, payload);
-    case POST_ACTIONS.GET_RATING_SUCCESS:
-      return handleGetRating(state, payload);
 
     default:
       return state;
@@ -40,11 +38,6 @@ function handleAddLikeOrDislikeSuccess(state, payload) {
   }
 
   return { ...state, post: { ...state.post, Likes: updatedLikes } };
-}
-function handleGetRating(state, payload) {
-  // let updatedRating = [...state.post.Rating];
-  // updatedRating.push(payload);
-  return { ...state, post: { ...state.post, Rating: payload } };
 }
 
 function handleGetCommentsFromCurrentPost(state, payload) {

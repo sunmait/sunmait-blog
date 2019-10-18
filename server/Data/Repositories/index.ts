@@ -6,4 +6,3 @@ export * from './IUserRepository';
 export * from './ICommentRepository';
 export * from './ISessionRepository';
 export * from './IPostLikesRepository';
-export * from './IPostRatingsRepository';
