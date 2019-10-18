@@ -175,7 +175,6 @@ export class PostService implements IPostService {
     const rated = await this._postRatingsRepository.findOne({ where: { PostId, UserId } });
     let payload = {};
     if (rated) {
-      console.log('Find Bleat!');
       await rated.update({
         Value,
       });
@@ -186,7 +185,6 @@ export class PostService implements IPostService {
         Value: value,
       };
     } else {
-      console.log('Xui tebe!', PostId, UserId, Value);
       const postrate = new PostRatingsEntity({ PostId, UserId, Value });
       const addnewRait = await this._postRatingsRepository.create(postrate);
       const { PostId: post, UserId: user, Value: value } = addnewRait.dataValues;
@@ -199,30 +197,20 @@ export class PostService implements IPostService {
     // add average method
 
     const allRatedPost = await this._postRatingsRepository.findAll({ where: { PostId } });
-    console.log(allRatedPost);
-    const AllPostsValue = [];
+
+    const allPostsValue = [];
     allRatedPost.forEach(element => {
-      AllPostsValue.push(element.dataValues.Value);
+      allPostsValue.push(element.dataValues.Value);
     });
-    const adder = array => {
-      let sum1 = 0;
-      array.forEach(element => {
-        sum1 += element;
-      });
-      return sum1;
-    };
-    console.log('its array of post Values', AllPostsValue);
-    const sum = adder(AllPostsValue);
-    const average = sum / AllPostsValue.length;
-    const trueAverage = Math.round(average);
-    console.log('true Average', trueAverage);
-    console.log('cont post id', PostId);
-    // const rated = await this._postRatingsRepository.findOne({ where: { PostId, UserId } });
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const sum = allPostsValue.reduce(reducer);
+    const trueAverage = Math.round(sum / allPostsValue.length);
+
     const updatedAveragePostValue = await this._postRepository.findOne({ where: { id: PostId } });
     const { AverageRating: contAverageRating } = updatedAveragePostValue.dataValues;
-    console.log('Its table post average rating', contAverageRating);
+
     if (contAverageRating !== trueAverage) {
-      console.log('op-pa');
       await updatedAveragePostValue.update({
         AverageRating: trueAverage,
       });
@@ -231,17 +219,15 @@ export class PostService implements IPostService {
       ...payload,
       Average: trueAverage,
     };
-    console.log('its from post serviece', payloadWithAverage);
+
     return payloadWithAverage;
   }
   public async setAveragePostRating(postId: number) {
-    console.log('its backend,baby', postId);
     const selectedPost = await this._postRepository.findOne({ where: { id: postId } });
     if (selectedPost) {
-      console.log('this is selected post value', selectedPost.dataValues.AverageRating);
       return selectedPost.dataValues.AverageRating;
     } else {
-      console.log('else in average post', selectedPost);
+      return 0;
     }
   }
 
@@ -258,14 +244,12 @@ export class PostService implements IPostService {
   }
   public async setUserPostRating(payload: any) {
     const { post, user } = payload;
-    console.log('poisk po kriteriy', post, user);
+
     const rated = await this._postRatingsRepository.findOne({ where: { PostId: post, UserId: user } });
     if (rated) {
       const data = rated.dataValues.Value;
-      console.log('its user value', data);
       return data;
     } else {
-      console.log('netu blyat posta');
       return 0;
     }
   }

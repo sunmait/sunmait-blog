@@ -49,8 +49,6 @@ function handleAddLikeOrDislikeSuccess(state, payload) {
 }
 
 function handleGetRating(state, payload) {
-  console.log('this is reducer setRating', state.post);
-  console.log(payload.Value);
   return {
     ...state,
     post: { ...state.post, AverageRating: payload.Average,  CurentRating: payload.Value },

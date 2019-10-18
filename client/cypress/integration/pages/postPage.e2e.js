@@ -1,6 +1,6 @@
 import {} from '../../testHelpers/postHelper';
 import { getUserById } from '../../testHelpers/userHelper';
-import { getComments, getPost } from '../../testHelpers/postHelper';
+import { getComments, getPost, getPosts } from '../../testHelpers/postHelper';
 import user from '../../fixtures/userToLogin.json';
 import { format } from 'date-fns';
 
@@ -148,7 +148,7 @@ describe('Post page', () => {
 
       getComments(1).then(comments => {
         const length = comments.body.length;
-        cy.get('.textarea').type('privet, kak dela?');
+        cy.get('[data-cy=post-comment] textarea[name=commentDescription]').type('privet, kak dela?');
         cy.get('[data-cy=add-btn-for-add-comment]').click();
         cy.get('.MuiListItem-gutters').should('have.length', length + 1);
         cy.get('[data-cy=comment-auth]')
@@ -192,13 +192,13 @@ describe('Post page', () => {
 
       cy.log('authorized panel with user data and menu is visible');
 
-      cy.get('.textarea').type(
+      cy.get('[data-cy=post-comment] textarea[name=commentDescription]').type(
         'hdfghdgfh dfgh dfgh dfgh dfg hdfg hdfgh dfgh dfgh dfgh dfgh dfgh dfgh dfgh dfghdfgh dfgh dfgh dfg hdfg hdfghdfg hdfgh dfgh dfgh df'
       );
       cy.get('[data-cy=comment-warning-text]').contains('20 characters remaining');
       cy.log('To the end 20 characters remaining');
 
-      cy.get('.textarea').type(
+      cy.get('[data-cy=post-comment] textarea[name=commentDescription]').type(
         'sdgfdf dsf gsdfg sdgf sdfgsdgf sdf gsdfg sdfg sdfg sdfg sdfg sdfg sdfg sdfg sdfg sdf gsdfg dsf gsdfg sdf gdsfg dsf gsdf gsdfgdsf gdsf gsdfg sdf gsdfg sdfgs'
       );
       cy.get('[data-cy=comment-warning-text]').contains(
@@ -252,6 +252,49 @@ describe('Post page', () => {
 
         cy.log('Check that number of likes not changed if user not authorized');
         cy.get('[data-cy=like-number]').contains(length);
+      });
+    });
+  });
+  describe('Test for rating feature', () => {
+    it('Visible Post rating', () => {
+      cy.visit('/post/9');
+      cy.get('[data-cy=overall-post-rating]').should('be.visible');
+    });
+    it('Unvisible user rating if you not auth', () => {
+      cy.log('You can not see user rating if you not authorized');
+      cy.get('[data-cy=user-rating]').should('not.be.visible');
+    });
+    it('Check rating functionality', () => {
+      cy.log('click on Log In btn');
+      cy.get('[data-cy=login-btn-for-add-comment]').click();
+
+      cy.log('Check modal visible');
+      cy.get('[data-cy=login-modal]').should('be.visible');
+
+      cy.log('Filling form ');
+      cy.get('[data-cy=login-modal] input[name=login]').type(user.Login);
+      cy.get('[data-cy=login-modal] input[name=password]').type(user.Password);
+
+      cy.log('Press Log In button');
+      cy.get('[data-cy=login-modal] button[type=submit]').click();
+      cy.get('[data-cy=user-rating]').should('be.visible');
+
+      getPost(9).then(() => {
+        cy.log('click at stars');
+        cy.get('[data-cy=user-rating] label[for=simple-controlled-1]')
+          .click()
+          .find('span')
+          .should($span => {
+            expect($span[0].className).to.match(/-iconFilled/);
+          });
+      });
+      getPost(9).then(() => {
+        cy.log('check average post rating');
+        cy.get('[data-cy=overall-post-rating] span[role=img]')
+          .find('span')
+          .should($span => {
+            expect($span[1].className).to.match(/-iconFilled/);
+          });
       });
     });
   });

@@ -69,10 +69,8 @@ router.post(
   '/:id/rating',
   CheckAuth,
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log('Its meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', req.body);
     const { Value, UserId, PostId } = req.body;
     try {
-      console.log('this is user data create row', Value, UserId, PostId);
       res.json(await postService.setRating(PostId, UserId, Value));
     } catch (error) {
       next(error);
@@ -80,24 +78,20 @@ router.post(
   }
 );
 router.post('/:id/averagePost', async (req: express.Request, res: express.Response) => {
-  console.log('Its meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', req.body);
   try {
     res.json(await postService.setAveragePostRating(req.body.PostId));
-    console.log('Its meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee from average', req.body);
   } catch (error) {
-    console.log(error, 'fuck');
+    console.log(error);
   }
 });
 router.post(
   '/:id/getUserPostRating',
   CheckAuth,
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log('Its userpost rating', req.body);
     try {
-      console.log('Its meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee from average User', req.body);
       res.json(await postService.setUserPostRating(req.body));
     } catch (error) {
-      console.log(error, 'its not work');
+      console.log(error);
     }
   }
 );
