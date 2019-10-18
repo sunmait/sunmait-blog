@@ -19,7 +19,6 @@ export const addLikeOrDislikeSuccess = like => {
   };
 };
 export const addRatingSuccess = data => {
-  console.log('its from action ', data);
   return {
     type: SAGAS_POST_CONSTANTS.GET_RATING_SUCCESS,
     payload: data,
@@ -34,15 +33,12 @@ export const fetchRating = (userInfo, value, user) => {
 };
 
 export const getAveragePost = value => {
-  console.log(value);
   return {
     type: POST_ACTIONS.GET_AVERAGE_POST,
     payload: { value },
   };
 };
 export const getUserPostRating = obj => {
-  console.log('this is obj', obj.user.id);
-  console.log('this is obj', obj.match.params.postId);
   const data = {
     user: obj.user.id,
     post: obj.match.params.postId,
@@ -53,7 +49,6 @@ export const getUserPostRating = obj => {
   };
 };
 export const getUserPostRatingSuccess = rating => {
-  console.log('front mb', rating);
   return {
     type: POST_ACTIONS.GET_USER_POST_RATING_SUCCESS,
     payload: { rating },
