@@ -38,8 +38,6 @@ function* addLikeOrDislike({ payload }) {
 function* getAveragePost(action) {
   const { value: PostId } = action.payload;
   try {
-    console.log('action playload', action.payload.value);
-    console.log('its from front to back', PostId);
     const average = yield axios.post(
       `/api/posts/${PostId}/averagePost`,
       {
@@ -51,16 +49,16 @@ function* getAveragePost(action) {
         },
       }
     );
-    console.log('its recieved data', average.data);
     yield put(getAveragePostSuccess(average.data));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 function* fetchRating({ payload }) {
-  console.log('its data for create post', payload);
+
   try {
     const { value: Value, user } = payload;
     const { id: PostId } = payload.userInfo;
-    console.log('watafak', payload.userInfo);
     const rating = yield axios.post(
       `/api/posts/${PostId}/rating`,
       {
@@ -74,7 +72,6 @@ function* fetchRating({ payload }) {
         },
       }
     );
-    console.log('its recieved data', rating.data);
     yield put(addRatingSuccess(rating.data));
   } catch (error) {
     console.log('fetch rating  error', error);
@@ -82,9 +79,7 @@ function* fetchRating({ payload }) {
 }
 function* getUserPostRating(data) {
   try {
-    console.log('user rating', data.payload.data);
     const { user, post } = data.payload.data;
-    console.log(user, post);
     const getUserPostRating = yield axios.post(
       `/api/posts/${post}/getUserPostRating`,
       {
@@ -97,7 +92,6 @@ function* getUserPostRating(data) {
         },
       }
     );
-    console.log('its recieved data from userpostRating', getUserPostRating.data);
     yield put(getUserPostRatingSuccess(getUserPostRating.data));
   } catch (error) {
     console.log(error);

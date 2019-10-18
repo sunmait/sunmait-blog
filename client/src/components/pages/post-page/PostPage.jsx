@@ -33,25 +33,25 @@ class PostPage extends React.Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      value: 0,
     };
   }
 
   componentDidMount() {
+    const postId = this.props.match.params.postId;
     if (!this.props.selectedPost && this.props.getPost) {
-      this.props.getPost(this.props.match.params.postId);
-      this.props.getComments(this.props.match.params.postId);
-      this.props.getAveragePost(this.props.match.params.postId);
+      this.props.getPost(postId);
+      this.props.getComments(postId);
+      this.props.getAveragePost(postId);
       this.props.getUserPostRating(this.props);
-      // console.log(this.props.selectedPost.Userid);
     }
   }
 
   renderTextAreaComment(warning) {
     return (
-      <div className="area-container">
+      <div className="area-container" data-cy="post-comment">
         <div className="area-content">
           <Textarea
+            data-cy="post-comment"
             customClass={bemClasses('coments-textarea')}
             name="commentDescription"
             placeholder="Enter description of your comment"
@@ -193,7 +193,7 @@ class PostPage extends React.Component {
     );
   }
   renderOverallRating() {
-    console.log('this is props man', this.props);
+    
     return (
       <div className="overallPostRating" data-cy="overall-post-rating">
         <Box component="fieldset" mb={3} borderColor="transparent">
@@ -208,10 +208,8 @@ class PostPage extends React.Component {
       user,
       selectedPost: { UserId, id },
     } = this.props;
-    const handleSetRating = newValue => {
-      console.log('true value', this.props.user.id);
-      this.props.fetchRating(this.props.selectedPost, newValue, this.props.user.id);
-      this.setState({ value: newValue });
+    const handleSetRating = rating => {
+      this.props.fetchRating(this.props.selectedPost, rating, this.props.user.id);
     };
     if (user.id) {
       return (
@@ -221,8 +219,8 @@ class PostPage extends React.Component {
             <Rating
               size="large"
               name="simple-controlled"
-              onChange={(event, newValue) => {
-                handleSetRating(newValue);
+              onChange={(event, rating) => {
+                handleSetRating(rating);
               }}
               value={this.props.selectedPost.CurentRating}
             />
