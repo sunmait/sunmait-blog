@@ -39,6 +39,9 @@
   width: 100%;
 }
 .article__post-content {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 .article__header {
   display: flex;
