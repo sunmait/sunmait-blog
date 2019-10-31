@@ -62,7 +62,7 @@ class AddPostPage extends React.Component {
   render() {
     if (!(this.state.postId && !this.props.post)) {
       return (
-        <div className="content">
+        <div className="content-add-post">
           <div className={bemClasses()}>
             <AddPostFormContainer
               label={this.defineEditingOrCreationOfPost(this.state.postId)}
