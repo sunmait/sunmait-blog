@@ -1,5 +1,12 @@
 @import './theme/variables.css';
 
+.content-add-post{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem 0 5rem;
+}
+
 .add-post {
   width: 70rem;
 }
@@ -66,9 +73,9 @@ div.add-post-form__title::before {
 .add-post-form__input {
   border: none;
   outline: none;
-  padding-left: 5px;
+  /* padding-left: 5px; */
   font-size: 20px !important;
-  width: 30%;
+  /* width: 30%; */
   box-shadow: 0px 0px 0px 1px #fff inset;
 }
 
