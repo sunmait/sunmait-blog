@@ -120,7 +120,7 @@
 
 @media (max-width: 1300px) {
   .article__container--preview {
-    max-width: 45%;
+    max-width: 48%;
     margin: 2rem 1.5%;
   }
   .article__container--preview:nth-child(2n + 1) {

@@ -55,13 +55,14 @@
 @media (max-width: 1300px) {
   .comment__container--preview {
     max-width: 16%;
-    margin: 2rem 1.2rem;
+    margin: 2rem 0;
   }
   .article__container--preview:nth-child(2n + 1) {
-    margin: 2rem 1.2rem;
-  }
+      margin: 2rem 0;
+    }
+   
   .article__container--preview:nth-child(2n) {
-    margin: 2rem 2rem;
+    margin: 2rem 0;
   }
 }
 
