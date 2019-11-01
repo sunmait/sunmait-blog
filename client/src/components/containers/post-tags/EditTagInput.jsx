@@ -25,7 +25,7 @@ const InputTagComponent = props => {
     <input
       data-cy="tags-input"
       type="text"
-      placeholder="enter new tag"
+      placeholder="Enter new tag"
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       className={bemClasses('input')}
