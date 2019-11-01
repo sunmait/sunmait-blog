@@ -58,11 +58,11 @@
     margin: 2rem 0;
   }
   .article__container--preview:nth-child(2n + 1) {
-      margin: 2rem 0;
-    }
+    margin: 2rem 0 2rem 0;
+  }
    
   .article__container--preview:nth-child(2n) {
-    margin: 2rem 0;
+    margin: 2rem 0 2rem auto;
   }
 }
 
