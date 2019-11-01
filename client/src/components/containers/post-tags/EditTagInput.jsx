@@ -16,7 +16,7 @@ const InputTagComponent = props => {
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      addTag(value);
+      value !== '' && addTag(value);
       setValue('');
     }
   };
