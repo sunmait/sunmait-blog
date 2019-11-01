@@ -28,17 +28,19 @@ const PostEditTags = props => {
     return (
       <div className={bemClasses('container')} data-cy={'tags-container'}>
         {Tags.map((tag, id) => (
-          <Tag tag={tag.Text} id={id} deleteTag={handleDeleteTag} key={tag.id} />
+          <Tag key={tag.id} tag={tag.Text} id={id} deleteTag={handleDeleteTag} />
         ))}
       </div>
     );
   };
 
   return (
+    <>
     <Paper className={bemClasses('paper')}>
-      {renderTagsList(Tags)}
       <InputTagComponent addTag={handleAddTag} />
     </Paper>
+    {renderTagsList(Tags)}
+    </>
   );
 };
 
