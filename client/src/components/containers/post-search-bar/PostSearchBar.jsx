@@ -9,7 +9,7 @@ import Tag from 'components/containers/post-tags/Tag';
 const searchBar = 'search-bar';
 const bemClasses = getBEMClasses([searchBar]);
 
-const PostSearchBarComponent = props => {
+const PostSearchBarComponent = props => { 
   const dispatch = useDispatch();
   const changeTags = (searchTags) => dispatch(changeSearchTags(searchTags));
   const { searchTags } = useSelector(state => state.posts);
@@ -73,6 +73,4 @@ const PostSearchBarComponent = props => {
   );
 };
 
-export const PostSearchBar = props => {
-  return <FieldArray component={PostSearchBarComponent} name={props.name} {...props} />;
-};
+export const PostSearchBar = PostSearchBarComponent;

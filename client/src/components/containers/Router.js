@@ -28,11 +28,11 @@ class AppComponent extends React.Component {
         <Router history={history}>
           <App>
             <Switch>
-              <Route exact path="/home" component={HomePageContainer} />
-              <Route path="/profile/:userId" component={ProfilePage} />
-              <PrivateRoute exact path="/addpost" auth={this.props.auth} component={AddPostPage} />
-              <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={AddPostPage} />
-              <Route exact path="/post/:postId" component={PostPage} />
+              <Route exact path="/home" component={props => <HomePageContainer {...props} /> } />
+              <Route path="/profile/:userId" component={props => <ProfilePage {...props} /> } />
+              <PrivateRoute exact path="/addpost" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
+              <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
+              <Route exact path="/post/:postId" component={props => <PostPage {...props} /> } />
               <Redirect from="/" exact to="/home" />
             </Switch>
 
