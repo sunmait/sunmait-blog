@@ -43,6 +43,11 @@ export const setTextareaSelectionValues = (start, end) => ({
   },
 });
 
+export const changeSearchTags = searchTags => ({
+  type: POSTS_ACTIONS.CHANGE_SEARCH_TAGS,
+  payload: searchTags,
+});
+
 export const insertImageIntoText = url => ({
   type: POSTS_ACTIONS.INSERT_IMAGE,
   payload: {

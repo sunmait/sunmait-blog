@@ -13,13 +13,14 @@ import {
   getPosts,
   setMorePostsFetchingStatus,
 } from 'redux/modules/posts/postsActions';
-import { searchQuerySelector } from 'redux/modules/posts/postsSelectors';
+import { searchQuerySelector, searchTagsSelector } from 'redux/modules/posts/postsSelectors';
 
 function* getPostsBaseSaga({ payload }) {
   try {
     const { count, offset } = payload;
     let searchSrc = yield select(searchQuerySelector) || '';
-    const { tags, str } = parseTags(searchSrc);
+    const { str } = parseTags(searchSrc);
+    const tags = yield select(searchTagsSelector) || null;
     let baseStr = `/api/posts?count=${count}&offset=${offset}`;
     if (tags) {
       baseStr += `&tag=${tags}`;
@@ -171,7 +172,7 @@ export function* postsSagas() {
     takeLatest(POSTS_ACTIONS.INSERT_IMAGE, insertImage),
     takeLatest(POSTS_ACTIONS.INSERT_VIDEO, insertVideo),
     takeLatest(POSTS_ACTIONS.UPDATE_POST, updatePost),
-
+    takeLatest(POSTS_ACTIONS.CHANGE_SEARCH_TAGS, searchPostsSaga),
     // hook to load posts from server when search input changed
     takeLatest(({ type, meta }) => {
       const isSearchFormChanged = type === actionTypes.CHANGE && meta.form === 'posts';

@@ -1,6 +1,7 @@
 .posts-list__container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .posts-list__searchbar {
