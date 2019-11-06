@@ -28,7 +28,7 @@ const PostEditTags = props => {
     return (
       <div className={bemClasses('container')} data-cy={'tags-container'}>
         {Tags.map((tag, id) => (
-          <Tag key={tag.id} tag={tag.Text} id={id} deleteTag={handleDeleteTag} />
+          <Tag key={id} tag={tag.Text} id={id} deleteTag={handleDeleteTag} />
         ))}
       </div>
     );
