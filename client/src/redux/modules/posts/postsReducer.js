@@ -5,6 +5,7 @@ const defaultState = {
   postsFetchingStatus: true,
   morePostsFetchingStatus: false,
   noMorePosts: false,
+  searchTags: [],
 };
 
 export default function(state = defaultState, { type, payload }) {
@@ -26,6 +27,9 @@ export default function(state = defaultState, { type, payload }) {
 
     case POSTS_ACTIONS.CLEAR_POSTS_LIST:
       return handleClearPostsList(state);
+      
+    case POSTS_ACTIONS.CHANGE_SEARCH_TAGS:
+      return handleChangeSearchTags(state, payload);
 
     default:
       return state;
@@ -49,4 +53,8 @@ function handleSetPostsFetchingStatus(state, isFetching) {
 
 function handleClearPostsList(state) {
   return { ...state, posts: [] };
+}
+
+function handleChangeSearchTags(state, payload ){
+  return { ...state, searchTags: [...payload] };
 }

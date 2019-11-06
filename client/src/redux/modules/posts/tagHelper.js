@@ -11,7 +11,6 @@ export const parseTags = str => {
     }
   });
   return {
-    tags: tags[0] || null,
     str: strArr.join(' '),
   };
 };
