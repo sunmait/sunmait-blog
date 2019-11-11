@@ -10,6 +10,7 @@ import ConfirmationModal from '../../common/confirmation-modal/ConfirmationModal
 import Loader from '../../common/loader';
 import NavMenu from '../../common/navMenu';
 import { UserPostListContainer } from '../../containers/postsList';
+import { Settings } from './settings/Settings'
 
 const userProfile = 'user-profile';
 const profilePageCn = getBEMClasses([userProfile]);
@@ -135,6 +136,10 @@ export const ProfilePage = ({
         text: 'Posts',
         url: `${match.url}/posts`,
       },
+      {
+        text: 'Settings',
+        url: `${match.url}/settings`,
+      },
     ],
     [match]
   );
@@ -153,6 +158,7 @@ export const ProfilePage = ({
               render={() => renderProfileForm(profile, user, handleClose, change, handleSubmitChanges, openDialog)}
             />
             <Route path={`${match.url}/posts`} render={UserPostListContainer} />
+            <Route path={`${match.url}/settings`} component={props => <Settings {...props} /> } />
           </>
         )}
       </div>
