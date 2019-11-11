@@ -53,7 +53,7 @@ const PostSearchBarComponent = props => {
       </div>
     );
   };
- 
+  
   return (
     <>
       <form
