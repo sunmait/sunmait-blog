@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FieldArray, change } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
@@ -13,6 +13,7 @@ const PostSearchBarComponent = props => {
   const dispatch = useDispatch();
   const changeTags = (searchTags) => dispatch(changeSearchTags(searchTags));
   const { searchTags } = useSelector(state => state.posts);
+  const [searchedStr, setSearchedStr] = useState("")
 
   useEffect(()=>{
     return function(){
@@ -21,24 +22,25 @@ const PostSearchBarComponent = props => {
   },[])
   
   const handleAddTag = tag => {
-    changeTags([...searchTags, tag])
+    changeTags([...tag])
   };
 
   const handleDeleteTag = id => {
     const arr = [...searchTags];
-    arr.splice(id, 1);
+    const tagToDelete = arr.splice(id, 1);
     changeTags(arr);
+    dispatch(change('posts', 'searchQuery', `${searchedStr.split("#"+tagToDelete).join("").trim()}`));
+    setSearchedStr(searchedStr.split(`#${tagToDelete}`).join("").trim());
   };
 
-  const handleKeyDown = e => {
-    if (e.target.value[e.target.value.length-1] === " ") {
-      const arr = e.target.value.trim().split(" ");
-      if(/^#.+$/.test(arr[arr.length-1])){
-        e.preventDefault();
-        handleAddTag(arr.pop().slice(1));
-        dispatch(change('posts', 'searchQuery', `${arr.join(" ")} `))
-      }
-    }
+  const handleOnChange = e => {
+    setSearchedStr(e.target.value.trim());
+    const arr = e.target.value.split(" ");
+    const arrTags = [];
+    arr.forEach((word) => {
+      word.includes('#') && arrTags.push(word.split('#')[1]);
+    });
+    handleAddTag(arrTags);
   };
 
   const renderTagsList = Tags => {   
@@ -64,7 +66,7 @@ const PostSearchBarComponent = props => {
           name="searchQuery"
           placeholder="Search"
           customClass={bemClasses('input')}
-          onChange={handleKeyDown}
+          onChange={handleOnChange}
           id="search-bar"
         />
       </form>
