@@ -57,10 +57,29 @@ function* logout(payload) {
   yield put({ type: AUTH_CONSTANTS.LOGOUT });
 }
 
+function* changePassword(payload) {
+  const { password, newPassword } = payload.payload;
+  try {
+  const accessToken = localStorage.getItem('AccessToken');
+  yield axios.patch(`/api/auth/change-password`, {
+    accessToken,
+    password,
+    newPassword,
+  });
+  yield put({ type: AUTH_CONSTANTS.PASSWORD_CHANGED });
+  ToastsStore.success('Password has been changed');
+  
+  } catch (err) {
+    ToastsStore.error('Invalid password');
+  }
+}
+
+
 export function* authSagas() {
   yield all([
     takeLatest(SAGAS_AUTH_CONSTANTS.VERIFY_CREDENTIALS, verifyCredentials),
     takeLatest(SAGAS_AUTH_CONSTANTS.LOGIN, login),
     takeLatest(SAGAS_AUTH_CONSTANTS.LOGOUT, logout),
+    takeLatest(SAGAS_AUTH_CONSTANTS.CHANGE_PASSWORD, changePassword),
   ]);
 }

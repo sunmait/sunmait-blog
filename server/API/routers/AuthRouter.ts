@@ -42,6 +42,16 @@ router.patch('/verify-credentials', async (req: express.Request, res: express.Re
   }
 });
 
+router.patch('/change-password', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const data = req.body;
+
+  try {
+    res.json(await authService.changePassword(data));
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.delete(
   '/:refreshToken',
   CheckAuth,
