@@ -104,6 +104,21 @@ export class AuthService implements IAuthService {
     }
   }
 
+  public async changePassword({ accessToken, password, newPassword }) {
+    try {
+      const payload = jwt.verify(accessToken, this._secretKey) as IUserDecodedFromToken;
+      const user = await this._userRepository.findById(payload.id);
+      if (user && this._cryptoService.passwordsVerification(password, user.PasswordHash)) {
+        user.PasswordHash = this._cryptoService.passwordHashing(newPassword);
+        return this._userRepository.update(user);
+      } else {
+        throw new Error('Unauthorized');
+      }
+    } catch (err) {
+      throw { status: 401, message: err.message };
+    }
+  }
+
   private async updateSession(session: SessionEntity) {
     const { AccessToken, RefreshToken } = this.getTokens(session.User.get({ plain: true }));
     session.LastRefresh = moment().toDate();

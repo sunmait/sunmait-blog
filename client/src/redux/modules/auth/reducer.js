@@ -27,6 +27,9 @@ export default function(state = defaultState, action) {
     case AUTH_CONSTANTS.CHANGE:
       return handleChange(state, action.payload);
 
+    case AUTH_CONSTANTS.PASSWORD_CHANGED:
+      return handlePasswordChange(state, action.payload);
+
     default:
       return state;
   }
@@ -72,4 +75,10 @@ function handleChange(state, updated) {
     ...state,
     user: updatedUser,
   };
+}
+
+function handlePasswordChange(state, res){
+  return {
+    ...state
+  }
 }
