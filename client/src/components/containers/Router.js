@@ -29,7 +29,7 @@ class AppComponent extends React.Component {
           <App>
             <Switch>
               <Route exact path="/home" component={props => <HomePageContainer {...props} /> } />
-              <Route path="/profile/:userId" component={props => <ProfilePage {...props} /> } />
+              <Route path="/profile/:userId" component={props => <ProfilePage auth={this.props.auth} { ...props} /> } />
               <PrivateRoute exact path="/addpost" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
               <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
               <Route exact path="/post/:postId" component={props => <PostPage {...props} /> } />

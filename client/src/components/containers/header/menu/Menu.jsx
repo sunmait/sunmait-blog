@@ -22,6 +22,9 @@ class Menu extends React.Component {
           <Link to={`/profile/${user.id}/posts`}>
             <MenuItem onClick={handleClose}>My posts</MenuItem>
           </Link>
+          <Link to={`/profile/${user.id}/settings`}>
+            <MenuItem onClick={handleClose}>Settings</MenuItem>
+          </Link>
           <MenuItem onClick={logout}>
             <Link to="/home">Log Out</Link>
           </MenuItem>

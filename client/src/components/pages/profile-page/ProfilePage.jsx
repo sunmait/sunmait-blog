@@ -3,6 +3,7 @@ import '../../../assets/styles/ProfilePage.css';
 
 import { getBEMClasses } from '../../../helpers/BEMHelper';
 import { Route } from 'react-router-dom';
+import PrivateRoute from '../../containers/custom-routes/PrivateRoute.jsx';
 import { Helmet } from 'react-helmet';
 import { Avatar } from '@material-ui/core';
 import UserInfoForm from './user-info-form/index.jsx';
@@ -10,7 +11,7 @@ import ConfirmationModal from '../../common/confirmation-modal/ConfirmationModal
 import Loader from '../../common/loader';
 import NavMenu from '../../common/navMenu';
 import { UserPostListContainer } from '../../containers/postsList';
-import { Settings } from './settings/Settings'
+import { Settings } from './settings/Settings';
 
 const userProfile = 'user-profile';
 const profilePageCn = getBEMClasses([userProfile]);
@@ -27,6 +28,7 @@ export const ProfilePage = ({
   userFormValues,
   currentUserPostsFetchingStatus,
   match,
+  auth,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -127,22 +129,27 @@ export const ProfilePage = ({
   };
 
   const navTabs = useCallback(
-    match => [
-      {
-        text: 'Info',
-        url: match.url,
-      },
-      {
-        text: 'Posts',
-        url: `${match.url}/posts`,
-      },
-      {
-        text: 'Settings',
-        url: `${match.url}/settings`,
-      },
-    ],
+    match => {
+      const tabs = [
+        {
+          text: 'Info',
+          url: match.url,
+        },
+        {
+          text: 'Posts',
+          url: `${match.url}/posts`,
+        },
+        {
+          text: 'Settings',
+          url: `${match.url}/settings`,
+        },
+      ];
+      auth.user && +match.params.userId !== auth.user.id && tabs.pop();
+      return tabs;
+    },
     [match]
   );
+
   return (
     <div className="content-wrapper content-wrapper--with-grey-background">
       <div className="content">
@@ -158,7 +165,10 @@ export const ProfilePage = ({
               render={() => renderProfileForm(profile, user, handleClose, change, handleSubmitChanges, openDialog)}
             />
             <Route path={`${match.url}/posts`} render={UserPostListContainer} />
-            <Route path={`${match.url}/settings`} component={props => <Settings {...props} /> } />
+            {auth.user &&
+              +match.params.userId === auth.user.id && (
+                <PrivateRoute path={`${match.url}/settings`} auth={auth} component={props => <Settings {...props} />} />
+              )}
           </>
         )}
       </div>
