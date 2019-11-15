@@ -10,6 +10,8 @@ import { userPostsSearchSelector, getProfileUserIdSelector } from 'redux/modules
 import { getCurrentUserPosts } from 'redux/modules/profile/profileActions';
 import * as cloudinaryApi from 'api/cloudinaryApi.js';
 import { ToastsStore } from 'react-toasts';
+import { searchTagsSelector } from 'redux/modules/posts/postsSelectors';
+import { parseTags } from '../posts/tagHelper';
 
 function* getUsersSaga() {
   const res = yield axios.get(`/api/users`);
@@ -22,11 +24,14 @@ function* getUserSaga(payload) {
 }
 
 function* getCurrentUserPostsSaga({ userId }) {
-  const search = yield select(userPostsSearchSelector);
+  const search = yield select(userPostsSearchSelector) || '';
+  const { str } = parseTags(search);
+  const tag = yield select(searchTagsSelector) || null;
   const res = yield getUserPosts(userId, {
     count: INITIAL_NUMBER_OF_POSTS,
     offset: 0,
-    search,
+    search: str,
+    tag: tag.join(','),
   });
   yield put({ type: PROFILE_ACTION_TYPES.GET_CURRENT_USER_POSTS_SUCCESS, payload: res.data });
 }

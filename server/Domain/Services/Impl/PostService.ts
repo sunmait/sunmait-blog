@@ -72,8 +72,15 @@ export class PostService implements IPostService {
       ],
     };
     if (tag) {
-      const tagEnt = await this._tagRepository.find({ where: { Text: tag } });
-      PostTagEnt.where = { TagId: tagEnt.id };
+      PostTagEnt.where = { TagId: [] };
+      const arrayTagsId = [];
+      await asyncForEach(tag.split(','), async el => {
+        const tagEnt = await this._tagRepository.find({ where: { Text: el } });
+        if (tagEnt) {
+          arrayTagsId.push(tagEnt.id);
+        }
+      });
+      PostTagEnt.where = { TagId: [...arrayTagsId] };
     }
     options.include.push(PostTagEnt);
     const count = parseInt(countStr, 10);
@@ -102,6 +109,9 @@ export class PostService implements IPostService {
     options.order = [['CreatedAt', 'DESC']];
 
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
+    posts.sort((a, b) => {
+      return b.Tags.length - a.Tags.length;
+    });
 
     return posts.map(post => {
       post.Tags = post.Tags.map(i => i.Tag);

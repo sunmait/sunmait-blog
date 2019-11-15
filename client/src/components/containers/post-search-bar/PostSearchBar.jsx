@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FieldArray, change } from 'redux-form';
+import { change } from 'redux-form';
 import { getBEMClasses } from 'helpers//BEMHelper';
 import { changeSearchTags } from '../../../redux/modules/posts/postsActions'
 import Input from 'components/common/input/Input.js';
@@ -29,8 +29,9 @@ const PostSearchBarComponent = props => {
     const arr = [...searchTags];
     const tagToDelete = arr.splice(id, 1);
     changeTags(arr);
-    dispatch(change('posts', 'searchQuery', `${searchedStr.split("#"+tagToDelete).join("").trim()}`));
-    setSearchedStr(searchedStr.split(`#${tagToDelete}`).join("").trim());
+    const strAfterDelete = searchedStr.split(`#${tagToDelete}`).join("").trim();
+    dispatch(change('posts', 'searchQuery', strAfterDelete));
+    setSearchedStr(strAfterDelete);
   };
 
   const handleOnChange = e => {
@@ -45,10 +46,10 @@ const PostSearchBarComponent = props => {
 
   const renderTagsList = Tags => {   
     return (
-      Tags!==undefined&&
+      Tags&&
       <div className={bemClasses('container')} data-cy={'tags-container'}>
-        {Tags.map((tag, id) => (
-          <Tag key={id} tag={tag} id={id} deleteTag={handleDeleteTag} />
+        {Tags.map((tag, index) => (
+          <Tag key={index} tag={tag} id={index} deleteTag={handleDeleteTag} />
         ))}
       </div>
     );

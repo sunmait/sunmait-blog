@@ -18,7 +18,7 @@ import { searchQuerySelector, searchTagsSelector } from 'redux/modules/posts/pos
 function* getPostsBaseSaga({ payload }) {
   try {
     const { count, offset } = payload;
-    let searchSrc = yield select(searchQuerySelector) || '';
+    const searchSrc = yield select(searchQuerySelector) || '';
     const { str } = parseTags(searchSrc);
     const tags = yield select(searchTagsSelector) || null;
     let baseStr = `/api/posts?count=${count}&offset=${offset}`;

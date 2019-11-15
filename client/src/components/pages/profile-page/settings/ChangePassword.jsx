@@ -1,11 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
+import { string, object, ref } from 'yup';
 import { TextField } from 'formik-material-ui';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { string, object, ref } from 'yup';
 import { changePassword } from 'redux/modules/auth/actions';
-import { useDispatch } from 'react-redux';
+
 
 const useStyles = makeStyles(theme => ({
   form: {

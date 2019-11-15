@@ -39,7 +39,7 @@ router.get('/:id', async (req: express.Request, res: express.Response, next: exp
  */
 router.get('/:id/posts', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const { id: userId } = req.params;
-  const { count, offset, search } = req.query;
+  const { count, offset, search, tag } = req.query;
 
   try {
     res.json(
@@ -48,6 +48,7 @@ router.get('/:id/posts', async (req: express.Request, res: express.Response, nex
         count,
         offset,
         search,
+        tag,
       })
     );
   } catch (error) {
