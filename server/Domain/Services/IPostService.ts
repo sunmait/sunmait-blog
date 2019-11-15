@@ -4,7 +4,7 @@ export interface IGetPostsOptions {
   offset: string;
   search?: string;
   userId?: number;
-  tag?: number;
+  tag?: string;
 }
 
 export interface IPostService {

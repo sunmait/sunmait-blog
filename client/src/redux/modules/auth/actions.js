@@ -20,7 +20,7 @@ export const verifyCredentials = () => {
   };
 };
 
-export const changePassword = (payload) => {
+export const changePassword = payload => {
   return {
     type: SAGAS_AUTH_CONSTANTS.CHANGE_PASSWORD,
     payload,
