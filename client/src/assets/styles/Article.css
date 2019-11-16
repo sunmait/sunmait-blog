@@ -89,7 +89,7 @@
 }
 .article__more-button {
   height: 3.5rem;
-  margin: 3.5rem 0 1.5rem;
+  margin: 3.5rem 0 0;
 }
 .article__share-buttons {
   display: flex;

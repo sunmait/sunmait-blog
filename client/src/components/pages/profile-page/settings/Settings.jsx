@@ -79,18 +79,18 @@ export const Settings = () => {
   return (
     <div className={classes.root}>
       <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} className={isOpenPanel?classes.tabs:classes.closeTabs}>
-        <Tab className={classes.tab} label="Приватность" />
-        <Tab className={classes.tab} label="Изменить пароль" />
-        <Tab className={classes.tab} label="Item Three" />
+        <Tab className={classes.tab} label="Notification" />
+        <Tab className={classes.tab} label="Change password" />
+        <Tab className={classes.tab} label="Privacy" />
       </Tabs>
       <TabPanel value={value} index={0} className={classes.insideTabs}>
-        <h2>Приватность</h2>
+        <h2>Notification</h2>
       </TabPanel>
       <TabPanel value={value} index={1} className={classes.insideTabs}>
         <ChangePassword />
       </TabPanel>
       <TabPanel value={value} index={2} className={classes.insideTabs}>
-        <h2>Item Three</h2>
+        <h2>Privacy</h2>
       </TabPanel>
       <Fab color="primary" aria-label="add" className={classes.fab} onClick={setShowPanel}>
         <span className={classes.open}>Menu</span>
