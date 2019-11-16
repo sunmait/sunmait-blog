@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.search-bar__container{
+  margin-top: 0.5rem;
+}
+
 .search-bar__input {
   width: calc(100% - 4rem);
   border-radius: var(--small-border-radius);
