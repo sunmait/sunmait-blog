@@ -293,7 +293,7 @@ describe('Post page', () => {
         cy.get('[data-cy=overall-post-rating] span[role=img]')
           .find('span')
           .should($span => {
-            expect($span[1].className).to.match(/-iconFilled/);
+            expect($span[0].className).to.match(/-iconFilled/);
           });
       });
     });
