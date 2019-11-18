@@ -144,7 +144,7 @@ export const ProfilePage = ({
           url: `${match.url}/settings`,
         },
       ];
-      auth.user && +match.params.userId !== auth.user.id && tabs.pop();
+      (auth.user===null || +match.params.userId !== auth.user.id) && tabs.pop();
       return tabs;
     },
     [match]
