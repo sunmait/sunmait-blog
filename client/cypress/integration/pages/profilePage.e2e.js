@@ -17,9 +17,10 @@ describe('Profile page', () => {
         });
       });
 
-      it('Navigation menu tabs lead to correct pages', () => {
+      it('Navigation menu tabs dont consist Settings (unauthorized)', () => {
         checkingProfileNavigationMenu();
       });
+
     });
 
     describe('`Info` tab', () => {
@@ -84,18 +85,25 @@ describe('Profile page', () => {
       cy.visit('/profile/3');
     });
 
+    it('Navigation menu tabs lead to correct pages', () => {
+      checkingProfileNavigationMenu(JSON.parse(localStorage.getItem('User')).id);
+    });
+
     it(`User can change avatar`, () => {
+      let previousSrc = '';
       cy.get('[data-cy=header__avatar]')
         .find('img')
         .then(img => {
-          const previousSrc = img[0].src;
-          const fileName = 'images/Test_image.png';
+          previousSrc = img[0].src;
+          const fileName = 'images/Test_image.png'; //TestChangeImage.png  Test_image.png
           cy.fixture(fileName).then(fileContent => {
             cy.get('input[type=file]').upload({ fileContent, fileName, mimeType: 'image/png' });
           });
+          cy.wait(500);
+          cy.log(`Previous scr was ${previousSrc}`);
           cy.get('[data-cy=header__avatar]')
             .find('img')
-            .should('not.have.attr', 'src', `${previousSrc}`);
+            .should('not.have.attr', 'src', previousSrc);
         });
     });
 
@@ -204,20 +212,36 @@ function checkingProfileHeader(user) {
     .should('be.visible')
     .should('have.text', `${user.FirstName} ${user.LastName}`);
 }
-function checkingProfileNavigationMenu() {
+function checkingProfileNavigationMenu(userId) {
   cy.log('`Posts` tab');
   cy.get('[data-cy=nav-container]')
     .find('[data-cy=nav-container__tab]')
     .contains('Posts')
     .click();
-  cy.location('pathname').should('eq', '/profile/1/posts');
+  cy.location('pathname').should('eq', `/profile/${userId || 1}/posts`);
 
   cy.log('`Info` tab');
   cy.get('[data-cy=nav-container]')
     .find('[data-cy=nav-container__tab]')
     .contains('Info')
     .click();
-  cy.location('pathname').should('eq', '/profile/1');
+  cy.location('pathname').should('eq', `/profile/${userId || 1}`);
+
+  cy.log('`Settings` tab');
+
+  if(userId === 3){
+    cy.get('[data-cy=nav-container]')
+      .find('[data-cy=nav-container__tab]')
+      .contains('Settings')
+      .click();
+      cy.location('pathname').should('eq', `/profile/${userId || 1}/settings`);
+  }
+  else{
+    cy.get('[data-cy=nav-container]')
+      .find('[data-cy=nav-container__tab]')
+      .should('not.contain', 'Settings')
+  }
+  
 }
 
 function checkingProfileNotEditable() {
