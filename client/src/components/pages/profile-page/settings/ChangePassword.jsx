@@ -36,7 +36,7 @@ const validationSchema = object({
   .required("Enter your password"),
   repeatPassword: string("")
   .required("Repeat your password")
-  .oneOf([ref("newPassword")], "Passwords does not match")
+  .oneOf([ref("newPassword")], "Passwords do not match")
 });
 
 export const ChangePassword = () => {
@@ -55,14 +55,15 @@ export const ChangePassword = () => {
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
-        <Form className={classes.form}>
-          <Field component={TextField} type="password" name="password" placeholder="Enter your password" className={classes.inputes} />
-          <Field component={TextField} type="password" name="newPassword" placeholder="Enter new password" className={classes.inputes} />
+        <Form className={classes.form} data-cy="form-change-password">
+          <Field component={TextField} type="password" name="password" placeholder="Enter your password" className={classes.inputes} data-cy="password"/>
+          <Field component={TextField} type="password" name="newPassword" placeholder="Enter new password" className={classes.inputes} data-cy="newPassword"/>
           <Field component={TextField}
             type="password"
             name="repeatPassword"
             placeholder="Repeat new password"
             className={classes.inputes}
+            data-cy="repeatPassword"
           />
           <Button type="submit" variant="outlined" color="primary" className={classes.button} disabled={isSubmitting}>
             Submit
