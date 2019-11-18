@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Fab from '@material-ui/core/Fab';
-import { TabPanel } from './TabPanel'
-import { ChangePassword } from './ChangePassword'
+import { TabPanel } from './TabPanel';
+import { ChangePassword } from './ChangePassword';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,15 +14,15 @@ const useStyles = makeStyles(theme => ({
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
     transition: '0.5s',
-    minWidth: 180, 
+    minWidth: 180,
     '@media (max-width:500px)': {
       minWidth: 120,
-      position: "relative",
+      position: 'relative',
       left: 0,
     },
   },
-  closeTabs:{
-    position: "absolute",
+  closeTabs: {
+    position: 'absolute',
     transition: '0.5s',
     left: -300,
   },
@@ -33,13 +33,13 @@ const useStyles = makeStyles(theme => ({
     },
   },
   insideTabs: {
-    width: '100%', 
+    width: '100%',
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     left: -30,
     top: 240,
-    transform: "rotate(90deg)",
+    transform: 'rotate(90deg)',
     '@media (min-width:501px)': {
       left: -300,
     },
@@ -64,8 +64,8 @@ export const Settings = () => {
   };
 
   const resize = () => {
-    document.body.clientWidth<=500 && setOpenedPanel(false);
-    document.body.clientWidth>500 && setOpenedPanel(true);
+    document.body.clientWidth <= 500 && setOpenedPanel(false);
+    document.body.clientWidth > 500 && setOpenedPanel(true);
   };
 
   useEffect(() => {
@@ -73,15 +73,22 @@ export const Settings = () => {
     window.addEventListener('resize', resize);
     return () => {
       window.removeEventListener('resize', resize);
-    }
+    };
   }, []);
 
   return (
     <div className={classes.root}>
-      <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} className={isOpenPanel?classes.tabs:classes.closeTabs}>
-        <Tab className={classes.tab} label="Notification" />
-        <Tab className={classes.tab} label="Change password" />
-        <Tab className={classes.tab} label="Privacy" />
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        className={isOpenPanel ? classes.tabs : classes.closeTabs}
+        data-cy='settings-tabs'
+      >
+        <Tab className={classes.tab} label="Notification"  data-cy='settings-tabs-tab'/>
+        <Tab className={classes.tab} label="Change password" data-cy='settings-tabs-tab'/>
+        <Tab className={classes.tab} label="Privacy" data-cy='settings-tabs-tab'/>
       </Tabs>
       <TabPanel value={value} index={0} className={classes.insideTabs}>
         <h2>Notification</h2>

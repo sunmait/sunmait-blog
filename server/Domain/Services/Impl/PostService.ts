@@ -109,9 +109,11 @@ export class PostService implements IPostService {
     options.order = [['CreatedAt', 'DESC']];
 
     const posts = (await this._postRepository.findAll(options)).map(el => el.get({ plain: true }));
-    posts.sort((a, b) => {
-      return b.Tags.length - a.Tags.length;
-    });
+    if (tag) {
+      posts.sort((a, b) => {
+        return b.Tags.length - a.Tags.length;
+      });
+    }
 
     return posts.map(post => {
       post.Tags = post.Tags.map(i => i.Tag);
