@@ -1,22 +1,21 @@
-import { getPostsByUserId, searchPostsWithLongestName } from '../../testHelpers/postHelper';
-import { getUserById, getUserFullName } from '../../testHelpers/userHelper';
 import { setLoginState } from '../../testHelpers/authHelper';
-import user from '../../fixtures/userToLogin.json';
 import 'cypress-file-upload';
-import { format } from 'date-fns';
 
 describe('Settings page', () => {
   beforeEach(() => {
+      cy.server()
+      cy.route('/api/users/3/*').as('api')
+  });
+
+  it('Should be on "Change password page"', () => {
+
     setLoginState();
-    cy.visit('/profile/3/settings');
-    cy.wait(1000);
+    cy.visit('/profile/3/settings')
+    cy.wait(['@api', '@api'])
     cy.get('[data-cy=settings-tabs]')
       .find('[data-cy=settings-tabs-tab]')
       .contains('Change password')
       .click();
-  });
-  it('Should be on "Change password page"', () => {
-    cy.wait(1000);
     cy.log('Is on "Change password page"');
     cy.get('[data-cy=settings-tabs]')
       .find('[data-cy=settings-tabs-tab]')
@@ -30,7 +29,9 @@ describe('Settings page', () => {
 
   describe('Validation on inputes', () => {
     beforeEach(() => {
-      cy.wait(1000);
+      setLoginState();
+      cy.visit('/profile/3/settings')
+      cy.wait(['@api', '@api'])
       cy.get('[data-cy=settings-tabs]')
         .find('[data-cy=settings-tabs-tab]')
         .contains('Change password')
@@ -171,6 +172,13 @@ describe('Settings page', () => {
 
   describe('Password changing', () => {
     it('Entered a password that doesnt match anyone', () => {
+      setLoginState();
+      cy.visit('/profile/3/settings')
+      cy.wait(['@api', '@api'])
+      cy.get('[data-cy=settings-tabs]')
+        .find('[data-cy=settings-tabs-tab]')
+        .contains('Change password')
+        .click();
       cy.get('[data-cy=form-change-password]')
         .find('input[type="password"]')
         .each((input, index) => {
@@ -200,7 +208,14 @@ describe('Settings page', () => {
         .contains('Invalid password');
     });
 
-    it('Password should change successfully', () => {
+    it('Password should change successfully from "1234" to "qwerty"', () => {
+      setLoginState({ Login: 'chornycmok', Password: '1234' });
+      cy.visit('/profile/3/settings')
+      cy.wait(['@api', '@api'])
+      cy.get('[data-cy=settings-tabs]')
+        .find('[data-cy=settings-tabs-tab]')
+        .contains('Change password')
+        .click();
       cy.get('[data-cy=form-change-password]')
         .find('input[type="password"]')
         .each((input, index) => {
@@ -228,7 +243,45 @@ describe('Settings page', () => {
       cy.get('.toasts-container')
         .should('be.visible')
         .contains('Password has been changed');
-      cy.log('Password has been changed from "1234" to "qwerty');
+      cy.log('Password has been changed from "1234" to "qwerty"');
+    });
+
+    it('Password should change back successfully from "qwerty" to "1234"', () => {
+      setLoginState({ Login: 'chornycmok', Password: 'qwerty' });
+      cy.visit('/profile/3/settings')
+      cy.wait(['@api', '@api'])
+      cy.get('[data-cy=settings-tabs]')
+        .find('[data-cy=settings-tabs-tab]')
+        .contains('Change password')
+        .click();
+      cy.get('[data-cy=form-change-password]')
+        .find('input[type="password"]')
+        .each((input, index) => {
+          const newPassword = '1234';
+          if (index === 0) {
+            cy.wrap(input).type('qwerty');
+          } else {
+            cy.wrap(input).type(newPassword);
+          }
+        });
+      cy.get('[data-cy=form-change-password]')
+        .find('input[name="password"]')
+        .should('have.value', 'qwerty');
+      cy.get('[data-cy=form-change-password]')
+        .find('input[name="newPassword"]')
+        .should('have.value', '1234');
+      cy.get('[data-cy=form-change-password]')
+        .find('input[name="repeatPassword"]')
+        .should('have.value', '1234');
+
+      cy.log('Toasts-container with "Password has been changed" should be visible');
+      cy.get('[data-cy=form-change-password]')
+        .find('button[type="submit"]')
+        .click();
+      cy.get('.toasts-container')
+        .should('be.visible')
+        .contains('Password has been changed');
+      cy.log('Password has been changed from "qwerty" to "1234"');
     });
   });
 });
