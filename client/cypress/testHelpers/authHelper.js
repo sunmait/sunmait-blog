@@ -1,8 +1,12 @@
 import { setAuthDataToLocalStorage } from '../../src/helpers/authHelper';
 import user from '../fixtures/userToLogin.json';
 
-export const setLoginState = () => {
-  return cy.request('POST', 'api/auth', user)
+export const setLoginState = (user1) => {
+  if(user1===undefined){
+   user1 = {...user};
+  }
+   
+  return cy.request('POST', 'api/auth', user1)
     .then(res => {
       const { AccessToken, RefreshToken, Data } = res.body;
       setAuthDataToLocalStorage(AccessToken, RefreshToken, JSON.stringify(Data));
