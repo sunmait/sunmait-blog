@@ -136,7 +136,7 @@ class PostPage extends React.Component {
     if (user && user.id === UserId) {
       return (
         <div className={bemClasses('edit-buttons')}>
-          <Link to={`/add post/${id}`}>
+          <Link to={`/addpost/${id}`}>
             <IconButton data-cy="edit-post-button">
               <Edit />
             </IconButton>
@@ -162,25 +162,19 @@ class PostPage extends React.Component {
   };
 
   renderShareButtons() {
-    const { Title, Likes } = this.props.selectedPost;
-    const {
-      user,
-      selectedPost: { UserId, id },
-    } = this.props;
+    const { Title, Likes } = this.props.selectedPost;    
     let colorLikeOrDislike = this.props.user.id
-      ? Likes.some(like => like.id === this.props.user.id)
+      ? (!!Likes && Likes.some(like => like.id === this.props.user.id))
         ? 'error'
         : 'disabled'
       : 'disabled';
     let text = `${Title} (posted on Sunmait Blog). `;
-
     return (
       <div className={bemClasses('share-buttons')}>
         <div className={bemClasses('share-button-icon')} onClick={this.handleAddLikeOrDislike} data-cy="like-button">
           <FavoriteIcon fontSize="large" color={colorLikeOrDislike} data-cy="like-color" />
-          <span data-cy="like-number">{Likes.length ? Likes.length : null}</span>
+          <span data-cy="like-number">{!!Likes && Likes.length ? Likes.length : null}</span>
         </div>
-        <div className="ratingAuth">{this.renderAutorizedRating()}</div>
         <div className={bemClasses('share-wrapper')}>
           <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
             <TwitterShareButton innerText={text} url={document.URL} />
@@ -192,6 +186,8 @@ class PostPage extends React.Component {
       </div>
     );
   }
+
+  
   renderOverallRating() {
     
     return (
@@ -264,8 +260,8 @@ class PostPage extends React.Component {
     const Tags = this.props.selectedPost.Tags;
     return (
       <React.Fragment>
-        {Tags.map(tag => (
-          <Tag tag={tag.Text} key={tag.id} />
+        {Tags.map((tag, index) => (
+          <Tag tag={tag.Text} key={index} />
         ))}
       </React.Fragment>
     );
