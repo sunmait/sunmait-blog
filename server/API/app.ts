@@ -5,7 +5,9 @@ import { container } from './infrastructure/di/Container';
 import { DbContext } from '../Data/DbContext';
 import ErrorHandler from './middlewares/ErrorHandler';
 import api from './routers';
-import {ISettingsProvider} from './infrastructure';
+import { ISettingsProvider } from './infrastructure';
+import * as swaggerJsDoc from 'swagger-jsdoc';
+import * as swaggerUi from 'swagger-ui-express';
 
 const dbContext = container.get<DbContext>('DbContext');
 const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
@@ -17,12 +19,30 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
     const app = express();
     const STATIC_PATH = path.join(__dirname, '../../client/build');
 
+    const swaggerOptions = {
+      swaggerDefinition: {
+        info: {
+          title: 'SunMait Blog server API',
+          description: 'API Information',
+          contact: {
+            name: 'Amazing Developer',
+          },
+          servers: ['http://localhost:5000'],
+          tags: {
+            name: 'auth',
+            description: 'Everything about your Pets',
+          },
+        },
+      },
+      apis: ['API/app.ts', 'API/routers/*.ts'],
+    };
+    const swaggerDocs = swaggerJsDoc(swaggerOptions);
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(express.static(STATIC_PATH));
-
     app.use('/api', api);
-
     app.get('*', (_req: express.Request, res: express.Response) => {
       res.sendFile(`${STATIC_PATH}/index.html`);
     });

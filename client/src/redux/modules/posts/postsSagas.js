@@ -28,6 +28,8 @@ function* getPostsBaseSaga({ payload }) {
     if (str) {
       baseStr += `&search=${str}`;
     }
+    console.log(baseStr);
+    
     let res = yield axios.get(baseStr);
 
     return res.data;
@@ -142,6 +144,9 @@ function* updatePost(payload) {
       },
     }
   );
+
+  console.log(payload.payload.Tags);
+  
 
   yield put({ type: POSTS_ACTIONS.UPDATE_POST_SUCCESS, payload: res.data });
 }

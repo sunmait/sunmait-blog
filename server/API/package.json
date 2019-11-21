@@ -14,7 +14,9 @@
     "express": "^4.14.0",
     "inversify": "^4.9.0",
     "jsonwebtoken": "^8.3.0",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "swagger-jsdoc": "^3.4.0",
+    "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
     "@types/debug": "0.0.30",

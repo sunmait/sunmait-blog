@@ -73,8 +73,8 @@ class Post extends React.Component {
     const Tags = this.props.post.Tags;
     return (
       <React.Fragment>
-        {Tags.map(tag => (
-          <Tag tag={tag.Text} key={tag.id} />
+        {Tags.map((tag, index) => (
+          <Tag tag={tag.Text} key={index} />
         ))}
       </React.Fragment>
     );

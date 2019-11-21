@@ -270,6 +270,7 @@ export class PostService implements IPostService {
     const post = await this._postRepository.find({ where: { id: data.idPost } });
     const Tags = await this._postsTagRepository.findAll({ where: { PostId: data.idPost } });
     const apiTags = data.Tags;
+
     asyncForEach(Tags, async el => {
       if (!apiTags.find(newel => newel.id === el.id)) {
         await this._postsTagRepository.remove({ where: { id: el.id } });
