@@ -7,3 +7,5 @@ export * from './TagRepository';
 export * from './SessionRepository';
 export * from './PostLikesRepository';
 export * from './PostRatingsRepository';
+export * from './MessagesInfoRepository';
+export * from './MessagesRepository';

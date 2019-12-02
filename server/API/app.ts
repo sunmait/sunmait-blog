@@ -1,13 +1,13 @@
 ﻿import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { container } from './infrastructure/di/Container';
-import { DbContext } from '../Data/DbContext';
-import ErrorHandler from './middlewares/ErrorHandler';
-import api from './routers';
-import { ISettingsProvider } from './infrastructure';
 import * as swaggerJsDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
+import api from './routers';
+import ErrorHandler from './middlewares/ErrorHandler';
+import { container } from './infrastructure/di/Container';
+import { DbContext } from '../Data/DbContext';
+import { ISettingsProvider } from './infrastructure';
 
 const dbContext = container.get<DbContext>('DbContext');
 const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
@@ -17,6 +17,8 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
     await dbContext.connect();
 
     const app = express();
+    const server = require('http').Server(app);
+    const io = require('socket.io')(server);
     const STATIC_PATH = path.join(__dirname, '../../client/build');
 
     const swaggerOptions = {
@@ -49,7 +51,13 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
 
     app.use(ErrorHandler);
 
-    app.listen(settingsProvider.getPort());
+    server.listen(settingsProvider.getPort());
+    io.on('connection', socket => {
+      socket.emit('news', { hello: 'world' });
+      socket.on('new message', data => {
+        console.log(data);
+      });
+    });
   } catch (err) {
     console.error(err);
   }

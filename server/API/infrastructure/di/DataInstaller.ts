@@ -8,6 +8,8 @@ import {
   PostLikesRepository,
   SessionRepository,
   PostRatingsRepository,
+  MessagesInfoRepository,
+  MessagesRepository,
 } from '../../../Data/Repositories/Impl/index';
 
 import {
@@ -19,6 +21,8 @@ import {
   IPostLikesRepository,
   ISessionRepository,
   IPostRatingsRepository,
+  IMessagesRepository,
+  IMessagesInfoRepository,
 } from '../../../Data/Repositories/index';
 
 import PostEntity from '../../../Data/Entities/PostEntity';
@@ -28,7 +32,8 @@ import PostLikesEntity from '../../../Data/Entities/PostLikesEntity';
 import TagEntity from '../../../Data/Entities/TagEntity';
 import UserEntity from '../../../Data/Entities/UserEntity';
 import PostRatingsEntity from '../../../Data/Entities/PostRatingsEntity';
-
+import MessagesEntity from '../../../Data/Entities/MessagesEntity';
+import MessagesInfoEntity from '../../../Data/Entities/MessagesInfoEntity';
 import { DbContext } from '../../../Data/DbContext';
 import SessionEntity from '../../../Data/Entities/SessionEntity';
 export class DataInstaller extends InstallerBase {
@@ -56,6 +61,17 @@ export class DataInstaller extends InstallerBase {
       .bind<IPostLikesRepository>('PostLikesRepository')
       // @ts-ignore
       .toConstantValue(new PostLikesRepository(PostLikesEntity));
+
+    // @ts-ignore
+    this.container
+      .bind<IMessagesInfoRepository>('MessagesInfoRepository')
+      .toConstantValue(new MessagesInfoRepository(MessagesInfoEntity));
+
+    // @ts-ignore
+    this.container
+      .bind<IMessagesRepository>('MessagesRepository')
+      .toConstantValue(new MessagesRepository(MessagesEntity));
+
     // @ts-ignore
     this.container.bind<ISessionRepository>('SessionRepository').toConstantValue(new SessionRepository(SessionEntity));
     this.container
