@@ -7,10 +7,6 @@ const router = express.Router();
 const authService = container.get<IAuthService>('AuthService');
 
 /**
- * Operations about authentification.
- */
-
-/**
  * @swagger
  * /api/auth:
  *  post:

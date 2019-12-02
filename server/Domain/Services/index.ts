@@ -4,3 +4,4 @@ export * from './IAuthService';
 export * from './ICryptoService';
 export * from './IUserService';
 export * from './ITagService';
+export * from './IChatService';

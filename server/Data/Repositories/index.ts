@@ -7,3 +7,5 @@ export * from './ICommentRepository';
 export * from './ISessionRepository';
 export * from './IPostLikesRepository';
 export * from './IPostRatingsRepository';
+export * from './IMessagesInfoRepository';
+export * from './IMessagesRepository';
