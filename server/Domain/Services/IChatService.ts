@@ -3,15 +3,15 @@ import MessagesEntity from '../../Data/Entities/MessagesEntity';
 
 export interface IGetChatsOptions {
   userId: number;
-  count?: number;
-  offset?: number;
+  count: number;
+  offset: number;
 }
 
 export interface IGetMessagesOptions {
   user1: number;
   user2: number;
-  count?: number;
-  offset?: number;
+  count: number;
+  offset: number;
 }
 
 export interface IChatService {
@@ -38,12 +38,4 @@ export interface IChatService {
     toStatus?: string;
     Message?: string;
   }): Promise<MessagesInfoEntity>;
-
-  // addPost(data: any): Promise<PostEntity>;
-  // updatePost(data: any): Promise<PostEntity>;
-  // deletePost(id: number): Promise<PostEntity[]>;
-  // likeOrDislike(postId: number, userId: number, userinfo: object): Promise<any>;
-  // setRating(postId: number, userId: number, value: number): Promise<any>;
-  // setAveragePostRating(postId: number): Promise<any>;
-  // setUserPostRating(payload: any): Promise<any>;
 }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toasts';
-import io from 'socket.io-client';
 
 import history from './history';
 import App from './app/index.jsx';
@@ -21,11 +20,6 @@ class AppComponent extends React.Component {
   componentDidMount() {
     this.props.verifyCredentials();
     this.props.getUsers();
-    const socket = io.connect();
-    socket.on('news', function (data) {
-      console.log(data);
-      socket.emit('new message', { my: 'data' });
-    });
   }
 
   render() {
