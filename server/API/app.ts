@@ -17,8 +17,6 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
     await dbContext.connect();
 
     const app = express();
-    const server = require('http').Server(app);
-    const io = require('socket.io')(server);
     const STATIC_PATH = path.join(__dirname, '../../client/build');
 
     const swaggerOptions = {
@@ -51,13 +49,7 @@ const settingsProvider = container.get<ISettingsProvider>('SettingsProvider');
 
     app.use(ErrorHandler);
 
-    server.listen(settingsProvider.getPort());
-    io.on('connection', socket => {
-      socket.emit('news', { hello: 'world' });
-      socket.on('new message', data => {
-        console.log(data);
-      });
-    });
+    app.listen(settingsProvider.getPort());
   } catch (err) {
     console.error(err);
   }
