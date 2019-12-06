@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { asyncForEach } from './../../helpers/TagsHelper';
 import { injectable, inject } from 'inversify';
 import { IChatService } from '../IChatService';
@@ -58,7 +59,7 @@ export class ChatService implements IChatService {
         to: messageInfo.UserTo,
         fromStatus: messageInfo.fromStatus,
         toStatus: messageInfo.toStatus,
-        date: messageInfo.Date,
+        date: moment(messageInfo.Date).format('DD.MM.YY in h:mm'),
         message: messageText,
       });
     });

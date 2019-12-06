@@ -211,19 +211,24 @@ router.put(
  *      '404':
  *        description: Bad request
  */
-router.patch('/:messageId', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  try {
-    res.json(
-      await chatService.updateStatusMessage({
-        id: req.params.messageId,
-        toStatus: req.body.toStatus,
-        fromStatus: req.body.fromStatus,
-        Message: req.body.Message,
-      })
-    );
-  } catch (error) {
-    next(error);
+
+router.patch(
+  '/:messageId',
+  CheckAuth,
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+      res.json(
+        await chatService.updateStatusMessage({
+          id: req.params.messageId,
+          toStatus: req.body.toStatus,
+          fromStatus: req.body.fromStatus,
+          Message: req.body.Message,
+        })
+      );
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

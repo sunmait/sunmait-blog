@@ -11,6 +11,7 @@ import ProfilePage from '../pages/profile-page/index.jsx';
 import AddPostPage from '../pages/add-post-page/index.jsx';
 import PostPage from '../pages/post-page/index.jsx';
 import PrivateRoute from './custom-routes/PrivateRoute.jsx';
+import { ChatPage } from '../pages/chat-page/ChatPage'
 import { getUsers } from 'redux/modules/profile/profileActions';
 import { verifyCredentials } from 'redux/modules/auth/actions';
 
@@ -32,6 +33,7 @@ class AppComponent extends React.Component {
               <Route path="/profile/:userId" component={props => <ProfilePage auth={this.props.auth} { ...props} /> } />
               <PrivateRoute exact path="/addpost" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
               <PrivateRoute exact path="/addpost/:postId" auth={this.props.auth} component={props => <AddPostPage {...props} /> } />
+              <PrivateRoute exact path="/chat" auth={this.props.auth} component={props => <ChatPage {...props} /> } />
               <Route exact path="/post/:postId" component={props => <PostPage {...props} /> } />
               <Redirect from="/" exact to="/home" />
             </Switch>
