@@ -31,8 +31,7 @@ module.exports = {
           id: 3,
           FirstName: 'Hannah',
           LastName: 'Bugai',
-          PhotoUrl:
-            'https://st3.depositphotos.com/1742172/18355/v/1600/depositphotos_183552448-stock-illustration-vector-illustration-funny-cartoon-cat.jpg',
+          PhotoUrl: 'https://res.cloudinary.com/dn27bg6qw/image/upload/v1584973981/TestChangeImage_o5axyh.png',
           Login: 'chornycmok',
           PasswordHash: 'sha1$cf8d3dea$1$4a42e619fafe036cc629a3cf1942c7ef81fda64a',
           CreatedAt: new Date('December 18, 2017 16:41:56'),

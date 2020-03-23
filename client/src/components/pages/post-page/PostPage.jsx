@@ -175,6 +175,7 @@ class PostPage extends React.Component {
           <FavoriteIcon fontSize="large" color={colorLikeOrDislike} data-cy="like-color" />
           <span data-cy="like-number">{!!Likes && Likes.length ? Likes.length : null}</span>
         </div>
+        <div className="ratingAuth">{this.renderAutorizedRating()}</div>
         <div className={bemClasses('share-wrapper')}>
           <div className={bemClasses('share-button-wrapper')} data-cy="twitter-share-button">
             <TwitterShareButton innerText={text} url={document.URL} />

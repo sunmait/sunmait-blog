@@ -2,7 +2,7 @@ import { setAuthDataToLocalStorage } from '../../src/helpers/authHelper';
 import user from '../fixtures/userToLogin.json';
 
 export const setLoginState = (user1) => {
-  if(user1===undefined){
+  if(typeof user1 === 'undefined'){
    user1 = {...user};
   }
    

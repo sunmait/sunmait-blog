@@ -99,7 +99,7 @@ describe('Profile page', () => {
           cy.fixture(fileName).then(fileContent => {
             cy.get('input[type=file]').upload({ fileContent, fileName, mimeType: 'image/png' });
           });
-          cy.wait(500);
+          cy.wait(5000);
           cy.log(`Previous scr was ${previousSrc}`);
           cy.get('[data-cy=header__avatar]')
             .find('img')
